@@ -23,28 +23,32 @@ class _FriendsScreenState extends ConsumerState<FriendsScreen> {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     return Scaffold(
+      backgroundColor: Colors.transparent,
       appBar: AppBar(title: Text(l10n.friendsTitle)),
-      body: ListView(
-        padding: const EdgeInsets.all(AppSpacing.l),
-        children: [
-          TextField(
-            onChanged: (value) => setState(() => _query = value),
-            decoration: InputDecoration(
-              hintText: l10n.friendsSearchHint,
-              prefixIcon: const Icon(Icons.search_rounded),
+      body: SafeArea(
+        top: false,
+        child: ListView(
+          padding: const EdgeInsets.all(AppSpacing.l),
+          children: [
+            TextField(
+              onChanged: (value) => setState(() => _query = value),
+              decoration: InputDecoration(
+                hintText: l10n.friendsSearchHint,
+                prefixIcon: const Icon(Icons.search_rounded),
+              ),
             ),
-          ),
-          if (_query.trim().isNotEmpty) _SearchResults(query: _query),
-          const SizedBox(height: AppSpacing.xl),
-          Text(
-            l10n.friendsIncoming,
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
-          const SizedBox(height: AppSpacing.s),
-          const _IncomingRequests(),
-          const SizedBox(height: AppSpacing.xl),
-          const _InviteCard(),
-        ],
+            if (_query.trim().isNotEmpty) _SearchResults(query: _query),
+            const SizedBox(height: AppSpacing.xl),
+            Text(
+              l10n.friendsIncoming,
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const SizedBox(height: AppSpacing.s),
+            const _IncomingRequests(),
+            const SizedBox(height: AppSpacing.xl),
+            const _InviteCard(),
+          ],
+        ),
       ),
     );
   }

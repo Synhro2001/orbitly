@@ -1,6 +1,8 @@
 {
   "@@locale": "ru",
   "appTitle": "Orbitly",
+  "brandStart": "Orbit",
+  "brandAccent": "ly",
 
   "errorGeneric": "Что-то пошло не так",
   "actionRetry": "Повторить",
@@ -8,7 +10,9 @@
 
   "navSystem": "Система",
   "navChats": "Чаты",
-  "navPlanet": "Моя планета",
+  "navPlanet": "Планета",
+  "navFriends": "Друзья",
+  "navCamera": "Камера",
 
   "moodHappy": "Радость",
   "moodCalm": "Спокойствие",
@@ -33,8 +37,9 @@
 
   "systemTitle": "Моя система",
   "systemReport": "Отчёт недели",
-  "systemFriends": "Друзья",
-  "systemCamera": "Камера",
+  "systemHint": "Тяни карту · щипок — зум · нажми на планету",
+  "systemLevelChip": "Ур. {level} · 🔥 {days}",
+  "@systemLevelChip": {"placeholders": {"level": {"type": "int"}, "days": {"type": "int"}}},
   "systemEmpty": "Пока на орбите пусто — добавь друзей",
   "systemFriendPlanet": "Планета {name}",
   "@systemFriendPlanet": {"placeholders": {"name": {"type": "String"}}},

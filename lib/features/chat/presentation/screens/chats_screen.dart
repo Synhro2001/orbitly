@@ -19,6 +19,7 @@ class ChatsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = context.l10n;
     return Scaffold(
+      backgroundColor: Colors.transparent,
       appBar: AppBar(title: Text(l10n.chatsTitle)),
       body: AsyncView(
         value: ref.watch(chatsProvider),

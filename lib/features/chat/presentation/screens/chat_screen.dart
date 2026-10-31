@@ -269,7 +269,7 @@ class _ComposerState extends State<_Composer> {
         child: Row(
           children: [
             IconButton(
-              tooltip: l10n.systemCamera,
+              tooltip: l10n.navCamera,
               onPressed: widget.onCamera,
               icon: const Icon(Icons.photo_camera_rounded),
             ),

@@ -71,6 +71,14 @@ GoRouter router(Ref ref) {
           StatefulShellBranch(
             routes: [
               GoRoute(
+                path: AppRoutes.friends,
+                builder: (_, _) => const FriendsScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
                 path: AppRoutes.planet,
                 builder: (_, _) => const MyPlanetScreen(),
               ),
@@ -92,10 +100,6 @@ GoRouter router(Ref ref) {
         ),
       ),
       GoRoute(path: AppRoutes.report, builder: (_, _) => const ReportScreen()),
-      GoRoute(
-        path: AppRoutes.friends,
-        builder: (_, _) => const FriendsScreen(),
-      ),
     ],
   );
 

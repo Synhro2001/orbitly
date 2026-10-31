@@ -7,7 +7,6 @@ import 'package:orbitly/core/theme/app_dimens.dart';
 import 'package:orbitly/core/utils/l10n.dart';
 import 'package:orbitly/core/widgets/async_view.dart';
 import 'package:orbitly/core/widgets/planet_view.dart';
-import 'package:orbitly/core/widgets/starfield_background.dart';
 import 'package:orbitly/features/planet/domain/entities/my_planet.dart';
 import 'package:orbitly/features/planet/presentation/controllers/my_planet_controller.dart';
 
@@ -16,14 +15,14 @@ class MyPlanetScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // Фон-космос общий для вкладок — он в HomeShell.
     return Scaffold(
-      body: StarfieldBackground(
-        child: SafeArea(
-          child: AsyncView(
-            value: ref.watch(myPlanetControllerProvider),
-            onRetry: () => ref.invalidate(myPlanetControllerProvider),
-            builder: (planet) => _PlanetContent(planet: planet),
-          ),
+      backgroundColor: Colors.transparent,
+      body: SafeArea(
+        child: AsyncView(
+          value: ref.watch(myPlanetControllerProvider),
+          onRetry: () => ref.invalidate(myPlanetControllerProvider),
+          builder: (planet) => _PlanetContent(planet: planet),
         ),
       ),
     );

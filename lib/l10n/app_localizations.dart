@@ -100,6 +100,18 @@ abstract class AppLocalizations {
   /// **'Orbitly'**
   String get appTitle;
 
+  /// No description provided for @brandStart.
+  ///
+  /// In ru, this message translates to:
+  /// **'Orbit'**
+  String get brandStart;
+
+  /// No description provided for @brandAccent.
+  ///
+  /// In ru, this message translates to:
+  /// **'ly'**
+  String get brandAccent;
+
   /// No description provided for @errorGeneric.
   ///
   /// In ru, this message translates to:
@@ -133,8 +145,20 @@ abstract class AppLocalizations {
   /// No description provided for @navPlanet.
   ///
   /// In ru, this message translates to:
-  /// **'Моя планета'**
+  /// **'Планета'**
   String get navPlanet;
+
+  /// No description provided for @navFriends.
+  ///
+  /// In ru, this message translates to:
+  /// **'Друзья'**
+  String get navFriends;
+
+  /// No description provided for @navCamera.
+  ///
+  /// In ru, this message translates to:
+  /// **'Камера'**
+  String get navCamera;
 
   /// No description provided for @moodHappy.
   ///
@@ -244,17 +268,17 @@ abstract class AppLocalizations {
   /// **'Отчёт недели'**
   String get systemReport;
 
-  /// No description provided for @systemFriends.
+  /// No description provided for @systemHint.
   ///
   /// In ru, this message translates to:
-  /// **'Друзья'**
-  String get systemFriends;
+  /// **'Тяни карту · щипок — зум · нажми на планету'**
+  String get systemHint;
 
-  /// No description provided for @systemCamera.
+  /// No description provided for @systemLevelChip.
   ///
   /// In ru, this message translates to:
-  /// **'Камера'**
-  String get systemCamera;
+  /// **'Ур. {level} · 🔥 {days}'**
+  String systemLevelChip(int level, int days);
 
   /// No description provided for @systemEmpty.
   ///

@@ -25,26 +25,32 @@ class FriendOrbit {
 }
 
 /// Геометрия системы: где находится каждый друг в момент `t` (0–1 цикла).
+///
+/// `area` — видимая часть экрана между шапкой и нижней панелью: в ней
+/// помещаются орбиты друзей. Пылевой диск выходит за её пределы.
 class OrbitLayout {
-  OrbitLayout({required Size size, required List<Friend> friends})
-    : center = size.center(Offset.zero),
+  OrbitLayout({required Rect area, required List<Friend> friends})
+    : center = area.center,
       // На узком экране планеты меньше, чтобы не налезали друг на друга.
-      _scale = (size.shortestSide / AppSizes.systemReferenceSide).clamp(
+      _scale = (area.shortestSide / AppSizes.systemReferenceSide).clamp(
         AppSizes.systemMinScale,
         1,
       ),
       // На вертикальном экране орбиты меньше сплющены, чтобы занять высоту.
-      tilt = (size.height / size.width * AppSizes.orbitTiltPerAspect).clamp(
+      tilt = (area.height / area.width * AppSizes.orbitTiltPerAspect).clamp(
         AppSizes.orbitTiltMin,
         AppSizes.orbitTiltMax,
       ) {
     final friendMax = AppSizes.friendPlanetMax * _scale;
     final edgePadding = friendMax / 2;
-    final rMax = math.min(
-      size.width / 2 - edgePadding,
-      (size.height / 2 - edgePadding) / tilt,
+    innerRadius = mySize * PlanetPainter.bodyRadiusFactor + friendMax / 2;
+    outerRadius = math.max(
+      innerRadius,
+      math.min(
+        area.width / 2 - edgePadding,
+        (area.height / 2 - edgePadding) / tilt,
+      ),
     );
-    final rMin = mySize * PlanetPainter.bodyRadiusFactor + friendMax / 2;
     const calculateRadius = CalculateOrbitRadius();
 
     orbits = [
@@ -53,8 +59,8 @@ class OrbitLayout {
           friend: friend,
           radius: calculateRadius(
             closeness: friend.closeness,
-            rMin: rMin,
-            rMax: math.max(rMin, rMax),
+            rMin: innerRadius,
+            rMax: outerRadius,
           ),
           phase: 2 * math.pi * i / friends.length,
           // Ближние орбиты обращаются быстрее, как в настоящей системе.
@@ -79,21 +85,22 @@ class OrbitLayout {
 
   /// Сжатие орбит по вертикали — имитация наклона плоскости системы.
   final double tilt;
+  late final double innerRadius;
+  late final double outerRadius;
   late final List<FriendOrbit> orbits;
 
   double get mySize => AppSizes.myPlanetInSystem * _scale;
 
+  /// Точка на наклонной плоскости системы.
+  Offset pointAt(double angle, double radius) =>
+      center +
+      Offset(math.cos(angle) * radius, math.sin(angle) * radius * tilt);
+
   double angleOf(FriendOrbit orbit, double t) =>
       orbit.phase + 2 * math.pi * orbit.turnsPerCycle * t;
 
-  Offset positionOf(FriendOrbit orbit, double t) {
-    final angle = angleOf(orbit, t);
-    return center +
-        Offset(
-          math.cos(angle) * orbit.radius,
-          math.sin(angle) * orbit.radius * tilt,
-        );
-  }
+  Offset positionOf(FriendOrbit orbit, double t) =>
+      pointAt(angleOf(orbit, t), orbit.radius);
 
   /// −1 — дальний край орбиты (за солнцем), 1 — ближний.
   double depthOf(FriendOrbit orbit, double t) => math.sin(angleOf(orbit, t));

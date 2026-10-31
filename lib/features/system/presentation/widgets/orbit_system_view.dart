@@ -1,26 +1,37 @@
+import 'dart:math' as math;
+import 'dart:ui' show PointMode;
+
 import 'package:flutter/material.dart';
 import 'package:orbitly/core/domain/entities/friend.dart';
 import 'package:orbitly/core/domain/entities/planet_appearance.dart';
 import 'package:orbitly/core/planet_render/planet_painter.dart';
+import 'package:orbitly/core/planet_render/seeded_random.dart';
 import 'package:orbitly/core/theme/app_colors.dart';
 import 'package:orbitly/core/theme/app_dimens.dart';
 import 'package:orbitly/core/utils/l10n.dart';
 import 'package:orbitly/core/widgets/planet_view.dart';
 import 'package:orbitly/features/system/presentation/widgets/orbit_layout.dart';
 
-/// Моя планета в центре, друзья на эллиптических орбитах.
+/// Моя планета в центре, друзья на эллиптических орбитах, вокруг — пылевой
+/// диск. Сцена занимает весь экран; [padding] — то, что закрыто шапкой и
+/// нижней панелью: орбиты друзей помещаются в оставшуюся часть.
+///
 /// Пинч-зум и перетаскивание; с «уменьшить движение» система стоит.
 class OrbitSystemView extends StatefulWidget {
   const OrbitSystemView({
     required this.me,
     required this.friends,
     required this.onFriendTap,
+    this.padding = EdgeInsets.zero,
+    this.onInteractionStart,
     super.key,
   });
 
   final PlanetAppearance me;
   final List<Friend> friends;
   final ValueChanged<Friend> onFriendTap;
+  final EdgeInsets padding;
+  final VoidCallback? onInteractionStart;
 
   @override
   State<OrbitSystemView> createState() => _OrbitSystemViewState();
@@ -56,15 +67,21 @@ class _OrbitSystemViewState extends State<OrbitSystemView>
     return LayoutBuilder(
       builder: (context, constraints) {
         final size = constraints.biggest;
-        final layout = OrbitLayout(size: size, friends: widget.friends);
+        final layout = OrbitLayout(
+          area: widget.padding.deflateRect(Offset.zero & size),
+          friends: widget.friends,
+        );
         return InteractiveViewer(
-          minScale: 0.6,
+          minScale: 0.5,
           maxScale: 3,
-          boundaryMargin: EdgeInsets.all(size.shortestSide / 2),
+          boundaryMargin: EdgeInsets.all(size.shortestSide),
+          onInteractionStart: (_) => widget.onInteractionStart?.call(),
           child: SizedBox.fromSize(
             size: size,
             child: Stack(
+              clipBehavior: Clip.none,
               children: [
+                CustomPaint(size: size, painter: _DustPainter(layout, _clock)),
                 RepaintBoundary(
                   child: CustomPaint(
                     size: size,
@@ -96,6 +113,11 @@ class _OrbitSystemViewState extends State<OrbitSystemView>
   }
 }
 
+/// Размер зоны касания планеты друга: не меньше 48 dp, даже если сама
+/// планета меньше.
+double _tapBoxOf(FriendOrbit orbit) =>
+    math.max(orbit.planetSize, AppSizes.minTapTarget);
+
 class _FriendPlanet extends StatelessWidget {
   const _FriendPlanet({required this.orbit, required this.onTap});
 
@@ -107,9 +129,10 @@ class _FriendPlanet extends StatelessWidget {
     final friend = orbit.friend;
     final l10n = context.l10n;
     final bodySize = orbit.planetSize * PlanetPainter.bodyRadiusFactor * 2;
+    final unread = friend.hasUnreadSnaps;
     return Semantics(
       button: true,
-      label: friend.hasUnreadSnaps
+      label: unread
           ? l10n.systemFriendPlanetUnread(friend.name)
           : l10n.systemFriendPlanet(friend.name),
       excludeSemantics: true,
@@ -120,7 +143,7 @@ class _FriendPlanet extends StatelessWidget {
           alignment: Alignment.center,
           clipBehavior: Clip.none,
           children: [
-            if (friend.hasUnreadSnaps)
+            if (unread)
               Container(
                 width: bodySize,
                 height: bodySize,
@@ -137,11 +160,16 @@ class _FriendPlanet extends StatelessWidget {
               ),
             PlanetView(appearance: friend.appearance, size: orbit.planetSize),
             Positioned(
-              bottom: 0,
+              top: _tapBoxOf(orbit) / 2 + bodySize / 2,
               child: Text(
                 friend.name,
-                style: Theme.of(context).textTheme.labelSmall
-                    ?.copyWith(color: AppColors.textPrimary),
+                style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                  color: unread ? AppColors.mint : AppColors.textPrimary,
+                  shadows: const [
+                    Shadow(color: AppColors.spaceDeep, blurRadius: 4),
+                    Shadow(color: AppColors.spaceDeep, blurRadius: 8),
+                  ],
+                ),
               ),
             ),
           ],
@@ -162,7 +190,7 @@ class _OrbitFlowDelegate extends FlowDelegate {
   static const _farScale = 0.82;
 
   double _sizeOf(int index) =>
-      index == 0 ? layout.mySize : layout.orbits[index - 1].planetSize;
+      index == 0 ? layout.mySize : _tapBoxOf(layout.orbits[index - 1]);
 
   @override
   BoxConstraints getConstraintsForChild(int i, BoxConstraints constraints) =>
@@ -203,31 +231,121 @@ class _OrbitFlowDelegate extends FlowDelegate {
       oldDelegate.layout != layout;
 }
 
+/// Статичная часть: внешние кольца диска, свечение солнца, орбиты друзей.
 class _OrbitsPainter extends CustomPainter {
   const _OrbitsPainter(this.layout);
 
   final OrbitLayout layout;
 
+  Rect _ellipse(double radius) => Rect.fromCenter(
+    center: layout.center,
+    width: radius * 2,
+    height: radius * 2 * layout.tilt,
+  );
+
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()
+    final edge = layout.outerRadius * AppSizes.dustOuterFactor;
+    // Широкая светлая полоса по краю диска и тонкие кольца внутри.
+    canvas.drawOval(
+      _ellipse(edge),
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = edge * 0.08
+        ..color = AppColors.star.withValues(alpha: 0.05),
+    );
+    final ring = Paint()
+      ..style = PaintingStyle.stroke
+      ..color = AppColors.orbitLine;
+    for (final factor in const [1.35, 1.7, 2.1, 2.5, 2.8]) {
+      canvas.drawOval(_ellipse(layout.outerRadius * factor), ring);
+    }
+
+    final glowRadius = layout.mySize * 0.95;
+    canvas.drawCircle(
+      layout.center,
+      glowRadius,
+      Paint()
+        ..shader =
+            RadialGradient(
+              colors: [
+                AppColors.sun.withValues(alpha: 0.45),
+                AppColors.sun.withValues(alpha: 0.12),
+                AppColors.sun.withValues(alpha: 0),
+              ],
+              stops: const [0, 0.45, 1],
+            ).createShader(
+              Rect.fromCircle(center: layout.center, radius: glowRadius),
+            ),
+    );
+
+    final orbitPaint = Paint()
       ..color = AppColors.orbitLine
       ..style = PaintingStyle.stroke;
     for (final orbit in layout.orbits) {
-      canvas.drawOval(
-        Rect.fromCenter(
-          center: layout.center,
-          width: orbit.radius * 2,
-          height: orbit.radius * 2 * layout.tilt,
-        ),
-        paint,
-      );
+      canvas.drawOval(_ellipse(orbit.radius), orbitPaint);
     }
   }
 
   @override
   bool shouldRepaint(_OrbitsPainter oldDelegate) =>
       oldDelegate.layout != layout;
+}
+
+/// Медленно вращающийся пылевой диск: сотни точек на плоскости системы.
+/// Точки за солнцем тусклее — так видна глубина.
+class _DustPainter extends CustomPainter {
+  _DustPainter(this.layout, this.clock) : super(repaint: clock);
+
+  final OrbitLayout layout;
+  final Animation<double> clock;
+
+  /// (доля радиуса 0–1, начальный угол, индекс цвета, крупная ли точка).
+  static final List<(double, double, int, bool)> _particles = () {
+    final rnd = SeededRandom(2026);
+    return [
+      for (var i = 0; i < AppSizes.dustParticles; i++)
+        (
+          // Больше точек ближе к центру.
+          math.pow(rnd.nextDouble(), 1.4).toDouble(),
+          rnd.range(0, 2 * math.pi),
+          // Половина точек — белые звёзды, остальные цветные.
+          rnd.nextDouble() < 0.5
+              ? 0
+              : 1 + rnd.nextInt(AppColors.dust.length - 1),
+          rnd.nextDouble() < 0.25,
+        ),
+    ];
+  }();
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final rotation = 2 * math.pi * clock.value;
+    final from = layout.innerRadius * 0.8;
+    final to = layout.outerRadius * AppSizes.dustOuterFactor;
+
+    // Группируем точки по цвету, размеру и стороне — несколько вызовов
+    // drawPoints на кадр вместо сотен drawCircle.
+    final groups = <(int, bool, bool), List<Offset>>{};
+    for (final (r, angle, color, big) in _particles) {
+      final a = angle + rotation;
+      final far = math.sin(a) < 0;
+      (groups[(color, big, far)] ??= []).add(
+        layout.pointAt(a, from + r * (to - from)),
+      );
+    }
+    final paint = Paint()..strokeCap = StrokeCap.round;
+    for (final MapEntry(key: (color, big, far), value: points)
+        in groups.entries) {
+      paint
+        ..strokeWidth = big ? 3 : 1.6
+        ..color = AppColors.dust[color].withValues(alpha: far ? 0.4 : 0.85);
+      canvas.drawPoints(PointMode.points, points, paint);
+    }
+  }
+
+  @override
+  bool shouldRepaint(_DustPainter oldDelegate) => oldDelegate.layout != layout;
 }
 
 /// Кометы летят от моей планеты к друзьям, у которых есть непрочитанное.
@@ -238,7 +356,7 @@ class _CometsPainter extends CustomPainter {
   final Animation<double> clock;
 
   /// Сколько раз комета долетает за цикл (целое — цикл без скачка).
-  static const _tripsPerCycle = 12;
+  static const _tripsPerCycle = 24;
   static const _tailLength = 0.18;
 
   @override

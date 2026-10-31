@@ -12,7 +12,7 @@ void main() {
 
     expect(find.byType(SystemScreen), findsOneWidget);
     expect(find.byType(OrbitSystemView), findsOneWidget);
-    expect(find.text('Моя система'), findsOneWidget);
+    expect(find.bySemanticsLabel('Моя система'), findsOneWidget);
     expect(find.bySemanticsLabel('Планета Миша'), findsOneWidget);
     // У Димы непрочитанный снап — это видно и в подписи для скринридера.
     expect(

@@ -13,6 +13,17 @@ abstract final class AppColors {
   static const surfaceHigh = Color(0xFF1C2550);
   static const outline = Color(0x33FFFFFF);
   static const orbitLine = Color(0x1FFFFFFF);
+  static const navBar = Color(0xEB0D1433);
+
+  /// Цвета частиц пылевого диска.
+  static const List<Color> dust = [
+    star,
+    mint,
+    sun,
+    Color(0xFFFF7A90),
+    Color(0xFFB18CFF),
+    Color(0xFF6EC8FF),
+  ];
 
   // Акценты
   static const sun = Color(0xFFFFB547);

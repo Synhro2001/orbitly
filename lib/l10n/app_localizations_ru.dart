@@ -13,6 +13,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get appTitle => 'Orbitly';
 
   @override
+  String get brandStart => 'Orbit';
+
+  @override
+  String get brandAccent => 'ly';
+
+  @override
   String get errorGeneric => 'Что-то пошло не так';
 
   @override
@@ -28,7 +34,13 @@ class AppLocalizationsRu extends AppLocalizations {
   String get navChats => 'Чаты';
 
   @override
-  String get navPlanet => 'Моя планета';
+  String get navPlanet => 'Планета';
+
+  @override
+  String get navFriends => 'Друзья';
+
+  @override
+  String get navCamera => 'Камера';
 
   @override
   String get moodHappy => 'Радость';
@@ -97,10 +109,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get systemReport => 'Отчёт недели';
 
   @override
-  String get systemFriends => 'Друзья';
+  String get systemHint => 'Тяни карту · щипок — зум · нажми на планету';
 
   @override
-  String get systemCamera => 'Камера';
+  String systemLevelChip(int level, int days) {
+    return 'Ур. $level · 🔥 $days';
+  }
 
   @override
   String get systemEmpty => 'Пока на орбите пусто — добавь друзей';
