@@ -1,0 +1,94 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+// ignore_for_file: document_ignores, lines_longer_than_80_chars, unnecessary_null_checks, specify_nonobvious_property_types
+
+part of 'my_planet_controller.dart';
+
+// **************************************************************************
+// RiverpodGenerator
+// **************************************************************************
+
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+/// Создана ли у пользователя планета. От этого зависит, куда ведёт роутер.
+
+@ProviderFor(hasPlanet)
+final hasPlanetProvider = HasPlanetProvider._();
+
+/// Создана ли у пользователя планета. От этого зависит, куда ведёт роутер.
+
+final class HasPlanetProvider
+    extends $FunctionalProvider<AsyncValue<bool>, bool, FutureOr<bool>>
+    with $FutureModifier<bool>, $FutureProvider<bool> {
+  /// Создана ли у пользователя планета. От этого зависит, куда ведёт роутер.
+  HasPlanetProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'hasPlanetProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$hasPlanetHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<bool> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<bool> create(Ref ref) {
+    return hasPlanet(ref);
+  }
+}
+
+String _$hasPlanetHash() => r'08a625bafe417d351c93fb13474601f828f5f183';
+
+@ProviderFor(MyPlanetController)
+final myPlanetControllerProvider = MyPlanetControllerProvider._();
+
+final class MyPlanetControllerProvider
+    extends $AsyncNotifierProvider<MyPlanetController, MyPlanet> {
+  MyPlanetControllerProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'myPlanetControllerProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$myPlanetControllerHash();
+
+  @$internal
+  @override
+  MyPlanetController create() => MyPlanetController();
+}
+
+String _$myPlanetControllerHash() =>
+    r'6429b570b3794ac3b830682eeb4709d863e917f6';
+
+abstract class _$MyPlanetController extends $AsyncNotifier<MyPlanet> {
+  FutureOr<MyPlanet> build();
+  @$mustCallSuper
+  @override
+  WhenComplete runBuild() {
+    final ref = this.ref as $Ref<AsyncValue<MyPlanet>, MyPlanet>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<MyPlanet>, MyPlanet>,
+              AsyncValue<MyPlanet>,
+              Object?,
+              Object?
+            >;
+    return element.handleCreate(ref, build);
+  }
+}
