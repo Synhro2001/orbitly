@@ -103,6 +103,11 @@ class AppLocalizationsRu extends AppLocalizations {
   String get streakBurnt => 'Серия сгорела';
 
   @override
+  String streakPaused(int count) {
+    return '$count дн. — на паузе, кто-то в тени';
+  }
+
+  @override
   String get systemTitle => 'Моя система';
 
   @override
@@ -114,6 +119,14 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String systemLevelChip(int level, int days) {
     return 'Ур. $level · 🔥 $days';
+  }
+
+  @override
+  String get systemShadowChip => '🌘 В тени';
+
+  @override
+  String systemFriendPlanetShadow(String name) {
+    return 'Планета $name, в тени';
   }
 
   @override
@@ -192,6 +205,50 @@ class AppLocalizationsRu extends AppLocalizations {
   String get chatSharedTrophies => 'Общие трофеи';
 
   @override
+  String get chatsLastCapsule => '⏳ Капсула времени';
+
+  @override
+  String get chatStartersTitle => 'С чего начать?';
+
+  @override
+  String get chatCapsule => 'Капсула времени';
+
+  @override
+  String chatCapsuleOpensIn(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Откроется через $count дня',
+      many: 'Откроется через $count дней',
+      few: 'Откроется через $count дня',
+      one: 'Откроется через $count день',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get chatCapsuleSealed => 'Запечатана до срока 🔒';
+
+  @override
+  String get chatCapsuleSheetTitle => 'Отправить в будущее';
+
+  @override
+  String get chatCapsuleSheetSubtitle =>
+      'Друг прочитает послание только в выбранный день';
+
+  @override
+  String get chatCapsuleTomorrow => 'Завтра';
+
+  @override
+  String get chatCapsuleWeek => 'Через неделю';
+
+  @override
+  String get chatCapsuleMonth => 'Через месяц';
+
+  @override
+  String get chatCapsuleYear => 'Через год';
+
+  @override
   String get cameraFlash => 'Вспышка';
 
   @override
@@ -227,6 +284,42 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get planetMood => 'Настроение';
+
+  @override
+  String get planetShadowTitle => 'Тень';
+
+  @override
+  String get planetShadowHint =>
+      'Экзамены, отпуск или просто хочется тишины? Уйди в тень — серии со всеми замрут, а друзья увидят 🌘.';
+
+  @override
+  String get planetShadowDay => '1 день';
+
+  @override
+  String get planetShadow3Days => '3 дня';
+
+  @override
+  String get planetShadowWeek => 'Неделя';
+
+  @override
+  String planetShadowActive(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Ты в тени ещё $count дня',
+      many: 'Ты в тени ещё $count дней',
+      few: 'Ты в тени ещё $count дня',
+      one: 'Ты в тени ещё $count день',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get planetShadowActiveHint =>
+      'Серии на паузе. После возвращения у вас будут целые сутки, чтобы продолжить.';
+
+  @override
+  String get planetShadowLeave => 'Выйти из тени';
 
   @override
   String get reportTitle => 'Отчёт недели';

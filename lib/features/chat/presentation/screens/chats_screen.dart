@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:orbitly/app/routes.dart';
+import 'package:orbitly/core/domain/entities/shadow.dart';
 import 'package:orbitly/core/theme/app_colors.dart';
 import 'package:orbitly/core/theme/app_dimens.dart';
 import 'package:orbitly/core/utils/l10n.dart';
@@ -11,6 +12,7 @@ import 'package:orbitly/core/widgets/streak_badge.dart';
 import 'package:orbitly/features/chat/domain/entities/chat.dart';
 import 'package:orbitly/features/chat/domain/entities/message.dart';
 import 'package:orbitly/features/chat/presentation/controllers/chat_controller.dart';
+import 'package:orbitly/features/planet/presentation/controllers/my_planet_controller.dart';
 
 class ChatsScreen extends ConsumerWidget {
   const ChatsScreen({super.key});
@@ -18,6 +20,7 @@ class ChatsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = context.l10n;
+    final myShadow = ref.watch(myShadowProvider);
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(title: Text(l10n.chatsTitle)),
@@ -28,7 +31,8 @@ class ChatsScreen extends ConsumerWidget {
             ? Center(child: Text(l10n.chatsEmpty))
             : ListView.builder(
                 itemCount: chats.length,
-                itemBuilder: (context, i) => _ChatTile(chats[i]),
+                itemBuilder: (context, i) =>
+                    _ChatTile(chats[i], myShadow: myShadow),
               ),
       ),
     );
@@ -36,9 +40,10 @@ class ChatsScreen extends ConsumerWidget {
 }
 
 class _ChatTile extends StatelessWidget {
-  const _ChatTile(this.chat);
+  const _ChatTile(this.chat, {required this.myShadow});
 
   final ChatPreview chat;
+  final Shadow? myShadow;
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +53,7 @@ class _ChatTile extends StatelessWidget {
     final subtitle = switch (chat.lastMessage) {
       TextMessage(:final text) => text,
       SnapMessage() => l10n.chatsLastSnap,
+      CapsuleMessage() => l10n.chatsLastCapsule,
       null => '',
     };
     return ListTile(
@@ -65,7 +71,11 @@ class _ChatTile extends StatelessWidget {
             ? textTheme.bodyMedium?.copyWith(color: AppColors.mint)
             : textTheme.bodySmall,
       ),
-      trailing: StreakBadge(streak: friend.streak, compact: true),
+      trailing: StreakBadge(
+        streak: friend.streak,
+        shadows: [?friend.shadow, ?myShadow],
+        compact: true,
+      ),
     );
   }
 }

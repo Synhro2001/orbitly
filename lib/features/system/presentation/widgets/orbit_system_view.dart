@@ -2,12 +2,14 @@ import 'dart:math' as math;
 import 'dart:ui' show PointMode;
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:orbitly/core/domain/entities/friend.dart';
 import 'package:orbitly/core/domain/entities/planet_appearance.dart';
 import 'package:orbitly/core/planet_render/planet_painter.dart';
 import 'package:orbitly/core/planet_render/seeded_random.dart';
 import 'package:orbitly/core/theme/app_colors.dart';
 import 'package:orbitly/core/theme/app_dimens.dart';
+import 'package:orbitly/core/utils/clock.dart';
 import 'package:orbitly/core/utils/l10n.dart';
 import 'package:orbitly/core/widgets/planet_view.dart';
 import 'package:orbitly/features/system/presentation/widgets/orbit_layout.dart';
@@ -118,23 +120,27 @@ class _OrbitSystemViewState extends State<OrbitSystemView>
 double _tapBoxOf(FriendOrbit orbit) =>
     math.max(orbit.planetSize, AppSizes.minTapTarget);
 
-class _FriendPlanet extends StatelessWidget {
+class _FriendPlanet extends ConsumerWidget {
   const _FriendPlanet({required this.orbit, required this.onTap});
 
   final FriendOrbit orbit;
   final VoidCallback onTap;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final friend = orbit.friend;
     final l10n = context.l10n;
     final bodySize = orbit.planetSize * PlanetPainter.bodyRadiusFactor * 2;
     final unread = friend.hasUnreadSnaps;
+    final now = ref.watch(clockProvider)();
+    final inShadow = friend.shadow?.isActiveAt(now) ?? false;
     return Semantics(
       button: true,
-      label: unread
-          ? l10n.systemFriendPlanetUnread(friend.name)
-          : l10n.systemFriendPlanet(friend.name),
+      label: switch ((unread, inShadow)) {
+        (true, _) => l10n.systemFriendPlanetUnread(friend.name),
+        (false, true) => l10n.systemFriendPlanetShadow(friend.name),
+        _ => l10n.systemFriendPlanet(friend.name),
+      },
       excludeSemantics: true,
       child: GestureDetector(
         onTap: onTap,
@@ -158,11 +164,18 @@ class _FriendPlanet extends StatelessWidget {
                   ],
                 ),
               ),
-            PlanetView(appearance: friend.appearance, size: orbit.planetSize),
+            // Друг в тени — планета в полутени, как при затмении.
+            Opacity(
+              opacity: inShadow ? 0.45 : 1,
+              child: PlanetView(
+                appearance: friend.appearance,
+                size: orbit.planetSize,
+              ),
+            ),
             Positioned(
               top: _tapBoxOf(orbit) / 2 + bodySize / 2,
               child: Text(
-                friend.name,
+                inShadow ? '🌘 ${friend.name}' : friend.name,
                 style: Theme.of(context).textTheme.labelSmall?.copyWith(
                   color: unread ? AppColors.mint : AppColors.textPrimary,
                   shadows: const [

@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:orbitly/core/data/models/planet_appearance_model.dart';
 import 'package:orbitly/core/domain/entities/award.dart';
 import 'package:orbitly/core/domain/entities/mood.dart';
+import 'package:orbitly/core/domain/entities/shadow.dart';
 import 'package:orbitly/features/planet/domain/entities/my_planet.dart';
 
 part 'my_planet_model.freezed.dart';
@@ -17,6 +18,8 @@ abstract class MyPlanetModel with _$MyPlanetModel {
     required int xpForNextLevel,
     required int bestStreakDays,
     required Mood mood,
+    DateTime? shadowFrom,
+    DateTime? shadowUntil,
   }) = _MyPlanetModel;
 
   factory MyPlanetModel.fromJson(Map<String, Object?> json) =>
@@ -33,5 +36,8 @@ extension MyPlanetModelX on MyPlanetModel {
     bestStreakDays: bestStreakDays,
     mood: mood,
     awards: awards,
+    shadow: shadowFrom != null && shadowUntil != null
+        ? Shadow(from: shadowFrom!, until: shadowUntil!)
+        : null,
   );
 }

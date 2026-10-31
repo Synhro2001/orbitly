@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$MyPlanet {
 
- String get name; PlanetAppearance get appearance; int get level; int get xp; int get xpForNextLevel; int get bestStreakDays; Mood get mood; List<Award> get awards;
+ String get name; PlanetAppearance get appearance; int get level; int get xp; int get xpForNextLevel; int get bestStreakDays; Mood get mood; List<Award> get awards; Shadow? get shadow;
 /// Create a copy of MyPlanet
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -27,20 +27,20 @@ $MyPlanetCopyWith<MyPlanet> get copyWith => _$MyPlanetCopyWithImpl<MyPlanet>(thi
 @override
 bool operator ==(Object other) {
   final _this = this as MyPlanet;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MyPlanet&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.appearance, _this.appearance) || other.appearance == _this.appearance)&&(identical(other.level, _this.level) || other.level == _this.level)&&(identical(other.xp, _this.xp) || other.xp == _this.xp)&&(identical(other.xpForNextLevel, _this.xpForNextLevel) || other.xpForNextLevel == _this.xpForNextLevel)&&(identical(other.bestStreakDays, _this.bestStreakDays) || other.bestStreakDays == _this.bestStreakDays)&&(identical(other.mood, _this.mood) || other.mood == _this.mood)&&const DeepCollectionEquality().equals(other.awards, _this.awards));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MyPlanet&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.appearance, _this.appearance) || other.appearance == _this.appearance)&&(identical(other.level, _this.level) || other.level == _this.level)&&(identical(other.xp, _this.xp) || other.xp == _this.xp)&&(identical(other.xpForNextLevel, _this.xpForNextLevel) || other.xpForNextLevel == _this.xpForNextLevel)&&(identical(other.bestStreakDays, _this.bestStreakDays) || other.bestStreakDays == _this.bestStreakDays)&&(identical(other.mood, _this.mood) || other.mood == _this.mood)&&const DeepCollectionEquality().equals(other.awards, _this.awards)&&(identical(other.shadow, _this.shadow) || other.shadow == _this.shadow));
 }
 
 
 @override
 int get hashCode {
   final _this = this as MyPlanet;
-  return Object.hash(runtimeType,_this.name,_this.appearance,_this.level,_this.xp,_this.xpForNextLevel,_this.bestStreakDays,_this.mood,const DeepCollectionEquality().hash(_this.awards));
+  return Object.hash(runtimeType,_this.name,_this.appearance,_this.level,_this.xp,_this.xpForNextLevel,_this.bestStreakDays,_this.mood,const DeepCollectionEquality().hash(_this.awards),_this.shadow);
 }
 
 @override
 String toString() {
   final _this = this as MyPlanet;
-  return 'MyPlanet(name: ${_this.name}, appearance: ${_this.appearance}, level: ${_this.level}, xp: ${_this.xp}, xpForNextLevel: ${_this.xpForNextLevel}, bestStreakDays: ${_this.bestStreakDays}, mood: ${_this.mood}, awards: ${_this.awards})';
+  return 'MyPlanet(name: ${_this.name}, appearance: ${_this.appearance}, level: ${_this.level}, xp: ${_this.xp}, xpForNextLevel: ${_this.xpForNextLevel}, bestStreakDays: ${_this.bestStreakDays}, mood: ${_this.mood}, awards: ${_this.awards}, shadow: ${_this.shadow})';
 }
 
 
@@ -51,11 +51,11 @@ abstract mixin class $MyPlanetCopyWith<$Res>  {
   factory $MyPlanetCopyWith(MyPlanet value, $Res Function(MyPlanet) _then) = _$MyPlanetCopyWithImpl;
 @useResult
 $Res call({
- String name, PlanetAppearance appearance, int level, int xp, int xpForNextLevel, int bestStreakDays, Mood mood, List<Award> awards
+ String name, PlanetAppearance appearance, int level, int xp, int xpForNextLevel, int bestStreakDays, Mood mood, List<Award> awards, Shadow? shadow
 });
 
 
-$PlanetAppearanceCopyWith<$Res> get appearance;
+$PlanetAppearanceCopyWith<$Res> get appearance;$ShadowCopyWith<$Res>? get shadow;
 
 }
 /// @nodoc
@@ -68,7 +68,7 @@ class _$MyPlanetCopyWithImpl<$Res>
 
 /// Create a copy of MyPlanet
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? appearance = null,Object? level = null,Object? xp = null,Object? xpForNextLevel = null,Object? bestStreakDays = null,Object? mood = null,Object? awards = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? appearance = null,Object? level = null,Object? xp = null,Object? xpForNextLevel = null,Object? bestStreakDays = null,Object? mood = null,Object? awards = null,Object? shadow = freezed,}) {
   return _then(MyPlanet(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,appearance: null == appearance ? _self.appearance : appearance // ignore: cast_nullable_to_non_nullable
@@ -78,7 +78,8 @@ as int,xpForNextLevel: null == xpForNextLevel ? _self.xpForNextLevel : xpForNext
 as int,bestStreakDays: null == bestStreakDays ? _self.bestStreakDays : bestStreakDays // ignore: cast_nullable_to_non_nullable
 as int,mood: null == mood ? _self.mood : mood // ignore: cast_nullable_to_non_nullable
 as Mood,awards: null == awards ? _self.awards : awards // ignore: cast_nullable_to_non_nullable
-as List<Award>,
+as List<Award>,shadow: freezed == shadow ? _self.shadow : shadow // ignore: cast_nullable_to_non_nullable
+as Shadow?,
   ));
 }
 /// Create a copy of MyPlanet
@@ -89,6 +90,18 @@ $PlanetAppearanceCopyWith<$Res> get appearance {
   
   return $PlanetAppearanceCopyWith<$Res>(_self.appearance, (value) {
     return _then(_self.copyWith(appearance: value));
+  });
+}/// Create a copy of MyPlanet
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ShadowCopyWith<$Res>? get shadow {
+    if (_self.shadow == null) {
+    return null;
+  }
+
+  return $ShadowCopyWith<$Res>(_self.shadow!, (value) {
+    return _then(_self.copyWith(shadow: value));
   });
 }
 }
@@ -172,10 +185,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  PlanetAppearance appearance,  int level,  int xp,  int xpForNextLevel,  int bestStreakDays,  Mood mood,  List<Award> awards)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  PlanetAppearance appearance,  int level,  int xp,  int xpForNextLevel,  int bestStreakDays,  Mood mood,  List<Award> awards,  Shadow? shadow)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _MyPlanet() when $default != null:
-return $default(_that.name,_that.appearance,_that.level,_that.xp,_that.xpForNextLevel,_that.bestStreakDays,_that.mood,_that.awards);case _:
+return $default(_that.name,_that.appearance,_that.level,_that.xp,_that.xpForNextLevel,_that.bestStreakDays,_that.mood,_that.awards,_that.shadow);case _:
   return orElse();
 
 }
@@ -193,10 +206,10 @@ return $default(_that.name,_that.appearance,_that.level,_that.xp,_that.xpForNext
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  PlanetAppearance appearance,  int level,  int xp,  int xpForNextLevel,  int bestStreakDays,  Mood mood,  List<Award> awards)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  PlanetAppearance appearance,  int level,  int xp,  int xpForNextLevel,  int bestStreakDays,  Mood mood,  List<Award> awards,  Shadow? shadow)  $default,) {final _that = this;
 switch (_that) {
 case _MyPlanet():
-return $default(_that.name,_that.appearance,_that.level,_that.xp,_that.xpForNextLevel,_that.bestStreakDays,_that.mood,_that.awards);case _:
+return $default(_that.name,_that.appearance,_that.level,_that.xp,_that.xpForNextLevel,_that.bestStreakDays,_that.mood,_that.awards,_that.shadow);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -213,10 +226,10 @@ return $default(_that.name,_that.appearance,_that.level,_that.xp,_that.xpForNext
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  PlanetAppearance appearance,  int level,  int xp,  int xpForNextLevel,  int bestStreakDays,  Mood mood,  List<Award> awards)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  PlanetAppearance appearance,  int level,  int xp,  int xpForNextLevel,  int bestStreakDays,  Mood mood,  List<Award> awards,  Shadow? shadow)?  $default,) {final _that = this;
 switch (_that) {
 case _MyPlanet() when $default != null:
-return $default(_that.name,_that.appearance,_that.level,_that.xp,_that.xpForNextLevel,_that.bestStreakDays,_that.mood,_that.awards);case _:
+return $default(_that.name,_that.appearance,_that.level,_that.xp,_that.xpForNextLevel,_that.bestStreakDays,_that.mood,_that.awards,_that.shadow);case _:
   return null;
 
 }
@@ -228,7 +241,7 @@ return $default(_that.name,_that.appearance,_that.level,_that.xp,_that.xpForNext
 
 
 class _MyPlanet extends MyPlanet {
-  const _MyPlanet({required this.name, required this.appearance, required this.level, required this.xp, required this.xpForNextLevel, required this.bestStreakDays, required this.mood, required  List<Award> awards}): _awards = awards,super._();
+  const _MyPlanet({required this.name, required this.appearance, required this.level, required this.xp, required this.xpForNextLevel, required this.bestStreakDays, required this.mood, required  List<Award> awards, this.shadow}): _awards = awards,super._();
   
 
 @override final  String name;
@@ -245,6 +258,7 @@ class _MyPlanet extends MyPlanet {
   return EqualUnmodifiableListView(_awards);
 }
 
+@override final  Shadow? shadow;
 
 /// Create a copy of MyPlanet
 /// with the given fields replaced by the non-null parameter values.
@@ -256,18 +270,18 @@ _$MyPlanetCopyWith<_MyPlanet> get copyWith => __$MyPlanetCopyWithImpl<_MyPlanet>
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _MyPlanet&&(identical(other.name, name) || other.name == name)&&(identical(other.appearance, appearance) || other.appearance == appearance)&&(identical(other.level, level) || other.level == level)&&(identical(other.xp, xp) || other.xp == xp)&&(identical(other.xpForNextLevel, xpForNextLevel) || other.xpForNextLevel == xpForNextLevel)&&(identical(other.bestStreakDays, bestStreakDays) || other.bestStreakDays == bestStreakDays)&&(identical(other.mood, mood) || other.mood == mood)&&const DeepCollectionEquality().equals(other.awards, _awards));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _MyPlanet&&(identical(other.name, name) || other.name == name)&&(identical(other.appearance, appearance) || other.appearance == appearance)&&(identical(other.level, level) || other.level == level)&&(identical(other.xp, xp) || other.xp == xp)&&(identical(other.xpForNextLevel, xpForNextLevel) || other.xpForNextLevel == xpForNextLevel)&&(identical(other.bestStreakDays, bestStreakDays) || other.bestStreakDays == bestStreakDays)&&(identical(other.mood, mood) || other.mood == mood)&&const DeepCollectionEquality().equals(other.awards, _awards)&&(identical(other.shadow, shadow) || other.shadow == shadow));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,name,appearance,level,xp,xpForNextLevel,bestStreakDays,mood,const DeepCollectionEquality().hash(_awards));
+    return Object.hash(runtimeType,name,appearance,level,xp,xpForNextLevel,bestStreakDays,mood,const DeepCollectionEquality().hash(_awards),shadow);
 }
 
 @override
 String toString() {
-    return 'MyPlanet(name: $name, appearance: $appearance, level: $level, xp: $xp, xpForNextLevel: $xpForNextLevel, bestStreakDays: $bestStreakDays, mood: $mood, awards: $awards)';
+    return 'MyPlanet(name: $name, appearance: $appearance, level: $level, xp: $xp, xpForNextLevel: $xpForNextLevel, bestStreakDays: $bestStreakDays, mood: $mood, awards: $awards, shadow: $shadow)';
 }
 
 
@@ -278,11 +292,11 @@ abstract mixin class _$MyPlanetCopyWith<$Res> implements $MyPlanetCopyWith<$Res>
   factory _$MyPlanetCopyWith(_MyPlanet value, $Res Function(_MyPlanet) _then) = __$MyPlanetCopyWithImpl;
 @override @useResult
 $Res call({
- String name, PlanetAppearance appearance, int level, int xp, int xpForNextLevel, int bestStreakDays, Mood mood, List<Award> awards
+ String name, PlanetAppearance appearance, int level, int xp, int xpForNextLevel, int bestStreakDays, Mood mood, List<Award> awards, Shadow? shadow
 });
 
 
-@override $PlanetAppearanceCopyWith<$Res> get appearance;
+@override $PlanetAppearanceCopyWith<$Res> get appearance;@override $ShadowCopyWith<$Res>? get shadow;
 
 }
 /// @nodoc
@@ -295,7 +309,7 @@ class __$MyPlanetCopyWithImpl<$Res>
 
 /// Create a copy of MyPlanet
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? appearance = null,Object? level = null,Object? xp = null,Object? xpForNextLevel = null,Object? bestStreakDays = null,Object? mood = null,Object? awards = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? appearance = null,Object? level = null,Object? xp = null,Object? xpForNextLevel = null,Object? bestStreakDays = null,Object? mood = null,Object? awards = null,Object? shadow = freezed,}) {
   return _then(_MyPlanet(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,appearance: null == appearance ? _self.appearance : appearance // ignore: cast_nullable_to_non_nullable
@@ -305,7 +319,8 @@ as int,xpForNextLevel: null == xpForNextLevel ? _self.xpForNextLevel : xpForNext
 as int,bestStreakDays: null == bestStreakDays ? _self.bestStreakDays : bestStreakDays // ignore: cast_nullable_to_non_nullable
 as int,mood: null == mood ? _self.mood : mood // ignore: cast_nullable_to_non_nullable
 as Mood,awards: null == awards ? _self._awards : awards // ignore: cast_nullable_to_non_nullable
-as List<Award>,
+as List<Award>,shadow: freezed == shadow ? _self.shadow : shadow // ignore: cast_nullable_to_non_nullable
+as Shadow?,
   ));
 }
 
@@ -317,6 +332,18 @@ $PlanetAppearanceCopyWith<$Res> get appearance {
   
   return $PlanetAppearanceCopyWith<$Res>(_self.appearance, (value) {
     return _then(_self.copyWith(appearance: value));
+  });
+}/// Create a copy of MyPlanet
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ShadowCopyWith<$Res>? get shadow {
+    if (_self.shadow == null) {
+    return null;
+  }
+
+  return $ShadowCopyWith<$Res>(_self.shadow!, (value) {
+    return _then(_self.copyWith(shadow: value));
   });
 }
 }

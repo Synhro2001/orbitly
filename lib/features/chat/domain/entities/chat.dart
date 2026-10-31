@@ -11,6 +11,10 @@ abstract class ChatThread with _$ChatThread {
     required Friend friend,
     required List<Message> messages,
     required List<Award> sharedTrophies,
+
+    /// Подсказки, с чего начать разговор. Сервер присылает их, когда друг
+    /// отдаляется или серия дала трещину; иначе список пуст.
+    @Default([]) List<String> conversationStarters,
   }) = _ChatThread;
 }
 

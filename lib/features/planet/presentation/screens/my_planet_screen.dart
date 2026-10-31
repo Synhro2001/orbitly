@@ -4,6 +4,7 @@ import 'package:orbitly/core/domain/entities/award.dart';
 import 'package:orbitly/core/domain/entities/mood.dart';
 import 'package:orbitly/core/theme/app_colors.dart';
 import 'package:orbitly/core/theme/app_dimens.dart';
+import 'package:orbitly/core/utils/clock.dart';
 import 'package:orbitly/core/utils/l10n.dart';
 import 'package:orbitly/core/widgets/async_view.dart';
 import 'package:orbitly/core/widgets/planet_view.dart';
@@ -116,6 +117,8 @@ class _PlanetContent extends ConsumerWidget {
           ),
         ),
         const SizedBox(height: AppSpacing.l),
+        _Section(title: l10n.planetShadowTitle, child: _ShadowControls(planet)),
+        const SizedBox(height: AppSpacing.l),
         _Section(
           title: l10n.planetAwards,
           // Высота плитки фиксирована: на узком экране ширина ячейки
@@ -209,6 +212,67 @@ class _AwardTile extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+/// Уйти в тень на время (серии замрут) или выйти из неё раньше срока.
+class _ShadowControls extends ConsumerWidget {
+  const _ShadowControls(this.planet);
+
+  final MyPlanet planet;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = context.l10n;
+    final textTheme = Theme.of(context).textTheme;
+    final controller = ref.read(myPlanetControllerProvider.notifier);
+    final now = ref.watch(clockProvider)();
+    final shadow = planet.shadow;
+
+    if (shadow != null && shadow.isActiveAt(now)) {
+      final daysLeft = (shadow.until.difference(now).inMinutes / (24 * 60))
+          .ceil();
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            '🌘 ${l10n.planetShadowActive(daysLeft)}',
+            style: textTheme.bodyLarge,
+          ),
+          const SizedBox(height: AppSpacing.xs),
+          Text(l10n.planetShadowActiveHint, style: textTheme.bodySmall),
+          const SizedBox(height: AppSpacing.m),
+          OutlinedButton(
+            onPressed: controller.leaveShadow,
+            child: Text(l10n.planetShadowLeave),
+          ),
+        ],
+      );
+    }
+
+    final options = [
+      (l10n.planetShadowDay, const Duration(days: 1)),
+      (l10n.planetShadow3Days, const Duration(days: 3)),
+      (l10n.planetShadowWeek, const Duration(days: 7)),
+    ];
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(l10n.planetShadowHint, style: textTheme.bodyMedium),
+        const SizedBox(height: AppSpacing.m),
+        Wrap(
+          spacing: AppSpacing.s,
+          runSpacing: AppSpacing.s,
+          children: [
+            for (final (label, duration) in options)
+              OutlinedButton(
+                onPressed: () => controller.enterShadow(duration),
+                child: Text(label),
+              ),
+          ],
+        ),
+      ],
     );
   }
 }

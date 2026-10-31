@@ -114,6 +114,11 @@ class MockStore {
         'streak_days': streakDays[i],
         'last_exchange_at': _ago(Duration(hours: hoursSinceExchange[i])),
         'mood': moods[i % moods.length],
+        // Паша на неделе экзаменов ушёл в тень — его серия на паузе.
+        if (i == 7) ...{
+          'shadow_from': _ago(const Duration(days: 2)),
+          'shadow_until': _now.add(const Duration(days: 1)).toIso8601String(),
+        },
       });
       messages[id] = _conversation(i, unreadSnap: const {0, 3, 7}.contains(i));
       sharedTrophyIds[id] = [
@@ -189,6 +194,46 @@ class MockStore {
       {'friend_id': 'friend-9', 'delta': -14},
       {'friend_id': 'friend-11', 'delta': -9},
       {'friend_id': 'friend-7', 'delta': -4},
+    ];
+
+    // Капсулы времени: от Ани — уже открылась, от Леры — ещё запечатана.
+    messages['friend-0']!.insert(0, {
+      'kind': 'capsule',
+      'id': 'capsule-0',
+      'is_mine': false,
+      'sent_at': _ago(const Duration(days: 30)),
+      'opens_at': _ago(const Duration(hours: 20)),
+      'text':
+          'Привет из прошлого месяца! Если читаешь это — экзамен '
+          'позади. Горжусь тобой 🍀',
+    });
+    messages['friend-2']!.insert(0, {
+      'kind': 'capsule',
+      'id': 'capsule-1',
+      'is_mine': false,
+      'sent_at': _ago(const Duration(days: 1)),
+      'opens_at': _now.add(const Duration(days: 5)).toIso8601String(),
+      'text': 'С днём рождения! Открой меня вовремя 🎂',
+    });
+  }
+
+  /// Подсказки «с чего начать» — только для тех, с кем общение затихает:
+  /// друг в списке отдаляющихся или с последнего обмена прошли сутки.
+  List<String> conversationStarters(String friendId) {
+    final friend = friends.firstWhere((f) => f['id'] == friendId);
+    final last = DateTime.parse(friend['last_exchange_at']! as String);
+    final drifting = (weeklyReport['drifting'] ?? const <Json>[]).any(
+      (row) => row['friend_id'] == friendId,
+    );
+    if (!drifting && _now.difference(last) < const Duration(hours: 24)) {
+      return const [];
+    }
+    final name = friend['name']! as String;
+    return [
+      'Привет, $name! Давно не болтали — как ты?',
+      'Сегодня кое-что напомнило мне о тебе 👀',
+      'Что было самым странным на этой неделе?',
+      'Созвонимся на выходных?',
     ];
   }
 

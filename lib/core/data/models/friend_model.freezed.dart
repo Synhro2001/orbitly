@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$FriendModel {
 
- String get id; String get name; String get handle; PlanetAppearanceModel get appearance; int get closeness; int get streakDays; DateTime get lastExchangeAt; Mood get mood; bool get hasUnreadSnaps;
+ String get id; String get name; String get handle; PlanetAppearanceModel get appearance; int get closeness; int get streakDays; DateTime get lastExchangeAt; Mood get mood; bool get hasUnreadSnaps; DateTime? get shadowFrom; DateTime? get shadowUntil;
 /// Create a copy of FriendModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -30,20 +30,20 @@ $FriendModelCopyWith<FriendModel> get copyWith => _$FriendModelCopyWithImpl<Frie
 @override
 bool operator ==(Object other) {
   final _this = this as FriendModel;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FriendModel&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.handle, _this.handle) || other.handle == _this.handle)&&(identical(other.appearance, _this.appearance) || other.appearance == _this.appearance)&&(identical(other.closeness, _this.closeness) || other.closeness == _this.closeness)&&(identical(other.streakDays, _this.streakDays) || other.streakDays == _this.streakDays)&&(identical(other.lastExchangeAt, _this.lastExchangeAt) || other.lastExchangeAt == _this.lastExchangeAt)&&(identical(other.mood, _this.mood) || other.mood == _this.mood)&&(identical(other.hasUnreadSnaps, _this.hasUnreadSnaps) || other.hasUnreadSnaps == _this.hasUnreadSnaps));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FriendModel&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.handle, _this.handle) || other.handle == _this.handle)&&(identical(other.appearance, _this.appearance) || other.appearance == _this.appearance)&&(identical(other.closeness, _this.closeness) || other.closeness == _this.closeness)&&(identical(other.streakDays, _this.streakDays) || other.streakDays == _this.streakDays)&&(identical(other.lastExchangeAt, _this.lastExchangeAt) || other.lastExchangeAt == _this.lastExchangeAt)&&(identical(other.mood, _this.mood) || other.mood == _this.mood)&&(identical(other.hasUnreadSnaps, _this.hasUnreadSnaps) || other.hasUnreadSnaps == _this.hasUnreadSnaps)&&(identical(other.shadowFrom, _this.shadowFrom) || other.shadowFrom == _this.shadowFrom)&&(identical(other.shadowUntil, _this.shadowUntil) || other.shadowUntil == _this.shadowUntil));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as FriendModel;
-  return Object.hash(runtimeType,_this.id,_this.name,_this.handle,_this.appearance,_this.closeness,_this.streakDays,_this.lastExchangeAt,_this.mood,_this.hasUnreadSnaps);
+  return Object.hash(runtimeType,_this.id,_this.name,_this.handle,_this.appearance,_this.closeness,_this.streakDays,_this.lastExchangeAt,_this.mood,_this.hasUnreadSnaps,_this.shadowFrom,_this.shadowUntil);
 }
 
 @override
 String toString() {
   final _this = this as FriendModel;
-  return 'FriendModel(id: ${_this.id}, name: ${_this.name}, handle: ${_this.handle}, appearance: ${_this.appearance}, closeness: ${_this.closeness}, streakDays: ${_this.streakDays}, lastExchangeAt: ${_this.lastExchangeAt}, mood: ${_this.mood}, hasUnreadSnaps: ${_this.hasUnreadSnaps})';
+  return 'FriendModel(id: ${_this.id}, name: ${_this.name}, handle: ${_this.handle}, appearance: ${_this.appearance}, closeness: ${_this.closeness}, streakDays: ${_this.streakDays}, lastExchangeAt: ${_this.lastExchangeAt}, mood: ${_this.mood}, hasUnreadSnaps: ${_this.hasUnreadSnaps}, shadowFrom: ${_this.shadowFrom}, shadowUntil: ${_this.shadowUntil})';
 }
 
 
@@ -54,7 +54,7 @@ abstract mixin class $FriendModelCopyWith<$Res>  {
   factory $FriendModelCopyWith(FriendModel value, $Res Function(FriendModel) _then) = _$FriendModelCopyWithImpl;
 @useResult
 $Res call({
- String id, String name, String handle, PlanetAppearanceModel appearance, int closeness, int streakDays, DateTime lastExchangeAt, Mood mood, bool hasUnreadSnaps
+ String id, String name, String handle, PlanetAppearanceModel appearance, int closeness, int streakDays, DateTime lastExchangeAt, Mood mood, bool hasUnreadSnaps, DateTime? shadowFrom, DateTime? shadowUntil
 });
 
 
@@ -71,7 +71,7 @@ class _$FriendModelCopyWithImpl<$Res>
 
 /// Create a copy of FriendModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? handle = null,Object? appearance = null,Object? closeness = null,Object? streakDays = null,Object? lastExchangeAt = null,Object? mood = null,Object? hasUnreadSnaps = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? handle = null,Object? appearance = null,Object? closeness = null,Object? streakDays = null,Object? lastExchangeAt = null,Object? mood = null,Object? hasUnreadSnaps = null,Object? shadowFrom = freezed,Object? shadowUntil = freezed,}) {
   return _then(FriendModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -82,7 +82,9 @@ as int,streakDays: null == streakDays ? _self.streakDays : streakDays // ignore:
 as int,lastExchangeAt: null == lastExchangeAt ? _self.lastExchangeAt : lastExchangeAt // ignore: cast_nullable_to_non_nullable
 as DateTime,mood: null == mood ? _self.mood : mood // ignore: cast_nullable_to_non_nullable
 as Mood,hasUnreadSnaps: null == hasUnreadSnaps ? _self.hasUnreadSnaps : hasUnreadSnaps // ignore: cast_nullable_to_non_nullable
-as bool,
+as bool,shadowFrom: freezed == shadowFrom ? _self.shadowFrom : shadowFrom // ignore: cast_nullable_to_non_nullable
+as DateTime?,shadowUntil: freezed == shadowUntil ? _self.shadowUntil : shadowUntil // ignore: cast_nullable_to_non_nullable
+as DateTime?,
   ));
 }
 /// Create a copy of FriendModel
@@ -176,10 +178,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  String handle,  PlanetAppearanceModel appearance,  int closeness,  int streakDays,  DateTime lastExchangeAt,  Mood mood,  bool hasUnreadSnaps)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  String handle,  PlanetAppearanceModel appearance,  int closeness,  int streakDays,  DateTime lastExchangeAt,  Mood mood,  bool hasUnreadSnaps,  DateTime? shadowFrom,  DateTime? shadowUntil)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _FriendModel() when $default != null:
-return $default(_that.id,_that.name,_that.handle,_that.appearance,_that.closeness,_that.streakDays,_that.lastExchangeAt,_that.mood,_that.hasUnreadSnaps);case _:
+return $default(_that.id,_that.name,_that.handle,_that.appearance,_that.closeness,_that.streakDays,_that.lastExchangeAt,_that.mood,_that.hasUnreadSnaps,_that.shadowFrom,_that.shadowUntil);case _:
   return orElse();
 
 }
@@ -197,10 +199,10 @@ return $default(_that.id,_that.name,_that.handle,_that.appearance,_that.closenes
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  String handle,  PlanetAppearanceModel appearance,  int closeness,  int streakDays,  DateTime lastExchangeAt,  Mood mood,  bool hasUnreadSnaps)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  String handle,  PlanetAppearanceModel appearance,  int closeness,  int streakDays,  DateTime lastExchangeAt,  Mood mood,  bool hasUnreadSnaps,  DateTime? shadowFrom,  DateTime? shadowUntil)  $default,) {final _that = this;
 switch (_that) {
 case _FriendModel():
-return $default(_that.id,_that.name,_that.handle,_that.appearance,_that.closeness,_that.streakDays,_that.lastExchangeAt,_that.mood,_that.hasUnreadSnaps);case _:
+return $default(_that.id,_that.name,_that.handle,_that.appearance,_that.closeness,_that.streakDays,_that.lastExchangeAt,_that.mood,_that.hasUnreadSnaps,_that.shadowFrom,_that.shadowUntil);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -217,10 +219,10 @@ return $default(_that.id,_that.name,_that.handle,_that.appearance,_that.closenes
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  String handle,  PlanetAppearanceModel appearance,  int closeness,  int streakDays,  DateTime lastExchangeAt,  Mood mood,  bool hasUnreadSnaps)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  String handle,  PlanetAppearanceModel appearance,  int closeness,  int streakDays,  DateTime lastExchangeAt,  Mood mood,  bool hasUnreadSnaps,  DateTime? shadowFrom,  DateTime? shadowUntil)?  $default,) {final _that = this;
 switch (_that) {
 case _FriendModel() when $default != null:
-return $default(_that.id,_that.name,_that.handle,_that.appearance,_that.closeness,_that.streakDays,_that.lastExchangeAt,_that.mood,_that.hasUnreadSnaps);case _:
+return $default(_that.id,_that.name,_that.handle,_that.appearance,_that.closeness,_that.streakDays,_that.lastExchangeAt,_that.mood,_that.hasUnreadSnaps,_that.shadowFrom,_that.shadowUntil);case _:
   return null;
 
 }
@@ -232,7 +234,7 @@ return $default(_that.id,_that.name,_that.handle,_that.appearance,_that.closenes
 @JsonSerializable()
 
 class _FriendModel implements FriendModel {
-  const _FriendModel({required this.id, required this.name, required this.handle, required this.appearance, required this.closeness, required this.streakDays, required this.lastExchangeAt, required this.mood, required this.hasUnreadSnaps});
+  const _FriendModel({required this.id, required this.name, required this.handle, required this.appearance, required this.closeness, required this.streakDays, required this.lastExchangeAt, required this.mood, required this.hasUnreadSnaps, this.shadowFrom, this.shadowUntil});
   factory _FriendModel.fromJson(Map<String, dynamic> json) => _$FriendModelFromJson(json);
 
 @override final  String id;
@@ -244,6 +246,8 @@ class _FriendModel implements FriendModel {
 @override final  DateTime lastExchangeAt;
 @override final  Mood mood;
 @override final  bool hasUnreadSnaps;
+@override final  DateTime? shadowFrom;
+@override final  DateTime? shadowUntil;
 
 /// Create a copy of FriendModel
 /// with the given fields replaced by the non-null parameter values.
@@ -258,18 +262,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _FriendModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.handle, handle) || other.handle == handle)&&(identical(other.appearance, appearance) || other.appearance == appearance)&&(identical(other.closeness, closeness) || other.closeness == closeness)&&(identical(other.streakDays, streakDays) || other.streakDays == streakDays)&&(identical(other.lastExchangeAt, lastExchangeAt) || other.lastExchangeAt == lastExchangeAt)&&(identical(other.mood, mood) || other.mood == mood)&&(identical(other.hasUnreadSnaps, hasUnreadSnaps) || other.hasUnreadSnaps == hasUnreadSnaps));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _FriendModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.handle, handle) || other.handle == handle)&&(identical(other.appearance, appearance) || other.appearance == appearance)&&(identical(other.closeness, closeness) || other.closeness == closeness)&&(identical(other.streakDays, streakDays) || other.streakDays == streakDays)&&(identical(other.lastExchangeAt, lastExchangeAt) || other.lastExchangeAt == lastExchangeAt)&&(identical(other.mood, mood) || other.mood == mood)&&(identical(other.hasUnreadSnaps, hasUnreadSnaps) || other.hasUnreadSnaps == hasUnreadSnaps)&&(identical(other.shadowFrom, shadowFrom) || other.shadowFrom == shadowFrom)&&(identical(other.shadowUntil, shadowUntil) || other.shadowUntil == shadowUntil));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,id,name,handle,appearance,closeness,streakDays,lastExchangeAt,mood,hasUnreadSnaps);
+    return Object.hash(runtimeType,id,name,handle,appearance,closeness,streakDays,lastExchangeAt,mood,hasUnreadSnaps,shadowFrom,shadowUntil);
 }
 
 @override
 String toString() {
-    return 'FriendModel(id: $id, name: $name, handle: $handle, appearance: $appearance, closeness: $closeness, streakDays: $streakDays, lastExchangeAt: $lastExchangeAt, mood: $mood, hasUnreadSnaps: $hasUnreadSnaps)';
+    return 'FriendModel(id: $id, name: $name, handle: $handle, appearance: $appearance, closeness: $closeness, streakDays: $streakDays, lastExchangeAt: $lastExchangeAt, mood: $mood, hasUnreadSnaps: $hasUnreadSnaps, shadowFrom: $shadowFrom, shadowUntil: $shadowUntil)';
 }
 
 
@@ -280,7 +284,7 @@ abstract mixin class _$FriendModelCopyWith<$Res> implements $FriendModelCopyWith
   factory _$FriendModelCopyWith(_FriendModel value, $Res Function(_FriendModel) _then) = __$FriendModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String name, String handle, PlanetAppearanceModel appearance, int closeness, int streakDays, DateTime lastExchangeAt, Mood mood, bool hasUnreadSnaps
+ String id, String name, String handle, PlanetAppearanceModel appearance, int closeness, int streakDays, DateTime lastExchangeAt, Mood mood, bool hasUnreadSnaps, DateTime? shadowFrom, DateTime? shadowUntil
 });
 
 
@@ -297,7 +301,7 @@ class __$FriendModelCopyWithImpl<$Res>
 
 /// Create a copy of FriendModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? handle = null,Object? appearance = null,Object? closeness = null,Object? streakDays = null,Object? lastExchangeAt = null,Object? mood = null,Object? hasUnreadSnaps = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? handle = null,Object? appearance = null,Object? closeness = null,Object? streakDays = null,Object? lastExchangeAt = null,Object? mood = null,Object? hasUnreadSnaps = null,Object? shadowFrom = freezed,Object? shadowUntil = freezed,}) {
   return _then(_FriendModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -308,7 +312,9 @@ as int,streakDays: null == streakDays ? _self.streakDays : streakDays // ignore:
 as int,lastExchangeAt: null == lastExchangeAt ? _self.lastExchangeAt : lastExchangeAt // ignore: cast_nullable_to_non_nullable
 as DateTime,mood: null == mood ? _self.mood : mood // ignore: cast_nullable_to_non_nullable
 as Mood,hasUnreadSnaps: null == hasUnreadSnaps ? _self.hasUnreadSnaps : hasUnreadSnaps // ignore: cast_nullable_to_non_nullable
-as bool,
+as bool,shadowFrom: freezed == shadowFrom ? _self.shadowFrom : shadowFrom // ignore: cast_nullable_to_non_nullable
+as DateTime?,shadowUntil: freezed == shadowUntil ? _self.shadowUntil : shadowUntil // ignore: cast_nullable_to_non_nullable
+as DateTime?,
   ));
 }
 

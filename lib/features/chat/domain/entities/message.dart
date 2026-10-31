@@ -18,4 +18,17 @@ sealed class Message with _$Message {
     required DateTime sentAt,
     required bool opened,
   }) = SnapMessage;
+
+  /// Капсула времени: послание, которое откроется только в [opensAt].
+  const factory Message.capsule({
+    required String id,
+    required bool isMine,
+    required DateTime sentAt,
+    required DateTime opensAt,
+    required String text,
+  }) = CapsuleMessage;
+}
+
+extension CapsuleMessageX on CapsuleMessage {
+  bool isOpenAt(DateTime now) => !now.isBefore(opensAt);
 }

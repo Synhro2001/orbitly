@@ -3,6 +3,7 @@ import 'package:orbitly/core/data/models/award_model.dart';
 import 'package:orbitly/core/data/models/planet_appearance_model.dart';
 import 'package:orbitly/core/domain/entities/mood.dart';
 import 'package:orbitly/core/domain/entities/planet_appearance.dart';
+import 'package:orbitly/core/domain/entities/shadow.dart';
 import 'package:orbitly/features/planet/data/models/my_planet_model.dart';
 import 'package:orbitly/features/planet/domain/entities/my_planet.dart';
 import 'package:orbitly/features/planet/domain/repositories/planet_repository.dart';
@@ -47,5 +48,13 @@ class MockPlanetRepository implements PlanetRepository {
   Future<void> setMood(Mood mood) async {
     await _store.delay();
     _store.myPlanet?['mood'] = mood.name;
+  }
+
+  @override
+  Future<void> setShadow(Shadow? shadow) async {
+    await _store.delay();
+    _store.myPlanet
+      ?..['shadow_from'] = shadow?.from.toIso8601String()
+      ..['shadow_until'] = shadow?.until.toIso8601String();
   }
 }

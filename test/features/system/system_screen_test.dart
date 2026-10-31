@@ -31,7 +31,7 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.byType(ChatScreen), findsOneWidget);
-    expect(find.text('Смотри, что нашёл'), findsOneWidget);
+    expect(find.text('@dimon'), findsOneWidget);
     semantics.dispose();
   });
 }

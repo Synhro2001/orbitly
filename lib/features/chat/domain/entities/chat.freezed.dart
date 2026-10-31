@@ -15,7 +15,9 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ChatThread {
 
- Friend get friend; List<Message> get messages; List<Award> get sharedTrophies;
+ Friend get friend; List<Message> get messages; List<Award> get sharedTrophies;/// Подсказки, с чего начать разговор. Сервер присылает их, когда друг
+/// отдаляется или серия дала трещину; иначе список пуст.
+ List<String> get conversationStarters;
 /// Create a copy of ChatThread
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -27,20 +29,20 @@ $ChatThreadCopyWith<ChatThread> get copyWith => _$ChatThreadCopyWithImpl<ChatThr
 @override
 bool operator ==(Object other) {
   final _this = this as ChatThread;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ChatThread&&(identical(other.friend, _this.friend) || other.friend == _this.friend)&&const DeepCollectionEquality().equals(other.messages, _this.messages)&&const DeepCollectionEquality().equals(other.sharedTrophies, _this.sharedTrophies));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ChatThread&&(identical(other.friend, _this.friend) || other.friend == _this.friend)&&const DeepCollectionEquality().equals(other.messages, _this.messages)&&const DeepCollectionEquality().equals(other.sharedTrophies, _this.sharedTrophies)&&const DeepCollectionEquality().equals(other.conversationStarters, _this.conversationStarters));
 }
 
 
 @override
 int get hashCode {
   final _this = this as ChatThread;
-  return Object.hash(runtimeType,_this.friend,const DeepCollectionEquality().hash(_this.messages),const DeepCollectionEquality().hash(_this.sharedTrophies));
+  return Object.hash(runtimeType,_this.friend,const DeepCollectionEquality().hash(_this.messages),const DeepCollectionEquality().hash(_this.sharedTrophies),const DeepCollectionEquality().hash(_this.conversationStarters));
 }
 
 @override
 String toString() {
   final _this = this as ChatThread;
-  return 'ChatThread(friend: ${_this.friend}, messages: ${_this.messages}, sharedTrophies: ${_this.sharedTrophies})';
+  return 'ChatThread(friend: ${_this.friend}, messages: ${_this.messages}, sharedTrophies: ${_this.sharedTrophies}, conversationStarters: ${_this.conversationStarters})';
 }
 
 
@@ -51,7 +53,7 @@ abstract mixin class $ChatThreadCopyWith<$Res>  {
   factory $ChatThreadCopyWith(ChatThread value, $Res Function(ChatThread) _then) = _$ChatThreadCopyWithImpl;
 @useResult
 $Res call({
- Friend friend, List<Message> messages, List<Award> sharedTrophies
+ Friend friend, List<Message> messages, List<Award> sharedTrophies, List<String> conversationStarters
 });
 
 
@@ -68,12 +70,13 @@ class _$ChatThreadCopyWithImpl<$Res>
 
 /// Create a copy of ChatThread
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? friend = null,Object? messages = null,Object? sharedTrophies = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? friend = null,Object? messages = null,Object? sharedTrophies = null,Object? conversationStarters = null,}) {
   return _then(ChatThread(
 friend: null == friend ? _self.friend : friend // ignore: cast_nullable_to_non_nullable
 as Friend,messages: null == messages ? _self.messages : messages // ignore: cast_nullable_to_non_nullable
 as List<Message>,sharedTrophies: null == sharedTrophies ? _self.sharedTrophies : sharedTrophies // ignore: cast_nullable_to_non_nullable
-as List<Award>,
+as List<Award>,conversationStarters: null == conversationStarters ? _self.conversationStarters : conversationStarters // ignore: cast_nullable_to_non_nullable
+as List<String>,
   ));
 }
 /// Create a copy of ChatThread
@@ -167,10 +170,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Friend friend,  List<Message> messages,  List<Award> sharedTrophies)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Friend friend,  List<Message> messages,  List<Award> sharedTrophies,  List<String> conversationStarters)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ChatThread() when $default != null:
-return $default(_that.friend,_that.messages,_that.sharedTrophies);case _:
+return $default(_that.friend,_that.messages,_that.sharedTrophies,_that.conversationStarters);case _:
   return orElse();
 
 }
@@ -188,10 +191,10 @@ return $default(_that.friend,_that.messages,_that.sharedTrophies);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Friend friend,  List<Message> messages,  List<Award> sharedTrophies)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Friend friend,  List<Message> messages,  List<Award> sharedTrophies,  List<String> conversationStarters)  $default,) {final _that = this;
 switch (_that) {
 case _ChatThread():
-return $default(_that.friend,_that.messages,_that.sharedTrophies);case _:
+return $default(_that.friend,_that.messages,_that.sharedTrophies,_that.conversationStarters);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -208,10 +211,10 @@ return $default(_that.friend,_that.messages,_that.sharedTrophies);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Friend friend,  List<Message> messages,  List<Award> sharedTrophies)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Friend friend,  List<Message> messages,  List<Award> sharedTrophies,  List<String> conversationStarters)?  $default,) {final _that = this;
 switch (_that) {
 case _ChatThread() when $default != null:
-return $default(_that.friend,_that.messages,_that.sharedTrophies);case _:
+return $default(_that.friend,_that.messages,_that.sharedTrophies,_that.conversationStarters);case _:
   return null;
 
 }
@@ -223,7 +226,7 @@ return $default(_that.friend,_that.messages,_that.sharedTrophies);case _:
 
 
 class _ChatThread implements ChatThread {
-  const _ChatThread({required this.friend, required  List<Message> messages, required  List<Award> sharedTrophies}): _messages = messages,_sharedTrophies = sharedTrophies;
+  const _ChatThread({required this.friend, required  List<Message> messages, required  List<Award> sharedTrophies,  List<String> conversationStarters = const []}): _messages = messages,_sharedTrophies = sharedTrophies,_conversationStarters = conversationStarters;
   
 
 @override final  Friend friend;
@@ -241,6 +244,17 @@ class _ChatThread implements ChatThread {
   return EqualUnmodifiableListView(_sharedTrophies);
 }
 
+/// Подсказки, с чего начать разговор. Сервер присылает их, когда друг
+/// отдаляется или серия дала трещину; иначе список пуст.
+ final  List<String> _conversationStarters;
+/// Подсказки, с чего начать разговор. Сервер присылает их, когда друг
+/// отдаляется или серия дала трещину; иначе список пуст.
+@override@JsonKey() List<String> get conversationStarters {
+  if (_conversationStarters is EqualUnmodifiableListView) return _conversationStarters;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_conversationStarters);
+}
+
 
 /// Create a copy of ChatThread
 /// with the given fields replaced by the non-null parameter values.
@@ -252,18 +266,18 @@ _$ChatThreadCopyWith<_ChatThread> get copyWith => __$ChatThreadCopyWithImpl<_Cha
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ChatThread&&(identical(other.friend, friend) || other.friend == friend)&&const DeepCollectionEquality().equals(other.messages, _messages)&&const DeepCollectionEquality().equals(other.sharedTrophies, _sharedTrophies));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ChatThread&&(identical(other.friend, friend) || other.friend == friend)&&const DeepCollectionEquality().equals(other.messages, _messages)&&const DeepCollectionEquality().equals(other.sharedTrophies, _sharedTrophies)&&const DeepCollectionEquality().equals(other.conversationStarters, _conversationStarters));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,friend,const DeepCollectionEquality().hash(_messages),const DeepCollectionEquality().hash(_sharedTrophies));
+    return Object.hash(runtimeType,friend,const DeepCollectionEquality().hash(_messages),const DeepCollectionEquality().hash(_sharedTrophies),const DeepCollectionEquality().hash(_conversationStarters));
 }
 
 @override
 String toString() {
-    return 'ChatThread(friend: $friend, messages: $messages, sharedTrophies: $sharedTrophies)';
+    return 'ChatThread(friend: $friend, messages: $messages, sharedTrophies: $sharedTrophies, conversationStarters: $conversationStarters)';
 }
 
 
@@ -274,7 +288,7 @@ abstract mixin class _$ChatThreadCopyWith<$Res> implements $ChatThreadCopyWith<$
   factory _$ChatThreadCopyWith(_ChatThread value, $Res Function(_ChatThread) _then) = __$ChatThreadCopyWithImpl;
 @override @useResult
 $Res call({
- Friend friend, List<Message> messages, List<Award> sharedTrophies
+ Friend friend, List<Message> messages, List<Award> sharedTrophies, List<String> conversationStarters
 });
 
 
@@ -291,12 +305,13 @@ class __$ChatThreadCopyWithImpl<$Res>
 
 /// Create a copy of ChatThread
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? friend = null,Object? messages = null,Object? sharedTrophies = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? friend = null,Object? messages = null,Object? sharedTrophies = null,Object? conversationStarters = null,}) {
   return _then(_ChatThread(
 friend: null == friend ? _self.friend : friend // ignore: cast_nullable_to_non_nullable
 as Friend,messages: null == messages ? _self._messages : messages // ignore: cast_nullable_to_non_nullable
 as List<Message>,sharedTrophies: null == sharedTrophies ? _self._sharedTrophies : sharedTrophies // ignore: cast_nullable_to_non_nullable
-as List<Award>,
+as List<Award>,conversationStarters: null == conversationStarters ? _self._conversationStarters : conversationStarters // ignore: cast_nullable_to_non_nullable
+as List<String>,
   ));
 }
 

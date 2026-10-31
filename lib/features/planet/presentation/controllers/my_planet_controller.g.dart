@@ -48,6 +48,52 @@ final class HasPlanetProvider
 
 String _$hasPlanetHash() => r'08a625bafe417d351c93fb13474601f828f5f183';
 
+/// Моя тень — нужна везде, где считается серия с другом.
+
+@ProviderFor(myShadow)
+final myShadowProvider = MyShadowProvider._();
+
+/// Моя тень — нужна везде, где считается серия с другом.
+
+final class MyShadowProvider
+    extends $FunctionalProvider<Shadow?, Shadow?, Shadow?>
+    with $Provider<Shadow?> {
+  /// Моя тень — нужна везде, где считается серия с другом.
+  MyShadowProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'myShadowProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$myShadowHash();
+
+  @$internal
+  @override
+  $ProviderElement<Shadow?> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  Shadow? create(Ref ref) {
+    return myShadow(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(Shadow? value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<Shadow?>(value),
+    );
+  }
+}
+
+String _$myShadowHash() => r'aaac8cab4988dddcfae543b42ec4d751831a8b6f';
+
 @ProviderFor(MyPlanetController)
 final myPlanetControllerProvider = MyPlanetControllerProvider._();
 
@@ -73,7 +119,7 @@ final class MyPlanetControllerProvider
 }
 
 String _$myPlanetControllerHash() =>
-    r'6429b570b3794ac3b830682eeb4709d863e917f6';
+    r'3087e7970e7b33ce307d981ec7512e739cf49f34';
 
 abstract class _$MyPlanetController extends $AsyncNotifier<MyPlanet> {
   FutureOr<MyPlanet> build();

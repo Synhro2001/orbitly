@@ -19,6 +19,12 @@ _MyPlanetModel _$MyPlanetModelFromJson(Map<String, dynamic> json) =>
       xpForNextLevel: (json['xp_for_next_level'] as num).toInt(),
       bestStreakDays: (json['best_streak_days'] as num).toInt(),
       mood: $enumDecode(_$MoodEnumMap, json['mood']),
+      shadowFrom: json['shadow_from'] == null
+          ? null
+          : DateTime.parse(json['shadow_from'] as String),
+      shadowUntil: json['shadow_until'] == null
+          ? null
+          : DateTime.parse(json['shadow_until'] as String),
     );
 
 Map<String, dynamic> _$MyPlanetModelToJson(_MyPlanetModel instance) =>
@@ -30,6 +36,8 @@ Map<String, dynamic> _$MyPlanetModelToJson(_MyPlanetModel instance) =>
       'xp_for_next_level': instance.xpForNextLevel,
       'best_streak_days': instance.bestStreakDays,
       'mood': _$MoodEnumMap[instance.mood]!,
+      'shadow_from': instance.shadowFrom?.toIso8601String(),
+      'shadow_until': instance.shadowUntil?.toIso8601String(),
     };
 
 const _$MoodEnumMap = {

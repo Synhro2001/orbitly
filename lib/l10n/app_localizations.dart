@@ -256,6 +256,12 @@ abstract class AppLocalizations {
   /// **'Серия сгорела'**
   String get streakBurnt;
 
+  /// No description provided for @streakPaused.
+  ///
+  /// In ru, this message translates to:
+  /// **'{count} дн. — на паузе, кто-то в тени'**
+  String streakPaused(int count);
+
   /// No description provided for @systemTitle.
   ///
   /// In ru, this message translates to:
@@ -279,6 +285,18 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Ур. {level} · 🔥 {days}'**
   String systemLevelChip(int level, int days);
+
+  /// No description provided for @systemShadowChip.
+  ///
+  /// In ru, this message translates to:
+  /// **'🌘 В тени'**
+  String get systemShadowChip;
+
+  /// No description provided for @systemFriendPlanetShadow.
+  ///
+  /// In ru, this message translates to:
+  /// **'Планета {name}, в тени'**
+  String systemFriendPlanetShadow(String name);
 
   /// No description provided for @systemEmpty.
   ///
@@ -412,6 +430,72 @@ abstract class AppLocalizations {
   /// **'Общие трофеи'**
   String get chatSharedTrophies;
 
+  /// No description provided for @chatsLastCapsule.
+  ///
+  /// In ru, this message translates to:
+  /// **'⏳ Капсула времени'**
+  String get chatsLastCapsule;
+
+  /// No description provided for @chatStartersTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'С чего начать?'**
+  String get chatStartersTitle;
+
+  /// No description provided for @chatCapsule.
+  ///
+  /// In ru, this message translates to:
+  /// **'Капсула времени'**
+  String get chatCapsule;
+
+  /// No description provided for @chatCapsuleOpensIn.
+  ///
+  /// In ru, this message translates to:
+  /// **'{count, plural, one{Откроется через {count} день} few{Откроется через {count} дня} many{Откроется через {count} дней} other{Откроется через {count} дня}}'**
+  String chatCapsuleOpensIn(int count);
+
+  /// No description provided for @chatCapsuleSealed.
+  ///
+  /// In ru, this message translates to:
+  /// **'Запечатана до срока 🔒'**
+  String get chatCapsuleSealed;
+
+  /// No description provided for @chatCapsuleSheetTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Отправить в будущее'**
+  String get chatCapsuleSheetTitle;
+
+  /// No description provided for @chatCapsuleSheetSubtitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Друг прочитает послание только в выбранный день'**
+  String get chatCapsuleSheetSubtitle;
+
+  /// No description provided for @chatCapsuleTomorrow.
+  ///
+  /// In ru, this message translates to:
+  /// **'Завтра'**
+  String get chatCapsuleTomorrow;
+
+  /// No description provided for @chatCapsuleWeek.
+  ///
+  /// In ru, this message translates to:
+  /// **'Через неделю'**
+  String get chatCapsuleWeek;
+
+  /// No description provided for @chatCapsuleMonth.
+  ///
+  /// In ru, this message translates to:
+  /// **'Через месяц'**
+  String get chatCapsuleMonth;
+
+  /// No description provided for @chatCapsuleYear.
+  ///
+  /// In ru, this message translates to:
+  /// **'Через год'**
+  String get chatCapsuleYear;
+
   /// No description provided for @cameraFlash.
   ///
   /// In ru, this message translates to:
@@ -477,6 +561,54 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Настроение'**
   String get planetMood;
+
+  /// No description provided for @planetShadowTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Тень'**
+  String get planetShadowTitle;
+
+  /// No description provided for @planetShadowHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Экзамены, отпуск или просто хочется тишины? Уйди в тень — серии со всеми замрут, а друзья увидят 🌘.'**
+  String get planetShadowHint;
+
+  /// No description provided for @planetShadowDay.
+  ///
+  /// In ru, this message translates to:
+  /// **'1 день'**
+  String get planetShadowDay;
+
+  /// No description provided for @planetShadow3Days.
+  ///
+  /// In ru, this message translates to:
+  /// **'3 дня'**
+  String get planetShadow3Days;
+
+  /// No description provided for @planetShadowWeek.
+  ///
+  /// In ru, this message translates to:
+  /// **'Неделя'**
+  String get planetShadowWeek;
+
+  /// No description provided for @planetShadowActive.
+  ///
+  /// In ru, this message translates to:
+  /// **'{count, plural, one{Ты в тени ещё {count} день} few{Ты в тени ещё {count} дня} many{Ты в тени ещё {count} дней} other{Ты в тени ещё {count} дня}}'**
+  String planetShadowActive(int count);
+
+  /// No description provided for @planetShadowActiveHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Серии на паузе. После возвращения у вас будут целые сутки, чтобы продолжить.'**
+  String get planetShadowActiveHint;
+
+  /// No description provided for @planetShadowLeave.
+  ///
+  /// In ru, this message translates to:
+  /// **'Выйти из тени'**
+  String get planetShadowLeave;
 
   /// No description provided for @reportTitle.
   ///

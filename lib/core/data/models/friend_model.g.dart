@@ -20,6 +20,12 @@ _FriendModel _$FriendModelFromJson(Map<String, dynamic> json) => _FriendModel(
   lastExchangeAt: DateTime.parse(json['last_exchange_at'] as String),
   mood: $enumDecode(_$MoodEnumMap, json['mood']),
   hasUnreadSnaps: json['has_unread_snaps'] as bool,
+  shadowFrom: json['shadow_from'] == null
+      ? null
+      : DateTime.parse(json['shadow_from'] as String),
+  shadowUntil: json['shadow_until'] == null
+      ? null
+      : DateTime.parse(json['shadow_until'] as String),
 );
 
 Map<String, dynamic> _$FriendModelToJson(_FriendModel instance) =>
@@ -33,6 +39,8 @@ Map<String, dynamic> _$FriendModelToJson(_FriendModel instance) =>
       'last_exchange_at': instance.lastExchangeAt.toIso8601String(),
       'mood': _$MoodEnumMap[instance.mood]!,
       'has_unread_snaps': instance.hasUnreadSnaps,
+      'shadow_from': instance.shadowFrom?.toIso8601String(),
+      'shadow_until': instance.shadowUntil?.toIso8601String(),
     };
 
 const _$MoodEnumMap = {

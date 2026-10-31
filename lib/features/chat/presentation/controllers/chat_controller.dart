@@ -1,4 +1,5 @@
 import 'package:orbitly/app/di.dart';
+import 'package:orbitly/core/utils/clock.dart';
 import 'package:orbitly/features/chat/domain/entities/chat.dart';
 import 'package:orbitly/features/chat/domain/entities/message.dart';
 import 'package:orbitly/features/system/presentation/controllers/system_controller.dart';
@@ -19,13 +20,30 @@ class ChatController extends _$ChatController {
   Future<void> send(String text) async {
     final trimmed = text.trim();
     if (trimmed.isEmpty) return;
-    final message = await ref
-        .read(chatRepositoryProvider)
-        .sendText(friendId, trimmed);
+    _append(await ref.read(chatRepositoryProvider).sendText(friendId, trimmed));
+  }
+
+  /// Капсула времени: друг прочитает послание только через [delay].
+  Future<void> sendCapsule(String text, Duration delay) async {
+    final trimmed = text.trim();
+    if (trimmed.isEmpty) return;
+    final opensAt = ref.read(clockProvider)().add(delay);
+    _append(
+      await ref
+          .read(chatRepositoryProvider)
+          .sendCapsule(friendId, trimmed, opensAt: opensAt),
+    );
+  }
+
+  void _append(Message message) {
     final current = state.value;
     if (!ref.mounted || current == null) return;
+    // После своего сообщения подсказки «с чего начать» больше не нужны.
     state = AsyncData(
-      current.copyWith(messages: [...current.messages, message]),
+      current.copyWith(
+        messages: [...current.messages, message],
+        conversationStarters: const [],
+      ),
     );
     _refreshLists();
   }

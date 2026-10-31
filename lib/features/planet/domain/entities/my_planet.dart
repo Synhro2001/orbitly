@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:orbitly/core/domain/entities/award.dart';
 import 'package:orbitly/core/domain/entities/mood.dart';
 import 'package:orbitly/core/domain/entities/planet_appearance.dart';
+import 'package:orbitly/core/domain/entities/shadow.dart';
 
 part 'my_planet.freezed.dart';
 
@@ -16,6 +17,7 @@ abstract class MyPlanet with _$MyPlanet {
     required int bestStreakDays,
     required Mood mood,
     required List<Award> awards,
+    Shadow? shadow,
   }) = _MyPlanet;
 
   const MyPlanet._();

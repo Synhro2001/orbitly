@@ -46,6 +46,7 @@ class MockChatRepository implements ChatRepository {
           if (trophyIds.contains(json['id']))
             AwardModel.fromJson(json).toEntity(),
       ],
+      conversationStarters: _store.conversationStarters(friendId),
     );
   }
 
@@ -57,6 +58,25 @@ class MockChatRepository implements ChatRepository {
       'id': _store.nextId('msg'),
       'is_mine': true,
       'sent_at': DateTime.now().toIso8601String(),
+      'text': text,
+    };
+    (_store.messages[friendId] ??= []).add(json);
+    return MessageModel.fromJson(json).toEntity();
+  }
+
+  @override
+  Future<Message> sendCapsule(
+    String friendId,
+    String text, {
+    required DateTime opensAt,
+  }) async {
+    await _store.delay();
+    final json = <String, Object?>{
+      'kind': 'capsule',
+      'id': _store.nextId('msg'),
+      'is_mine': true,
+      'sent_at': DateTime.now().toIso8601String(),
+      'opens_at': opensAt.toIso8601String(),
       'text': text,
     };
     (_store.messages[friendId] ??= []).add(json);

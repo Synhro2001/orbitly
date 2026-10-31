@@ -20,6 +20,14 @@ sealed class MessageModel with _$MessageModel {
     required bool opened,
   }) = SnapMessageModel;
 
+  const factory MessageModel.capsule({
+    required String id,
+    required bool isMine,
+    required DateTime sentAt,
+    required DateTime opensAt,
+    required String text,
+  }) = CapsuleMessageModel;
+
   factory MessageModel.fromJson(Map<String, Object?> json) =>
       _$MessageModelFromJson(json);
 }
@@ -30,5 +38,19 @@ extension MessageModelX on MessageModel {
       Message.text(id: id, isMine: isMine, sentAt: sentAt, text: text),
     SnapMessageModel(:final id, :final isMine, :final sentAt, :final opened) =>
       Message.snap(id: id, isMine: isMine, sentAt: sentAt, opened: opened),
+    CapsuleMessageModel(
+      :final id,
+      :final isMine,
+      :final sentAt,
+      :final opensAt,
+      :final text,
+    ) =>
+      Message.capsule(
+        id: id,
+        isMine: isMine,
+        sentAt: sentAt,
+        opensAt: opensAt,
+        text: text,
+      ),
   };
 }

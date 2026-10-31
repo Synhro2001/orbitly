@@ -24,6 +24,10 @@ MessageModel _$MessageModelFromJson(
           return SnapMessageModel.fromJson(
             json
           );
+                case 'capsule':
+          return CapsuleMessageModel.fromJson(
+            json
+          );
         
           default:
             throw CheckedFromJsonException(
@@ -120,12 +124,13 @@ extension MessageModelPatterns on MessageModel {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( TextMessageModel value)?  text,TResult Function( SnapMessageModel value)?  snap,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( TextMessageModel value)?  text,TResult Function( SnapMessageModel value)?  snap,TResult Function( CapsuleMessageModel value)?  capsule,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case TextMessageModel() when text != null:
 return text(_that);case SnapMessageModel() when snap != null:
-return snap(_that);case _:
+return snap(_that);case CapsuleMessageModel() when capsule != null:
+return capsule(_that);case _:
   return orElse();
 
 }
@@ -143,12 +148,13 @@ return snap(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( TextMessageModel value)  text,required TResult Function( SnapMessageModel value)  snap,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( TextMessageModel value)  text,required TResult Function( SnapMessageModel value)  snap,required TResult Function( CapsuleMessageModel value)  capsule,}){
 final _that = this;
 switch (_that) {
 case TextMessageModel():
 return text(_that);case SnapMessageModel():
-return snap(_that);}
+return snap(_that);case CapsuleMessageModel():
+return capsule(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -162,12 +168,13 @@ return snap(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( TextMessageModel value)?  text,TResult? Function( SnapMessageModel value)?  snap,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( TextMessageModel value)?  text,TResult? Function( SnapMessageModel value)?  snap,TResult? Function( CapsuleMessageModel value)?  capsule,}){
 final _that = this;
 switch (_that) {
 case TextMessageModel() when text != null:
 return text(_that);case SnapMessageModel() when snap != null:
-return snap(_that);case _:
+return snap(_that);case CapsuleMessageModel() when capsule != null:
+return capsule(_that);case _:
   return null;
 
 }
@@ -184,11 +191,12 @@ return snap(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String id,  bool isMine,  DateTime sentAt,  String text)?  text,TResult Function( String id,  bool isMine,  DateTime sentAt,  bool opened)?  snap,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String id,  bool isMine,  DateTime sentAt,  String text)?  text,TResult Function( String id,  bool isMine,  DateTime sentAt,  bool opened)?  snap,TResult Function( String id,  bool isMine,  DateTime sentAt,  DateTime opensAt,  String text)?  capsule,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case TextMessageModel() when text != null:
 return text(_that.id,_that.isMine,_that.sentAt,_that.text);case SnapMessageModel() when snap != null:
-return snap(_that.id,_that.isMine,_that.sentAt,_that.opened);case _:
+return snap(_that.id,_that.isMine,_that.sentAt,_that.opened);case CapsuleMessageModel() when capsule != null:
+return capsule(_that.id,_that.isMine,_that.sentAt,_that.opensAt,_that.text);case _:
   return orElse();
 
 }
@@ -206,11 +214,12 @@ return snap(_that.id,_that.isMine,_that.sentAt,_that.opened);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String id,  bool isMine,  DateTime sentAt,  String text)  text,required TResult Function( String id,  bool isMine,  DateTime sentAt,  bool opened)  snap,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String id,  bool isMine,  DateTime sentAt,  String text)  text,required TResult Function( String id,  bool isMine,  DateTime sentAt,  bool opened)  snap,required TResult Function( String id,  bool isMine,  DateTime sentAt,  DateTime opensAt,  String text)  capsule,}) {final _that = this;
 switch (_that) {
 case TextMessageModel():
 return text(_that.id,_that.isMine,_that.sentAt,_that.text);case SnapMessageModel():
-return snap(_that.id,_that.isMine,_that.sentAt,_that.opened);}
+return snap(_that.id,_that.isMine,_that.sentAt,_that.opened);case CapsuleMessageModel():
+return capsule(_that.id,_that.isMine,_that.sentAt,_that.opensAt,_that.text);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -224,11 +233,12 @@ return snap(_that.id,_that.isMine,_that.sentAt,_that.opened);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String id,  bool isMine,  DateTime sentAt,  String text)?  text,TResult? Function( String id,  bool isMine,  DateTime sentAt,  bool opened)?  snap,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String id,  bool isMine,  DateTime sentAt,  String text)?  text,TResult? Function( String id,  bool isMine,  DateTime sentAt,  bool opened)?  snap,TResult? Function( String id,  bool isMine,  DateTime sentAt,  DateTime opensAt,  String text)?  capsule,}) {final _that = this;
 switch (_that) {
 case TextMessageModel() when text != null:
 return text(_that.id,_that.isMine,_that.sentAt,_that.text);case SnapMessageModel() when snap != null:
-return snap(_that.id,_that.isMine,_that.sentAt,_that.opened);case _:
+return snap(_that.id,_that.isMine,_that.sentAt,_that.opened);case CapsuleMessageModel() when capsule != null:
+return capsule(_that.id,_that.isMine,_that.sentAt,_that.opensAt,_that.text);case _:
   return null;
 
 }
@@ -392,6 +402,89 @@ as String,isMine: null == isMine ? _self.isMine : isMine // ignore: cast_nullabl
 as bool,sentAt: null == sentAt ? _self.sentAt : sentAt // ignore: cast_nullable_to_non_nullable
 as DateTime,opened: null == opened ? _self.opened : opened // ignore: cast_nullable_to_non_nullable
 as bool,
+  ));
+}
+
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class CapsuleMessageModel implements MessageModel {
+  const CapsuleMessageModel({required this.id, required this.isMine, required this.sentAt, required this.opensAt, required this.text,  String? $type}): $type = $type ?? 'capsule';
+  factory CapsuleMessageModel.fromJson(Map<String, dynamic> json) => _$CapsuleMessageModelFromJson(json);
+
+@override final  String id;
+@override final  bool isMine;
+@override final  DateTime sentAt;
+ final  DateTime opensAt;
+ final  String text;
+
+@JsonKey(name: 'kind')
+final String $type;
+
+
+/// Create a copy of MessageModel
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$CapsuleMessageModelCopyWith<CapsuleMessageModel> get copyWith => _$CapsuleMessageModelCopyWithImpl<CapsuleMessageModel>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$CapsuleMessageModelToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is CapsuleMessageModel&&(identical(other.id, id) || other.id == id)&&(identical(other.isMine, isMine) || other.isMine == isMine)&&(identical(other.sentAt, sentAt) || other.sentAt == sentAt)&&(identical(other.opensAt, opensAt) || other.opensAt == opensAt)&&(identical(other.text, text) || other.text == text));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+    return Object.hash(runtimeType,id,isMine,sentAt,opensAt,text);
+}
+
+@override
+String toString() {
+    return 'MessageModel.capsule(id: $id, isMine: $isMine, sentAt: $sentAt, opensAt: $opensAt, text: $text)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $CapsuleMessageModelCopyWith<$Res> implements $MessageModelCopyWith<$Res> {
+  factory $CapsuleMessageModelCopyWith(CapsuleMessageModel value, $Res Function(CapsuleMessageModel) _then) = _$CapsuleMessageModelCopyWithImpl;
+@override @useResult
+$Res call({
+ String id, bool isMine, DateTime sentAt, DateTime opensAt, String text
+});
+
+
+
+
+}
+/// @nodoc
+class _$CapsuleMessageModelCopyWithImpl<$Res>
+    implements $CapsuleMessageModelCopyWith<$Res> {
+  _$CapsuleMessageModelCopyWithImpl(this._self, this._then);
+
+  final CapsuleMessageModel _self;
+  final $Res Function(CapsuleMessageModel) _then;
+
+/// Create a copy of MessageModel
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? isMine = null,Object? sentAt = null,Object? opensAt = null,Object? text = null,}) {
+  return _then(CapsuleMessageModel(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,isMine: null == isMine ? _self.isMine : isMine // ignore: cast_nullable_to_non_nullable
+as bool,sentAt: null == sentAt ? _self.sentAt : sentAt // ignore: cast_nullable_to_non_nullable
+as DateTime,opensAt: null == opensAt ? _self.opensAt : opensAt // ignore: cast_nullable_to_non_nullable
+as DateTime,text: null == text ? _self.text : text // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 

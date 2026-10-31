@@ -10,4 +10,10 @@ abstract interface class ChatRepository {
   Future<Message> sendText(String friendId, String text);
 
   Future<void> openSnap(String friendId, String messageId);
+
+  Future<Message> sendCapsule(
+    String friendId,
+    String text, {
+    required DateTime opensAt,
+  });
 }

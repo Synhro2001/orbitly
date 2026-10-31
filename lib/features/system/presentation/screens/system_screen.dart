@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:orbitly/app/routes.dart';
 import 'package:orbitly/core/theme/app_colors.dart';
 import 'package:orbitly/core/theme/app_dimens.dart';
+import 'package:orbitly/core/utils/clock.dart';
 import 'package:orbitly/core/utils/l10n.dart';
 import 'package:orbitly/core/widgets/async_view.dart';
 import 'package:orbitly/core/widgets/content_viewer.dart';
@@ -193,7 +194,7 @@ class _Header extends StatelessWidget {
 }
 
 /// Уровень и лучшая серия; тап ведёт на «Мою планету».
-class _LevelChip extends StatelessWidget {
+class _LevelChip extends ConsumerWidget {
   const _LevelChip({required this.me, required this.onTap});
 
   final MyPlanet me;
@@ -202,8 +203,12 @@ class _LevelChip extends StatelessWidget {
   static const _planetIcon = 24.0;
 
   @override
-  Widget build(BuildContext context) {
-    final label = context.l10n.systemLevelChip(me.level, me.bestStreakDays);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = context.l10n;
+    final now = ref.watch(clockProvider)();
+    final label = (me.shadow?.isActiveAt(now) ?? false)
+        ? l10n.systemShadowChip
+        : l10n.systemLevelChip(me.level, me.bestStreakDays);
     return Semantics(
       button: true,
       label: label,

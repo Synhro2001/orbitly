@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:orbitly/core/domain/entities/mood.dart';
 import 'package:orbitly/core/domain/entities/planet_appearance.dart';
+import 'package:orbitly/core/domain/entities/shadow.dart';
 import 'package:orbitly/core/domain/entities/streak.dart';
 
 part 'friend.freezed.dart';
@@ -18,5 +19,8 @@ abstract class Friend with _$Friend {
     required Streak streak,
     required Mood mood,
     required bool hasUnreadSnaps,
+
+    /// Если друг в тени (или запланировал её).
+    Shadow? shadow,
   }) = _Friend;
 }
