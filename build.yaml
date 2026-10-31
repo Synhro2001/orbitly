@@ -1,0 +1,16 @@
+targets:
+  $default:
+    builders:
+      json_serializable:
+        options:
+          # Supabase/Postgres отдают snake_case.
+          field_rename: snake
+          explicit_to_json: true
+      # Анализатор проверяет .g.dart как часть библиотеки, exclude не помогает.
+      source_gen:combining_builder:
+        options:
+          ignore_for_file:
+            - document_ignores
+            - lines_longer_than_80_chars
+            - unnecessary_null_checks
+            - specify_nonobvious_property_types
