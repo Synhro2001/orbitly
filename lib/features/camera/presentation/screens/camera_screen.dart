@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:orbitly/app/routes.dart';
 import 'package:orbitly/core/theme/app_colors.dart';
 import 'package:orbitly/core/theme/app_dimens.dart';
 import 'package:orbitly/core/utils/l10n.dart';
@@ -20,6 +21,15 @@ class _CameraScreenState extends State<CameraScreen> {
   /// Скорость свайпа вправо, после которой камера закрывается.
   static const _closeSwipeVelocity = 250.0;
 
+  /// Камеру могли открыть по прямой ссылке — тогда возвращаться некуда.
+  void _close() {
+    if (context.canPop()) {
+      context.pop();
+    } else {
+      context.go(AppRoutes.system);
+    }
+  }
+
   Future<void> _shoot() async {
     if (MediaQuery.disableAnimationsOf(context)) return;
     setState(() => _shutterFlash = true);
@@ -35,7 +45,7 @@ class _CameraScreenState extends State<CameraScreen> {
       body: GestureDetector(
         onHorizontalDragEnd: (details) {
           if ((details.primaryVelocity ?? 0) > _closeSwipeVelocity) {
-            context.pop();
+            _close();
           }
         },
         child: Stack(
@@ -75,7 +85,7 @@ class _CameraScreenState extends State<CameraScreen> {
                         _RoundButton(
                           tooltip: l10n.cameraClose,
                           icon: Icons.close_rounded,
-                          onPressed: context.pop,
+                          onPressed: _close,
                         ),
                         const Spacer(),
                         _RoundButton(

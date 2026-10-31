@@ -27,16 +27,24 @@ class FriendOrbit {
 /// Геометрия системы: где находится каждый друг в момент `t` (0–1 цикла).
 class OrbitLayout {
   OrbitLayout({required Size size, required List<Friend> friends})
-    : center = size.center(Offset.zero) {
-    const tilt = AppSizes.orbitTilt;
-    const edgePadding = AppSizes.friendPlanetMax / 2;
+    : center = size.center(Offset.zero),
+      // На узком экране планеты меньше, чтобы не налезали друг на друга.
+      _scale = (size.shortestSide / AppSizes.systemReferenceSide).clamp(
+        AppSizes.systemMinScale,
+        1,
+      ),
+      // На вертикальном экране орбиты меньше сплющены, чтобы занять высоту.
+      tilt = (size.height / size.width * AppSizes.orbitTiltPerAspect).clamp(
+        AppSizes.orbitTiltMin,
+        AppSizes.orbitTiltMax,
+      ) {
+    final friendMax = AppSizes.friendPlanetMax * _scale;
+    final edgePadding = friendMax / 2;
     final rMax = math.min(
       size.width / 2 - edgePadding,
       (size.height / 2 - edgePadding) / tilt,
     );
-    const rMin =
-        AppSizes.myPlanetInSystem * PlanetPainter.bodyRadiusFactor +
-        AppSizes.friendPlanetMax / 2;
+    final rMin = mySize * PlanetPainter.bodyRadiusFactor + friendMax / 2;
     const calculateRadius = CalculateOrbitRadius();
 
     orbits = [
@@ -55,17 +63,25 @@ class OrbitLayout {
             >= 40 => 2,
             _ => 1,
           },
-          planetSize: lerpDouble(
-            AppSizes.friendPlanetMin,
-            AppSizes.friendPlanetMax,
-            friend.closeness / 100,
-          )!,
+          planetSize:
+              lerpDouble(
+                AppSizes.friendPlanetMin,
+                AppSizes.friendPlanetMax,
+                friend.closeness / 100,
+              )! *
+              _scale,
         ),
     ];
   }
 
   final Offset center;
+  final double _scale;
+
+  /// Сжатие орбит по вертикали — имитация наклона плоскости системы.
+  final double tilt;
   late final List<FriendOrbit> orbits;
+
+  double get mySize => AppSizes.myPlanetInSystem * _scale;
 
   double angleOf(FriendOrbit orbit, double t) =>
       orbit.phase + 2 * math.pi * orbit.turnsPerCycle * t;
@@ -75,7 +91,7 @@ class OrbitLayout {
     return center +
         Offset(
           math.cos(angle) * orbit.radius,
-          math.sin(angle) * orbit.radius * AppSizes.orbitTilt,
+          math.sin(angle) * orbit.radius * tilt,
         );
   }
 

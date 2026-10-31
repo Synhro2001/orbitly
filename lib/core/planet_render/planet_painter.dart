@@ -170,7 +170,7 @@ class PlanetPainter extends CustomPainter {
     required double blob,
   }) {
     final land = appearance.type == PlanetType.ocean
-        ? _hsl(140, 0.45, 0.42)
+        ? _hsl(-70, 0.45, 0.42)
         : _hsl(25, 0.6, 0.5);
     final paint = Paint()..color = land;
     for (var i = 0; i < count; i++) {

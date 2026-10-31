@@ -79,10 +79,7 @@ class _OrbitSystemViewState extends State<OrbitSystemView>
                 Flow(
                   delegate: _OrbitFlowDelegate(layout, _clock),
                   children: [
-                    PlanetView(
-                      appearance: widget.me,
-                      size: AppSizes.myPlanetInSystem,
-                    ),
+                    PlanetView(appearance: widget.me, size: layout.mySize),
                     for (final orbit in layout.orbits)
                       _FriendPlanet(
                         orbit: orbit,
@@ -164,9 +161,8 @@ class _OrbitFlowDelegate extends FlowDelegate {
 
   static const _farScale = 0.82;
 
-  double _sizeOf(int index) => index == 0
-      ? AppSizes.myPlanetInSystem
-      : layout.orbits[index - 1].planetSize;
+  double _sizeOf(int index) =>
+      index == 0 ? layout.mySize : layout.orbits[index - 1].planetSize;
 
   @override
   BoxConstraints getConstraintsForChild(int i, BoxConstraints constraints) =>
@@ -222,7 +218,7 @@ class _OrbitsPainter extends CustomPainter {
         Rect.fromCenter(
           center: layout.center,
           width: orbit.radius * 2,
-          height: orbit.radius * 2 * AppSizes.orbitTilt,
+          height: orbit.radius * 2 * layout.tilt,
         ),
         paint,
       );

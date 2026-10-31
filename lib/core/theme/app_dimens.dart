@@ -29,8 +29,16 @@ abstract final class AppSizes {
   static const edgeSwipeZone = 28.0;
   static const awardTile = 96.0;
 
-  /// Сжатие орбиты по вертикали — имитация наклона плоскости системы.
-  static const orbitTilt = 0.55;
+  /// Размеры планет в системе заданы для этой стороны экрана; на меньших
+  /// экранах они уменьшаются, но не меньше чем в [systemMinScale] раз.
+  static const systemReferenceSide = 480.0;
+  static const systemMinScale = 0.7;
+
+  /// Сжатие орбит по вертикали (наклон плоскости системы) зависит от
+  /// пропорций экрана: высота / ширина × коэффициент, в пределах min–max.
+  static const orbitTiltPerAspect = 0.55;
+  static const orbitTiltMin = 0.5;
+  static const orbitTiltMax = 0.85;
 }
 
 abstract final class AppDurations {
