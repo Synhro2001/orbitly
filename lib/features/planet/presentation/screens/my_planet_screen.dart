@@ -59,11 +59,12 @@ class _PlanetContent extends ConsumerWidget {
             children: [
               Row(
                 children: [
-                  Text(
-                    l10n.planetLevel(planet.level),
-                    style: textTheme.titleMedium,
+                  Expanded(
+                    child: Text(
+                      l10n.planetLevel(planet.level),
+                      style: textTheme.titleMedium,
+                    ),
                   ),
-                  const Spacer(),
                   Text(
                     l10n.planetXp(planet.xp, planet.xpForNextLevel),
                     style: textTheme.bodySmall,
@@ -81,8 +82,12 @@ class _PlanetContent extends ConsumerWidget {
               const SizedBox(height: AppSpacing.l),
               Row(
                 children: [
-                  Text(l10n.planetBestStreak, style: textTheme.bodyMedium),
-                  const Spacer(),
+                  Expanded(
+                    child: Text(
+                      l10n.planetBestStreak,
+                      style: textTheme.bodyMedium,
+                    ),
+                  ),
                   Text(
                     '🔥 ${l10n.streakDays(planet.bestStreakDays)}',
                     style: textTheme.titleSmall?.copyWith(color: AppColors.sun),
@@ -113,12 +118,17 @@ class _PlanetContent extends ConsumerWidget {
         const SizedBox(height: AppSpacing.l),
         _Section(
           title: l10n.planetAwards,
-          child: GridView.extent(
-            maxCrossAxisExtent: AppSizes.awardTile,
+          // Высота плитки фиксирована: на узком экране ширина ячейки
+          // уменьшается, а значок с подписью в две строки должен влезать.
+          child: GridView(
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+              maxCrossAxisExtent: AppSizes.awardTile,
+              mainAxisExtent: AppSizes.awardTileHeight,
+              mainAxisSpacing: AppSpacing.s,
+              crossAxisSpacing: AppSpacing.s,
+            ),
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            mainAxisSpacing: AppSpacing.s,
-            crossAxisSpacing: AppSpacing.s,
             children: [for (final award in planet.awards) _AwardTile(award)],
           ),
         ),
@@ -186,12 +196,14 @@ class _AwardTile extends StatelessWidget {
                 child: Text(award.emoji, style: textTheme.headlineMedium),
               ),
               const SizedBox(height: AppSpacing.xs),
-              Text(
-                unlocked ? award.title : context.l10n.planetAwardLocked,
-                style: textTheme.labelSmall,
-                textAlign: TextAlign.center,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
+              Flexible(
+                child: Text(
+                  unlocked ? award.title : context.l10n.planetAwardLocked,
+                  style: textTheme.labelSmall,
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ],
           ),

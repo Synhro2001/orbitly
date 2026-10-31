@@ -28,6 +28,7 @@ abstract final class AppSizes {
   static const iconButton = 44.0;
   static const edgeSwipeZone = 28.0;
   static const awardTile = 96.0;
+  static const awardTileHeight = 104.0;
 
   /// Минимальная зона касания (Material / Apple HIG).
   static const minTapTarget = 48.0;
