@@ -2,6 +2,7 @@ import 'package:orbitly/app/di.dart';
 import 'package:orbitly/core/domain/entities/award.dart';
 import 'package:orbitly/core/domain/entities/cosmetic.dart';
 import 'package:orbitly/core/utils/clock.dart';
+import 'package:orbitly/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:orbitly/features/planet/presentation/controllers/my_planet_controller.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -62,6 +63,11 @@ class OwnedCosmetics extends _$OwnedCosmetics {
 
 /// Новые открытия с сервера (Realtime). Слушатель перечитывает каталог,
 /// косметику и планету — из них и складывается очередь анимаций.
+///
+/// Подписка привязана к пользователю: после повторного входа (истекла
+/// сессия, другой аккаунт) она переподключается, а не молчит.
 @Riverpod(keepAlive: true)
-Stream<String> achievementUnlocks(Ref ref) =>
-    ref.watch(achievementsRepositoryProvider).watchUnlocks();
+Stream<String> achievementUnlocks(Ref ref) {
+  ref.watch(signedInProvider);
+  return ref.watch(achievementsRepositoryProvider).watchUnlocks();
+}

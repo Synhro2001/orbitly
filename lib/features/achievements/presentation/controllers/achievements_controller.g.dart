@@ -148,18 +148,27 @@ abstract class _$OwnedCosmetics extends $AsyncNotifier<List<Cosmetic>> {
 
 /// Новые открытия с сервера (Realtime). Слушатель перечитывает каталог,
 /// косметику и планету — из них и складывается очередь анимаций.
+///
+/// Подписка привязана к пользователю: после повторного входа (истекла
+/// сессия, другой аккаунт) она переподключается, а не молчит.
 
 @ProviderFor(achievementUnlocks)
 final achievementUnlocksProvider = AchievementUnlocksProvider._();
 
 /// Новые открытия с сервера (Realtime). Слушатель перечитывает каталог,
 /// косметику и планету — из них и складывается очередь анимаций.
+///
+/// Подписка привязана к пользователю: после повторного входа (истекла
+/// сессия, другой аккаунт) она переподключается, а не молчит.
 
 final class AchievementUnlocksProvider
     extends $FunctionalProvider<AsyncValue<String>, String, Stream<String>>
     with $FutureModifier<String>, $StreamProvider<String> {
   /// Новые открытия с сервера (Realtime). Слушатель перечитывает каталог,
   /// косметику и планету — из них и складывается очередь анимаций.
+  ///
+  /// Подписка привязана к пользователю: после повторного входа (истекла
+  /// сессия, другой аккаунт) она переподключается, а не молчит.
   AchievementUnlocksProvider._()
     : super(
         from: null,
@@ -186,4 +195,4 @@ final class AchievementUnlocksProvider
 }
 
 String _$achievementUnlocksHash() =>
-    r'860d4a78019fc7d12f123349e844ca2f73028b84';
+    r'20de0eafecf7d7ca0a9b2880ade43606bb936b68';
