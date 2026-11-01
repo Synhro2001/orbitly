@@ -8,7 +8,9 @@ import 'package:orbitly/core/data/mock/mock_store.dart';
 
 /// Запускает приложение с готовой планетой, без задержек сети и без
 /// бесконечных анимаций (включено «уменьшить движение»).
-Future<GoRouter> pumpApp(WidgetTester tester) async {
+///
+/// [store] — своё моковое хранилище, например с новым открытием.
+Future<GoRouter> pumpApp(WidgetTester tester, {MockStore? store}) async {
   tester.platformDispatcher.accessibilityFeaturesTestValue =
       const FakeAccessibilityFeatures(disableAnimations: true);
   addTearDown(tester.platformDispatcher.clearAccessibilityFeaturesTestValue);
@@ -17,7 +19,7 @@ Future<GoRouter> pumpApp(WidgetTester tester) async {
     ProviderScope(
       overrides: [
         mockStoreProvider.overrideWithValue(
-          MockStore(latency: Duration.zero, withPlanet: true),
+          store ?? MockStore(latency: Duration.zero, withPlanet: true),
         ),
       ],
       child: const OrbitlyApp(),
