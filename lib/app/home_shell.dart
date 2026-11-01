@@ -8,6 +8,7 @@ import 'package:orbitly/core/theme/app_colors.dart';
 import 'package:orbitly/core/theme/app_dimens.dart';
 import 'package:orbitly/core/utils/l10n.dart';
 import 'package:orbitly/core/widgets/starfield_background.dart';
+import 'package:orbitly/features/achievements/presentation/widgets/unlock_celebration.dart';
 import 'package:orbitly/features/chat/presentation/controllers/chat_controller.dart';
 import 'package:orbitly/features/friends/presentation/controllers/friends_controller.dart';
 
@@ -50,7 +51,7 @@ class HomeShell extends ConsumerWidget {
     return Scaffold(
       // Контент виден под полупрозрачной панелью.
       extendBody: true,
-      body: StarfieldBackground(child: shell),
+      body: UnlockCelebrationHost(child: StarfieldBackground(child: shell)),
       bottomNavigationBar: SafeArea(
         minimum: const EdgeInsets.fromLTRB(
           AppSpacing.m,

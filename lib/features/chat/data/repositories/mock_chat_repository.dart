@@ -52,7 +52,7 @@ class MockChatRepository implements ChatRepository {
       friend: FriendModel.fromJson(_store.friendJson(friendId)).toEntity(),
       messages: _messages(friendId),
       sharedTrophies: [
-        for (final json in _store.awards)
+        for (final json in _store.achievements)
           if (trophyIds.contains(json['id']))
             AwardModel.fromJson(json).toEntity(),
       ],

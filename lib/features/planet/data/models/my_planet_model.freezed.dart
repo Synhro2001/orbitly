@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$MyPlanetModel {
 
- String get name; PlanetAppearanceModel get appearance; int get level; int get xp; int get xpForNextLevel; int get bestStreakDays;@JsonKey(unknownEnumValue: Mood.calm) Mood get mood; DateTime? get shadowFrom; DateTime? get shadowUntil;
+ String get planetName; String get handle; PlanetAppearanceModel get appearance; int get level; int get xp; int get bestStreakDays;@JsonKey(unknownEnumValue: Mood.calm) Mood get mood; DateTime? get shadowFrom; DateTime? get shadowUntil;
 /// Create a copy of MyPlanetModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -30,20 +30,20 @@ $MyPlanetModelCopyWith<MyPlanetModel> get copyWith => _$MyPlanetModelCopyWithImp
 @override
 bool operator ==(Object other) {
   final _this = this as MyPlanetModel;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MyPlanetModel&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.appearance, _this.appearance) || other.appearance == _this.appearance)&&(identical(other.level, _this.level) || other.level == _this.level)&&(identical(other.xp, _this.xp) || other.xp == _this.xp)&&(identical(other.xpForNextLevel, _this.xpForNextLevel) || other.xpForNextLevel == _this.xpForNextLevel)&&(identical(other.bestStreakDays, _this.bestStreakDays) || other.bestStreakDays == _this.bestStreakDays)&&(identical(other.mood, _this.mood) || other.mood == _this.mood)&&(identical(other.shadowFrom, _this.shadowFrom) || other.shadowFrom == _this.shadowFrom)&&(identical(other.shadowUntil, _this.shadowUntil) || other.shadowUntil == _this.shadowUntil));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MyPlanetModel&&(identical(other.planetName, _this.planetName) || other.planetName == _this.planetName)&&(identical(other.handle, _this.handle) || other.handle == _this.handle)&&(identical(other.appearance, _this.appearance) || other.appearance == _this.appearance)&&(identical(other.level, _this.level) || other.level == _this.level)&&(identical(other.xp, _this.xp) || other.xp == _this.xp)&&(identical(other.bestStreakDays, _this.bestStreakDays) || other.bestStreakDays == _this.bestStreakDays)&&(identical(other.mood, _this.mood) || other.mood == _this.mood)&&(identical(other.shadowFrom, _this.shadowFrom) || other.shadowFrom == _this.shadowFrom)&&(identical(other.shadowUntil, _this.shadowUntil) || other.shadowUntil == _this.shadowUntil));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as MyPlanetModel;
-  return Object.hash(runtimeType,_this.name,_this.appearance,_this.level,_this.xp,_this.xpForNextLevel,_this.bestStreakDays,_this.mood,_this.shadowFrom,_this.shadowUntil);
+  return Object.hash(runtimeType,_this.planetName,_this.handle,_this.appearance,_this.level,_this.xp,_this.bestStreakDays,_this.mood,_this.shadowFrom,_this.shadowUntil);
 }
 
 @override
 String toString() {
   final _this = this as MyPlanetModel;
-  return 'MyPlanetModel(name: ${_this.name}, appearance: ${_this.appearance}, level: ${_this.level}, xp: ${_this.xp}, xpForNextLevel: ${_this.xpForNextLevel}, bestStreakDays: ${_this.bestStreakDays}, mood: ${_this.mood}, shadowFrom: ${_this.shadowFrom}, shadowUntil: ${_this.shadowUntil})';
+  return 'MyPlanetModel(planetName: ${_this.planetName}, handle: ${_this.handle}, appearance: ${_this.appearance}, level: ${_this.level}, xp: ${_this.xp}, bestStreakDays: ${_this.bestStreakDays}, mood: ${_this.mood}, shadowFrom: ${_this.shadowFrom}, shadowUntil: ${_this.shadowUntil})';
 }
 
 
@@ -54,7 +54,7 @@ abstract mixin class $MyPlanetModelCopyWith<$Res>  {
   factory $MyPlanetModelCopyWith(MyPlanetModel value, $Res Function(MyPlanetModel) _then) = _$MyPlanetModelCopyWithImpl;
 @useResult
 $Res call({
- String name, PlanetAppearanceModel appearance, int level, int xp, int xpForNextLevel, int bestStreakDays,@JsonKey(unknownEnumValue: Mood.calm) Mood mood, DateTime? shadowFrom, DateTime? shadowUntil
+ String planetName, String handle, PlanetAppearanceModel appearance, int level, int xp, int bestStreakDays,@JsonKey(unknownEnumValue: Mood.calm) Mood mood, DateTime? shadowFrom, DateTime? shadowUntil
 });
 
 
@@ -71,13 +71,13 @@ class _$MyPlanetModelCopyWithImpl<$Res>
 
 /// Create a copy of MyPlanetModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? appearance = null,Object? level = null,Object? xp = null,Object? xpForNextLevel = null,Object? bestStreakDays = null,Object? mood = null,Object? shadowFrom = freezed,Object? shadowUntil = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? planetName = null,Object? handle = null,Object? appearance = null,Object? level = null,Object? xp = null,Object? bestStreakDays = null,Object? mood = null,Object? shadowFrom = freezed,Object? shadowUntil = freezed,}) {
   return _then(MyPlanetModel(
-name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+planetName: null == planetName ? _self.planetName : planetName // ignore: cast_nullable_to_non_nullable
+as String,handle: null == handle ? _self.handle : handle // ignore: cast_nullable_to_non_nullable
 as String,appearance: null == appearance ? _self.appearance : appearance // ignore: cast_nullable_to_non_nullable
 as PlanetAppearanceModel,level: null == level ? _self.level : level // ignore: cast_nullable_to_non_nullable
 as int,xp: null == xp ? _self.xp : xp // ignore: cast_nullable_to_non_nullable
-as int,xpForNextLevel: null == xpForNextLevel ? _self.xpForNextLevel : xpForNextLevel // ignore: cast_nullable_to_non_nullable
 as int,bestStreakDays: null == bestStreakDays ? _self.bestStreakDays : bestStreakDays // ignore: cast_nullable_to_non_nullable
 as int,mood: null == mood ? _self.mood : mood // ignore: cast_nullable_to_non_nullable
 as Mood,shadowFrom: freezed == shadowFrom ? _self.shadowFrom : shadowFrom // ignore: cast_nullable_to_non_nullable
@@ -176,10 +176,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  PlanetAppearanceModel appearance,  int level,  int xp,  int xpForNextLevel,  int bestStreakDays, @JsonKey(unknownEnumValue: Mood.calm)  Mood mood,  DateTime? shadowFrom,  DateTime? shadowUntil)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String planetName,  String handle,  PlanetAppearanceModel appearance,  int level,  int xp,  int bestStreakDays, @JsonKey(unknownEnumValue: Mood.calm)  Mood mood,  DateTime? shadowFrom,  DateTime? shadowUntil)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _MyPlanetModel() when $default != null:
-return $default(_that.name,_that.appearance,_that.level,_that.xp,_that.xpForNextLevel,_that.bestStreakDays,_that.mood,_that.shadowFrom,_that.shadowUntil);case _:
+return $default(_that.planetName,_that.handle,_that.appearance,_that.level,_that.xp,_that.bestStreakDays,_that.mood,_that.shadowFrom,_that.shadowUntil);case _:
   return orElse();
 
 }
@@ -197,10 +197,10 @@ return $default(_that.name,_that.appearance,_that.level,_that.xp,_that.xpForNext
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  PlanetAppearanceModel appearance,  int level,  int xp,  int xpForNextLevel,  int bestStreakDays, @JsonKey(unknownEnumValue: Mood.calm)  Mood mood,  DateTime? shadowFrom,  DateTime? shadowUntil)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String planetName,  String handle,  PlanetAppearanceModel appearance,  int level,  int xp,  int bestStreakDays, @JsonKey(unknownEnumValue: Mood.calm)  Mood mood,  DateTime? shadowFrom,  DateTime? shadowUntil)  $default,) {final _that = this;
 switch (_that) {
 case _MyPlanetModel():
-return $default(_that.name,_that.appearance,_that.level,_that.xp,_that.xpForNextLevel,_that.bestStreakDays,_that.mood,_that.shadowFrom,_that.shadowUntil);case _:
+return $default(_that.planetName,_that.handle,_that.appearance,_that.level,_that.xp,_that.bestStreakDays,_that.mood,_that.shadowFrom,_that.shadowUntil);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -217,10 +217,10 @@ return $default(_that.name,_that.appearance,_that.level,_that.xp,_that.xpForNext
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  PlanetAppearanceModel appearance,  int level,  int xp,  int xpForNextLevel,  int bestStreakDays, @JsonKey(unknownEnumValue: Mood.calm)  Mood mood,  DateTime? shadowFrom,  DateTime? shadowUntil)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String planetName,  String handle,  PlanetAppearanceModel appearance,  int level,  int xp,  int bestStreakDays, @JsonKey(unknownEnumValue: Mood.calm)  Mood mood,  DateTime? shadowFrom,  DateTime? shadowUntil)?  $default,) {final _that = this;
 switch (_that) {
 case _MyPlanetModel() when $default != null:
-return $default(_that.name,_that.appearance,_that.level,_that.xp,_that.xpForNextLevel,_that.bestStreakDays,_that.mood,_that.shadowFrom,_that.shadowUntil);case _:
+return $default(_that.planetName,_that.handle,_that.appearance,_that.level,_that.xp,_that.bestStreakDays,_that.mood,_that.shadowFrom,_that.shadowUntil);case _:
   return null;
 
 }
@@ -232,14 +232,14 @@ return $default(_that.name,_that.appearance,_that.level,_that.xp,_that.xpForNext
 @JsonSerializable()
 
 class _MyPlanetModel implements MyPlanetModel {
-  const _MyPlanetModel({required this.name, required this.appearance, required this.level, required this.xp, required this.xpForNextLevel, required this.bestStreakDays, @JsonKey(unknownEnumValue: Mood.calm) required this.mood, this.shadowFrom, this.shadowUntil});
+  const _MyPlanetModel({required this.planetName, required this.handle, required this.appearance, required this.level, required this.xp, required this.bestStreakDays, @JsonKey(unknownEnumValue: Mood.calm) required this.mood, this.shadowFrom, this.shadowUntil});
   factory _MyPlanetModel.fromJson(Map<String, dynamic> json) => _$MyPlanetModelFromJson(json);
 
-@override final  String name;
+@override final  String planetName;
+@override final  String handle;
 @override final  PlanetAppearanceModel appearance;
 @override final  int level;
 @override final  int xp;
-@override final  int xpForNextLevel;
 @override final  int bestStreakDays;
 @override@JsonKey(unknownEnumValue: Mood.calm) final  Mood mood;
 @override final  DateTime? shadowFrom;
@@ -258,18 +258,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _MyPlanetModel&&(identical(other.name, name) || other.name == name)&&(identical(other.appearance, appearance) || other.appearance == appearance)&&(identical(other.level, level) || other.level == level)&&(identical(other.xp, xp) || other.xp == xp)&&(identical(other.xpForNextLevel, xpForNextLevel) || other.xpForNextLevel == xpForNextLevel)&&(identical(other.bestStreakDays, bestStreakDays) || other.bestStreakDays == bestStreakDays)&&(identical(other.mood, mood) || other.mood == mood)&&(identical(other.shadowFrom, shadowFrom) || other.shadowFrom == shadowFrom)&&(identical(other.shadowUntil, shadowUntil) || other.shadowUntil == shadowUntil));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _MyPlanetModel&&(identical(other.planetName, planetName) || other.planetName == planetName)&&(identical(other.handle, handle) || other.handle == handle)&&(identical(other.appearance, appearance) || other.appearance == appearance)&&(identical(other.level, level) || other.level == level)&&(identical(other.xp, xp) || other.xp == xp)&&(identical(other.bestStreakDays, bestStreakDays) || other.bestStreakDays == bestStreakDays)&&(identical(other.mood, mood) || other.mood == mood)&&(identical(other.shadowFrom, shadowFrom) || other.shadowFrom == shadowFrom)&&(identical(other.shadowUntil, shadowUntil) || other.shadowUntil == shadowUntil));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,name,appearance,level,xp,xpForNextLevel,bestStreakDays,mood,shadowFrom,shadowUntil);
+    return Object.hash(runtimeType,planetName,handle,appearance,level,xp,bestStreakDays,mood,shadowFrom,shadowUntil);
 }
 
 @override
 String toString() {
-    return 'MyPlanetModel(name: $name, appearance: $appearance, level: $level, xp: $xp, xpForNextLevel: $xpForNextLevel, bestStreakDays: $bestStreakDays, mood: $mood, shadowFrom: $shadowFrom, shadowUntil: $shadowUntil)';
+    return 'MyPlanetModel(planetName: $planetName, handle: $handle, appearance: $appearance, level: $level, xp: $xp, bestStreakDays: $bestStreakDays, mood: $mood, shadowFrom: $shadowFrom, shadowUntil: $shadowUntil)';
 }
 
 
@@ -280,7 +280,7 @@ abstract mixin class _$MyPlanetModelCopyWith<$Res> implements $MyPlanetModelCopy
   factory _$MyPlanetModelCopyWith(_MyPlanetModel value, $Res Function(_MyPlanetModel) _then) = __$MyPlanetModelCopyWithImpl;
 @override @useResult
 $Res call({
- String name, PlanetAppearanceModel appearance, int level, int xp, int xpForNextLevel, int bestStreakDays,@JsonKey(unknownEnumValue: Mood.calm) Mood mood, DateTime? shadowFrom, DateTime? shadowUntil
+ String planetName, String handle, PlanetAppearanceModel appearance, int level, int xp, int bestStreakDays,@JsonKey(unknownEnumValue: Mood.calm) Mood mood, DateTime? shadowFrom, DateTime? shadowUntil
 });
 
 
@@ -297,13 +297,13 @@ class __$MyPlanetModelCopyWithImpl<$Res>
 
 /// Create a copy of MyPlanetModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? appearance = null,Object? level = null,Object? xp = null,Object? xpForNextLevel = null,Object? bestStreakDays = null,Object? mood = null,Object? shadowFrom = freezed,Object? shadowUntil = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? planetName = null,Object? handle = null,Object? appearance = null,Object? level = null,Object? xp = null,Object? bestStreakDays = null,Object? mood = null,Object? shadowFrom = freezed,Object? shadowUntil = freezed,}) {
   return _then(_MyPlanetModel(
-name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+planetName: null == planetName ? _self.planetName : planetName // ignore: cast_nullable_to_non_nullable
+as String,handle: null == handle ? _self.handle : handle // ignore: cast_nullable_to_non_nullable
 as String,appearance: null == appearance ? _self.appearance : appearance // ignore: cast_nullable_to_non_nullable
 as PlanetAppearanceModel,level: null == level ? _self.level : level // ignore: cast_nullable_to_non_nullable
 as int,xp: null == xp ? _self.xp : xp // ignore: cast_nullable_to_non_nullable
-as int,xpForNextLevel: null == xpForNextLevel ? _self.xpForNextLevel : xpForNextLevel // ignore: cast_nullable_to_non_nullable
 as int,bestStreakDays: null == bestStreakDays ? _self.bestStreakDays : bestStreakDays // ignore: cast_nullable_to_non_nullable
 as int,mood: null == mood ? _self.mood : mood // ignore: cast_nullable_to_non_nullable
 as Mood,shadowFrom: freezed == shadowFrom ? _self.shadowFrom : shadowFrom // ignore: cast_nullable_to_non_nullable
