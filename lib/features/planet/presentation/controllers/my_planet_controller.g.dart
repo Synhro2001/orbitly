@@ -119,7 +119,7 @@ final class MyPlanetControllerProvider
 }
 
 String _$myPlanetControllerHash() =>
-    r'3087e7970e7b33ce307d981ec7512e739cf49f34';
+    r'066960b3cae2d3a6d0bc9f0d91bcf224777eb834';
 
 abstract class _$MyPlanetController extends $AsyncNotifier<MyPlanet> {
   FutureOr<MyPlanet> build();

@@ -15,7 +15,8 @@ void main() {
   testWidgets('shows friend, messages and the snap plaque', (tester) async {
     await openChat(tester);
 
-    expect(find.textContaining('Аня'), findsOneWidget);
+    // Имя видно и в компактной шапке, и в карточке друга.
+    expect(find.textContaining('Аня'), findsNWidgets(2));
     expect(find.text('@anya.sky'), findsOneWidget);
     expect(find.text('Ты видел закат сегодня?'), findsOneWidget);
     expect(find.text('Снап — нажми, чтобы посмотреть'), findsOneWidget);

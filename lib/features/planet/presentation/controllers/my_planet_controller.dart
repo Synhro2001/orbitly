@@ -3,6 +3,7 @@ import 'package:orbitly/core/domain/entities/mood.dart';
 import 'package:orbitly/core/domain/entities/shadow.dart';
 import 'package:orbitly/core/utils/clock.dart';
 import 'package:orbitly/features/planet/domain/entities/my_planet.dart';
+import 'package:orbitly/features/planet/domain/repositories/planet_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'my_planet_controller.g.dart';
@@ -22,17 +23,12 @@ class MyPlanetController extends _$MyPlanetController {
   @override
   Future<MyPlanet> build() => ref.watch(planetRepositoryProvider).getMyPlanet();
 
-  /// Меняем настроение сразу, при ошибке сети откатываем.
   Future<void> setMood(Mood mood) async {
-    final previous = state.value;
-    if (previous == null || previous.mood == mood) return;
-    state = AsyncData(previous.copyWith(mood: mood));
-    try {
-      await ref.read(planetRepositoryProvider).setMood(mood);
-    } on Object {
-      if (ref.mounted) state = AsyncData(previous);
-      rethrow;
-    }
+    if (state.value?.mood == mood) return;
+    await _optimistic(
+      (planet) => planet.copyWith(mood: mood),
+      (repository) => repository.setMood(mood),
+    );
   }
 
   Future<void> enterShadow(Duration duration) {
@@ -48,12 +44,21 @@ class MyPlanetController extends _$MyPlanetController {
     await _setShadow(shadow.copyWith(until: ref.read(clockProvider)()));
   }
 
-  Future<void> _setShadow(Shadow? shadow) async {
+  Future<void> _setShadow(Shadow? shadow) => _optimistic(
+    (planet) => planet.copyWith(shadow: shadow),
+    (repository) => repository.setShadow(shadow),
+  );
+
+  /// Меняем экран сразу, не дожидаясь сервера; при ошибке сети откатываем.
+  Future<void> _optimistic(
+    MyPlanet Function(MyPlanet planet) update,
+    Future<void> Function(PlanetRepository repository) save,
+  ) async {
     final previous = state.value;
     if (previous == null) return;
-    state = AsyncData(previous.copyWith(shadow: shadow));
+    state = AsyncData(update(previous));
     try {
-      await ref.read(planetRepositoryProvider).setShadow(shadow);
+      await save(ref.read(planetRepositoryProvider));
     } on Object {
       if (ref.mounted) state = AsyncData(previous);
       rethrow;

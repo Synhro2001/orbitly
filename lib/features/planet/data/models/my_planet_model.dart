@@ -1,8 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:orbitly/core/data/models/planet_appearance_model.dart';
+import 'package:orbitly/core/data/models/shadow_json.dart';
 import 'package:orbitly/core/domain/entities/award.dart';
 import 'package:orbitly/core/domain/entities/mood.dart';
-import 'package:orbitly/core/domain/entities/shadow.dart';
 import 'package:orbitly/features/planet/domain/entities/my_planet.dart';
 
 part 'my_planet_model.freezed.dart';
@@ -36,8 +36,6 @@ extension MyPlanetModelX on MyPlanetModel {
     bestStreakDays: bestStreakDays,
     mood: mood,
     awards: awards,
-    shadow: shadowFrom != null && shadowUntil != null
-        ? Shadow(from: shadowFrom!, until: shadowUntil!)
-        : null,
+    shadow: shadowFromFields(shadowFrom, shadowUntil),
   );
 }

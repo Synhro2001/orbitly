@@ -1,8 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:orbitly/core/data/models/planet_appearance_model.dart';
+import 'package:orbitly/core/data/models/shadow_json.dart';
 import 'package:orbitly/core/domain/entities/friend.dart';
 import 'package:orbitly/core/domain/entities/mood.dart';
-import 'package:orbitly/core/domain/entities/shadow.dart';
 import 'package:orbitly/core/domain/entities/streak.dart';
 
 part 'friend_model.freezed.dart';
@@ -38,8 +38,6 @@ extension FriendModelX on FriendModel {
     streak: Streak(days: streakDays, lastExchangeAt: lastExchangeAt),
     mood: mood,
     hasUnreadSnaps: hasUnreadSnaps,
-    shadow: shadowFrom != null && shadowUntil != null
-        ? Shadow(from: shadowFrom!, until: shadowUntil!)
-        : null,
+    shadow: shadowFromFields(shadowFrom, shadowUntil),
   );
 }

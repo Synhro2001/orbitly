@@ -388,6 +388,36 @@ abstract class AppLocalizations {
   /// **'Снап'**
   String get chatsLastSnap;
 
+  /// No description provided for @chatsUnread.
+  ///
+  /// In ru, this message translates to:
+  /// **'Есть непрочитанное'**
+  String get chatsUnread;
+
+  /// No description provided for @timeNow.
+  ///
+  /// In ru, this message translates to:
+  /// **'сейчас'**
+  String get timeNow;
+
+  /// No description provided for @timeMinutes.
+  ///
+  /// In ru, this message translates to:
+  /// **'{count} мин'**
+  String timeMinutes(int count);
+
+  /// No description provided for @timeHours.
+  ///
+  /// In ru, this message translates to:
+  /// **'{count} ч'**
+  String timeHours(int count);
+
+  /// No description provided for @timeDays.
+  ///
+  /// In ru, this message translates to:
+  /// **'{count} дн.'**
+  String timeDays(int count);
+
   /// No description provided for @chatSnapTapToView.
   ///
   /// In ru, this message translates to:

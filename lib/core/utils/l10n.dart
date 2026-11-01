@@ -38,3 +38,16 @@ extension PlanetTypeL10n on PlanetType {
     PlanetType.gas => l10n.planetTypeGas,
   };
 }
+
+/// Короткое «сколько прошло» для списков: «сейчас», «15 мин», «3 ч», «2 дн.».
+String formatTimeAgo(
+  AppLocalizations l10n,
+  DateTime time, {
+  required DateTime now,
+}) {
+  final passed = now.difference(time);
+  if (passed.inMinutes < 1) return l10n.timeNow;
+  if (passed.inHours < 1) return l10n.timeMinutes(passed.inMinutes);
+  if (passed.inDays < 1) return l10n.timeHours(passed.inHours);
+  return l10n.timeDays(passed.inDays);
+}

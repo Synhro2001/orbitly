@@ -3,7 +3,7 @@ import 'package:orbitly/core/domain/entities/friend.dart';
 import 'package:orbitly/core/theme/app_colors.dart';
 import 'package:orbitly/core/theme/app_dimens.dart';
 import 'package:orbitly/core/utils/l10n.dart';
-import 'package:orbitly/core/widgets/planet_view.dart';
+import 'package:orbitly/core/widgets/planet_disc.dart';
 import 'package:orbitly/features/system/domain/entities/moment.dart';
 
 /// Ряд кружков с моментами друзей. Непросмотренные — в цветном кольце.
@@ -84,21 +84,9 @@ class _MomentCircle extends StatelessWidget {
                     ? Border.all(color: AppColors.outline)
                     : null,
               ),
-              child: DecoratedBox(
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppColors.spaceMid,
-                ),
-                child: ClipOval(
-                  child: OverflowBox(
-                    maxWidth: AppSizes.momentAvatar * 1.5,
-                    maxHeight: AppSizes.momentAvatar * 1.5,
-                    child: PlanetView(
-                      appearance: friend.appearance,
-                      size: AppSizes.momentAvatar * 1.5,
-                    ),
-                  ),
-                ),
+              child: PlanetDisc(
+                appearance: friend.appearance,
+                diameter: AppSizes.momentAvatar - AppSpacing.xs,
               ),
             ),
             const SizedBox(height: AppSpacing.xs),

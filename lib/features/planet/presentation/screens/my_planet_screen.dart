@@ -6,6 +6,7 @@ import 'package:orbitly/core/theme/app_colors.dart';
 import 'package:orbitly/core/theme/app_dimens.dart';
 import 'package:orbitly/core/utils/clock.dart';
 import 'package:orbitly/core/utils/l10n.dart';
+import 'package:orbitly/core/utils/time.dart';
 import 'package:orbitly/core/widgets/async_view.dart';
 import 'package:orbitly/core/widgets/planet_view.dart';
 import 'package:orbitly/features/planet/domain/entities/my_planet.dart';
@@ -231,8 +232,7 @@ class _ShadowControls extends ConsumerWidget {
     final shadow = planet.shadow;
 
     if (shadow != null && shadow.isActiveAt(now)) {
-      final daysLeft = (shadow.until.difference(now).inMinutes / (24 * 60))
-          .ceil();
+      final daysLeft = daysUntil(shadow.until, now: now);
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

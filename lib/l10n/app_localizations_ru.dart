@@ -182,6 +182,27 @@ class AppLocalizationsRu extends AppLocalizations {
   String get chatsLastSnap => 'Снап';
 
   @override
+  String get chatsUnread => 'Есть непрочитанное';
+
+  @override
+  String get timeNow => 'сейчас';
+
+  @override
+  String timeMinutes(int count) {
+    return '$count мин';
+  }
+
+  @override
+  String timeHours(int count) {
+    return '$count ч';
+  }
+
+  @override
+  String timeDays(int count) {
+    return '$count дн.';
+  }
+
+  @override
   String get chatSnapTapToView => 'Снап — нажми, чтобы посмотреть';
 
   @override
