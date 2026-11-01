@@ -1,0 +1,21 @@
+include: package:very_good_analysis/analysis_options.yaml
+
+analyzer:
+  exclude:
+    - build/**
+    - android/**
+    - web/**
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+    - lib/l10n/app_localizations*.dart
+  errors:
+    # Generated freezed/json code needs these annotations on constructor params.
+    invalid_annotation_target: ignore
+
+linter:
+  rules:
+    # Это приложение, а не пакет: документировать каждый публичный член избыточно.
+    public_member_api_docs: false
+    # Новый синтаксис конструкторов Dart 3.13 (`new(...)`). Freezed и его
+    # документация используют классический — держим один стиль везде.
+    unnecessary_type_name_in_constructor: false
