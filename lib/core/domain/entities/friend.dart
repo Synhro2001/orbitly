@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:orbitly/core/domain/entities/award.dart';
 import 'package:orbitly/core/domain/entities/mood.dart';
 import 'package:orbitly/core/domain/entities/planet_appearance.dart';
 import 'package:orbitly/core/domain/entities/shadow.dart';
@@ -22,5 +23,8 @@ abstract class Friend with _$Friend {
 
     /// Если друг в тени (или запланировал её).
     Shadow? shadow,
+
+    /// Общие трофеи нашей дружбы.
+    @Default([]) List<Award> sharedTrophies,
   }) = _Friend;
 }

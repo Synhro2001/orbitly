@@ -26,6 +26,11 @@ _FriendModel _$FriendModelFromJson(Map<String, dynamic> json) => _FriendModel(
   shadowUntil: json['shadow_until'] == null
       ? null
       : DateTime.parse(json['shadow_until'] as String),
+  trophies:
+      (json['trophies'] as List<dynamic>?)
+          ?.map((e) => AwardModel.fromJson(e as Map<String, dynamic>))
+          .toList() ??
+      const [],
 );
 
 Map<String, dynamic> _$FriendModelToJson(_FriendModel instance) =>
@@ -41,6 +46,7 @@ Map<String, dynamic> _$FriendModelToJson(_FriendModel instance) =>
       'has_unread_snaps': instance.hasUnreadSnaps,
       'shadow_from': instance.shadowFrom?.toIso8601String(),
       'shadow_until': instance.shadowUntil?.toIso8601String(),
+      'trophies': instance.trophies.map((e) => e.toJson()).toList(),
     };
 
 const _$MoodEnumMap = {

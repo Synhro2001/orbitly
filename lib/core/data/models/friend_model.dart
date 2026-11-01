@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:orbitly/core/data/models/award_model.dart';
 import 'package:orbitly/core/data/models/planet_appearance_model.dart';
 import 'package:orbitly/core/data/models/shadow_json.dart';
 import 'package:orbitly/core/domain/entities/friend.dart';
@@ -22,6 +23,7 @@ abstract class FriendModel with _$FriendModel {
     required bool hasUnreadSnaps,
     DateTime? shadowFrom,
     DateTime? shadowUntil,
+    @Default([]) List<AwardModel> trophies,
   }) = _FriendModel;
 
   factory FriendModel.fromJson(Map<String, Object?> json) =>
@@ -39,5 +41,6 @@ extension FriendModelX on FriendModel {
     mood: mood,
     hasUnreadSnaps: hasUnreadSnaps,
     shadow: shadowFromFields(shadowFrom, shadowUntil),
+    sharedTrophies: [for (final t in trophies) t.toEntity()],
   );
 }
