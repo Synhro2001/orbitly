@@ -123,12 +123,11 @@ void main() {
 
     test('the server side refuses a forged shadow', () {
       final repository = MockPlanetRepository(store);
-      final forged = Shadow(
-        from: DateTime.now().subtract(const Duration(days: 10)),
-        until: DateTime.now().add(const Duration(days: 365)),
-      );
 
-      expect(repository.setShadow(forged), throwsArgumentError);
+      expect(
+        repository.enterShadow(const Duration(days: 365)),
+        throwsArgumentError,
+      );
     });
   });
 

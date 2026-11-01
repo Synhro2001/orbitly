@@ -23,12 +23,12 @@ abstract final class AppSizes {
   static const listAvatar = 48.0;
   static const chatHeaderPlanet = 96.0;
   static const myPlanetHero = 240.0;
+  static const wardrobePreview = 200.0;
+  static const unlockPlanet = 220.0;
   static const onboardingPreview = 260.0;
   static const shutterButton = 78.0;
   static const iconButton = 44.0;
   static const edgeSwipeZone = 28.0;
-  static const awardTile = 96.0;
-  static const awardTileHeight = 104.0;
 
   /// Минимальная зона касания (Material / Apple HIG).
   static const minTapTarget = 48.0;
@@ -65,4 +65,7 @@ abstract final class AppDurations {
 
   /// Сколько висит подсказка про жесты, если её не закрыли касанием.
   static const gestureHint = Duration(seconds: 6);
+
+  /// Вспышка и появление планеты при открытии достижения.
+  static const unlock = Duration(milliseconds: 900);
 }

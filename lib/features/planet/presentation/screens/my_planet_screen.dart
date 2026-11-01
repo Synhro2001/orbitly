@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:orbitly/core/domain/entities/award.dart';
+import 'package:go_router/go_router.dart';
+import 'package:orbitly/app/routes.dart';
 import 'package:orbitly/core/domain/entities/mood.dart';
 import 'package:orbitly/core/theme/app_colors.dart';
 import 'package:orbitly/core/theme/app_dimens.dart';
@@ -9,6 +10,7 @@ import 'package:orbitly/core/utils/l10n.dart';
 import 'package:orbitly/core/utils/time.dart';
 import 'package:orbitly/core/widgets/async_view.dart';
 import 'package:orbitly/core/widgets/planet_view.dart';
+import 'package:orbitly/features/achievements/presentation/controllers/achievements_controller.dart';
 import 'package:orbitly/features/planet/domain/entities/my_planet.dart';
 import 'package:orbitly/features/planet/presentation/controllers/my_planet_controller.dart';
 
@@ -120,22 +122,7 @@ class _PlanetContent extends ConsumerWidget {
         const SizedBox(height: AppSpacing.l),
         _Section(title: l10n.planetShadowTitle, child: _ShadowControls(planet)),
         const SizedBox(height: AppSpacing.l),
-        _Section(
-          title: l10n.planetAwards,
-          // Высота плитки фиксирована: на узком экране ширина ячейки
-          // уменьшается, а значок с подписью в две строки должен влезать.
-          child: GridView(
-            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: AppSizes.awardTile,
-              mainAxisExtent: AppSizes.awardTileHeight,
-              mainAxisSpacing: AppSpacing.s,
-              crossAxisSpacing: AppSpacing.s,
-            ),
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            children: [for (final award in planet.awards) _AwardTile(award)],
-          ),
-        ),
+        _Section(title: l10n.planetAwards, child: const _CollectionSummary()),
       ],
     );
   }
@@ -168,51 +155,54 @@ class _Section extends StatelessWidget {
   }
 }
 
-class _AwardTile extends StatelessWidget {
-  const _AwardTile(this.award);
+/// Сколько достижений открыто, последние значки и вход в коллекцию и
+/// гардероб.
+class _CollectionSummary extends ConsumerWidget {
+  const _CollectionSummary();
 
-  final Award award;
+  static const _recentCount = 5;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = context.l10n;
     final textTheme = Theme.of(context).textTheme;
-    final unlocked = award.unlocked;
-    return Semantics(
-      label: unlocked
-          ? award.title
-          : '${award.title}. ${context.l10n.planetAwardLocked}',
-      excludeSemantics: true,
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: AppColors.surfaceHigh,
-          borderRadius: BorderRadius.circular(AppRadii.m),
-          border: Border.all(
-            color: unlocked ? AppColors.sun : AppColors.outline,
-          ),
+    final awards = ref.watch(achievementsControllerProvider).value ?? const [];
+    final unlocked = [
+      for (final a in awards)
+        if (a.unlocked) a,
+    ]..sort((a, b) => b.unlockedAt!.compareTo(a.unlockedAt!));
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          l10n.planetCollectionSummary(unlocked.length, awards.length),
+          style: textTheme.bodyMedium,
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(AppSpacing.s),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Opacity(
-                opacity: unlocked ? 1 : 0.3,
-                child: Text(award.emoji, style: textTheme.headlineMedium),
-              ),
-              const SizedBox(height: AppSpacing.xs),
-              Flexible(
-                child: Text(
-                  unlocked ? award.title : context.l10n.planetAwardLocked,
-                  style: textTheme.labelSmall,
-                  textAlign: TextAlign.center,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-            ],
+        if (unlocked.isNotEmpty) ...[
+          const SizedBox(height: AppSpacing.s),
+          Text(
+            [for (final a in unlocked.take(_recentCount)) a.emoji ?? '']
+                .join(' '),
+            style: textTheme.headlineSmall,
           ),
+        ],
+        const SizedBox(height: AppSpacing.m),
+        Wrap(
+          spacing: AppSpacing.s,
+          runSpacing: AppSpacing.s,
+          children: [
+            FilledButton.tonal(
+              onPressed: () => context.push(AppRoutes.collection),
+              child: Text(l10n.collectionTitle),
+            ),
+            OutlinedButton(
+              onPressed: () => context.push(AppRoutes.wardrobe),
+              child: Text(l10n.wardrobeTitle),
+            ),
+          ],
         ),
-      ),
+      ],
     );
   }
 }

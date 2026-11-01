@@ -1,4 +1,6 @@
 import 'package:flutter/widgets.dart';
+import 'package:orbitly/core/domain/entities/award.dart';
+import 'package:orbitly/core/domain/entities/cosmetic.dart';
 import 'package:orbitly/core/domain/entities/mood.dart';
 import 'package:orbitly/core/domain/entities/planet_appearance.dart';
 import 'package:orbitly/l10n/app_localizations.dart';
@@ -36,6 +38,12 @@ extension PlanetTypeL10n on PlanetType {
     PlanetType.candy => l10n.planetTypeCandy,
     PlanetType.crystal => l10n.planetTypeCrystal,
     PlanetType.gas => l10n.planetTypeGas,
+    PlanetType.nebula => l10n.planetTypeNebula,
+    PlanetType.blackHole => l10n.planetTypeBlackHole,
+    PlanetType.aurora => l10n.planetTypeAurora,
+    PlanetType.solarCorona => l10n.planetTypeSolarCorona,
+    PlanetType.gemini => l10n.planetTypeGemini,
+    PlanetType.ringWorld => l10n.planetTypeRingWorld,
   };
 }
 
@@ -50,4 +58,33 @@ String formatTimeAgo(
   if (passed.inHours < 1) return l10n.timeMinutes(passed.inMinutes);
   if (passed.inDays < 1) return l10n.timeHours(passed.inHours);
   return l10n.timeDays(passed.inDays);
+}
+
+extension RarityL10n on Rarity {
+  String label(AppLocalizations l10n) => switch (this) {
+    Rarity.common => l10n.rarityCommon,
+    Rarity.rare => l10n.rarityRare,
+    Rarity.epic => l10n.rarityEpic,
+    Rarity.legendary => l10n.rarityLegendary,
+  };
+}
+
+extension AwardCategoryL10n on AwardCategory {
+  String label(AppLocalizations l10n) => switch (this) {
+    AwardCategory.friendship => l10n.categoryFriendship,
+    AwardCategory.streak => l10n.categoryStreak,
+    AwardCategory.closeness => l10n.categoryCloseness,
+    AwardCategory.collection => l10n.categoryCollection,
+    AwardCategory.secret => l10n.categorySecret,
+  };
+}
+
+extension CosmeticKindL10n on CosmeticKind {
+  String label(AppLocalizations l10n) => switch (this) {
+    CosmeticKind.planetType => l10n.cosmeticKindPlanetType,
+    CosmeticKind.moon => l10n.cosmeticKindMoon,
+    CosmeticKind.ring => l10n.cosmeticKindRing,
+    CosmeticKind.glow => l10n.cosmeticKindGlow,
+    CosmeticKind.cometTrail => l10n.cosmeticKindCometTrail,
+  };
 }

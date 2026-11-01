@@ -82,6 +82,24 @@ class AppLocalizationsRu extends AppLocalizations {
   String get planetTypeGas => 'Газовый гигант';
 
   @override
+  String get planetTypeNebula => 'Туманность';
+
+  @override
+  String get planetTypeBlackHole => 'Чёрная дыра';
+
+  @override
+  String get planetTypeAurora => 'Аврора';
+
+  @override
+  String get planetTypeSolarCorona => 'Солнечная корона';
+
+  @override
+  String get planetTypeGemini => 'Близнецы';
+
+  @override
+  String get planetTypeRingWorld => 'Кольцевой мир';
+
+  @override
   String streakDays(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
@@ -171,6 +189,157 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get onboardingCreate => 'Создать планету';
+
+  @override
+  String get onboardingDisplayNameLabel => 'Как тебя зовут';
+
+  @override
+  String get onboardingDisplayNameHint => 'Имя, которое увидят друзья';
+
+  @override
+  String get loginTitle => 'Вход в Orbitly';
+
+  @override
+  String get loginSubtitle => 'Пришлём код на почту — никаких паролей';
+
+  @override
+  String get loginEmailHint => 'Email';
+
+  @override
+  String get loginSendCode => 'Получить код';
+
+  @override
+  String get loginCodeTitle => 'Введи код';
+
+  @override
+  String loginCodeSubtitle(String email) {
+    return 'Мы отправили 6 цифр на $email';
+  }
+
+  @override
+  String get loginCodeHint => 'Код из письма';
+
+  @override
+  String get loginVerify => 'Войти';
+
+  @override
+  String get loginChangeEmail => 'Другой email';
+
+  @override
+  String get loginInvalidEmail => 'Похоже, в адресе ошибка';
+
+  @override
+  String get loginInvalidCode => 'Код не подошёл — проверь письмо';
+
+  @override
+  String get loginSendError => 'Не получилось отправить код. Попробуй ещё раз';
+
+  @override
+  String get collectionTitle => 'Коллекция';
+
+  @override
+  String collectionProgress(int unlocked, int total) {
+    return 'Открыто $unlocked из $total';
+  }
+
+  @override
+  String get categoryAll => 'Все';
+
+  @override
+  String get categoryFriendship => 'Дружба';
+
+  @override
+  String get categoryStreak => 'Серии';
+
+  @override
+  String get categoryCloseness => 'Близость';
+
+  @override
+  String get categoryCollection => 'Коллекция';
+
+  @override
+  String get categorySecret => 'Секреты';
+
+  @override
+  String get achievementSecretTitle => '???';
+
+  @override
+  String get achievementSecretDescription =>
+      'Секретное достижение — условие узнаешь, когда откроешь';
+
+  @override
+  String achievementReward(String title) {
+    return 'Награда: $title';
+  }
+
+  @override
+  String get achievementPair => 'Для двоих';
+
+  @override
+  String get achievementUnlocked => 'Открыто';
+
+  @override
+  String get rarityCommon => 'Обычное';
+
+  @override
+  String get rarityRare => 'Редкое';
+
+  @override
+  String get rarityEpic => 'Эпическое';
+
+  @override
+  String get rarityLegendary => 'Легендарное';
+
+  @override
+  String get wardrobeTitle => 'Гардероб';
+
+  @override
+  String get wardrobeEmpty =>
+      'Пока пусто — открывай достижения, и здесь появятся награды';
+
+  @override
+  String get wardrobeEquip => 'Надеть';
+
+  @override
+  String get wardrobeUnequip => 'Снять';
+
+  @override
+  String get cosmeticKindPlanetType => 'Планета';
+
+  @override
+  String get cosmeticKindMoon => 'Спутники';
+
+  @override
+  String get cosmeticKindRing => 'Кольца';
+
+  @override
+  String get cosmeticKindGlow => 'Сияние';
+
+  @override
+  String get cosmeticKindCometTrail => 'След';
+
+  @override
+  String get unlockTitle => 'Новое достижение!';
+
+  @override
+  String get unlockEquip => 'Надеть';
+
+  @override
+  String get unlockShare => 'Поделиться';
+
+  @override
+  String get unlockLater => 'Позже';
+
+  @override
+  String get unlockShareSoon => 'Делиться наградами можно будет совсем скоро';
+
+  @override
+  String get unlockPairNote => 'Награда досталась и другу';
+
+  @override
+  String planetCollectionSummary(int unlocked, int total) {
+    return '$unlocked из $total достижений';
+  }
 
   @override
   String get chatsTitle => 'Чаты';
@@ -299,9 +468,6 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get planetAwards => 'Награды';
-
-  @override
-  String get planetAwardLocked => 'Закрыто';
 
   @override
   String get planetMood => 'Настроение';

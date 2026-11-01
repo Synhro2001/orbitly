@@ -11,16 +11,19 @@ part of 'my_planet_controller.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 /// Создана ли у пользователя планета. От этого зависит, куда ведёт роутер.
+/// Пересчитывается при входе и выходе.
 
 @ProviderFor(hasPlanet)
 final hasPlanetProvider = HasPlanetProvider._();
 
 /// Создана ли у пользователя планета. От этого зависит, куда ведёт роутер.
+/// Пересчитывается при входе и выходе.
 
 final class HasPlanetProvider
     extends $FunctionalProvider<AsyncValue<bool>, bool, FutureOr<bool>>
     with $FutureModifier<bool>, $FutureProvider<bool> {
   /// Создана ли у пользователя планета. От этого зависит, куда ведёт роутер.
+  /// Пересчитывается при входе и выходе.
   HasPlanetProvider._()
     : super(
         from: null,
@@ -46,7 +49,7 @@ final class HasPlanetProvider
   }
 }
 
-String _$hasPlanetHash() => r'08a625bafe417d351c93fb13474601f828f5f183';
+String _$hasPlanetHash() => r'aa72ba69efbb9dcdd9e733a5385c1a1fc32ab87d';
 
 /// Моя тень — нужна везде, где считается серия с другом.
 
@@ -119,7 +122,7 @@ final class MyPlanetControllerProvider
 }
 
 String _$myPlanetControllerHash() =>
-    r'066960b3cae2d3a6d0bc9f0d91bcf224777eb834';
+    r'57490821fb830f262163c82522d1fc77645d7338';
 
 abstract class _$MyPlanetController extends $AsyncNotifier<MyPlanet> {
   FutureOr<MyPlanet> build();

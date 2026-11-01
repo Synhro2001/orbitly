@@ -1,4 +1,5 @@
 import 'package:flutter/painting.dart';
+import 'package:orbitly/core/domain/entities/award.dart';
 
 /// Цветовые токены. Виджеты берут цвета только отсюда или из `Theme`.
 abstract final class AppColors {
@@ -40,6 +41,19 @@ abstract final class AppColors {
   static const danger = Color(0xFFFF6B6B);
   static const streakCracked = Color(0xFFFF9F6B);
   static const scrim = Color(0xCC000000);
+
+  // Редкость наград: рамки, вспышка открытия.
+  static const rarityCommon = Color(0xFFA6AED6);
+  static const rarityRare = Color(0xFF6EC8FF);
+  static const rarityEpic = Color(0xFFB18CFF);
+  static const Color rarityLegendary = sun;
+
+  static Color forRarity(Rarity rarity) => switch (rarity) {
+    Rarity.common => rarityCommon,
+    Rarity.rare => rarityRare,
+    Rarity.epic => rarityEpic,
+    Rarity.legendary => rarityLegendary,
+  };
 
   // Заглушка превью камеры
   static const cameraGradient = [

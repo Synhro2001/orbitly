@@ -171,6 +171,16 @@ class _FriendPlanet extends ConsumerWidget {
                 size: orbit.planetSize,
               ),
             ),
+            // Общий трофей дружбы — значок самого свежего у планеты.
+            if (friend.sharedTrophies.lastOrNull?.emoji case final emoji?)
+              Positioned(
+                right: _tapBoxOf(orbit) / 2 - bodySize / 2 - AppSpacing.s,
+                top: _tapBoxOf(orbit) / 2 - bodySize / 2 - AppSpacing.s,
+                child: Text(
+                  emoji,
+                  style: Theme.of(context).textTheme.labelSmall,
+                ),
+              ),
             Positioned(
               top: _tapBoxOf(orbit) / 2 + bodySize / 2,
               child: Text(

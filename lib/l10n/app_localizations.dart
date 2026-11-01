@@ -238,6 +238,42 @@ abstract class AppLocalizations {
   /// **'Газовый гигант'**
   String get planetTypeGas;
 
+  /// No description provided for @planetTypeNebula.
+  ///
+  /// In ru, this message translates to:
+  /// **'Туманность'**
+  String get planetTypeNebula;
+
+  /// No description provided for @planetTypeBlackHole.
+  ///
+  /// In ru, this message translates to:
+  /// **'Чёрная дыра'**
+  String get planetTypeBlackHole;
+
+  /// No description provided for @planetTypeAurora.
+  ///
+  /// In ru, this message translates to:
+  /// **'Аврора'**
+  String get planetTypeAurora;
+
+  /// No description provided for @planetTypeSolarCorona.
+  ///
+  /// In ru, this message translates to:
+  /// **'Солнечная корона'**
+  String get planetTypeSolarCorona;
+
+  /// No description provided for @planetTypeGemini.
+  ///
+  /// In ru, this message translates to:
+  /// **'Близнецы'**
+  String get planetTypeGemini;
+
+  /// No description provided for @planetTypeRingWorld.
+  ///
+  /// In ru, this message translates to:
+  /// **'Кольцевой мир'**
+  String get planetTypeRingWorld;
+
   /// No description provided for @streakDays.
   ///
   /// In ru, this message translates to:
@@ -369,6 +405,288 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Создать планету'**
   String get onboardingCreate;
+
+  /// No description provided for @onboardingDisplayNameLabel.
+  ///
+  /// In ru, this message translates to:
+  /// **'Как тебя зовут'**
+  String get onboardingDisplayNameLabel;
+
+  /// No description provided for @onboardingDisplayNameHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Имя, которое увидят друзья'**
+  String get onboardingDisplayNameHint;
+
+  /// No description provided for @loginTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Вход в Orbitly'**
+  String get loginTitle;
+
+  /// No description provided for @loginSubtitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Пришлём код на почту — никаких паролей'**
+  String get loginSubtitle;
+
+  /// No description provided for @loginEmailHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Email'**
+  String get loginEmailHint;
+
+  /// No description provided for @loginSendCode.
+  ///
+  /// In ru, this message translates to:
+  /// **'Получить код'**
+  String get loginSendCode;
+
+  /// No description provided for @loginCodeTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Введи код'**
+  String get loginCodeTitle;
+
+  /// No description provided for @loginCodeSubtitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Мы отправили 6 цифр на {email}'**
+  String loginCodeSubtitle(String email);
+
+  /// No description provided for @loginCodeHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Код из письма'**
+  String get loginCodeHint;
+
+  /// No description provided for @loginVerify.
+  ///
+  /// In ru, this message translates to:
+  /// **'Войти'**
+  String get loginVerify;
+
+  /// No description provided for @loginChangeEmail.
+  ///
+  /// In ru, this message translates to:
+  /// **'Другой email'**
+  String get loginChangeEmail;
+
+  /// No description provided for @loginInvalidEmail.
+  ///
+  /// In ru, this message translates to:
+  /// **'Похоже, в адресе ошибка'**
+  String get loginInvalidEmail;
+
+  /// No description provided for @loginInvalidCode.
+  ///
+  /// In ru, this message translates to:
+  /// **'Код не подошёл — проверь письмо'**
+  String get loginInvalidCode;
+
+  /// No description provided for @loginSendError.
+  ///
+  /// In ru, this message translates to:
+  /// **'Не получилось отправить код. Попробуй ещё раз'**
+  String get loginSendError;
+
+  /// No description provided for @collectionTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Коллекция'**
+  String get collectionTitle;
+
+  /// No description provided for @collectionProgress.
+  ///
+  /// In ru, this message translates to:
+  /// **'Открыто {unlocked} из {total}'**
+  String collectionProgress(int unlocked, int total);
+
+  /// No description provided for @categoryAll.
+  ///
+  /// In ru, this message translates to:
+  /// **'Все'**
+  String get categoryAll;
+
+  /// No description provided for @categoryFriendship.
+  ///
+  /// In ru, this message translates to:
+  /// **'Дружба'**
+  String get categoryFriendship;
+
+  /// No description provided for @categoryStreak.
+  ///
+  /// In ru, this message translates to:
+  /// **'Серии'**
+  String get categoryStreak;
+
+  /// No description provided for @categoryCloseness.
+  ///
+  /// In ru, this message translates to:
+  /// **'Близость'**
+  String get categoryCloseness;
+
+  /// No description provided for @categoryCollection.
+  ///
+  /// In ru, this message translates to:
+  /// **'Коллекция'**
+  String get categoryCollection;
+
+  /// No description provided for @categorySecret.
+  ///
+  /// In ru, this message translates to:
+  /// **'Секреты'**
+  String get categorySecret;
+
+  /// No description provided for @achievementSecretTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'???'**
+  String get achievementSecretTitle;
+
+  /// No description provided for @achievementSecretDescription.
+  ///
+  /// In ru, this message translates to:
+  /// **'Секретное достижение — условие узнаешь, когда откроешь'**
+  String get achievementSecretDescription;
+
+  /// No description provided for @achievementReward.
+  ///
+  /// In ru, this message translates to:
+  /// **'Награда: {title}'**
+  String achievementReward(String title);
+
+  /// No description provided for @achievementPair.
+  ///
+  /// In ru, this message translates to:
+  /// **'Для двоих'**
+  String get achievementPair;
+
+  /// No description provided for @achievementUnlocked.
+  ///
+  /// In ru, this message translates to:
+  /// **'Открыто'**
+  String get achievementUnlocked;
+
+  /// No description provided for @rarityCommon.
+  ///
+  /// In ru, this message translates to:
+  /// **'Обычное'**
+  String get rarityCommon;
+
+  /// No description provided for @rarityRare.
+  ///
+  /// In ru, this message translates to:
+  /// **'Редкое'**
+  String get rarityRare;
+
+  /// No description provided for @rarityEpic.
+  ///
+  /// In ru, this message translates to:
+  /// **'Эпическое'**
+  String get rarityEpic;
+
+  /// No description provided for @rarityLegendary.
+  ///
+  /// In ru, this message translates to:
+  /// **'Легендарное'**
+  String get rarityLegendary;
+
+  /// No description provided for @wardrobeTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Гардероб'**
+  String get wardrobeTitle;
+
+  /// No description provided for @wardrobeEmpty.
+  ///
+  /// In ru, this message translates to:
+  /// **'Пока пусто — открывай достижения, и здесь появятся награды'**
+  String get wardrobeEmpty;
+
+  /// No description provided for @wardrobeEquip.
+  ///
+  /// In ru, this message translates to:
+  /// **'Надеть'**
+  String get wardrobeEquip;
+
+  /// No description provided for @wardrobeUnequip.
+  ///
+  /// In ru, this message translates to:
+  /// **'Снять'**
+  String get wardrobeUnequip;
+
+  /// No description provided for @cosmeticKindPlanetType.
+  ///
+  /// In ru, this message translates to:
+  /// **'Планета'**
+  String get cosmeticKindPlanetType;
+
+  /// No description provided for @cosmeticKindMoon.
+  ///
+  /// In ru, this message translates to:
+  /// **'Спутники'**
+  String get cosmeticKindMoon;
+
+  /// No description provided for @cosmeticKindRing.
+  ///
+  /// In ru, this message translates to:
+  /// **'Кольца'**
+  String get cosmeticKindRing;
+
+  /// No description provided for @cosmeticKindGlow.
+  ///
+  /// In ru, this message translates to:
+  /// **'Сияние'**
+  String get cosmeticKindGlow;
+
+  /// No description provided for @cosmeticKindCometTrail.
+  ///
+  /// In ru, this message translates to:
+  /// **'След'**
+  String get cosmeticKindCometTrail;
+
+  /// No description provided for @unlockTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Новое достижение!'**
+  String get unlockTitle;
+
+  /// No description provided for @unlockEquip.
+  ///
+  /// In ru, this message translates to:
+  /// **'Надеть'**
+  String get unlockEquip;
+
+  /// No description provided for @unlockShare.
+  ///
+  /// In ru, this message translates to:
+  /// **'Поделиться'**
+  String get unlockShare;
+
+  /// No description provided for @unlockLater.
+  ///
+  /// In ru, this message translates to:
+  /// **'Позже'**
+  String get unlockLater;
+
+  /// No description provided for @unlockShareSoon.
+  ///
+  /// In ru, this message translates to:
+  /// **'Делиться наградами можно будет совсем скоро'**
+  String get unlockShareSoon;
+
+  /// No description provided for @unlockPairNote.
+  ///
+  /// In ru, this message translates to:
+  /// **'Награда досталась и другу'**
+  String get unlockPairNote;
+
+  /// No description provided for @planetCollectionSummary.
+  ///
+  /// In ru, this message translates to:
+  /// **'{unlocked} из {total} достижений'**
+  String planetCollectionSummary(int unlocked, int total);
 
   /// No description provided for @chatsTitle.
   ///
@@ -579,12 +897,6 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Награды'**
   String get planetAwards;
-
-  /// No description provided for @planetAwardLocked.
-  ///
-  /// In ru, this message translates to:
-  /// **'Закрыто'**
-  String get planetAwardLocked;
 
   /// No description provided for @planetMood.
   ///

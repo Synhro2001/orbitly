@@ -53,8 +53,11 @@ class ChatHeader extends StatelessWidget {
               children: [
                 for (final trophy in trophies)
                   Tooltip(
-                    message: trophy.title,
-                    child: Text(trophy.emoji, style: textTheme.titleLarge),
+                    message: trophy.title ?? '',
+                    child: Text(
+                      trophy.emoji ?? '',
+                      style: textTheme.titleLarge,
+                    ),
                   ),
               ],
             ),
