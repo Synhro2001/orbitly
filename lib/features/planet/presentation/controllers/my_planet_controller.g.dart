@@ -49,7 +49,7 @@ final class HasPlanetProvider
   }
 }
 
-String _$hasPlanetHash() => r'aa72ba69efbb9dcdd9e733a5385c1a1fc32ab87d';
+String _$hasPlanetHash() => r'918f2e3b7409ec3bc21c392b2dd645b441812801';
 
 /// Моя тень — нужна везде, где считается серия с другом.
 
