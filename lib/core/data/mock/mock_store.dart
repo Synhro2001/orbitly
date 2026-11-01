@@ -85,8 +85,9 @@ class MockStore {
       'planet_name': name,
       'handle': 'me',
       'appearance': appearance,
+      // Уровень 4 = 450…800 опыта (level = floor(sqrt(xp / 50)) + 1).
       'level': 4,
-      'xp': 1000,
+      'xp': 600,
       'best_streak_days': 27,
       'mood': 'happy',
     };

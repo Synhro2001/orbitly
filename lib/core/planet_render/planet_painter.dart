@@ -141,6 +141,15 @@ class PlanetPainter extends CustomPainter {
         l.clamp(0, 1),
       ).toColor();
 
+  /// Тёплый цвет для «Солнечной короны»: оттенок не от пользователя.
+  Color _sun(double hueShift, double s, double l, [double alpha = 1]) =>
+      HSLColor.fromAHSL(
+        alpha,
+        (40 + hueShift) % 360,
+        s.clamp(0, 1),
+        l.clamp(0, 1),
+      ).toColor();
+
   /// Основной (светлый, тёмный) цвет поверхности по типу.
   (Color, Color) get _baseColors => switch (appearance.type) {
     PlanetType.ocean => (_hsl(0, 0.7, 0.55), _hsl(10, 0.75, 0.3)),
@@ -153,7 +162,8 @@ class PlanetPainter extends CustomPainter {
     PlanetType.nebula => (_hsl(0, 0.55, 0.18), _hsl(40, 0.6, 0.05)),
     PlanetType.blackHole => (const Color(0xFF050308), const Color(0xFF000000)),
     PlanetType.aurora => (_hsl(0, 0.5, 0.24), _hsl(15, 0.6, 0.07)),
-    PlanetType.solarCorona => (_hsl(0, 1, 0.82), _hsl(-15, 1, 0.5)),
+    // Солнце всегда золотое, независимо от выбранного оттенка.
+    PlanetType.solarCorona => (_sun(10, 1, 0.82), _sun(-15, 1, 0.5)),
     PlanetType.gemini => (_hsl(0, 0.6, 0.68), _hsl(20, 0.6, 0.35)),
     PlanetType.ringWorld => (_hsl(0, 0.35, 0.62), _hsl(15, 0.4, 0.28)),
   };

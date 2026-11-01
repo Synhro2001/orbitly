@@ -41,6 +41,7 @@ abstract final class AppColors {
   static const danger = Color(0xFFFF6B6B);
   static const streakCracked = Color(0xFFFF9F6B);
   static const scrim = Color(0xCC000000);
+  static const celebrationScrim = Color(0xF2060A1C);
 
   // Редкость наград: рамки, вспышка открытия.
   static const rarityCommon = Color(0xFFA6AED6);

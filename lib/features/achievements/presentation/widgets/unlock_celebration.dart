@@ -118,8 +118,9 @@ class _UnlockCelebrationState extends ConsumerState<UnlockCelebration>
             ?reward,
           ]);
 
+    // Подложка плотная: текст поверх космоса должен читаться.
     return Material(
-      color: AppColors.scrim,
+      color: AppColors.celebrationScrim,
       child: AnimatedBuilder(
         animation: _controller,
         builder: (context, child) {

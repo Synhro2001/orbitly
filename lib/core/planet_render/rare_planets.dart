@@ -6,15 +6,28 @@ extension _RarePlanets on PlanetPainter {
   // --- Туманность: облака газа и звёзды внутри
 
   void _paintNebula(Canvas canvas, Offset c, double r, SeededRandom rnd) {
-    for (var i = 0; i < 9; i++) {
+    // Яркие облака газа трёх оттенков и светящееся ядро.
+    for (var i = 0; i < 10; i++) {
       canvas.drawCircle(
         c + Offset(r * rnd.range(-0.7, 0.7), r * rnd.range(-0.7, 0.7)),
-        r * rnd.range(0.25, 0.55),
+        r * rnd.range(0.22, 0.5),
         Paint()
-          ..color = _hsl(rnd.range(-60, 60), 0.8, rnd.range(0.45, 0.65), 0.45)
-          ..maskFilter = MaskFilter.blur(BlurStyle.normal, r * 0.18),
+          ..color = _hsl(
+            const [-70.0, 0.0, 80.0][i % 3] + rnd.range(-15, 15),
+            0.95,
+            rnd.range(0.5, 0.68),
+            0.6,
+          )
+          ..maskFilter = MaskFilter.blur(BlurStyle.normal, r * 0.16),
       );
     }
+    canvas.drawCircle(
+      c,
+      r * 0.35,
+      Paint()
+        ..color = _hsl(20, 1, 0.85, 0.55)
+        ..maskFilter = MaskFilter.blur(BlurStyle.normal, r * 0.2),
+    );
     final star = Paint()..color = const Color(0xE6FFFFFF);
     for (var i = 0; i < 22; i++) {
       canvas.drawCircle(
@@ -157,7 +170,7 @@ extension _RarePlanets on PlanetPainter {
       outer,
       Paint()
         ..shader = RadialGradient(
-          colors: [_hsl(0, 1, 0.7, 0.65), _hsl(-10, 1, 0.6, 0)],
+          colors: [_sun(0, 1, 0.7, 0.65), _sun(-10, 1, 0.6, 0)],
           stops: const [0.5, 1],
         ).createShader(Rect.fromCircle(center: c, radius: outer)),
     );
@@ -171,7 +184,7 @@ extension _RarePlanets on PlanetPainter {
         Paint()
           ..strokeWidth = r * rnd.range(0.03, 0.07)
           ..strokeCap = StrokeCap.round
-          ..color = _hsl(10, 1, 0.75, 0.6)
+          ..color = _sun(10, 1, 0.75, 0.6)
           ..maskFilter = MaskFilter.blur(BlurStyle.normal, r * 0.03),
       );
     }
@@ -182,10 +195,10 @@ extension _RarePlanets on PlanetPainter {
       canvas.drawCircle(
         c + Offset(r * rnd.range(-0.95, 0.95), r * rnd.range(-0.95, 0.95)),
         r * rnd.range(0.04, 0.1),
-        Paint()..color = _hsl(rnd.range(-15, 10), 1, rnd.range(0.55, 0.9), 0.3),
+        Paint()..color = _sun(rnd.range(-15, 10), 1, rnd.range(0.55, 0.9), 0.3),
       );
     }
-    final spot = Paint()..color = _hsl(-20, 0.8, 0.25, 0.7);
+    final spot = Paint()..color = _sun(-20, 0.8, 0.25, 0.7);
     for (var i = 0; i < 3; i++) {
       canvas.drawCircle(
         c + Offset(r * rnd.range(-0.5, 0.5), r * rnd.range(-0.5, 0.5)),
@@ -283,26 +296,36 @@ extension _RarePlanets on PlanetPainter {
   void _paintCometTrail(Canvas canvas, Offset c, double r) {
     const direction = Offset(-0.85, 0.53);
     const perpendicular = Offset(0.53, 0.85);
-    final tip = c + direction * r * 1.65;
-    final path = Path()
+    final tip = c + direction * r * 1.7;
+    Path wedge(double halfWidth) => Path()
       ..moveTo(
-        c.dx + perpendicular.dx * r * 0.8,
-        c.dy + perpendicular.dy * r * 0.8,
+        c.dx + perpendicular.dx * halfWidth,
+        c.dy + perpendicular.dy * halfWidth,
       )
       ..lineTo(tip.dx, tip.dy)
       ..lineTo(
-        c.dx - perpendicular.dx * r * 0.8,
-        c.dy - perpendicular.dy * r * 0.8,
+        c.dx - perpendicular.dx * halfWidth,
+        c.dy - perpendicular.dy * halfWidth,
       )
       ..close();
-    canvas.drawPath(
-      path,
-      Paint()
-        ..maskFilter = MaskFilter.blur(BlurStyle.normal, r * 0.12)
-        ..shader = LinearGradient(
-          colors: [_hsl(180, 0.8, 0.8, 0.7), _hsl(180, 0.8, 0.8, 0)],
-        ).createShader(Rect.fromPoints(c, tip)),
-    );
+
+    // Ледяной хвост: широкий мягкий слой и яркая сердцевина.
+    for (final (halfWidth, alpha, blur) in const [
+      (0.85, 0.55, 0.1),
+      (0.4, 0.9, 0.04),
+    ]) {
+      canvas.drawPath(
+        wedge(r * halfWidth),
+        Paint()
+          ..maskFilter = MaskFilter.blur(BlurStyle.normal, r * blur)
+          ..shader = LinearGradient(
+            colors: [
+              const Color(0xFFCFF6FF).withValues(alpha: alpha),
+              const Color(0x00CFF6FF),
+            ],
+          ).createShader(Rect.fromPoints(c, tip)),
+      );
+    }
   }
 
   /// «Двойная звезда»: маленькая яркая звезда-компаньон.

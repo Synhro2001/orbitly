@@ -27,21 +27,22 @@ abstract class MyPlanetModel with _$MyPlanetModel {
       _$MyPlanetModelFromJson(json);
 }
 
-/// Сколько опыта нужно для уровня: та же формула, что на сервере,
-/// `level = floor(sqrt(xp / 50)) + 1`.
+/// Опыт, с которого начинается уровень `level + 1`. Обратная формула к
+/// серверной `level = floor(sqrt(xp / 50)) + 1`: уровень 4 — это 450…800.
 int xpForLevel(int level) => 50 * level * level;
 
 extension MyPlanetModelX on MyPlanetModel {
   MyPlanet toEntity({required List<Cosmetic> equipped}) {
     final levelStart = xpForLevel(level - 1);
+    final levelSpan = xpForLevel(level) - levelStart;
     return MyPlanet(
       name: planetName,
       handle: handle,
       baseAppearance: appearance.toEntity(),
       level: level,
       // На экране — опыт внутри текущего уровня.
-      xp: xp - levelStart,
-      xpForNextLevel: xpForLevel(level) - levelStart,
+      xp: (xp - levelStart).clamp(0, levelSpan),
+      xpForNextLevel: levelSpan,
       bestStreakDays: bestStreakDays,
       mood: mood,
       equipped: equipped,
