@@ -7,7 +7,8 @@ part 'planet_appearance_model.g.dart';
 @freezed
 abstract class PlanetAppearanceModel with _$PlanetAppearanceModel {
   const factory PlanetAppearanceModel({
-    required PlanetType type,
+    // Неизвестный тип (новая версия сервера) не ломает список друзей.
+    @JsonKey(unknownEnumValue: PlanetType.ocean) required PlanetType type,
     required int seed,
     required double hue,
     @Default(0) int moons,

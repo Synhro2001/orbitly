@@ -1,9 +1,11 @@
 import 'package:orbitly/core/data/mock/mock_store.dart';
 import 'package:orbitly/core/data/models/award_model.dart';
 import 'package:orbitly/core/data/models/planet_appearance_model.dart';
+import 'package:orbitly/core/data/models/shadow_json.dart';
 import 'package:orbitly/core/domain/entities/mood.dart';
 import 'package:orbitly/core/domain/entities/planet_appearance.dart';
 import 'package:orbitly/core/domain/entities/shadow.dart';
+import 'package:orbitly/core/domain/usecases/shadow_policy.dart';
 import 'package:orbitly/features/planet/data/models/my_planet_model.dart';
 import 'package:orbitly/features/planet/domain/entities/my_planet.dart';
 import 'package:orbitly/features/planet/domain/repositories/planet_repository.dart';
@@ -53,6 +55,20 @@ class MockPlanetRepository implements PlanetRepository {
   @override
   Future<void> setShadow(Shadow? shadow) async {
     await _store.delay();
+    final json = _store.myPlanet;
+    if (shadow != null && json != null) {
+      final current = shadowFromFields(
+        DateTime.tryParse('${json['shadow_from']}'),
+        DateTime.tryParse('${json['shadow_until']}'),
+      );
+      if (!const ShadowPolicy().isAllowed(
+        shadow,
+        now: DateTime.now(),
+        current: current,
+      )) {
+        throw ArgumentError.value(shadow, 'shadow', 'Not allowed');
+      }
+    }
     _store.myPlanet
       ?..['shadow_from'] = shadow?.from.toIso8601String()
       ..['shadow_until'] = shadow?.until.toIso8601String();

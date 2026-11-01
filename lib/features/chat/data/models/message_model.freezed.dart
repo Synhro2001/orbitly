@@ -191,7 +191,7 @@ return capsule(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String id,  bool isMine,  DateTime sentAt,  String text)?  text,TResult Function( String id,  bool isMine,  DateTime sentAt,  bool opened)?  snap,TResult Function( String id,  bool isMine,  DateTime sentAt,  DateTime opensAt,  String text)?  capsule,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String id,  bool isMine,  DateTime sentAt,  String text)?  text,TResult Function( String id,  bool isMine,  DateTime sentAt,  bool opened)?  snap,TResult Function( String id,  bool isMine,  DateTime sentAt,  DateTime opensAt,  String? text)?  capsule,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case TextMessageModel() when text != null:
 return text(_that.id,_that.isMine,_that.sentAt,_that.text);case SnapMessageModel() when snap != null:
@@ -214,7 +214,7 @@ return capsule(_that.id,_that.isMine,_that.sentAt,_that.opensAt,_that.text);case
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String id,  bool isMine,  DateTime sentAt,  String text)  text,required TResult Function( String id,  bool isMine,  DateTime sentAt,  bool opened)  snap,required TResult Function( String id,  bool isMine,  DateTime sentAt,  DateTime opensAt,  String text)  capsule,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String id,  bool isMine,  DateTime sentAt,  String text)  text,required TResult Function( String id,  bool isMine,  DateTime sentAt,  bool opened)  snap,required TResult Function( String id,  bool isMine,  DateTime sentAt,  DateTime opensAt,  String? text)  capsule,}) {final _that = this;
 switch (_that) {
 case TextMessageModel():
 return text(_that.id,_that.isMine,_that.sentAt,_that.text);case SnapMessageModel():
@@ -233,7 +233,7 @@ return capsule(_that.id,_that.isMine,_that.sentAt,_that.opensAt,_that.text);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String id,  bool isMine,  DateTime sentAt,  String text)?  text,TResult? Function( String id,  bool isMine,  DateTime sentAt,  bool opened)?  snap,TResult? Function( String id,  bool isMine,  DateTime sentAt,  DateTime opensAt,  String text)?  capsule,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String id,  bool isMine,  DateTime sentAt,  String text)?  text,TResult? Function( String id,  bool isMine,  DateTime sentAt,  bool opened)?  snap,TResult? Function( String id,  bool isMine,  DateTime sentAt,  DateTime opensAt,  String? text)?  capsule,}) {final _that = this;
 switch (_that) {
 case TextMessageModel() when text != null:
 return text(_that.id,_that.isMine,_that.sentAt,_that.text);case SnapMessageModel() when snap != null:
@@ -412,14 +412,14 @@ as bool,
 @JsonSerializable()
 
 class CapsuleMessageModel implements MessageModel {
-  const CapsuleMessageModel({required this.id, required this.isMine, required this.sentAt, required this.opensAt, required this.text,  String? $type}): $type = $type ?? 'capsule';
+  const CapsuleMessageModel({required this.id, required this.isMine, required this.sentAt, required this.opensAt, this.text,  String? $type}): $type = $type ?? 'capsule';
   factory CapsuleMessageModel.fromJson(Map<String, dynamic> json) => _$CapsuleMessageModelFromJson(json);
 
 @override final  String id;
 @override final  bool isMine;
 @override final  DateTime sentAt;
  final  DateTime opensAt;
- final  String text;
+ final  String? text;
 
 @JsonKey(name: 'kind')
 final String $type;
@@ -460,7 +460,7 @@ abstract mixin class $CapsuleMessageModelCopyWith<$Res> implements $MessageModel
   factory $CapsuleMessageModelCopyWith(CapsuleMessageModel value, $Res Function(CapsuleMessageModel) _then) = _$CapsuleMessageModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id, bool isMine, DateTime sentAt, DateTime opensAt, String text
+ String id, bool isMine, DateTime sentAt, DateTime opensAt, String? text
 });
 
 
@@ -477,14 +477,14 @@ class _$CapsuleMessageModelCopyWithImpl<$Res>
 
 /// Create a copy of MessageModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? isMine = null,Object? sentAt = null,Object? opensAt = null,Object? text = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? isMine = null,Object? sentAt = null,Object? opensAt = null,Object? text = freezed,}) {
   return _then(CapsuleMessageModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,isMine: null == isMine ? _self.isMine : isMine // ignore: cast_nullable_to_non_nullable
 as bool,sentAt: null == sentAt ? _self.sentAt : sentAt // ignore: cast_nullable_to_non_nullable
 as DateTime,opensAt: null == opensAt ? _self.opensAt : opensAt // ignore: cast_nullable_to_non_nullable
-as DateTime,text: null == text ? _self.text : text // ignore: cast_nullable_to_non_nullable
-as String,
+as DateTime,text: freezed == text ? _self.text : text // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 

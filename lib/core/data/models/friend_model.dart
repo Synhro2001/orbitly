@@ -18,7 +18,7 @@ abstract class FriendModel with _$FriendModel {
     required int closeness,
     required int streakDays,
     required DateTime lastExchangeAt,
-    required Mood mood,
+    @JsonKey(unknownEnumValue: Mood.calm) required Mood mood,
     required bool hasUnreadSnaps,
     DateTime? shadowFrom,
     DateTime? shadowUntil,

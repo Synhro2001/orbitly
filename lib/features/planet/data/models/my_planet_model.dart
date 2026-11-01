@@ -17,7 +17,7 @@ abstract class MyPlanetModel with _$MyPlanetModel {
     required int xp,
     required int xpForNextLevel,
     required int bestStreakDays,
-    required Mood mood,
+    @JsonKey(unknownEnumValue: Mood.calm) required Mood mood,
     DateTime? shadowFrom,
     DateTime? shadowUntil,
   }) = _MyPlanetModel;

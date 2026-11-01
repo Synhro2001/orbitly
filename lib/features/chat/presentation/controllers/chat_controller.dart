@@ -2,6 +2,7 @@ import 'package:orbitly/app/di.dart';
 import 'package:orbitly/core/utils/clock.dart';
 import 'package:orbitly/features/chat/domain/entities/chat.dart';
 import 'package:orbitly/features/chat/domain/entities/message.dart';
+import 'package:orbitly/features/chat/domain/message_rules.dart';
 import 'package:orbitly/features/system/presentation/controllers/system_controller.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -18,15 +19,15 @@ class ChatController extends _$ChatController {
       ref.watch(chatRepositoryProvider).getThread(friendId);
 
   Future<void> send(String text) async {
+    if (!MessageRules.isValid(text)) return;
     final trimmed = text.trim();
-    if (trimmed.isEmpty) return;
     _append(await ref.read(chatRepositoryProvider).sendText(friendId, trimmed));
   }
 
   /// Капсула времени: друг прочитает послание только через [delay].
   Future<void> sendCapsule(String text, Duration delay) async {
+    if (!MessageRules.isValid(text)) return;
     final trimmed = text.trim();
-    if (trimmed.isEmpty) return;
     final opensAt = ref.read(clockProvider)().add(delay);
     _append(
       await ref

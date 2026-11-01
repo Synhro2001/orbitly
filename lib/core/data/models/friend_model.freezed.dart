@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$FriendModel {
 
- String get id; String get name; String get handle; PlanetAppearanceModel get appearance; int get closeness; int get streakDays; DateTime get lastExchangeAt; Mood get mood; bool get hasUnreadSnaps; DateTime? get shadowFrom; DateTime? get shadowUntil;
+ String get id; String get name; String get handle; PlanetAppearanceModel get appearance; int get closeness; int get streakDays; DateTime get lastExchangeAt;@JsonKey(unknownEnumValue: Mood.calm) Mood get mood; bool get hasUnreadSnaps; DateTime? get shadowFrom; DateTime? get shadowUntil;
 /// Create a copy of FriendModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -54,7 +54,7 @@ abstract mixin class $FriendModelCopyWith<$Res>  {
   factory $FriendModelCopyWith(FriendModel value, $Res Function(FriendModel) _then) = _$FriendModelCopyWithImpl;
 @useResult
 $Res call({
- String id, String name, String handle, PlanetAppearanceModel appearance, int closeness, int streakDays, DateTime lastExchangeAt, Mood mood, bool hasUnreadSnaps, DateTime? shadowFrom, DateTime? shadowUntil
+ String id, String name, String handle, PlanetAppearanceModel appearance, int closeness, int streakDays, DateTime lastExchangeAt,@JsonKey(unknownEnumValue: Mood.calm) Mood mood, bool hasUnreadSnaps, DateTime? shadowFrom, DateTime? shadowUntil
 });
 
 
@@ -178,7 +178,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  String handle,  PlanetAppearanceModel appearance,  int closeness,  int streakDays,  DateTime lastExchangeAt,  Mood mood,  bool hasUnreadSnaps,  DateTime? shadowFrom,  DateTime? shadowUntil)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  String handle,  PlanetAppearanceModel appearance,  int closeness,  int streakDays,  DateTime lastExchangeAt, @JsonKey(unknownEnumValue: Mood.calm)  Mood mood,  bool hasUnreadSnaps,  DateTime? shadowFrom,  DateTime? shadowUntil)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _FriendModel() when $default != null:
 return $default(_that.id,_that.name,_that.handle,_that.appearance,_that.closeness,_that.streakDays,_that.lastExchangeAt,_that.mood,_that.hasUnreadSnaps,_that.shadowFrom,_that.shadowUntil);case _:
@@ -199,7 +199,7 @@ return $default(_that.id,_that.name,_that.handle,_that.appearance,_that.closenes
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  String handle,  PlanetAppearanceModel appearance,  int closeness,  int streakDays,  DateTime lastExchangeAt,  Mood mood,  bool hasUnreadSnaps,  DateTime? shadowFrom,  DateTime? shadowUntil)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  String handle,  PlanetAppearanceModel appearance,  int closeness,  int streakDays,  DateTime lastExchangeAt, @JsonKey(unknownEnumValue: Mood.calm)  Mood mood,  bool hasUnreadSnaps,  DateTime? shadowFrom,  DateTime? shadowUntil)  $default,) {final _that = this;
 switch (_that) {
 case _FriendModel():
 return $default(_that.id,_that.name,_that.handle,_that.appearance,_that.closeness,_that.streakDays,_that.lastExchangeAt,_that.mood,_that.hasUnreadSnaps,_that.shadowFrom,_that.shadowUntil);case _:
@@ -219,7 +219,7 @@ return $default(_that.id,_that.name,_that.handle,_that.appearance,_that.closenes
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  String handle,  PlanetAppearanceModel appearance,  int closeness,  int streakDays,  DateTime lastExchangeAt,  Mood mood,  bool hasUnreadSnaps,  DateTime? shadowFrom,  DateTime? shadowUntil)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  String handle,  PlanetAppearanceModel appearance,  int closeness,  int streakDays,  DateTime lastExchangeAt, @JsonKey(unknownEnumValue: Mood.calm)  Mood mood,  bool hasUnreadSnaps,  DateTime? shadowFrom,  DateTime? shadowUntil)?  $default,) {final _that = this;
 switch (_that) {
 case _FriendModel() when $default != null:
 return $default(_that.id,_that.name,_that.handle,_that.appearance,_that.closeness,_that.streakDays,_that.lastExchangeAt,_that.mood,_that.hasUnreadSnaps,_that.shadowFrom,_that.shadowUntil);case _:
@@ -234,7 +234,7 @@ return $default(_that.id,_that.name,_that.handle,_that.appearance,_that.closenes
 @JsonSerializable()
 
 class _FriendModel implements FriendModel {
-  const _FriendModel({required this.id, required this.name, required this.handle, required this.appearance, required this.closeness, required this.streakDays, required this.lastExchangeAt, required this.mood, required this.hasUnreadSnaps, this.shadowFrom, this.shadowUntil});
+  const _FriendModel({required this.id, required this.name, required this.handle, required this.appearance, required this.closeness, required this.streakDays, required this.lastExchangeAt, @JsonKey(unknownEnumValue: Mood.calm) required this.mood, required this.hasUnreadSnaps, this.shadowFrom, this.shadowUntil});
   factory _FriendModel.fromJson(Map<String, dynamic> json) => _$FriendModelFromJson(json);
 
 @override final  String id;
@@ -244,7 +244,7 @@ class _FriendModel implements FriendModel {
 @override final  int closeness;
 @override final  int streakDays;
 @override final  DateTime lastExchangeAt;
-@override final  Mood mood;
+@override@JsonKey(unknownEnumValue: Mood.calm) final  Mood mood;
 @override final  bool hasUnreadSnaps;
 @override final  DateTime? shadowFrom;
 @override final  DateTime? shadowUntil;
@@ -284,7 +284,7 @@ abstract mixin class _$FriendModelCopyWith<$Res> implements $FriendModelCopyWith
   factory _$FriendModelCopyWith(_FriendModel value, $Res Function(_FriendModel) _then) = __$FriendModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String name, String handle, PlanetAppearanceModel appearance, int closeness, int streakDays, DateTime lastExchangeAt, Mood mood, bool hasUnreadSnaps, DateTime? shadowFrom, DateTime? shadowUntil
+ String id, String name, String handle, PlanetAppearanceModel appearance, int closeness, int streakDays, DateTime lastExchangeAt,@JsonKey(unknownEnumValue: Mood.calm) Mood mood, bool hasUnreadSnaps, DateTime? shadowFrom, DateTime? shadowUntil
 });
 
 

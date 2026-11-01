@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:orbitly/core/theme/app_colors.dart';
 import 'package:orbitly/core/theme/app_dimens.dart';
 import 'package:orbitly/core/utils/l10n.dart';
+import 'package:orbitly/features/chat/domain/message_rules.dart';
 
 /// Поле ввода: камера, текст, капсула времени, отправка и подсказки
 /// «С чего начать?».
@@ -86,9 +87,15 @@ class _ChatComposerState extends State<ChatComposer> {
                 Expanded(
                   child: TextField(
                     controller: _controller,
+                    maxLength: MessageRules.maxLength,
                     textInputAction: TextInputAction.send,
                     onSubmitted: (_) => _send(),
-                    decoration: InputDecoration(hintText: l10n.chatMessageHint),
+                    decoration: InputDecoration(
+                      hintText: l10n.chatMessageHint,
+                      // Счётчик не нужен: лимит большой, ввод просто
+                      // остановится на нём.
+                      counterText: '',
+                    ),
                   ),
                 ),
                 // Кнопки активны, только когда есть что отправить.

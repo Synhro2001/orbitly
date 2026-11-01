@@ -7,6 +7,7 @@ import 'package:orbitly/core/utils/l10n.dart';
 import 'package:orbitly/core/widgets/async_view.dart';
 import 'package:orbitly/core/widgets/planet_view.dart';
 import 'package:orbitly/features/friends/domain/entities/friends_entities.dart';
+import 'package:orbitly/features/friends/domain/friend_search_rules.dart';
 import 'package:orbitly/features/friends/presentation/controllers/friends_controller.dart';
 
 class FriendsScreen extends ConsumerStatefulWidget {
@@ -37,8 +38,10 @@ class _FriendsScreenState extends ConsumerState<FriendsScreen> {
             padding: const EdgeInsets.all(AppSpacing.l),
             children: [
               TextField(
+                maxLength: FriendSearchRules.maxQueryLength,
                 onChanged: (value) => setState(() => _query = value),
                 decoration: InputDecoration(
+                  counterText: '',
                   hintText: l10n.friendsSearchHint,
                   prefixIcon: const Icon(Icons.search_rounded),
                 ),

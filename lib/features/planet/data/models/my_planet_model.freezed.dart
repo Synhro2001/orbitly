@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$MyPlanetModel {
 
- String get name; PlanetAppearanceModel get appearance; int get level; int get xp; int get xpForNextLevel; int get bestStreakDays; Mood get mood; DateTime? get shadowFrom; DateTime? get shadowUntil;
+ String get name; PlanetAppearanceModel get appearance; int get level; int get xp; int get xpForNextLevel; int get bestStreakDays;@JsonKey(unknownEnumValue: Mood.calm) Mood get mood; DateTime? get shadowFrom; DateTime? get shadowUntil;
 /// Create a copy of MyPlanetModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -54,7 +54,7 @@ abstract mixin class $MyPlanetModelCopyWith<$Res>  {
   factory $MyPlanetModelCopyWith(MyPlanetModel value, $Res Function(MyPlanetModel) _then) = _$MyPlanetModelCopyWithImpl;
 @useResult
 $Res call({
- String name, PlanetAppearanceModel appearance, int level, int xp, int xpForNextLevel, int bestStreakDays, Mood mood, DateTime? shadowFrom, DateTime? shadowUntil
+ String name, PlanetAppearanceModel appearance, int level, int xp, int xpForNextLevel, int bestStreakDays,@JsonKey(unknownEnumValue: Mood.calm) Mood mood, DateTime? shadowFrom, DateTime? shadowUntil
 });
 
 
@@ -176,7 +176,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  PlanetAppearanceModel appearance,  int level,  int xp,  int xpForNextLevel,  int bestStreakDays,  Mood mood,  DateTime? shadowFrom,  DateTime? shadowUntil)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  PlanetAppearanceModel appearance,  int level,  int xp,  int xpForNextLevel,  int bestStreakDays, @JsonKey(unknownEnumValue: Mood.calm)  Mood mood,  DateTime? shadowFrom,  DateTime? shadowUntil)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _MyPlanetModel() when $default != null:
 return $default(_that.name,_that.appearance,_that.level,_that.xp,_that.xpForNextLevel,_that.bestStreakDays,_that.mood,_that.shadowFrom,_that.shadowUntil);case _:
@@ -197,7 +197,7 @@ return $default(_that.name,_that.appearance,_that.level,_that.xp,_that.xpForNext
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  PlanetAppearanceModel appearance,  int level,  int xp,  int xpForNextLevel,  int bestStreakDays,  Mood mood,  DateTime? shadowFrom,  DateTime? shadowUntil)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  PlanetAppearanceModel appearance,  int level,  int xp,  int xpForNextLevel,  int bestStreakDays, @JsonKey(unknownEnumValue: Mood.calm)  Mood mood,  DateTime? shadowFrom,  DateTime? shadowUntil)  $default,) {final _that = this;
 switch (_that) {
 case _MyPlanetModel():
 return $default(_that.name,_that.appearance,_that.level,_that.xp,_that.xpForNextLevel,_that.bestStreakDays,_that.mood,_that.shadowFrom,_that.shadowUntil);case _:
@@ -217,7 +217,7 @@ return $default(_that.name,_that.appearance,_that.level,_that.xp,_that.xpForNext
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  PlanetAppearanceModel appearance,  int level,  int xp,  int xpForNextLevel,  int bestStreakDays,  Mood mood,  DateTime? shadowFrom,  DateTime? shadowUntil)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  PlanetAppearanceModel appearance,  int level,  int xp,  int xpForNextLevel,  int bestStreakDays, @JsonKey(unknownEnumValue: Mood.calm)  Mood mood,  DateTime? shadowFrom,  DateTime? shadowUntil)?  $default,) {final _that = this;
 switch (_that) {
 case _MyPlanetModel() when $default != null:
 return $default(_that.name,_that.appearance,_that.level,_that.xp,_that.xpForNextLevel,_that.bestStreakDays,_that.mood,_that.shadowFrom,_that.shadowUntil);case _:
@@ -232,7 +232,7 @@ return $default(_that.name,_that.appearance,_that.level,_that.xp,_that.xpForNext
 @JsonSerializable()
 
 class _MyPlanetModel implements MyPlanetModel {
-  const _MyPlanetModel({required this.name, required this.appearance, required this.level, required this.xp, required this.xpForNextLevel, required this.bestStreakDays, required this.mood, this.shadowFrom, this.shadowUntil});
+  const _MyPlanetModel({required this.name, required this.appearance, required this.level, required this.xp, required this.xpForNextLevel, required this.bestStreakDays, @JsonKey(unknownEnumValue: Mood.calm) required this.mood, this.shadowFrom, this.shadowUntil});
   factory _MyPlanetModel.fromJson(Map<String, dynamic> json) => _$MyPlanetModelFromJson(json);
 
 @override final  String name;
@@ -241,7 +241,7 @@ class _MyPlanetModel implements MyPlanetModel {
 @override final  int xp;
 @override final  int xpForNextLevel;
 @override final  int bestStreakDays;
-@override final  Mood mood;
+@override@JsonKey(unknownEnumValue: Mood.calm) final  Mood mood;
 @override final  DateTime? shadowFrom;
 @override final  DateTime? shadowUntil;
 
@@ -280,7 +280,7 @@ abstract mixin class _$MyPlanetModelCopyWith<$Res> implements $MyPlanetModelCopy
   factory _$MyPlanetModelCopyWith(_MyPlanetModel value, $Res Function(_MyPlanetModel) _then) = __$MyPlanetModelCopyWithImpl;
 @override @useResult
 $Res call({
- String name, PlanetAppearanceModel appearance, int level, int xp, int xpForNextLevel, int bestStreakDays, Mood mood, DateTime? shadowFrom, DateTime? shadowUntil
+ String name, PlanetAppearanceModel appearance, int level, int xp, int xpForNextLevel, int bestStreakDays,@JsonKey(unknownEnumValue: Mood.calm) Mood mood, DateTime? shadowFrom, DateTime? shadowUntil
 });
 
 

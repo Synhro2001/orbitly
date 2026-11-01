@@ -18,7 +18,7 @@ _MyPlanetModel _$MyPlanetModelFromJson(Map<String, dynamic> json) =>
       xp: (json['xp'] as num).toInt(),
       xpForNextLevel: (json['xp_for_next_level'] as num).toInt(),
       bestStreakDays: (json['best_streak_days'] as num).toInt(),
-      mood: $enumDecode(_$MoodEnumMap, json['mood']),
+      mood: $enumDecode(_$MoodEnumMap, json['mood'], unknownValue: Mood.calm),
       shadowFrom: json['shadow_from'] == null
           ? null
           : DateTime.parse(json['shadow_from'] as String),

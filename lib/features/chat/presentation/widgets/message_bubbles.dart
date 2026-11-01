@@ -126,7 +126,7 @@ class CapsuleBubble extends ConsumerWidget {
     final now = ref.watch(clockProvider)();
     final open = message.isOpenAt(now);
     final daysLeft = daysUntil(message.opensAt, now: now);
-    final showText = open || message.isMine;
+    final text = message.text;
     return _Bubble(
       isMine: message.isMine,
       color: AppColors.surfaceHigh,
@@ -153,8 +153,8 @@ class CapsuleBubble extends ConsumerWidget {
           ),
           const SizedBox(height: AppSpacing.xs),
           Text(
-            showText ? message.text : l10n.chatCapsuleSealed,
-            style: showText
+            text ?? l10n.chatCapsuleSealed,
+            style: text != null
                 ? textTheme.bodyMedium
                 : textTheme.bodyMedium?.copyWith(color: AppColors.textMuted),
           ),

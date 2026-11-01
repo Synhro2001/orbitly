@@ -25,7 +25,7 @@ sealed class MessageModel with _$MessageModel {
     required bool isMine,
     required DateTime sentAt,
     required DateTime opensAt,
-    required String text,
+    String? text,
   }) = CapsuleMessageModel;
 
   factory MessageModel.fromJson(Map<String, Object?> json) =>

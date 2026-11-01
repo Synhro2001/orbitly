@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$PlanetAppearanceModel {
 
- PlanetType get type; int get seed; double get hue; int get moons; bool get hasRings; bool get glows;
+@JsonKey(unknownEnumValue: PlanetType.ocean) PlanetType get type; int get seed; double get hue; int get moons; bool get hasRings; bool get glows;
 /// Create a copy of PlanetAppearanceModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -54,7 +54,7 @@ abstract mixin class $PlanetAppearanceModelCopyWith<$Res>  {
   factory $PlanetAppearanceModelCopyWith(PlanetAppearanceModel value, $Res Function(PlanetAppearanceModel) _then) = _$PlanetAppearanceModelCopyWithImpl;
 @useResult
 $Res call({
- PlanetType type, int seed, double hue, int moons, bool hasRings, bool glows
+@JsonKey(unknownEnumValue: PlanetType.ocean) PlanetType type, int seed, double hue, int moons, bool hasRings, bool glows
 });
 
 
@@ -164,7 +164,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( PlanetType type,  int seed,  double hue,  int moons,  bool hasRings,  bool glows)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(unknownEnumValue: PlanetType.ocean)  PlanetType type,  int seed,  double hue,  int moons,  bool hasRings,  bool glows)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _PlanetAppearanceModel() when $default != null:
 return $default(_that.type,_that.seed,_that.hue,_that.moons,_that.hasRings,_that.glows);case _:
@@ -185,7 +185,7 @@ return $default(_that.type,_that.seed,_that.hue,_that.moons,_that.hasRings,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( PlanetType type,  int seed,  double hue,  int moons,  bool hasRings,  bool glows)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(unknownEnumValue: PlanetType.ocean)  PlanetType type,  int seed,  double hue,  int moons,  bool hasRings,  bool glows)  $default,) {final _that = this;
 switch (_that) {
 case _PlanetAppearanceModel():
 return $default(_that.type,_that.seed,_that.hue,_that.moons,_that.hasRings,_that.glows);case _:
@@ -205,7 +205,7 @@ return $default(_that.type,_that.seed,_that.hue,_that.moons,_that.hasRings,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( PlanetType type,  int seed,  double hue,  int moons,  bool hasRings,  bool glows)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(unknownEnumValue: PlanetType.ocean)  PlanetType type,  int seed,  double hue,  int moons,  bool hasRings,  bool glows)?  $default,) {final _that = this;
 switch (_that) {
 case _PlanetAppearanceModel() when $default != null:
 return $default(_that.type,_that.seed,_that.hue,_that.moons,_that.hasRings,_that.glows);case _:
@@ -220,10 +220,10 @@ return $default(_that.type,_that.seed,_that.hue,_that.moons,_that.hasRings,_that
 @JsonSerializable()
 
 class _PlanetAppearanceModel implements PlanetAppearanceModel {
-  const _PlanetAppearanceModel({required this.type, required this.seed, required this.hue, this.moons = 0, this.hasRings = false, this.glows = false});
+  const _PlanetAppearanceModel({@JsonKey(unknownEnumValue: PlanetType.ocean) required this.type, required this.seed, required this.hue, this.moons = 0, this.hasRings = false, this.glows = false});
   factory _PlanetAppearanceModel.fromJson(Map<String, dynamic> json) => _$PlanetAppearanceModelFromJson(json);
 
-@override final  PlanetType type;
+@override@JsonKey(unknownEnumValue: PlanetType.ocean) final  PlanetType type;
 @override final  int seed;
 @override final  double hue;
 @override@JsonKey() final  int moons;
@@ -265,7 +265,7 @@ abstract mixin class _$PlanetAppearanceModelCopyWith<$Res> implements $PlanetApp
   factory _$PlanetAppearanceModelCopyWith(_PlanetAppearanceModel value, $Res Function(_PlanetAppearanceModel) _then) = __$PlanetAppearanceModelCopyWithImpl;
 @override @useResult
 $Res call({
- PlanetType type, int seed, double hue, int moons, bool hasRings, bool glows
+@JsonKey(unknownEnumValue: PlanetType.ocean) PlanetType type, int seed, double hue, int moons, bool hasRings, bool glows
 });
 
 

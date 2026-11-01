@@ -18,7 +18,7 @@ _FriendModel _$FriendModelFromJson(Map<String, dynamic> json) => _FriendModel(
   closeness: (json['closeness'] as num).toInt(),
   streakDays: (json['streak_days'] as num).toInt(),
   lastExchangeAt: DateTime.parse(json['last_exchange_at'] as String),
-  mood: $enumDecode(_$MoodEnumMap, json['mood']),
+  mood: $enumDecode(_$MoodEnumMap, json['mood'], unknownValue: Mood.calm),
   hasUnreadSnaps: json['has_unread_snaps'] as bool,
   shadowFrom: json['shadow_from'] == null
       ? null

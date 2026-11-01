@@ -11,7 +11,11 @@ part of 'planet_appearance_model.dart';
 _PlanetAppearanceModel _$PlanetAppearanceModelFromJson(
   Map<String, dynamic> json,
 ) => _PlanetAppearanceModel(
-  type: $enumDecode(_$PlanetTypeEnumMap, json['type']),
+  type: $enumDecode(
+    _$PlanetTypeEnumMap,
+    json['type'],
+    unknownValue: PlanetType.ocean,
+  ),
   seed: (json['seed'] as num).toInt(),
   hue: (json['hue'] as num).toDouble(),
   moons: (json['moons'] as num?)?.toInt() ?? 0,

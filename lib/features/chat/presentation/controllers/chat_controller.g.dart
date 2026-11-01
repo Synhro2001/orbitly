@@ -93,7 +93,7 @@ final class ChatControllerProvider
   }
 }
 
-String _$chatControllerHash() => r'c342f4a359cfd0ddefc11a0ab54fbd6fdedccee2';
+String _$chatControllerHash() => r'6653fba42770364acff3c1089c6d2aa901ffabbb';
 
 final class ChatControllerFamily extends $Family
     with
