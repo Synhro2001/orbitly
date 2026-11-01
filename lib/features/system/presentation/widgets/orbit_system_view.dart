@@ -148,28 +148,18 @@ class _FriendPlanet extends ConsumerWidget {
           alignment: Alignment.center,
           clipBehavior: Clip.none,
           children: [
+            // Свечение градиентом, а не размытой тенью: размытие
+            // пересчитывается в каждом кадре и тормозит карту.
             if (unread)
-              Container(
-                width: bodySize,
-                height: bodySize,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColors.mint.withValues(alpha: 0.7),
-                      blurRadius: bodySize * 0.6,
-                      spreadRadius: bodySize * 0.1,
-                    ),
-                  ],
-                ),
+              SizedBox.square(
+                dimension: bodySize * 2.2,
+                child: const DecoratedBox(decoration: _unreadGlow),
               ),
             // Друг в тени — планета в полутени, как при затмении.
-            Opacity(
+            PlanetView(
+              appearance: friend.appearance,
+              size: orbit.planetSize,
               opacity: inShadow ? 0.45 : 1,
-              child: PlanetView(
-                appearance: friend.appearance,
-                size: orbit.planetSize,
-              ),
             ),
             // Общий трофей дружбы — значок самого свежего у планеты.
             if (friend.sharedTrophies.lastOrNull?.emoji case final emoji?)
@@ -187,10 +177,7 @@ class _FriendPlanet extends ConsumerWidget {
                 inShadow ? '🌘 ${friend.name}' : friend.name,
                 style: Theme.of(context).textTheme.labelSmall?.copyWith(
                   color: unread ? AppColors.mint : AppColors.textPrimary,
-                  shadows: const [
-                    Shadow(color: AppColors.spaceDeep, blurRadius: 4),
-                    Shadow(color: AppColors.spaceDeep, blurRadius: 8),
-                  ],
+                  shadows: _labelOutline,
                 ),
               ),
             ),
@@ -200,6 +187,22 @@ class _FriendPlanet extends ConsumerWidget {
     );
   }
 }
+
+const _unreadGlow = BoxDecoration(
+  shape: BoxShape.circle,
+  gradient: RadialGradient(
+    colors: [Color(0xB37CF2D0), Color(0x597CF2D0), Color(0x007CF2D0)],
+    stops: [0.3, 0.55, 1],
+  ),
+);
+
+/// Тёмная обводка имени без размытия — читается на любом фоне.
+const _labelOutline = [
+  Shadow(color: AppColors.spaceDeep, offset: Offset(1, 1)),
+  Shadow(color: AppColors.spaceDeep, offset: Offset(-1, -1)),
+  Shadow(color: AppColors.spaceDeep, offset: Offset(1, -1)),
+  Shadow(color: AppColors.spaceDeep, offset: Offset(-1, 1)),
+];
 
 /// Двигает планеты без перестройки виджетов и сортирует их по глубине:
 /// те, что на дальней стороне орбиты, рисуются за солнцем и чуть меньше.

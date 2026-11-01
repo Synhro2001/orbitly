@@ -15,12 +15,16 @@ class PlanetView extends StatefulWidget {
     required this.appearance,
     required this.size,
     this.live = false,
+    this.opacity = 1,
     super.key,
   });
 
   final PlanetAppearance appearance;
   final double size;
   final bool live;
+
+  /// Прозрачность без отдельного слоя (Opacity) — дешевле на каждом кадре.
+  final double opacity;
 
   @override
   State<PlanetView> createState() => _PlanetViewState();
@@ -74,8 +78,17 @@ class _PlanetViewState extends State<PlanetView> {
         dimension: widget.size,
         // Пока картинка готовится, рисуем напрямую — без пустого кадра.
         child: image != null
-            ? RawImage(image: image, fit: BoxFit.contain)
-            : CustomPaint(painter: PlanetPainter(widget.appearance)),
+            ? RawImage(
+                image: image,
+                fit: BoxFit.contain,
+                opacity: widget.opacity == 1
+                    ? null
+                    : AlwaysStoppedAnimation(widget.opacity),
+              )
+            : Opacity(
+                opacity: widget.opacity,
+                child: CustomPaint(painter: PlanetPainter(widget.appearance)),
+              ),
       ),
     );
   }

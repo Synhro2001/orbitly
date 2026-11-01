@@ -166,12 +166,17 @@ class CometsPainter extends CustomPainter {
               ],
             ).createShader(Rect.fromPoints(tail, head)),
         )
+        // Голова — градиент, а не размытие: дешевле на каждом кадре.
         ..drawCircle(
           head,
-          3,
+          5,
           Paint()
-            ..color = AppColors.mint.withValues(alpha: fade)
-            ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 2),
+            ..shader = RadialGradient(
+              colors: [
+                AppColors.mint.withValues(alpha: fade),
+                AppColors.mint.withValues(alpha: 0),
+              ],
+            ).createShader(Rect.fromCircle(center: head, radius: 5)),
         );
     }
   }
