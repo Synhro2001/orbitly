@@ -46,7 +46,7 @@ class LoginController extends _$LoginController {
     }
   }
 
-  /// После успеха роутер сам уведёт с экрана входа (signedIn → true).
+  /// On success the router leaves the login screen by itself (signedIn → true).
   Future<void> verify(String code) async {
     final trimmed = code.trim();
     if (trimmed.length != codeLength) {

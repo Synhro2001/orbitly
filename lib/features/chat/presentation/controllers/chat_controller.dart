@@ -9,8 +9,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'chat_controller.g.dart';
 
-/// От кого только что пришло сообщение (Realtime). Подписка привязана к
-/// пользователю и переподключается после повторного входа.
+/// Who has just sent a message (Realtime). The subscription is tied to the
+/// user and reconnects after signing in again.
 @Riverpod(keepAlive: true)
 Stream<String> incomingMessages(Ref ref) {
   ref.watch(signedInProvider);
@@ -19,7 +19,7 @@ Stream<String> incomingMessages(Ref ref) {
 
 @riverpod
 Future<List<ChatPreview>> chats(Ref ref) {
-  // Новое сообщение меняет порядок чатов и последнюю строку.
+  // A new message changes the chat order and the last line.
   ref.listen(incomingMessagesProvider, (_, _) => ref.invalidateSelf());
   return ref.watch(chatRepositoryProvider).getChats();
 }
@@ -28,8 +28,8 @@ Future<List<ChatPreview>> chats(Ref ref) {
 class ChatController extends _$ChatController {
   @override
   Future<ChatThread> build(String friendId) {
-    // Друг написал — перечитываем переписку (старые сообщения остаются на
-    // экране, пока грузятся новые).
+    // A friend wrote: reload the conversation (old messages stay on screen
+    // while the new ones load).
     ref.listen(incomingMessagesProvider, (_, next) {
       if (next.value == friendId) ref.invalidateSelf();
     });
@@ -42,7 +42,7 @@ class ChatController extends _$ChatController {
     _append(await ref.read(chatRepositoryProvider).sendText(friendId, trimmed));
   }
 
-  /// Капсула времени: друг прочитает послание только через [delay].
+  /// Time capsule: the friend can read it only after [delay].
   Future<void> sendCapsule(String text, Duration delay) async {
     if (!MessageRules.isValid(text)) return;
     final trimmed = text.trim();
@@ -57,7 +57,7 @@ class ChatController extends _$ChatController {
   void _append(Message message) {
     final current = state.value;
     if (!ref.mounted || current == null) return;
-    // После своего сообщения подсказки «с чего начать» больше не нужны.
+    // After my own message the conversation openers are no longer needed.
     state = AsyncData(
       current.copyWith(
         messages: [...current.messages, message],
@@ -92,8 +92,8 @@ class ChatController extends _$ChatController {
     _refreshLists();
   }
 
-  /// Список чатов и система показывают последнее сообщение и свечение
-  /// непрочитанного — после изменений их нужно перечитать.
+  /// The chat list and the system show the last message and the unread
+  /// glow, so they must be reloaded after a change.
   void _refreshLists() => ref
     ..invalidate(chatsProvider)
     ..invalidate(systemControllerProvider);

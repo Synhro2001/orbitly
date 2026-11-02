@@ -12,7 +12,7 @@ class SupabaseSystemRepository implements SystemRepository {
   @override
   Future<List<Friend>> getFriends() => fetchMyFriends(_client);
 
-  /// Моменты появятся вместе с историями и хранилищем медиа.
+  /// Moments will come with stories and media storage.
   @override
   Future<List<Moment>> getMoments() async => const [];
 

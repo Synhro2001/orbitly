@@ -1,6 +1,6 @@
 import 'package:orbitly/features/auth/domain/repositories/auth_repository.dart';
 
-/// В режиме моков пользователь уже вошёл.
+/// In mock mode the user is already signed in.
 class MockAuthRepository implements AuthRepository {
   const MockAuthRepository();
 

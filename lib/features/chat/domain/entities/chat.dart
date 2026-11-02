@@ -12,13 +12,13 @@ abstract class ChatThread with _$ChatThread {
     required List<Message> messages,
     required List<Award> sharedTrophies,
 
-    /// Подсказки, с чего начать разговор. Сервер присылает их, когда друг
-    /// отдаляется или серия дала трещину; иначе список пуст.
+    /// Conversation openers. Offered when a friend is drifting away or the
+    /// streak has cracked; otherwise the list is empty.
     @Default([]) List<String> conversationStarters,
   }) = _ChatThread;
 }
 
-/// Строка в списке чатов.
+/// A row in the chat list.
 @freezed
 abstract class ChatPreview with _$ChatPreview {
   const factory ChatPreview({

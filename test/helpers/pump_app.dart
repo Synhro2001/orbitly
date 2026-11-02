@@ -7,11 +7,11 @@ import 'package:orbitly/app/di.dart';
 import 'package:orbitly/app/router.dart';
 import 'package:orbitly/core/data/mock/mock_store.dart';
 
-/// Запускает приложение с готовой планетой, без задержек сети и без
-/// бесконечных анимаций (включено «уменьшить движение»).
+/// Starts the app with a ready planet, no network delays and no endless
+/// animations ("reduce motion" is on).
 ///
-/// [store] — своё моковое хранилище, например с новым открытием.
-/// [overrides] — подмена отдельных репозиториев, например падающего.
+/// [store] is a custom mock store, for example one with a new unlock.
+/// [overrides] replace single repositories, for example with a failing one.
 Future<GoRouter> pumpApp(
   WidgetTester tester, {
   MockStore? store,

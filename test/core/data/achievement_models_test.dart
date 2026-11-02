@@ -6,7 +6,7 @@ import 'package:orbitly/core/domain/entities/award.dart';
 import 'package:orbitly/core/domain/entities/cosmetic.dart';
 import 'package:orbitly/core/domain/entities/planet_appearance.dart';
 
-/// Строки — в том виде, как их отдают функции Supabase.
+/// Rows in the shape the Supabase functions return them.
 void main() {
   group('AwardModel (get_my_achievements)', () {
     test('an unlocked achievement', () {

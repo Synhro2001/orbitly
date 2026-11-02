@@ -11,7 +11,7 @@ sealed class Message with _$Message {
     required String text,
   }) = TextMessage;
 
-  /// Снап: фото/видео, которое можно посмотреть один раз.
+  /// Snap: a photo/video that can be viewed once.
   const factory Message.snap({
     required String id,
     required bool isMine,
@@ -19,9 +19,9 @@ sealed class Message with _$Message {
     required bool opened,
   }) = SnapMessage;
 
-  /// Капсула времени: послание, которое откроется только в [opensAt].
-  /// [text] — `null`, пока капсула запечатана: сервер не отдаёт текст
-  /// получателю раньше срока, так что подсмотреть его нельзя.
+  /// Time capsule: a message that opens only at [opensAt]. [text] is `null`
+  /// while the capsule is sealed: the server does not send the text to the
+  /// recipient early, so there is no way to peek.
   const factory Message.capsule({
     required String id,
     required bool isMine,

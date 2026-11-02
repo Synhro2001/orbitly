@@ -1,26 +1,26 @@
 import 'package:orbitly/core/domain/entities/shadow.dart';
 
-/// Какую тень можно поставить. Проверяет сервер: тень спасает серии, поэтому
-/// поддельная тень (на год или задним числом) — способ жульничать.
+/// Which shadow may be set. The server checks this too: a shadow saves
+/// streaks, so a fake one (a year long or backdated) would be a way to cheat.
 class ShadowPolicy {
   const ShadowPolicy();
 
   static const maxDuration = Duration(days: 7);
 
-  /// Допуск на расхождение часов телефона и сервера.
+  /// Tolerance for clock drift between the phone and the server.
   static const clockSkew = Duration(minutes: 5);
 
-  /// [current] — тень, которая уже стоит: её можно только закончить раньше.
+  /// [current] is the shadow already set: it can only end earlier.
   bool isAllowed(Shadow shadow, {required DateTime now, Shadow? current}) {
     if (!shadow.until.isAfter(shadow.from)) return false;
     if (shadow.until.difference(shadow.from) > maxDuration) return false;
 
-    // Досрочный выход: начало прежнее, конец не позже прежнего.
+    // Leaving early: same start, end no later than before.
     if (current != null && shadow.from == current.from) {
       return !shadow.until.isAfter(current.until);
     }
-    // Новая тень начинается сейчас: задним числом она оживила бы
-    // уже сгоревшие серии.
+    // A new shadow starts now: a backdated one would revive streaks that
+    // are already lost.
     return shadow.from.difference(now).abs() <= clockSkew;
   }
 }

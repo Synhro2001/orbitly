@@ -22,8 +22,7 @@ part 'router.g.dart';
 
 @Riverpod(keepAlive: true)
 GoRouter router(Ref ref) {
-  // Роутер пересчитывает redirect, когда меняется вход или «есть ли
-  // планета».
+  // Re-run the redirect whenever sign-in or "has a planet" changes.
   final signedIn = ValueNotifier<AsyncValue<bool>>(const AsyncLoading());
   final hasPlanet = ValueNotifier<AsyncValue<bool>>(const AsyncLoading());
   ref
@@ -141,7 +140,7 @@ GoRouter router(Ref ref) {
   return router;
 }
 
-/// Камера выезжает справа — как продолжение свайпа влево.
+/// The camera slides in from the right, continuing the swipe left.
 Widget _slideFromRight(
   BuildContext context,
   Animation<double> animation,

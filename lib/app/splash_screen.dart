@@ -4,7 +4,7 @@ import 'package:orbitly/core/widgets/async_view.dart';
 import 'package:orbitly/core/widgets/starfield_background.dart';
 import 'package:orbitly/features/planet/presentation/controllers/my_planet_controller.dart';
 
-/// Пока выясняем, есть ли у пользователя планета.
+/// Shown while we find out whether the user has a planet.
 class SplashScreen extends ConsumerWidget {
   const SplashScreen({super.key});
 
@@ -15,7 +15,7 @@ class SplashScreen extends ConsumerWidget {
         child: AsyncView(
           value: ref.watch(hasPlanetProvider),
           onRetry: () => ref.invalidate(hasPlanetProvider),
-          // Как только ответ есть, роутер уводит с этого экрана.
+          // As soon as the answer is known, the router leaves this screen.
           builder: (_) => const SizedBox.shrink(),
         ),
       ),

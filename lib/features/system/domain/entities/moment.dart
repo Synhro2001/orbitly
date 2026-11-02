@@ -2,7 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'moment.freezed.dart';
 
-/// Момент друга — кружок в верхнем ряду главного экрана.
+/// A friend's moment: a circle in the top row of the main screen.
 @freezed
 abstract class Moment with _$Moment {
   const factory Moment({

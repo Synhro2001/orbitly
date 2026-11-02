@@ -1,6 +1,5 @@
-/// Разбирает список с сервера, пропуская записи, которые не удалось
-/// прочитать. Данные задают другие пользователи, и одна испорченная запись
-/// не должна ломать весь экран.
+/// Parses a list from the server and skips rows that cannot be read. Other
+/// users produce this data, and one broken row must not break the screen.
 List<T> parseValid<T>(
   Iterable<Map<String, Object?>> rows,
   T Function(Map<String, Object?> json) parse,

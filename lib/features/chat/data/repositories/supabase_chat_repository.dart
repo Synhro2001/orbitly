@@ -10,14 +10,14 @@ import 'package:orbitly/features/chat/domain/entities/message.dart';
 import 'package:orbitly/features/chat/domain/repositories/chat_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-/// Чат через функции на сервере. Таблицу messages клиент не читает: сервер
-/// сам прячет текст чужой капсулы до срока.
+/// Chat through server functions. The client never reads the messages table:
+/// the server hides a friend's capsule text until it opens.
 class SupabaseChatRepository implements ChatRepository {
   const SupabaseChatRepository(this._client);
 
   final SupabaseClient _client;
 
-  /// Через сколько тишины подсказываем, с чего начать разговор.
+  /// After this much silence the chat suggests how to start talking again.
   static const _quietFor = Duration(hours: 24);
 
   @override
@@ -92,9 +92,9 @@ class SupabaseChatRepository implements ChatRepository {
   Future<void> openSnap(String friendId, String messageId) =>
       _client.rpc<void>('open_snap', params: {'p_message': messageId});
 
-  /// Realtime: сервер пишет в журнал interactions строку на каждое
-  /// сообщение. В ней нет текста — только кто и кому; RLS пропускает
-  /// только мои строки. По сигналу приложение перечитывает переписку.
+  /// Realtime: the server logs one row in `interactions` per message. It has
+  /// no text, only who wrote to whom; RLS lets through only my rows. On a
+  /// signal the app reloads the conversation.
   @override
   Stream<String> watchIncoming() {
     final userId = _client.auth.currentUser?.id;
@@ -124,7 +124,7 @@ class SupabaseChatRepository implements ChatRepository {
   }
 }
 
-/// Строки get_thread / send_message → сообщения. Битые пропускаются.
+/// get_thread / send_message rows → messages. Broken rows are skipped.
 List<Message> messagesFromRpcRows(List<Map<String, dynamic>> rows) => [
   for (final row in rows) ?_tryMessage(row),
 ];

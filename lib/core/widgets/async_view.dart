@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:orbitly/core/theme/app_dimens.dart';
 import 'package:orbitly/core/utils/l10n.dart';
 
-/// Единый вид загрузки и ошибки для `AsyncValue`.
+/// One look for loading and error states of an `AsyncValue`.
 class AsyncView<T> extends StatelessWidget {
   const AsyncView({
     required this.value,

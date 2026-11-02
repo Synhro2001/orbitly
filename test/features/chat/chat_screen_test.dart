@@ -9,7 +9,7 @@ import 'package:orbitly/features/chat/domain/entities/message.dart';
 import '../../helpers/pump_app.dart';
 
 void main() {
-  // friend-0 — Аня: у неё непрочитанный снап.
+  // friend-0 is Anya: she has an unread snap.
   Future<void> openChat(WidgetTester tester) async {
     final router = await pumpApp(tester);
     router.go(AppRoutes.chat('friend-0'));
@@ -19,7 +19,7 @@ void main() {
   testWidgets('shows friend, messages and the snap plaque', (tester) async {
     await openChat(tester);
 
-    // Имя видно и в компактной шапке, и в карточке друга.
+    // The name shows both in the compact header and on the friend card.
     expect(find.textContaining('Аня'), findsNWidgets(2));
     expect(find.text('@anya.sky'), findsOneWidget);
     expect(find.text('Ты видел закат сегодня?'), findsOneWidget);
@@ -44,7 +44,7 @@ void main() {
     await tester.pump();
     expect(find.text('Снап от Аня'), findsOneWidget);
 
-    // Просмотр закрывается сам по таймеру.
+    // The viewer closes by itself on a timer.
     await tester.pumpAndSettle();
 
     expect(find.text('Снап от Аня'), findsNothing);
@@ -76,7 +76,7 @@ void main() {
   });
 }
 
-/// Чат без сети: читать можно, отправить нельзя.
+/// Chat without network: reading works, sending fails.
 class _OfflineChat extends MockChatRepository {
   const _OfflineChat(super._store);
 

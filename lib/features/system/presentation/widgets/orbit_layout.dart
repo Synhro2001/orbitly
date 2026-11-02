@@ -19,24 +19,24 @@ class FriendOrbit {
   final double radius;
   final double phase;
 
-  /// Целое число оборотов за цикл анимации — чтобы цикл замыкался без скачка.
+  /// Whole number of turns per animation cycle, so the loop has no jump.
   final int turnsPerCycle;
   final double planetSize;
 }
 
-/// Геометрия системы: где находится каждый друг в момент `t` (0–1 цикла).
+/// System geometry: where each friend is at time `t` (0–1 of a cycle).
 ///
-/// `area` — видимая часть экрана между шапкой и нижней панелью: в ней
-/// помещаются орбиты друзей. Пылевой диск выходит за её пределы.
+/// `area` is the visible part of the screen between the header and the
+/// bottom bar; friend orbits fit inside it. The dust disk goes beyond it.
 class OrbitLayout {
   OrbitLayout({required Rect area, required List<Friend> friends})
     : center = area.center,
-      // На узком экране планеты меньше, чтобы не налезали друг на друга.
+      // Smaller planets on narrow screens so they do not overlap.
       _scale = (area.shortestSide / AppSizes.systemReferenceSide).clamp(
         AppSizes.systemMinScale,
         1,
       ),
-      // На вертикальном экране орбиты меньше сплющены, чтобы занять высоту.
+      // On tall screens the orbits are less squashed to use the height.
       tilt = (area.height / area.width * AppSizes.orbitTiltPerAspect).clamp(
         AppSizes.orbitTiltMin,
         AppSizes.orbitTiltMax,
@@ -63,7 +63,7 @@ class OrbitLayout {
             rMax: outerRadius,
           ),
           phase: 2 * math.pi * i / friends.length,
-          // Ближние орбиты обращаются быстрее, как в настоящей системе.
+          // Inner orbits move faster, as in a real planetary system.
           turnsPerCycle: switch (friend.closeness) {
             >= 75 => 3,
             >= 40 => 2,
@@ -83,7 +83,7 @@ class OrbitLayout {
   final Offset center;
   final double _scale;
 
-  /// Сжатие орбит по вертикали — имитация наклона плоскости системы.
+  /// Vertical squash of the orbits: fakes the tilt of the system plane.
   final double tilt;
   late final double innerRadius;
   late final double outerRadius;
@@ -91,7 +91,7 @@ class OrbitLayout {
 
   double get mySize => AppSizes.myPlanetInSystem * _scale;
 
-  /// Точка на наклонной плоскости системы.
+  /// A point on the tilted system plane.
   Offset pointAt(double angle, double radius) =>
       center +
       Offset(math.cos(angle) * radius, math.sin(angle) * radius * tilt);
@@ -102,6 +102,6 @@ class OrbitLayout {
   Offset positionOf(FriendOrbit orbit, double t) =>
       pointAt(angleOf(orbit, t), orbit.radius);
 
-  /// −1 — дальний край орбиты (за солнцем), 1 — ближний.
+  /// −1 is the far side of the orbit (behind the sun), 1 the near side.
   double depthOf(FriendOrbit orbit, double t) => math.sin(angleOf(orbit, t));
 }

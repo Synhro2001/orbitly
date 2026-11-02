@@ -12,7 +12,7 @@ class SupabaseAuthRepository implements AuthRepository {
     yield* _auth.onAuthStateChange.map((state) => state.session != null);
   }
 
-  /// Шаблон письма отдаёт 6-значный код ({{ .Token }}), а не ссылку.
+  /// The email template sends a 6-digit code ({{ .Token }}), not a link.
   @override
   Future<void> sendCode(String email) => _auth.signInWithOtp(email: email);
 

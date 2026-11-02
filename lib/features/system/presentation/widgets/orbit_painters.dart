@@ -7,9 +7,10 @@ import 'package:orbitly/core/theme/app_colors.dart';
 import 'package:orbitly/core/theme/app_dimens.dart';
 import 'package:orbitly/features/system/presentation/widgets/orbit_layout.dart';
 
-// Слои фона системы. Рисуются под планетами в OrbitSystemView.
+// Background layers of the system, painted under the planets in
+// OrbitSystemView.
 
-/// Статичная часть: внешние кольца диска, свечение солнца, орбиты друзей.
+/// The static part: the outer disk rings, the sun glow, friend orbits.
 class OrbitsPainter extends CustomPainter {
   const OrbitsPainter(this.layout);
 
@@ -24,7 +25,7 @@ class OrbitsPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final edge = layout.outerRadius * AppSizes.dustOuterFactor;
-    // Широкая светлая полоса по краю диска и тонкие кольца внутри.
+    // A wide light band at the disk edge and thin rings inside.
     canvas.drawOval(
       _ellipse(edge),
       Paint()
@@ -69,24 +70,24 @@ class OrbitsPainter extends CustomPainter {
   bool shouldRepaint(OrbitsPainter oldDelegate) => oldDelegate.layout != layout;
 }
 
-/// Медленно вращающийся пылевой диск: сотни точек на плоскости системы.
-/// Точки за солнцем тусклее — так видна глубина.
+/// A slowly rotating dust disk: hundreds of points on the system plane.
+/// Points behind the sun are dimmer, which shows depth.
 class DustPainter extends CustomPainter {
   DustPainter(this.layout, this.clock) : super(repaint: clock);
 
   final OrbitLayout layout;
   final Animation<double> clock;
 
-  /// (доля радиуса 0–1, начальный угол, индекс цвета, крупная ли точка).
+  /// (radius fraction 0–1, start angle, colour index, is it a big point).
   static final List<(double, double, int, bool)> _particles = () {
     final rnd = SeededRandom(2026);
     return [
       for (var i = 0; i < AppSizes.dustParticles; i++)
         (
-          // Больше точек ближе к центру.
+          // More points closer to the centre.
           math.pow(rnd.nextDouble(), 1.4).toDouble(),
           rnd.range(0, 2 * math.pi),
-          // Половина точек — белые звёзды, остальные цветные.
+          // Half of the points are white stars, the rest are coloured.
           rnd.nextDouble() < 0.5
               ? 0
               : 1 + rnd.nextInt(AppColors.dust.length - 1),
@@ -101,8 +102,8 @@ class DustPainter extends CustomPainter {
     final from = layout.innerRadius * 0.8;
     final to = layout.outerRadius * AppSizes.dustOuterFactor;
 
-    // Группируем точки по цвету, размеру и стороне — несколько вызовов
-    // drawPoints на кадр вместо сотен drawCircle.
+    // Group points by colour, size and side: a few drawPoints calls per
+    // frame instead of hundreds of drawCircle calls.
     final groups = <(int, bool, bool), List<Offset>>{};
     for (final (r, angle, color, big) in _particles) {
       final a = angle + rotation;
@@ -125,14 +126,14 @@ class DustPainter extends CustomPainter {
   bool shouldRepaint(DustPainter oldDelegate) => oldDelegate.layout != layout;
 }
 
-/// Кометы летят от моей планеты к друзьям, у которых есть непрочитанное.
+/// Comets fly from my planet to friends who have something unread.
 class CometsPainter extends CustomPainter {
   CometsPainter(this.layout, this.clock) : super(repaint: clock);
 
   final OrbitLayout layout;
   final Animation<double> clock;
 
-  /// Сколько раз комета долетает за цикл (целое — цикл без скачка).
+  /// How many times a comet arrives per cycle (whole, so the loop has no jump).
   static const _tripsPerCycle = 24;
   static const _tailLength = 0.18;
 
@@ -149,7 +150,7 @@ class CometsPainter extends CustomPainter {
         target,
         (progress - _tailLength).clamp(0, 1),
       )!;
-      // Комета гаснет у цели.
+      // The comet fades near its target.
       final fade = progress < 0.85 ? 1.0 : (1 - progress) / 0.15;
 
       canvas
@@ -166,7 +167,7 @@ class CometsPainter extends CustomPainter {
               ],
             ).createShader(Rect.fromPoints(tail, head)),
         )
-        // Голова — градиент, а не размытие: дешевле на каждом кадре.
+        // The head is a gradient, not a blur: cheaper every frame.
         ..drawCircle(
           head,
           5,

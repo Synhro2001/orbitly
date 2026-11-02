@@ -1,7 +1,7 @@
 import 'package:orbitly/features/friends/domain/entities/friends_entities.dart';
 
 abstract interface class FriendsRepository {
-  /// Поиск по нику; пустой запрос — пустой результат.
+  /// Search by handle; an empty query gives an empty result.
   Future<List<UserSummary>> searchByHandle(String query);
 
   Future<void> sendRequest(String userId);

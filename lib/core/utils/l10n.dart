@@ -47,7 +47,7 @@ extension PlanetTypeL10n on PlanetType {
   };
 }
 
-/// Короткое «сколько прошло» для списков: «сейчас», «15 мин», «3 ч», «2 дн.».
+/// Short "time ago" for lists, e.g. "now", "15 min", "3 h", "2 d".
 String formatTimeAgo(
   AppLocalizations l10n,
   DateTime time, {

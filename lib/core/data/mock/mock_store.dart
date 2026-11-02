@@ -1,7 +1,7 @@
-// Фейковый бэкенд в памяти. Хранит данные в виде JSON, как их отдал бы
-// сервер, чтобы mock-репозитории проходили тот же путь
-// JSON → модель → сущность.
-// Работает при USE_MOCKS=true: для тестов и запуска без сети.
+// In-memory fake backend. Keeps data as JSON, the way the server would
+// return it, so mock repositories go through the same
+// JSON → model → entity path.
+// Used when USE_MOCKS=true: in tests and when running offline.
 
 import 'dart:async';
 
@@ -17,21 +17,21 @@ class MockStore {
     _seed();
     if (withPlanet) {
       createPlanet('Орбитания', {'type': 'ocean', 'seed': 7, 'hue': 200.0});
-      // Спутник и кольца — уже надетые награды.
+      // The moon and the rings are rewards already worn.
       equipped.addAll(['moon_first', 'ring_belt']);
     }
   }
 
   final DateTime _now;
 
-  /// «Хранитель времени» открыт, но ещё не показан — при запуске будет
-  /// анимация открытия. В тестах выключено, чтобы она не закрывала экран.
+  /// "Time keeper" is unlocked but not shown yet, so the unlock animation
+  /// plays on start. Off in tests so it does not cover the screen.
   final bool withNewUnlock;
 
-  /// Новые открытия — как Realtime в Supabase.
+  /// New unlocks, like Supabase Realtime.
   final unlocks = StreamController<String>.broadcast();
 
-  /// Имитация сети.
+  /// Simulated network delay.
   final Duration latency;
 
   Future<void> delay() => Future<void>.delayed(latency);
@@ -41,12 +41,12 @@ class MockStore {
   final messages = <String, List<Json>>{};
   final sharedTrophyIds = <String, List<String>>{};
 
-  /// Каталог достижений с моим прогрессом — в том виде, как его отдаёт
-  /// get_my_achievements() в Supabase.
+  /// Achievement catalogue with my progress, shaped like the rows of
+  /// get_my_achievements() in Supabase.
   final achievements = <Json>[];
   final cosmetics = <Json>[];
 
-  /// Открытая косметика и что из неё надето.
+  /// Unlocked cosmetics and which of them are worn.
   final owned = <String>{};
   final equipped = <String>{};
   final moments = <Json>[];
@@ -59,7 +59,7 @@ class MockStore {
 
   String _ago(Duration d) => _now.subtract(d).toIso8601String();
 
-  /// Друг с вычисленным флагом непрочитанных снапов.
+  /// A friend with the computed "has unread snaps" flag.
   Json friendJson(String id) {
     final friend = friends.firstWhere((f) => f['id'] == id);
     final hasUnread = (messages[id] ?? const <Json>[]).any(
@@ -85,7 +85,7 @@ class MockStore {
       'planet_name': name,
       'handle': 'me',
       'appearance': appearance,
-      // Уровень 4 = 450…800 опыта (level = floor(sqrt(xp / 50)) + 1).
+      // Level 4 = 450…800 XP (level = floor(sqrt(xp / 50)) + 1).
       'level': 4,
       'xp': 600,
       'best_streak_days': 27,
@@ -109,8 +109,8 @@ class MockStore {
       ('Тимур', 'timur.t', 'crystal', 175.0, 8, 2, false, false),
     ];
     const moods = ['happy', 'calm', 'inLove', 'excited', 'tired', 'sad'];
-    // Часы с последнего обмена: большинство активны, пара в «трещине»,
-    // одна серия сгорела.
+    // Hours since the last exchange: most are active, a couple are
+    // cracked, one streak is lost.
     const hoursSinceExchange = [2, 5, 1, 30, 8, 12, 3, 40, 20, 60, 6, 10];
     const streakDays = [48, 31, 22, 15, 12, 9, 7, 5, 4, 0, 2, 1];
 
@@ -134,7 +134,7 @@ class MockStore {
         'streak_days': streakDays[i],
         'last_exchange_at': _ago(Duration(hours: hoursSinceExchange[i])),
         'mood': moods[i % moods.length],
-        // Паша на неделе экзаменов ушёл в тень — его серия на паузе.
+        // Pasha went into shadow for exam week, so his streak is paused.
         if (i == 7) ...{
           'shadow_from': _ago(const Duration(days: 2)),
           'shadow_until': _now.add(const Duration(days: 1)).toIso8601String(),
@@ -198,7 +198,7 @@ class MockStore {
       {'friend_id': 'friend-7', 'delta': -4},
     ];
 
-    // Капсулы времени: от Ани — уже открылась, от Леры — ещё запечатана.
+    // Time capsules: Anya's has opened, Lera's is still sealed.
     messages['friend-0']!.insert(0, {
       'kind': 'capsule',
       'id': 'capsule-0',
@@ -219,7 +219,8 @@ class MockStore {
     });
   }
 
-  /// Открыть достижение «как сервер»: прогресс, награда, событие Realtime.
+  /// Unlocks an achievement the way the server does: progress, reward and
+  /// a Realtime event.
   void unlock(String achievementId) {
     final row = achievements.firstWhere((a) => a['id'] == achievementId);
     if (row['unlocked_at'] != null) return;
@@ -231,9 +232,7 @@ class MockStore {
     unlocks.add(achievementId);
   }
 
-  /// Подсказки «с чего начать» — только для тех, с кем общение затихает:
-  /// друг в списке отдаляющихся или с последнего обмена прошли сутки.
-  /// The friend is drifting away or has been quiet for a day — the chat
+  /// The friend is drifting away or has been quiet for a day, so the chat
   /// suggests how to restart the conversation.
   bool isDrifting(String friendId) {
     final friend = friends.firstWhere((f) => f['id'] == friendId);
@@ -281,8 +280,8 @@ class MockStore {
         },
     ]);
 
-    // (id, название, описание, значок, категория, редкость, прогресс, цель,
-    //  открыто дней назад или null, секрет, pair, награда)
+    // (id, title, description, icon, category, rarity, progress, target,
+    //  unlocked days ago or null, secret, pair, reward)
     const catalog = [
       (
         'first_contact',

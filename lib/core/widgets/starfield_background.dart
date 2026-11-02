@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:orbitly/core/planet_render/seeded_random.dart';
 import 'package:orbitly/core/theme/app_colors.dart';
 
-/// Тёмный космос со звёздами. Статичный, рисуется один раз.
+/// Dark space with stars. Static, painted once.
 class StarfieldBackground extends StatelessWidget {
   const StarfieldBackground({this.child, super.key});
 

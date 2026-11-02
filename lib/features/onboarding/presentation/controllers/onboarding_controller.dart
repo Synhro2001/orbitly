@@ -73,7 +73,7 @@ class OnboardingController extends _$OnboardingController {
             name: state.name.trim(),
             appearance: state.appearance,
           );
-      // Роутер увидит, что планета есть, и откроет систему.
+      // The router sees the planet exists and opens the system.
       ref.invalidate(hasPlanetProvider);
     } finally {
       if (ref.mounted) state = state.copyWith(isSubmitting: false);

@@ -61,7 +61,7 @@ class MockPlanetRepository implements PlanetRepository {
     if (json == null) return;
     final now = DateTime.now();
     final shadow = Shadow(from: now, until: now.add(duration));
-    // Как на сервере: поверх текущей тени новую не поставить.
+    // Same rule as the server: no new shadow on top of the current one.
     if ((_currentShadow(json)?.isActiveAt(now) ?? false) ||
         !const ShadowPolicy().isAllowed(shadow, now: now)) {
       throw ArgumentError.value(duration, 'duration', 'Not allowed');

@@ -19,7 +19,7 @@ class MockChatRepository implements ChatRepository {
       _sealed(json),
   ], (json) => MessageModel.fromJson(json).toEntity());
 
-  /// Как сделает сервер: текст чужой капсулы не уходит до срока.
+  /// Like the server: a friend's capsule text is not sent before it opens.
   Json _sealed(Json json) {
     if (json['kind'] != 'capsule' || json['is_mine'] == true) return json;
     final opensAt = DateTime.tryParse(json['opens_at'] as String? ?? '');
@@ -101,7 +101,7 @@ class MockChatRepository implements ChatRepository {
     return MessageModel.fromJson(json).toEntity();
   }
 
-  /// В моках собеседников нет — новых сообщений не приходит.
+  /// Mocks have no one on the other side, so no new messages arrive.
   @override
   Stream<String> watchIncoming() => const Stream.empty();
 

@@ -8,8 +8,8 @@ import 'package:orbitly/core/widgets/async_view.dart';
 import 'package:orbitly/core/widgets/starfield_background.dart';
 import 'package:orbitly/features/achievements/presentation/controllers/achievements_controller.dart';
 
-/// Все достижения по категориям. Рамка — цвет редкости, у неоткрытых —
-/// прогресс, секретные до открытия показаны как «???».
+/// All achievements by category. The border shows rarity, locked ones show
+/// progress, secrets show "???" until unlocked.
 class CollectionScreen extends ConsumerWidget {
   const CollectionScreen({super.key});
 

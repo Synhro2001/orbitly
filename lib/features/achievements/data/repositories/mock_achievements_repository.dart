@@ -48,7 +48,7 @@ class MockAchievementsRepository implements AchievementsRepository {
   @override
   Future<void> equip(String cosmeticId) async {
     await _store.delay();
-    // Как на сервере: надеть можно только своё.
+    // Same rule as the server: you can only wear what you own.
     if (!_store.owned.contains(cosmeticId)) {
       throw ArgumentError.value(cosmeticId, 'cosmeticId', 'Not owned');
     }

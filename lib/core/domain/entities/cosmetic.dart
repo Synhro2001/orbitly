@@ -5,8 +5,8 @@ part 'cosmetic.freezed.dart';
 
 enum CosmeticKind { planetType, moon, ring, glow, cometTrail }
 
-/// Награда-украшение для планеты. Что именно она меняет, описано в [params]
-/// (контент с сервера): `{"type": "nebula"}`, `{"moons": 2}`,
+/// A decorative reward for the planet. What it changes is described in
+/// [params] (server content): `{"type": "nebula"}`, `{"moons": 2}`,
 /// `{"style": "aurora"}`.
 @freezed
 abstract class Cosmetic with _$Cosmetic {

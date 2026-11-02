@@ -7,7 +7,7 @@ abstract final class AppFonts {
   static const display = 'Unbounded';
 }
 
-/// Шрифты вариативные: вес задаём и через `fontWeight`, и через ось `wght`.
+/// Variable fonts: weight is set both via `fontWeight` and the `wght` axis.
 TextStyle _style(
   String family,
   double size,

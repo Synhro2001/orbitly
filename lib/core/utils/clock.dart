@@ -2,6 +2,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'clock.g.dart';
 
-/// Источник текущего времени; в тестах подменяется фиксированным.
+/// Source of the current time; tests replace it with a fixed one.
 @Riverpod(keepAlive: true)
 DateTime Function() clock(Ref ref) => DateTime.now;

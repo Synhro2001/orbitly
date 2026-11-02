@@ -1,4 +1,4 @@
-/// Радиус орбиты друга: чем ближе общение, тем ближе орбита.
+/// Radius of a friend's orbit: the closer you are, the closer the orbit.
 ///
 /// `radius = rMin + (1 - closeness / 100) * (rMax - rMin)`
 class CalculateOrbitRadius {
@@ -10,7 +10,7 @@ class CalculateOrbitRadius {
     required double rMax,
   }) {
     assert(rMin <= rMax, 'rMin must not exceed rMax');
-    // Данные приходят с сервера — за пределы 0–100 не выходим.
+    // The data comes from the server, so keep it within 0–100.
     final c = closeness.clamp(0, 100);
     return rMin + (1 - c / 100) * (rMax - rMin);
   }

@@ -25,9 +25,9 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 part 'di.g.dart';
 
-// Единственное место, где UI связывается с реализациями репозиториев.
-// USE_MOCKS (см. env.dart) переключает моки и Supabase. Чат, снапы и отчёт
-// недели пока всегда на моках: им нужны Realtime и хранилище медиа.
+// The only place where the UI is wired to repository implementations.
+// USE_MOCKS (see env.dart) switches between mocks and Supabase. The weekly
+// report is still mock-only: it needs data the server does not collect yet.
 
 @Riverpod(keepAlive: true)
 bool useMocks(Ref ref) => Env.useMocks;
@@ -35,7 +35,7 @@ bool useMocks(Ref ref) => Env.useMocks;
 @Riverpod(keepAlive: true)
 MockStore mockStore(Ref ref) => MockStore(withNewUnlock: true);
 
-/// Клиент Supabase. Инициализируется в main(), только когда моки выключены.
+/// Supabase client. Initialised in main() only when mocks are off.
 @Riverpod(keepAlive: true)
 SupabaseClient supabaseClient(Ref ref) => Supabase.instance.client;
 

@@ -12,8 +12,8 @@ import 'package:orbitly/features/achievements/presentation/widgets/unlock_celebr
 import 'package:orbitly/features/chat/presentation/controllers/chat_controller.dart';
 import 'package:orbitly/features/friends/presentation/controllers/friends_controller.dart';
 
-/// Общий космос для вкладок и плавающая нижняя панель: Система, Чаты,
-/// камера в центре (под большим пальцем), Друзья, Моя планета.
+/// Shared space background for the tabs and the floating bottom bar:
+/// System, Chats, camera in the middle (under the thumb), Friends, My planet.
 class HomeShell extends ConsumerWidget {
   const HomeShell({required this.shell, super.key});
 
@@ -33,7 +33,7 @@ class HomeShell extends ConsumerWidget {
 
     void select(int index) => shell.goBranch(
       index,
-      // Повторный тап по вкладке возвращает в её начало.
+      // Tapping the current tab again scrolls it back to the start.
       initialLocation: index == shell.currentIndex,
     );
 
@@ -49,7 +49,7 @@ class HomeShell extends ConsumerWidget {
         );
 
     return Scaffold(
-      // Контент виден под полупрозрачной панелью.
+      // Content shows through the translucent bar.
       extendBody: true,
       body: UnlockCelebrationHost(child: StarfieldBackground(child: shell)),
       bottomNavigationBar: SafeArea(

@@ -9,8 +9,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'my_planet_controller.g.dart';
 
-/// Создана ли у пользователя планета. От этого зависит, куда ведёт роутер.
-/// Пересчитывается при входе и выходе.
+/// Whether the user has created a planet; decides where the router goes.
+/// Recomputed on sign-in and sign-out.
 @Riverpod(keepAlive: true)
 Future<bool> hasPlanet(Ref ref) async {
   final signedIn = await ref.watch(signedInProvider.future);
@@ -18,7 +18,7 @@ Future<bool> hasPlanet(Ref ref) async {
   return await ref.watch(planetRepositoryProvider).hasPlanet();
 }
 
-/// Моя тень — нужна везде, где считается серия с другом.
+/// My shadow: needed wherever a streak with a friend is evaluated.
 @riverpod
 Shadow? myShadow(Ref ref) =>
     ref.watch(myPlanetControllerProvider).value?.shadow;
@@ -46,8 +46,8 @@ class MyPlanetController extends _$MyPlanetController {
     );
   }
 
-  /// Тень не стирается, а заканчивается сейчас: серии, которые она
-  /// держала, получают свежие сутки, а не сгорают сразу.
+  /// The shadow is not erased but ends now: the streaks it held get a fresh
+  /// day instead of burning out at once.
   Future<void> leaveShadow() async {
     final shadow = state.value?.shadow;
     if (shadow == null) return;
@@ -58,7 +58,8 @@ class MyPlanetController extends _$MyPlanetController {
     );
   }
 
-  /// Меняем экран сразу, не дожидаясь сервера; при ошибке сети откатываем.
+  /// Update the screen at once without waiting for the server; roll back on
+  /// a network error.
   Future<void> _optimistic(
     MyPlanet Function(MyPlanet planet) update,
     Future<void> Function(PlanetRepository repository) save,

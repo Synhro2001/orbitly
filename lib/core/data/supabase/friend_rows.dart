@@ -15,7 +15,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 Future<List<Friend>> fetchMyFriends(SupabaseClient client) async =>
     parseValid(await client.rpcRows('get_my_friends'), friendFromRpcRow);
 
-/// Строка get_my_friends() → друг. Внешний вид = база + надетые награды.
+/// A get_my_friends() row → friend. Appearance = base + worn rewards.
 Friend friendFromRpcRow(Map<String, Object?> row) {
   final base = PlanetAppearanceModel.fromJson(
     row['appearance']! as Map<String, Object?>,

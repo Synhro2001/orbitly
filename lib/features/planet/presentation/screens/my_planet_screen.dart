@@ -19,7 +19,7 @@ class MyPlanetScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // Фон-космос общий для вкладок — он в HomeShell.
+    // The space background is shared by the tabs and lives in HomeShell.
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: SafeArea(
@@ -155,8 +155,8 @@ class _Section extends StatelessWidget {
   }
 }
 
-/// Сколько достижений открыто, последние значки и вход в коллекцию и
-/// гардероб.
+/// How many achievements are unlocked, the latest icons, and the way into
+/// the collection and the wardrobe.
 class _CollectionSummary extends ConsumerWidget {
   const _CollectionSummary();
 
@@ -207,7 +207,7 @@ class _CollectionSummary extends ConsumerWidget {
   }
 }
 
-/// Уйти в тень на время (серии замрут) или выйти из неё раньше срока.
+/// Go into shadow for a while (streaks freeze) or leave it early.
 class _ShadowControls extends ConsumerWidget {
   const _ShadowControls(this.planet);
 

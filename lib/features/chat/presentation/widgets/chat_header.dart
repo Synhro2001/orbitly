@@ -7,7 +7,7 @@ import 'package:orbitly/core/utils/l10n.dart';
 import 'package:orbitly/core/widgets/planet_view.dart';
 import 'package:orbitly/core/widgets/streak_badge.dart';
 
-/// Карточка друга в начале переписки: планета, серия, общие трофеи.
+/// Friend card at the start of the conversation: planet, streak, trophies.
 class ChatHeader extends StatelessWidget {
   const ChatHeader({
     required this.friend,

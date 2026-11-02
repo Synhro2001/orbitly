@@ -11,7 +11,7 @@ void main() {
     await tester.pumpAndSettle();
   }
 
-  group('Капсула времени', () {
+  group('Time capsule', () {
     testWidgets('sends a capsule that opens in a week', (tester) async {
       await openChat(tester, 'friend-0');
 
@@ -23,12 +23,12 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('Откроется через 7 дней'), findsOneWidget);
-      // Отправитель видит своё послание сразу.
+      // The sender sees their message right away.
       expect(find.text('Открой через неделю'), findsOneWidget);
     });
 
     testWidgets("hides a friend's capsule until its date", (tester) async {
-      // У Леры (friend-2) запечатанная капсула в начале переписки.
+      // Lera (friend-2) has a sealed capsule at the start of the chat.
       await openChat(tester, 'friend-2');
       await tester.dragUntilVisible(
         find.text('Запечатана до срока 🔒'),
@@ -50,9 +50,9 @@ void main() {
     });
   });
 
-  group('С чего начать?', () {
+  group('Conversation openers', () {
     testWidgets('suggests openers for a drifting friend', (tester) async {
-      // Паша (friend-7) в списке отдаляющихся.
+      // Pasha (friend-7) is on the drifting list.
       await openChat(tester, 'friend-7');
 
       expect(find.text('С чего начать?'), findsOneWidget);
@@ -68,7 +68,7 @@ void main() {
     });
 
     testWidgets('no openers when the conversation is lively', (tester) async {
-      // С Аней переписка свежая.
+      // The chat with Anya is recent.
       await openChat(tester, 'friend-0');
       expect(find.text('С чего начать?'), findsNothing);
     });

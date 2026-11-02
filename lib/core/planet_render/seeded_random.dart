@@ -1,9 +1,9 @@
-/// Детерминированный генератор (xorshift32): одинаковая последовательность
-/// на Android, iOS и в вебе. `dart:math` `Random(seed)` такого не обещает.
+/// Deterministic generator (xorshift32): the same sequence on Android, iOS
+/// and web. `dart:math` `Random(seed)` does not promise that.
 class SeededRandom {
   SeededRandom(int seed) : _state = seed & _mask {
     if (_state == 0) _state = 0x9E3779B9;
-    // Первые значения xorshift для маленьких seed похожи — прогреваем.
+    // The first xorshift values for small seeds are similar, so warm it up.
     for (var i = 0; i < 8; i++) {
       nextUint32();
     }
@@ -20,7 +20,7 @@ class SeededRandom {
     return _state = x & _mask;
   }
 
-  /// Число в диапазоне [0, 1).
+  /// A number in [0, 1).
   double nextDouble() => nextUint32() / 4294967296;
 
   double range(double min, double max) => min + (max - min) * nextDouble();

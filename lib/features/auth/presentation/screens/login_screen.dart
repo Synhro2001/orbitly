@@ -6,7 +6,7 @@ import 'package:orbitly/core/utils/l10n.dart';
 import 'package:orbitly/core/widgets/starfield_background.dart';
 import 'package:orbitly/features/auth/presentation/controllers/auth_controller.dart';
 
-/// Вход по коду из письма: email → 6 цифр. Паролей нет.
+/// Sign-in with a code from email: email → 6 digits. No passwords.
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
 

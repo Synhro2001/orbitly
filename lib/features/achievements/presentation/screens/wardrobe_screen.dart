@@ -15,8 +15,8 @@ import 'package:orbitly/features/achievements/presentation/controllers/achieveme
 import 'package:orbitly/features/planet/domain/entities/my_planet.dart';
 import 'package:orbitly/features/planet/presentation/controllers/my_planet_controller.dart';
 
-/// Открытые награды: нажми — планета наверху покажет, как будет выглядеть,
-/// «Надеть» — сохранить.
+/// Unlocked rewards: tap one to preview it on the planet at the top, "Wear"
+/// to keep it.
 class WardrobeScreen extends ConsumerStatefulWidget {
   const WardrobeScreen({super.key});
 

@@ -1,6 +1,6 @@
-/// Вход по одноразовому коду из письма — без паролей.
+/// Sign-in with a one-time code from email, no passwords.
 abstract interface class AuthRepository {
-  /// Вошёл ли пользователь; сразу отдаёт текущее состояние, потом изменения.
+  /// Whether the user is signed in: the current state first, then changes.
   Stream<bool> watchSignedIn();
 
   Future<void> sendCode(String email);

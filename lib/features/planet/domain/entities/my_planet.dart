@@ -13,7 +13,7 @@ abstract class MyPlanet with _$MyPlanet {
     required String name,
     required String handle,
 
-    /// Вид, выбранный при создании: тип, seed, оттенок.
+    /// The look chosen at creation: type, seed, hue.
     required PlanetAppearance baseAppearance,
     required int level,
     required int xp,
@@ -21,18 +21,18 @@ abstract class MyPlanet with _$MyPlanet {
     required int bestStreakDays,
     required Mood mood,
 
-    /// Надетые награды.
+    /// Worn rewards.
     @Default([]) List<Cosmetic> equipped,
     Shadow? shadow,
   }) = _MyPlanet;
 
   const MyPlanet._();
 
-  /// Как планета выглядит на самом деле: база + надетые награды.
+  /// How the planet actually looks: base + worn rewards.
   PlanetAppearance get appearance =>
       const ApplyCosmetics()(baseAppearance, equipped);
 
-  /// Прогресс до следующего уровня, 0–1.
+  /// Progress to the next level, 0–1.
   double get levelProgress =>
       xpForNextLevel <= 0 ? 1 : (xp / xpForNextLevel).clamp(0, 1);
 }

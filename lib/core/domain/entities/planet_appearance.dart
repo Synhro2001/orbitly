@@ -11,7 +11,7 @@ enum PlanetType {
   crystal,
   gas,
 
-  // Редкие типы: открываются достижениями, при создании планеты недоступны.
+  // Rare types: unlocked by achievements, not available when creating a planet.
   nebula,
   blackHole,
   aurora,
@@ -21,7 +21,7 @@ enum PlanetType {
 
   bool get isRare => index >= nebula.index;
 
-  /// Типы, которые можно выбрать при создании планеты.
+  /// Types that can be picked when creating a planet.
   static List<PlanetType> get base => [
     for (final type in values)
       if (!type.isRare) type,
@@ -32,15 +32,14 @@ enum GlowStyle { none, soft, aurora, doubleStar }
 
 enum MoonSkin { plain, hourglass }
 
-/// Внешний вид планеты. По одному и тому же описанию всегда рисуется
-/// одна и та же планета.
+/// How a planet looks. The same description always draws the same planet.
 @freezed
 abstract class PlanetAppearance with _$PlanetAppearance {
   const factory PlanetAppearance({
     required PlanetType type,
     required int seed,
 
-    /// Основной оттенок, градусы 0–360.
+    /// Main hue, degrees 0–360.
     required double hue,
     @Default(0) int moons,
     @Default(false) bool hasRings,

@@ -15,16 +15,16 @@ abstract class Friend with _$Friend {
     required String handle,
     required PlanetAppearance appearance,
 
-    /// Близость общения, 0–100. Чем больше, тем ближе орбита.
+    /// Closeness, 0–100. The higher it is, the closer the orbit.
     required int closeness,
     required Streak streak,
     required Mood mood,
     required bool hasUnreadSnaps,
 
-    /// Если друг в тени (или запланировал её).
+    /// Set when the friend is in shadow (or has scheduled one).
     Shadow? shadow,
 
-    /// Общие трофеи нашей дружбы.
+    /// Trophies we earned together.
     @Default([]) List<Award> sharedTrophies,
   }) = _Friend;
 }

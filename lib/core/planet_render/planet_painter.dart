@@ -6,17 +6,18 @@ import 'package:orbitly/core/planet_render/seeded_random.dart';
 
 part 'rare_planets.dart';
 
-/// Рисует планету по её описанию. Цвета не из темы: они вычисляются
-/// из оттенка и типа планеты, это часть процедурной генерации.
+/// Draws a planet from its description. Colours do not come from the theme:
+/// they are derived from the planet's hue and type as part of procedural
+/// generation.
 ///
-/// Планета занимает центр квадрата; поля вокруг — под кольца, спутники
-/// и сияние.
+/// The planet sits in the middle of a square; the margins are for rings,
+/// moons and glow.
 class PlanetPainter extends CustomPainter {
   const PlanetPainter(this.appearance);
 
   final PlanetAppearance appearance;
 
-  /// Радиус тела планеты относительно стороны квадрата.
+  /// Radius of the planet body relative to the side of the square.
   static const bodyRadiusFactor = 0.29;
 
   static const _ringTilt = -0.35;
@@ -30,7 +31,7 @@ class PlanetPainter extends CustomPainter {
     final a = appearance;
     final rnd = SeededRandom(a.seed);
 
-    // Слои за планетой.
+    // Layers behind the planet.
     if (a.hasCometTrail) _paintCometTrail(canvas, center, r);
     switch (a.glow) {
       case GlowStyle.none:
@@ -50,7 +51,7 @@ class PlanetPainter extends CustomPainter {
     }
     if (a.hasRings) _paintRing(canvas, center, r, front: false);
 
-    // Тело.
+    // Body.
     if (a.type == PlanetType.gemini) {
       _paintGemini(canvas, center, r, rnd);
     } else {
@@ -65,7 +66,7 @@ class PlanetPainter extends CustomPainter {
       canvas.restore();
     }
 
-    // Слои перед планетой.
+    // Layers in front of the planet.
     if (_hasAtmosphere) _paintAtmosphere(canvas, center, r);
     if (a.type == PlanetType.blackHole) {
       _paintPhotonRing(canvas, center, r);
@@ -141,7 +142,7 @@ class PlanetPainter extends CustomPainter {
         l.clamp(0, 1),
       ).toColor();
 
-  /// Тёплый цвет для «Солнечной короны»: оттенок не от пользователя.
+  /// Warm colour for the "Solar corona": not taken from the user's hue.
   Color _sun(double hueShift, double s, double l, [double alpha = 1]) =>
       HSLColor.fromAHSL(
         alpha,
@@ -150,7 +151,7 @@ class PlanetPainter extends CustomPainter {
         l.clamp(0, 1),
       ).toColor();
 
-  /// Основной (светлый, тёмный) цвет поверхности по типу.
+  /// Main (light, dark) surface colour for the type.
   (Color, Color) get _baseColors => switch (appearance.type) {
     PlanetType.ocean => (_hsl(0, 0.7, 0.55), _hsl(10, 0.75, 0.3)),
     PlanetType.jungle => (_hsl(0, 0.5, 0.4), _hsl(-10, 0.55, 0.2)),
@@ -162,7 +163,7 @@ class PlanetPainter extends CustomPainter {
     PlanetType.nebula => (_hsl(0, 0.55, 0.18), _hsl(40, 0.6, 0.05)),
     PlanetType.blackHole => (const Color(0xFF050308), const Color(0xFF000000)),
     PlanetType.aurora => (_hsl(0, 0.5, 0.24), _hsl(15, 0.6, 0.07)),
-    // Солнце всегда золотое, независимо от выбранного оттенка.
+    // The sun is always golden, whatever hue was picked.
     PlanetType.solarCorona => (_sun(10, 1, 0.82), _sun(-15, 1, 0.5)),
     PlanetType.gemini => (_hsl(0, 0.6, 0.68), _hsl(20, 0.6, 0.35)),
     PlanetType.ringWorld => (_hsl(0, 0.35, 0.62), _hsl(15, 0.4, 0.28)),
@@ -204,7 +205,7 @@ class PlanetPainter extends CustomPainter {
       canvas.drawPath(path, Paint()..color = color);
       y += height;
     }
-    // Большой «шторм».
+    // A big "storm".
     final storm = Offset(
       c.dx + r * rnd.range(-0.4, 0.4),
       c.dy + r * rnd.range(-0.3, 0.4),
@@ -393,7 +394,7 @@ class PlanetPainter extends CustomPainter {
     }
   }
 
-  /// Терминатор: свет сверху-слева, тень снизу-справа.
+  /// Terminator: light from the top left, shade towards the bottom right.
   void _paintShading(Canvas canvas, Offset c, double r) {
     canvas.drawCircle(
       c,
@@ -438,7 +439,8 @@ class PlanetPainter extends CustomPainter {
     );
   }
 
-  /// Кольцо рисуется в две половины: задняя под планетой, передняя над ней.
+  /// The ring is drawn in two halves: the back one under the planet, the
+  /// front one over it.
   void _paintRing(Canvas canvas, Offset c, double r, {required bool front}) {
     canvas
       ..save()

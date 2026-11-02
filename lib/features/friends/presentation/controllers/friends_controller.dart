@@ -11,8 +11,8 @@ const _searchDebounce = Duration(milliseconds: 300);
 @riverpod
 Future<List<UserSummary>> userSearch(Ref ref, String query) async {
   if (query.trim().isEmpty) return const [];
-  // Не дёргаем сервер на каждую букву: если запрос сменился, этот
-  // провайдер уже уничтожен.
+  // Do not hit the server on every keystroke: if the query has changed,
+  // this provider is already disposed.
   await Future<void>.delayed(_searchDebounce);
   if (!ref.mounted) return const [];
   return await ref.read(friendsRepositoryProvider).searchByHandle(query);
@@ -22,7 +22,7 @@ Future<List<UserSummary>> userSearch(Ref ref, String query) async {
 Future<String> inviteLink(Ref ref) =>
     ref.watch(friendsRepositoryProvider).getInviteLink();
 
-/// Кому из найденных уже отправлена заявка.
+/// Which of the found users already have a request from me.
 @riverpod
 class SentRequests extends _$SentRequests {
   @override
@@ -51,7 +51,7 @@ class IncomingRequests extends _$IncomingRequests {
         if (r.id != requestId) r,
     ]);
     if (accept) {
-      // Новый друг должен появиться на орбите и в чатах.
+      // The new friend must appear on the orbit and in chats.
       ref
         ..invalidate(systemControllerProvider)
         ..invalidate(chatsProvider);

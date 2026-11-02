@@ -60,8 +60,8 @@ class ChatScreen extends ConsumerWidget {
   }
 }
 
-/// Компактная шапка: всегда видно, с кем переписка, даже когда карточка
-/// друга уехала вверх вместе с историей.
+/// Compact header: you always see who you are talking to, even after the
+/// friend card has scrolled up with the history.
 class _AppBarTitle extends StatelessWidget {
   const _AppBarTitle({required this.friend, required this.shadows});
 
@@ -100,7 +100,7 @@ class _AppBarTitle extends StatelessWidget {
   }
 }
 
-/// Переписка снизу вверх; самый верхний элемент — карточка друга.
+/// Conversation from the bottom up; the topmost item is the friend card.
 class _MessageList extends ConsumerWidget {
   const _MessageList({required this.thread, required this.shadows});
 

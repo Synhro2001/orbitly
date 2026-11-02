@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:orbitly/features/planet/data/models/my_planet_model.dart';
 
-/// Уровень считает сервер: level = floor(sqrt(xp / 50)) + 1.
-/// Приложение показывает опыт внутри текущего уровня.
+/// The server computes the level: level = floor(sqrt(xp / 50)) + 1.
+/// The app shows XP within the current level.
 void main() {
   Map<String, Object?> profile({required int level, required int xp}) => {
     'planet_name': 'Лазурия',

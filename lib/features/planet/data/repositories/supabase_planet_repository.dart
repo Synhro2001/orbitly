@@ -47,7 +47,8 @@ class SupabasePlanetRepository implements PlanetRepository {
     );
   }
 
-  /// Ник сервер генерирует сам; из вида берёт только тип, seed и оттенок.
+  /// The server generates the handle; from the look it takes only type, seed
+  /// and hue.
   @override
   Future<void> createPlanet({
     required String displayName,

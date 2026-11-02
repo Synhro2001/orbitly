@@ -22,8 +22,8 @@ class SupabaseAchievementsRepository implements AchievementsRepository {
     );
   }
 
-  /// Realtime: сервер вставляет/обновляет мои строки в user_achievements;
-  /// RLS пропускает только мои.
+  /// Realtime: the server inserts/updates my rows in user_achievements;
+  /// RLS lets through only mine.
   @override
   Stream<String> watchUnlocks() {
     final userId = _client.auth.currentUser?.id;

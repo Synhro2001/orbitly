@@ -46,7 +46,7 @@ class MockFriendsRepository implements FriendsRepository {
     _store.incomingRequests.remove(request);
     if (!accept) return;
     final user = request['user']! as Json;
-    // Новый друг появляется на дальней орбите.
+    // A new friend appears on the outermost orbit.
     _store.friends.add({
       ...user,
       'closeness': 5,

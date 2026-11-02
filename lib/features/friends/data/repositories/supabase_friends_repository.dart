@@ -6,8 +6,8 @@ import 'package:orbitly/features/friends/domain/friend_search_rules.dart';
 import 'package:orbitly/features/friends/domain/repositories/friends_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-/// Заявки и поиск — функции на сервере: чужие профили закрыты RLS.
-/// id заявки = id пользователя, который её отправил.
+/// Requests and search go through server functions: other profiles are
+/// closed by RLS. A request id is the id of the user who sent it.
 class SupabaseFriendsRepository implements FriendsRepository {
   const SupabaseFriendsRepository(this._client);
 

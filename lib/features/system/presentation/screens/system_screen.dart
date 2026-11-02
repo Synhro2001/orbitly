@@ -25,7 +25,7 @@ class SystemScreen extends ConsumerStatefulWidget {
 }
 
 class _SystemScreenState extends ConsumerState<SystemScreen> {
-  /// Скорость свайпа от правого края, после которой открывается камера.
+  /// Velocity of a swipe from the right edge that opens the camera.
   static const _cameraSwipeVelocity = 250.0;
 
   static const _headerHeight = 56.0;
@@ -67,7 +67,7 @@ class _SystemScreenState extends ConsumerState<SystemScreen> {
               insets.top + _headerHeight + (hasMoments ? _momentsHeight : 0);
           return Stack(
             children: [
-              // Сцена на весь экран, под шапкой и нижней панелью.
+              // Full-screen scene under the header and the bottom bar.
               if (system.friends.isEmpty)
                 Center(child: Text(l10n.systemEmpty))
               else if (me != null)
@@ -118,8 +118,8 @@ class _SystemScreenState extends ConsumerState<SystemScreen> {
                   ],
                 ),
               ),
-              // Свайп влево от правого края — камера. Узкая зона, чтобы
-              // не мешать перетаскиванию системы.
+              // Swipe left from the right edge opens the camera. A narrow zone
+              // so it does not get in the way of dragging the system.
               Positioned(
                 top: topCovered,
                 bottom: insets.bottom,
@@ -193,7 +193,7 @@ class _Header extends StatelessWidget {
   }
 }
 
-/// Уровень и лучшая серия; тап ведёт на «Мою планету».
+/// Level and best streak; tapping opens "My planet".
 class _LevelChip extends ConsumerWidget {
   const _LevelChip({required this.me, required this.onTap});
 
@@ -239,7 +239,7 @@ class _LevelChip extends ConsumerWidget {
   }
 }
 
-/// Подсказка про жесты. Исчезает после первого касания сцены или по таймеру.
+/// Gesture hint. Disappears after the first touch on the scene or on a timer.
 class _GestureHint extends StatelessWidget {
   const _GestureHint({required this.visible});
 

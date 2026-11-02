@@ -4,9 +4,9 @@ import 'package:orbitly/core/domain/entities/award.dart';
 part 'award_model.freezed.dart';
 part 'award_model.g.dart';
 
-/// Строка каталога достижений — как её отдаёт get_my_achievements().
-/// У секретных неоткрытых достижений сервер присылает null вместо названия,
-/// описания, значка, прогресса и награды.
+/// A catalogue row as returned by get_my_achievements(). For locked secret
+/// achievements the server sends null instead of the title, description,
+/// icon, progress and reward.
 @freezed
 abstract class AwardModel with _$AwardModel {
   const factory AwardModel({

@@ -13,8 +13,8 @@ import 'package:orbitly/core/widgets/planet_view.dart';
 import 'package:orbitly/features/achievements/presentation/controllers/achievements_controller.dart';
 import 'package:orbitly/features/planet/presentation/controllers/my_planet_controller.dart';
 
-/// Показывает анимацию для каждого открытого, но ещё не показанного
-/// достижения — по одному. Слушает новые открытия с сервера.
+/// Plays the animation for every unlocked but not yet shown achievement,
+/// one at a time. Listens to new unlocks from the server.
 class UnlockCelebrationHost extends ConsumerWidget {
   const UnlockCelebrationHost({required this.child, super.key});
 
@@ -109,7 +109,7 @@ class _UnlockCelebrationState extends ConsumerState<UnlockCelebration>
     final planet = ref.watch(myPlanetControllerProvider).value;
     final reward = _reward(ref.watch(ownedCosmeticsProvider).value ?? const []);
 
-    // Планета сразу с новой наградой.
+    // The planet already wears the new reward.
     final appearance = planet == null
         ? null
         : const ApplyCosmetics()(planet.baseAppearance, [
@@ -118,7 +118,7 @@ class _UnlockCelebrationState extends ConsumerState<UnlockCelebration>
             ?reward,
           ]);
 
-    // Подложка плотная: текст поверх космоса должен читаться.
+    // A dense scrim: text over space must stay readable.
     return Material(
       color: AppColors.celebrationScrim,
       child: AnimatedBuilder(
@@ -128,7 +128,7 @@ class _UnlockCelebrationState extends ConsumerState<UnlockCelebration>
           return Stack(
             fit: StackFit.expand,
             children: [
-              // Вспышка цвета редкости.
+              // A flash in the rarity colour.
               IgnorePointer(
                 child: Opacity(
                   opacity: (1 - _controller.value).clamp(0, 1) * 0.9,
