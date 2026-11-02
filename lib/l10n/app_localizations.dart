@@ -1315,6 +1315,168 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Никто, только по моей ссылке'**
   String get audienceInviteOnly;
+
+  /// No description provided for @chatMenu.
+  ///
+  /// In ru, this message translates to:
+  /// **'Ещё'**
+  String get chatMenu;
+
+  /// No description provided for @chatMute.
+  ///
+  /// In ru, this message translates to:
+  /// **'В тихую орбиту'**
+  String get chatMute;
+
+  /// No description provided for @chatUnmute.
+  ///
+  /// In ru, this message translates to:
+  /// **'Вернуть из тихой орбиты'**
+  String get chatUnmute;
+
+  /// No description provided for @chatMuted.
+  ///
+  /// In ru, this message translates to:
+  /// **'{name} в тихой орбите: без уведомлений и подсветки. Друг об этом не узнает'**
+  String chatMuted(String name);
+
+  /// No description provided for @chatUnmuted.
+  ///
+  /// In ru, this message translates to:
+  /// **'Снова на обычной орбите'**
+  String get chatUnmuted;
+
+  /// No description provided for @chatReport.
+  ///
+  /// In ru, this message translates to:
+  /// **'Пожаловаться'**
+  String get chatReport;
+
+  /// No description provided for @chatBlock.
+  ///
+  /// In ru, this message translates to:
+  /// **'Заблокировать'**
+  String get chatBlock;
+
+  /// No description provided for @blockConfirmTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Заблокировать {name}?'**
+  String blockConfirmTitle(String name);
+
+  /// No description provided for @blockConfirmBody.
+  ///
+  /// In ru, this message translates to:
+  /// **'Вы перестанете быть друзьями, переписка закроется, и вы не сможете найти друг друга и написать. Разблокировать можно в настройках приватности.'**
+  String get blockConfirmBody;
+
+  /// No description provided for @unblock.
+  ///
+  /// In ru, this message translates to:
+  /// **'Разблокировать'**
+  String get unblock;
+
+  /// No description provided for @abuseTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Что случилось?'**
+  String get abuseTitle;
+
+  /// No description provided for @abuseSpam.
+  ///
+  /// In ru, this message translates to:
+  /// **'Спам или реклама'**
+  String get abuseSpam;
+
+  /// No description provided for @abuseHarassment.
+  ///
+  /// In ru, this message translates to:
+  /// **'Травля или угрозы'**
+  String get abuseHarassment;
+
+  /// No description provided for @abuseInappropriate.
+  ///
+  /// In ru, this message translates to:
+  /// **'Неприемлемый контент'**
+  String get abuseInappropriate;
+
+  /// No description provided for @abuseImpersonation.
+  ///
+  /// In ru, this message translates to:
+  /// **'Выдаёт себя за другого'**
+  String get abuseImpersonation;
+
+  /// No description provided for @abuseUnderage.
+  ///
+  /// In ru, this message translates to:
+  /// **'Похоже, младше 18 лет'**
+  String get abuseUnderage;
+
+  /// No description provided for @abuseOther.
+  ///
+  /// In ru, this message translates to:
+  /// **'Другое'**
+  String get abuseOther;
+
+  /// No description provided for @abuseDetailsHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Подробности (необязательно)'**
+  String get abuseDetailsHint;
+
+  /// No description provided for @abuseSend.
+  ///
+  /// In ru, this message translates to:
+  /// **'Отправить жалобу'**
+  String get abuseSend;
+
+  /// No description provided for @abuseSent.
+  ///
+  /// In ru, this message translates to:
+  /// **'Жалоба отправлена. Спасибо, что помогаешь'**
+  String get abuseSent;
+
+  /// No description provided for @abuseFailed.
+  ///
+  /// In ru, this message translates to:
+  /// **'Не удалось отправить жалобу. Попробуй позже'**
+  String get abuseFailed;
+
+  /// No description provided for @settingsBlocked.
+  ///
+  /// In ru, this message translates to:
+  /// **'Заблокированные'**
+  String get settingsBlocked;
+
+  /// No description provided for @settingsBlockedHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Они не видят тебя и не могут написать. Разблокировка не возвращает дружбу — понадобится новая заявка.'**
+  String get settingsBlockedHint;
+
+  /// No description provided for @settingsBlockedEmpty.
+  ///
+  /// In ru, this message translates to:
+  /// **'Никого'**
+  String get settingsBlockedEmpty;
+
+  /// No description provided for @settingsQuietOrbit.
+  ///
+  /// In ru, this message translates to:
+  /// **'Тихая орбита'**
+  String get settingsQuietOrbit;
+
+  /// No description provided for @settingsQuietOrbitHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Сообщения этих друзей приходят без уведомлений, а их планеты не подсвечиваются. Друзья об этом не знают.'**
+  String get settingsQuietOrbitHint;
+
+  /// No description provided for @settingsQuietOrbitEmpty.
+  ///
+  /// In ru, this message translates to:
+  /// **'Пока никого. Добавить друга можно в меню чата'**
+  String get settingsQuietOrbitEmpty;
 }
 
 class _AppLocalizationsDelegate

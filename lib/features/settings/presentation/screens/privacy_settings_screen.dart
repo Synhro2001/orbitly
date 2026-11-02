@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:orbitly/app/routes.dart';
 import 'package:orbitly/core/utils/l10n.dart';
 import 'package:orbitly/features/settings/domain/entities/user_settings.dart';
 import 'package:orbitly/features/settings/presentation/widgets/settings_widgets.dart';
@@ -48,6 +50,22 @@ class PrivacySettingsScreen extends ConsumerWidget {
                 MoodAudience.nobody => l10n.audienceNobody,
               },
               onChanged: (v) => apply((s) => s.copyWith(moodAudience: v)),
+            ),
+          ],
+        ),
+        SettingsSection(
+          children: [
+            SettingsLink(
+              key: const Key('privacy-blocked'),
+              icon: Icons.block_rounded,
+              title: l10n.settingsBlocked,
+              onTap: () => context.push(AppRoutes.settingsBlocked),
+            ),
+            SettingsLink(
+              key: const Key('privacy-quiet-orbit'),
+              icon: Icons.notifications_paused_outlined,
+              title: l10n.settingsQuietOrbit,
+              onTap: () => context.push(AppRoutes.settingsQuietOrbit),
             ),
           ],
         ),

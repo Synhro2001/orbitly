@@ -50,6 +50,7 @@ Friend friendFromRpcRow(Map<String, Object?> row) {
     // Null: hidden by the friend's settings (or unknown to this version).
     mood: Mood.values.asNameMap()[row['mood']],
     hasUnreadSnaps: row['has_unread_snaps'] == true,
+    muted: row['muted'] == true,
     shadow: shadowFromFields(
       DateTime.tryParse('${row['shadow_from']}'),
       DateTime.tryParse('${row['shadow_until']}'),

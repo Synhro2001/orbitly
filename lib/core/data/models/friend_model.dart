@@ -24,6 +24,7 @@ abstract class FriendModel with _$FriendModel {
     DateTime? shadowFrom,
     DateTime? shadowUntil,
     @Default([]) List<AwardModel> trophies,
+    @Default(false) bool muted,
   }) = _FriendModel;
 
   factory FriendModel.fromJson(Map<String, Object?> json) =>
@@ -42,5 +43,6 @@ extension FriendModelX on FriendModel {
     hasUnreadSnaps: hasUnreadSnaps,
     shadow: shadowFromFields(shadowFrom, shadowUntil),
     sharedTrophies: [for (final t in trophies) t.toEntity()],
+    muted: muted,
   );
 }

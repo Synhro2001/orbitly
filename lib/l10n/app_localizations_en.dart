@@ -694,4 +694,93 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get audienceInviteOnly => 'Nobody, only through my link';
+
+  @override
+  String get chatMenu => 'More';
+
+  @override
+  String get chatMute => 'Move to quiet orbit';
+
+  @override
+  String get chatUnmute => 'Bring back from quiet orbit';
+
+  @override
+  String chatMuted(String name) {
+    return '$name is in your quiet orbit: no notifications or glow. They won\'t know';
+  }
+
+  @override
+  String get chatUnmuted => 'Back on a normal orbit';
+
+  @override
+  String get chatReport => 'Report';
+
+  @override
+  String get chatBlock => 'Block';
+
+  @override
+  String blockConfirmTitle(String name) {
+    return 'Block $name?';
+  }
+
+  @override
+  String get blockConfirmBody =>
+      'You\'ll stop being friends, the chat will close, and you won\'t be able to find or message each other. You can unblock in privacy settings.';
+
+  @override
+  String get unblock => 'Unblock';
+
+  @override
+  String get abuseTitle => 'What happened?';
+
+  @override
+  String get abuseSpam => 'Spam or ads';
+
+  @override
+  String get abuseHarassment => 'Bullying or threats';
+
+  @override
+  String get abuseInappropriate => 'Inappropriate content';
+
+  @override
+  String get abuseImpersonation => 'Pretending to be someone else';
+
+  @override
+  String get abuseUnderage => 'Seems to be under 18';
+
+  @override
+  String get abuseOther => 'Something else';
+
+  @override
+  String get abuseDetailsHint => 'Details (optional)';
+
+  @override
+  String get abuseSend => 'Send report';
+
+  @override
+  String get abuseSent => 'Report sent. Thanks for helping';
+
+  @override
+  String get abuseFailed => 'Couldn\'t send the report. Try again later';
+
+  @override
+  String get settingsBlocked => 'Blocked';
+
+  @override
+  String get settingsBlockedHint =>
+      'They can\'t see you or message you. Unblocking doesn\'t restore the friendship — a new request is needed.';
+
+  @override
+  String get settingsBlockedEmpty => 'No one';
+
+  @override
+  String get settingsQuietOrbit => 'Quiet orbit';
+
+  @override
+  String get settingsQuietOrbitHint =>
+      'Messages from these friends come without notifications, and their planets don\'t glow. They don\'t know.';
+
+  @override
+  String get settingsQuietOrbitEmpty =>
+      'No one yet. Add a friend from the chat menu';
 }

@@ -19,7 +19,8 @@ mixin _$Friend {
  int get closeness; Streak get streak;/// Null when the friend does not share it with me.
  Mood? get mood; bool get hasUnreadSnaps;/// Set when the friend is in shadow (or has scheduled one).
  Shadow? get shadow;/// Trophies we earned together.
- List<Award> get sharedTrophies;
+ List<Award> get sharedTrophies;/// In my quiet orbit: no notifications and no glow.
+ bool get muted;
 /// Create a copy of Friend
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -31,20 +32,20 @@ $FriendCopyWith<Friend> get copyWith => _$FriendCopyWithImpl<Friend>(this as Fri
 @override
 bool operator ==(Object other) {
   final _this = this as Friend;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Friend&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.handle, _this.handle) || other.handle == _this.handle)&&(identical(other.appearance, _this.appearance) || other.appearance == _this.appearance)&&(identical(other.closeness, _this.closeness) || other.closeness == _this.closeness)&&(identical(other.streak, _this.streak) || other.streak == _this.streak)&&(identical(other.mood, _this.mood) || other.mood == _this.mood)&&(identical(other.hasUnreadSnaps, _this.hasUnreadSnaps) || other.hasUnreadSnaps == _this.hasUnreadSnaps)&&(identical(other.shadow, _this.shadow) || other.shadow == _this.shadow)&&const DeepCollectionEquality().equals(other.sharedTrophies, _this.sharedTrophies));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Friend&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.handle, _this.handle) || other.handle == _this.handle)&&(identical(other.appearance, _this.appearance) || other.appearance == _this.appearance)&&(identical(other.closeness, _this.closeness) || other.closeness == _this.closeness)&&(identical(other.streak, _this.streak) || other.streak == _this.streak)&&(identical(other.mood, _this.mood) || other.mood == _this.mood)&&(identical(other.hasUnreadSnaps, _this.hasUnreadSnaps) || other.hasUnreadSnaps == _this.hasUnreadSnaps)&&(identical(other.shadow, _this.shadow) || other.shadow == _this.shadow)&&const DeepCollectionEquality().equals(other.sharedTrophies, _this.sharedTrophies)&&(identical(other.muted, _this.muted) || other.muted == _this.muted));
 }
 
 
 @override
 int get hashCode {
   final _this = this as Friend;
-  return Object.hash(runtimeType,_this.id,_this.name,_this.handle,_this.appearance,_this.closeness,_this.streak,_this.mood,_this.hasUnreadSnaps,_this.shadow,const DeepCollectionEquality().hash(_this.sharedTrophies));
+  return Object.hash(runtimeType,_this.id,_this.name,_this.handle,_this.appearance,_this.closeness,_this.streak,_this.mood,_this.hasUnreadSnaps,_this.shadow,const DeepCollectionEquality().hash(_this.sharedTrophies),_this.muted);
 }
 
 @override
 String toString() {
   final _this = this as Friend;
-  return 'Friend(id: ${_this.id}, name: ${_this.name}, handle: ${_this.handle}, appearance: ${_this.appearance}, closeness: ${_this.closeness}, streak: ${_this.streak}, mood: ${_this.mood}, hasUnreadSnaps: ${_this.hasUnreadSnaps}, shadow: ${_this.shadow}, sharedTrophies: ${_this.sharedTrophies})';
+  return 'Friend(id: ${_this.id}, name: ${_this.name}, handle: ${_this.handle}, appearance: ${_this.appearance}, closeness: ${_this.closeness}, streak: ${_this.streak}, mood: ${_this.mood}, hasUnreadSnaps: ${_this.hasUnreadSnaps}, shadow: ${_this.shadow}, sharedTrophies: ${_this.sharedTrophies}, muted: ${_this.muted})';
 }
 
 
@@ -55,7 +56,7 @@ abstract mixin class $FriendCopyWith<$Res>  {
   factory $FriendCopyWith(Friend value, $Res Function(Friend) _then) = _$FriendCopyWithImpl;
 @useResult
 $Res call({
- String id, String name, String handle, PlanetAppearance appearance, int closeness, Streak streak, Mood? mood, bool hasUnreadSnaps, Shadow? shadow, List<Award> sharedTrophies
+ String id, String name, String handle, PlanetAppearance appearance, int closeness, Streak streak, Mood? mood, bool hasUnreadSnaps, Shadow? shadow, List<Award> sharedTrophies, bool muted
 });
 
 
@@ -72,7 +73,7 @@ class _$FriendCopyWithImpl<$Res>
 
 /// Create a copy of Friend
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? handle = null,Object? appearance = null,Object? closeness = null,Object? streak = null,Object? mood = freezed,Object? hasUnreadSnaps = null,Object? shadow = freezed,Object? sharedTrophies = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? handle = null,Object? appearance = null,Object? closeness = null,Object? streak = null,Object? mood = freezed,Object? hasUnreadSnaps = null,Object? shadow = freezed,Object? sharedTrophies = null,Object? muted = null,}) {
   return _then(Friend(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -84,7 +85,8 @@ as Streak,mood: freezed == mood ? _self.mood : mood // ignore: cast_nullable_to_
 as Mood?,hasUnreadSnaps: null == hasUnreadSnaps ? _self.hasUnreadSnaps : hasUnreadSnaps // ignore: cast_nullable_to_non_nullable
 as bool,shadow: freezed == shadow ? _self.shadow : shadow // ignore: cast_nullable_to_non_nullable
 as Shadow?,sharedTrophies: null == sharedTrophies ? _self.sharedTrophies : sharedTrophies // ignore: cast_nullable_to_non_nullable
-as List<Award>,
+as List<Award>,muted: null == muted ? _self.muted : muted // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 /// Create a copy of Friend
@@ -199,10 +201,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  String handle,  PlanetAppearance appearance,  int closeness,  Streak streak,  Mood? mood,  bool hasUnreadSnaps,  Shadow? shadow,  List<Award> sharedTrophies)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  String handle,  PlanetAppearance appearance,  int closeness,  Streak streak,  Mood? mood,  bool hasUnreadSnaps,  Shadow? shadow,  List<Award> sharedTrophies,  bool muted)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Friend() when $default != null:
-return $default(_that.id,_that.name,_that.handle,_that.appearance,_that.closeness,_that.streak,_that.mood,_that.hasUnreadSnaps,_that.shadow,_that.sharedTrophies);case _:
+return $default(_that.id,_that.name,_that.handle,_that.appearance,_that.closeness,_that.streak,_that.mood,_that.hasUnreadSnaps,_that.shadow,_that.sharedTrophies,_that.muted);case _:
   return orElse();
 
 }
@@ -220,10 +222,10 @@ return $default(_that.id,_that.name,_that.handle,_that.appearance,_that.closenes
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  String handle,  PlanetAppearance appearance,  int closeness,  Streak streak,  Mood? mood,  bool hasUnreadSnaps,  Shadow? shadow,  List<Award> sharedTrophies)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  String handle,  PlanetAppearance appearance,  int closeness,  Streak streak,  Mood? mood,  bool hasUnreadSnaps,  Shadow? shadow,  List<Award> sharedTrophies,  bool muted)  $default,) {final _that = this;
 switch (_that) {
 case _Friend():
-return $default(_that.id,_that.name,_that.handle,_that.appearance,_that.closeness,_that.streak,_that.mood,_that.hasUnreadSnaps,_that.shadow,_that.sharedTrophies);case _:
+return $default(_that.id,_that.name,_that.handle,_that.appearance,_that.closeness,_that.streak,_that.mood,_that.hasUnreadSnaps,_that.shadow,_that.sharedTrophies,_that.muted);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -240,10 +242,10 @@ return $default(_that.id,_that.name,_that.handle,_that.appearance,_that.closenes
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  String handle,  PlanetAppearance appearance,  int closeness,  Streak streak,  Mood? mood,  bool hasUnreadSnaps,  Shadow? shadow,  List<Award> sharedTrophies)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  String handle,  PlanetAppearance appearance,  int closeness,  Streak streak,  Mood? mood,  bool hasUnreadSnaps,  Shadow? shadow,  List<Award> sharedTrophies,  bool muted)?  $default,) {final _that = this;
 switch (_that) {
 case _Friend() when $default != null:
-return $default(_that.id,_that.name,_that.handle,_that.appearance,_that.closeness,_that.streak,_that.mood,_that.hasUnreadSnaps,_that.shadow,_that.sharedTrophies);case _:
+return $default(_that.id,_that.name,_that.handle,_that.appearance,_that.closeness,_that.streak,_that.mood,_that.hasUnreadSnaps,_that.shadow,_that.sharedTrophies,_that.muted);case _:
   return null;
 
 }
@@ -254,8 +256,8 @@ return $default(_that.id,_that.name,_that.handle,_that.appearance,_that.closenes
 /// @nodoc
 
 
-class _Friend implements Friend {
-  const _Friend({required this.id, required this.name, required this.handle, required this.appearance, required this.closeness, required this.streak, required this.mood, required this.hasUnreadSnaps, this.shadow,  List<Award> sharedTrophies = const []}): _sharedTrophies = sharedTrophies;
+class _Friend extends Friend {
+  const _Friend({required this.id, required this.name, required this.handle, required this.appearance, required this.closeness, required this.streak, required this.mood, required this.hasUnreadSnaps, this.shadow,  List<Award> sharedTrophies = const [], this.muted = false}): _sharedTrophies = sharedTrophies,super._();
   
 
 @override final  String id;
@@ -279,6 +281,8 @@ class _Friend implements Friend {
   return EqualUnmodifiableListView(_sharedTrophies);
 }
 
+/// In my quiet orbit: no notifications and no glow.
+@override@JsonKey() final  bool muted;
 
 /// Create a copy of Friend
 /// with the given fields replaced by the non-null parameter values.
@@ -290,18 +294,18 @@ _$FriendCopyWith<_Friend> get copyWith => __$FriendCopyWithImpl<_Friend>(this, _
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Friend&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.handle, handle) || other.handle == handle)&&(identical(other.appearance, appearance) || other.appearance == appearance)&&(identical(other.closeness, closeness) || other.closeness == closeness)&&(identical(other.streak, streak) || other.streak == streak)&&(identical(other.mood, mood) || other.mood == mood)&&(identical(other.hasUnreadSnaps, hasUnreadSnaps) || other.hasUnreadSnaps == hasUnreadSnaps)&&(identical(other.shadow, shadow) || other.shadow == shadow)&&const DeepCollectionEquality().equals(other.sharedTrophies, _sharedTrophies));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Friend&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.handle, handle) || other.handle == handle)&&(identical(other.appearance, appearance) || other.appearance == appearance)&&(identical(other.closeness, closeness) || other.closeness == closeness)&&(identical(other.streak, streak) || other.streak == streak)&&(identical(other.mood, mood) || other.mood == mood)&&(identical(other.hasUnreadSnaps, hasUnreadSnaps) || other.hasUnreadSnaps == hasUnreadSnaps)&&(identical(other.shadow, shadow) || other.shadow == shadow)&&const DeepCollectionEquality().equals(other.sharedTrophies, _sharedTrophies)&&(identical(other.muted, muted) || other.muted == muted));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,id,name,handle,appearance,closeness,streak,mood,hasUnreadSnaps,shadow,const DeepCollectionEquality().hash(_sharedTrophies));
+    return Object.hash(runtimeType,id,name,handle,appearance,closeness,streak,mood,hasUnreadSnaps,shadow,const DeepCollectionEquality().hash(_sharedTrophies),muted);
 }
 
 @override
 String toString() {
-    return 'Friend(id: $id, name: $name, handle: $handle, appearance: $appearance, closeness: $closeness, streak: $streak, mood: $mood, hasUnreadSnaps: $hasUnreadSnaps, shadow: $shadow, sharedTrophies: $sharedTrophies)';
+    return 'Friend(id: $id, name: $name, handle: $handle, appearance: $appearance, closeness: $closeness, streak: $streak, mood: $mood, hasUnreadSnaps: $hasUnreadSnaps, shadow: $shadow, sharedTrophies: $sharedTrophies, muted: $muted)';
 }
 
 
@@ -312,7 +316,7 @@ abstract mixin class _$FriendCopyWith<$Res> implements $FriendCopyWith<$Res> {
   factory _$FriendCopyWith(_Friend value, $Res Function(_Friend) _then) = __$FriendCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String name, String handle, PlanetAppearance appearance, int closeness, Streak streak, Mood? mood, bool hasUnreadSnaps, Shadow? shadow, List<Award> sharedTrophies
+ String id, String name, String handle, PlanetAppearance appearance, int closeness, Streak streak, Mood? mood, bool hasUnreadSnaps, Shadow? shadow, List<Award> sharedTrophies, bool muted
 });
 
 
@@ -329,7 +333,7 @@ class __$FriendCopyWithImpl<$Res>
 
 /// Create a copy of Friend
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? handle = null,Object? appearance = null,Object? closeness = null,Object? streak = null,Object? mood = freezed,Object? hasUnreadSnaps = null,Object? shadow = freezed,Object? sharedTrophies = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? handle = null,Object? appearance = null,Object? closeness = null,Object? streak = null,Object? mood = freezed,Object? hasUnreadSnaps = null,Object? shadow = freezed,Object? sharedTrophies = null,Object? muted = null,}) {
   return _then(_Friend(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -341,7 +345,8 @@ as Streak,mood: freezed == mood ? _self.mood : mood // ignore: cast_nullable_to_
 as Mood?,hasUnreadSnaps: null == hasUnreadSnaps ? _self.hasUnreadSnaps : hasUnreadSnaps // ignore: cast_nullable_to_non_nullable
 as bool,shadow: freezed == shadow ? _self.shadow : shadow // ignore: cast_nullable_to_non_nullable
 as Shadow?,sharedTrophies: null == sharedTrophies ? _self._sharedTrophies : sharedTrophies // ignore: cast_nullable_to_non_nullable
-as List<Award>,
+as List<Award>,muted: null == muted ? _self.muted : muted // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 

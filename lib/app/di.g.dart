@@ -148,6 +148,52 @@ final class SettingsRepositoryProvider
 String _$settingsRepositoryHash() =>
     r'bf3155f3ce75bc1dda9c23c339687fc3500504c1';
 
+@ProviderFor(safetyRepository)
+final safetyRepositoryProvider = SafetyRepositoryProvider._();
+
+final class SafetyRepositoryProvider
+    extends
+        $FunctionalProvider<
+          SafetyRepository,
+          SafetyRepository,
+          SafetyRepository
+        >
+    with $Provider<SafetyRepository> {
+  SafetyRepositoryProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'safetyRepositoryProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$safetyRepositoryHash();
+
+  @$internal
+  @override
+  $ProviderElement<SafetyRepository> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  SafetyRepository create(Ref ref) {
+    return safetyRepository(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(SafetyRepository value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<SafetyRepository>(value),
+    );
+  }
+}
+
+String _$safetyRepositoryHash() => r'ff740b031e8a22b35cdcd97e131e31232e3afc6b';
+
 /// Account settings on the server.
 
 @ProviderFor(userSettingsRepository)

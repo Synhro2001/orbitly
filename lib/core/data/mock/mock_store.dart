@@ -58,6 +58,11 @@ class MockStore {
   /// all defaults.
   Json settings = {};
 
+  /// People I blocked (user summaries), friends I muted, reports I filed.
+  final blocked = <Json>[];
+  final muted = <String>{};
+  final reports = <Json>[];
+
   /// The code in my invite link.
   String inviteCode = 'my-invite';
 
@@ -76,6 +81,7 @@ class MockStore {
     return {
       ...friend,
       'has_unread_snaps': hasUnread,
+      'muted': muted.contains(id),
       'trophies': [
         for (final id in sharedTrophyIds[id] ?? const <String>[])
           achievements.firstWhere((a) => a['id'] == id),

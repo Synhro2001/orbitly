@@ -699,4 +699,93 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get audienceInviteOnly => 'Никто, только по моей ссылке';
+
+  @override
+  String get chatMenu => 'Ещё';
+
+  @override
+  String get chatMute => 'В тихую орбиту';
+
+  @override
+  String get chatUnmute => 'Вернуть из тихой орбиты';
+
+  @override
+  String chatMuted(String name) {
+    return '$name в тихой орбите: без уведомлений и подсветки. Друг об этом не узнает';
+  }
+
+  @override
+  String get chatUnmuted => 'Снова на обычной орбите';
+
+  @override
+  String get chatReport => 'Пожаловаться';
+
+  @override
+  String get chatBlock => 'Заблокировать';
+
+  @override
+  String blockConfirmTitle(String name) {
+    return 'Заблокировать $name?';
+  }
+
+  @override
+  String get blockConfirmBody =>
+      'Вы перестанете быть друзьями, переписка закроется, и вы не сможете найти друг друга и написать. Разблокировать можно в настройках приватности.';
+
+  @override
+  String get unblock => 'Разблокировать';
+
+  @override
+  String get abuseTitle => 'Что случилось?';
+
+  @override
+  String get abuseSpam => 'Спам или реклама';
+
+  @override
+  String get abuseHarassment => 'Травля или угрозы';
+
+  @override
+  String get abuseInappropriate => 'Неприемлемый контент';
+
+  @override
+  String get abuseImpersonation => 'Выдаёт себя за другого';
+
+  @override
+  String get abuseUnderage => 'Похоже, младше 18 лет';
+
+  @override
+  String get abuseOther => 'Другое';
+
+  @override
+  String get abuseDetailsHint => 'Подробности (необязательно)';
+
+  @override
+  String get abuseSend => 'Отправить жалобу';
+
+  @override
+  String get abuseSent => 'Жалоба отправлена. Спасибо, что помогаешь';
+
+  @override
+  String get abuseFailed => 'Не удалось отправить жалобу. Попробуй позже';
+
+  @override
+  String get settingsBlocked => 'Заблокированные';
+
+  @override
+  String get settingsBlockedHint =>
+      'Они не видят тебя и не могут написать. Разблокировка не возвращает дружбу — понадобится новая заявка.';
+
+  @override
+  String get settingsBlockedEmpty => 'Никого';
+
+  @override
+  String get settingsQuietOrbit => 'Тихая орбита';
+
+  @override
+  String get settingsQuietOrbitHint =>
+      'Сообщения этих друзей приходят без уведомлений, а их планеты не подсвечиваются. Друзья об этом не знают.';
+
+  @override
+  String get settingsQuietOrbitEmpty =>
+      'Пока никого. Добавить друга можно в меню чата';
 }

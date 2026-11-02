@@ -10,8 +10,11 @@ import 'package:orbitly/features/chat/data/repositories/mock_chat_repository.dar
 import 'package:orbitly/features/chat/data/repositories/supabase_chat_repository.dart';
 import 'package:orbitly/features/chat/domain/repositories/chat_repository.dart';
 import 'package:orbitly/features/friends/data/repositories/mock_friends_repository.dart';
+import 'package:orbitly/features/friends/data/repositories/mock_safety_repository.dart';
 import 'package:orbitly/features/friends/data/repositories/supabase_friends_repository.dart';
+import 'package:orbitly/features/friends/data/repositories/supabase_safety_repository.dart';
 import 'package:orbitly/features/friends/domain/repositories/friends_repository.dart';
+import 'package:orbitly/features/friends/domain/repositories/safety_repository.dart';
 import 'package:orbitly/features/planet/data/repositories/mock_planet_repository.dart';
 import 'package:orbitly/features/planet/data/repositories/supabase_planet_repository.dart';
 import 'package:orbitly/features/planet/domain/repositories/planet_repository.dart';
@@ -44,6 +47,11 @@ MockStore mockStore(Ref ref) => MockStore(withNewUnlock: true);
 /// in memory.
 @Riverpod(keepAlive: true)
 SettingsRepository settingsRepository(Ref ref) => InMemorySettingsRepository();
+
+@Riverpod(keepAlive: true)
+SafetyRepository safetyRepository(Ref ref) => ref.watch(useMocksProvider)
+    ? MockSafetyRepository(ref.watch(mockStoreProvider))
+    : SupabaseSafetyRepository(ref.watch(supabaseClientProvider));
 
 /// Account settings on the server.
 @Riverpod(keepAlive: true)

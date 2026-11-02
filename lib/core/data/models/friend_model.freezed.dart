@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$FriendModel {
 
- String get id; String get name; String get handle; PlanetAppearanceModel get appearance; int get closeness; int get streakDays; DateTime get lastExchangeAt; bool get hasUnreadSnaps;@JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue) Mood? get mood; DateTime? get shadowFrom; DateTime? get shadowUntil; List<AwardModel> get trophies;
+ String get id; String get name; String get handle; PlanetAppearanceModel get appearance; int get closeness; int get streakDays; DateTime get lastExchangeAt; bool get hasUnreadSnaps;@JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue) Mood? get mood; DateTime? get shadowFrom; DateTime? get shadowUntil; List<AwardModel> get trophies; bool get muted;
 /// Create a copy of FriendModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -30,20 +30,20 @@ $FriendModelCopyWith<FriendModel> get copyWith => _$FriendModelCopyWithImpl<Frie
 @override
 bool operator ==(Object other) {
   final _this = this as FriendModel;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FriendModel&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.handle, _this.handle) || other.handle == _this.handle)&&(identical(other.appearance, _this.appearance) || other.appearance == _this.appearance)&&(identical(other.closeness, _this.closeness) || other.closeness == _this.closeness)&&(identical(other.streakDays, _this.streakDays) || other.streakDays == _this.streakDays)&&(identical(other.lastExchangeAt, _this.lastExchangeAt) || other.lastExchangeAt == _this.lastExchangeAt)&&(identical(other.hasUnreadSnaps, _this.hasUnreadSnaps) || other.hasUnreadSnaps == _this.hasUnreadSnaps)&&(identical(other.mood, _this.mood) || other.mood == _this.mood)&&(identical(other.shadowFrom, _this.shadowFrom) || other.shadowFrom == _this.shadowFrom)&&(identical(other.shadowUntil, _this.shadowUntil) || other.shadowUntil == _this.shadowUntil)&&const DeepCollectionEquality().equals(other.trophies, _this.trophies));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FriendModel&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.handle, _this.handle) || other.handle == _this.handle)&&(identical(other.appearance, _this.appearance) || other.appearance == _this.appearance)&&(identical(other.closeness, _this.closeness) || other.closeness == _this.closeness)&&(identical(other.streakDays, _this.streakDays) || other.streakDays == _this.streakDays)&&(identical(other.lastExchangeAt, _this.lastExchangeAt) || other.lastExchangeAt == _this.lastExchangeAt)&&(identical(other.hasUnreadSnaps, _this.hasUnreadSnaps) || other.hasUnreadSnaps == _this.hasUnreadSnaps)&&(identical(other.mood, _this.mood) || other.mood == _this.mood)&&(identical(other.shadowFrom, _this.shadowFrom) || other.shadowFrom == _this.shadowFrom)&&(identical(other.shadowUntil, _this.shadowUntil) || other.shadowUntil == _this.shadowUntil)&&const DeepCollectionEquality().equals(other.trophies, _this.trophies)&&(identical(other.muted, _this.muted) || other.muted == _this.muted));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as FriendModel;
-  return Object.hash(runtimeType,_this.id,_this.name,_this.handle,_this.appearance,_this.closeness,_this.streakDays,_this.lastExchangeAt,_this.hasUnreadSnaps,_this.mood,_this.shadowFrom,_this.shadowUntil,const DeepCollectionEquality().hash(_this.trophies));
+  return Object.hash(runtimeType,_this.id,_this.name,_this.handle,_this.appearance,_this.closeness,_this.streakDays,_this.lastExchangeAt,_this.hasUnreadSnaps,_this.mood,_this.shadowFrom,_this.shadowUntil,const DeepCollectionEquality().hash(_this.trophies),_this.muted);
 }
 
 @override
 String toString() {
   final _this = this as FriendModel;
-  return 'FriendModel(id: ${_this.id}, name: ${_this.name}, handle: ${_this.handle}, appearance: ${_this.appearance}, closeness: ${_this.closeness}, streakDays: ${_this.streakDays}, lastExchangeAt: ${_this.lastExchangeAt}, hasUnreadSnaps: ${_this.hasUnreadSnaps}, mood: ${_this.mood}, shadowFrom: ${_this.shadowFrom}, shadowUntil: ${_this.shadowUntil}, trophies: ${_this.trophies})';
+  return 'FriendModel(id: ${_this.id}, name: ${_this.name}, handle: ${_this.handle}, appearance: ${_this.appearance}, closeness: ${_this.closeness}, streakDays: ${_this.streakDays}, lastExchangeAt: ${_this.lastExchangeAt}, hasUnreadSnaps: ${_this.hasUnreadSnaps}, mood: ${_this.mood}, shadowFrom: ${_this.shadowFrom}, shadowUntil: ${_this.shadowUntil}, trophies: ${_this.trophies}, muted: ${_this.muted})';
 }
 
 
@@ -54,7 +54,7 @@ abstract mixin class $FriendModelCopyWith<$Res>  {
   factory $FriendModelCopyWith(FriendModel value, $Res Function(FriendModel) _then) = _$FriendModelCopyWithImpl;
 @useResult
 $Res call({
- String id, String name, String handle, PlanetAppearanceModel appearance, int closeness, int streakDays, DateTime lastExchangeAt, bool hasUnreadSnaps,@JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue) Mood? mood, DateTime? shadowFrom, DateTime? shadowUntil, List<AwardModel> trophies
+ String id, String name, String handle, PlanetAppearanceModel appearance, int closeness, int streakDays, DateTime lastExchangeAt, bool hasUnreadSnaps,@JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue) Mood? mood, DateTime? shadowFrom, DateTime? shadowUntil, List<AwardModel> trophies, bool muted
 });
 
 
@@ -71,7 +71,7 @@ class _$FriendModelCopyWithImpl<$Res>
 
 /// Create a copy of FriendModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? handle = null,Object? appearance = null,Object? closeness = null,Object? streakDays = null,Object? lastExchangeAt = null,Object? hasUnreadSnaps = null,Object? mood = freezed,Object? shadowFrom = freezed,Object? shadowUntil = freezed,Object? trophies = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? handle = null,Object? appearance = null,Object? closeness = null,Object? streakDays = null,Object? lastExchangeAt = null,Object? hasUnreadSnaps = null,Object? mood = freezed,Object? shadowFrom = freezed,Object? shadowUntil = freezed,Object? trophies = null,Object? muted = null,}) {
   return _then(FriendModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -85,7 +85,8 @@ as bool,mood: freezed == mood ? _self.mood : mood // ignore: cast_nullable_to_no
 as Mood?,shadowFrom: freezed == shadowFrom ? _self.shadowFrom : shadowFrom // ignore: cast_nullable_to_non_nullable
 as DateTime?,shadowUntil: freezed == shadowUntil ? _self.shadowUntil : shadowUntil // ignore: cast_nullable_to_non_nullable
 as DateTime?,trophies: null == trophies ? _self.trophies : trophies // ignore: cast_nullable_to_non_nullable
-as List<AwardModel>,
+as List<AwardModel>,muted: null == muted ? _self.muted : muted // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 /// Create a copy of FriendModel
@@ -179,10 +180,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  String handle,  PlanetAppearanceModel appearance,  int closeness,  int streakDays,  DateTime lastExchangeAt,  bool hasUnreadSnaps, @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)  Mood? mood,  DateTime? shadowFrom,  DateTime? shadowUntil,  List<AwardModel> trophies)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  String handle,  PlanetAppearanceModel appearance,  int closeness,  int streakDays,  DateTime lastExchangeAt,  bool hasUnreadSnaps, @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)  Mood? mood,  DateTime? shadowFrom,  DateTime? shadowUntil,  List<AwardModel> trophies,  bool muted)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _FriendModel() when $default != null:
-return $default(_that.id,_that.name,_that.handle,_that.appearance,_that.closeness,_that.streakDays,_that.lastExchangeAt,_that.hasUnreadSnaps,_that.mood,_that.shadowFrom,_that.shadowUntil,_that.trophies);case _:
+return $default(_that.id,_that.name,_that.handle,_that.appearance,_that.closeness,_that.streakDays,_that.lastExchangeAt,_that.hasUnreadSnaps,_that.mood,_that.shadowFrom,_that.shadowUntil,_that.trophies,_that.muted);case _:
   return orElse();
 
 }
@@ -200,10 +201,10 @@ return $default(_that.id,_that.name,_that.handle,_that.appearance,_that.closenes
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  String handle,  PlanetAppearanceModel appearance,  int closeness,  int streakDays,  DateTime lastExchangeAt,  bool hasUnreadSnaps, @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)  Mood? mood,  DateTime? shadowFrom,  DateTime? shadowUntil,  List<AwardModel> trophies)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  String handle,  PlanetAppearanceModel appearance,  int closeness,  int streakDays,  DateTime lastExchangeAt,  bool hasUnreadSnaps, @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)  Mood? mood,  DateTime? shadowFrom,  DateTime? shadowUntil,  List<AwardModel> trophies,  bool muted)  $default,) {final _that = this;
 switch (_that) {
 case _FriendModel():
-return $default(_that.id,_that.name,_that.handle,_that.appearance,_that.closeness,_that.streakDays,_that.lastExchangeAt,_that.hasUnreadSnaps,_that.mood,_that.shadowFrom,_that.shadowUntil,_that.trophies);case _:
+return $default(_that.id,_that.name,_that.handle,_that.appearance,_that.closeness,_that.streakDays,_that.lastExchangeAt,_that.hasUnreadSnaps,_that.mood,_that.shadowFrom,_that.shadowUntil,_that.trophies,_that.muted);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -220,10 +221,10 @@ return $default(_that.id,_that.name,_that.handle,_that.appearance,_that.closenes
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  String handle,  PlanetAppearanceModel appearance,  int closeness,  int streakDays,  DateTime lastExchangeAt,  bool hasUnreadSnaps, @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)  Mood? mood,  DateTime? shadowFrom,  DateTime? shadowUntil,  List<AwardModel> trophies)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  String handle,  PlanetAppearanceModel appearance,  int closeness,  int streakDays,  DateTime lastExchangeAt,  bool hasUnreadSnaps, @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)  Mood? mood,  DateTime? shadowFrom,  DateTime? shadowUntil,  List<AwardModel> trophies,  bool muted)?  $default,) {final _that = this;
 switch (_that) {
 case _FriendModel() when $default != null:
-return $default(_that.id,_that.name,_that.handle,_that.appearance,_that.closeness,_that.streakDays,_that.lastExchangeAt,_that.hasUnreadSnaps,_that.mood,_that.shadowFrom,_that.shadowUntil,_that.trophies);case _:
+return $default(_that.id,_that.name,_that.handle,_that.appearance,_that.closeness,_that.streakDays,_that.lastExchangeAt,_that.hasUnreadSnaps,_that.mood,_that.shadowFrom,_that.shadowUntil,_that.trophies,_that.muted);case _:
   return null;
 
 }
@@ -235,7 +236,7 @@ return $default(_that.id,_that.name,_that.handle,_that.appearance,_that.closenes
 @JsonSerializable()
 
 class _FriendModel implements FriendModel {
-  const _FriendModel({required this.id, required this.name, required this.handle, required this.appearance, required this.closeness, required this.streakDays, required this.lastExchangeAt, required this.hasUnreadSnaps, @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue) this.mood, this.shadowFrom, this.shadowUntil,  List<AwardModel> trophies = const []}): _trophies = trophies;
+  const _FriendModel({required this.id, required this.name, required this.handle, required this.appearance, required this.closeness, required this.streakDays, required this.lastExchangeAt, required this.hasUnreadSnaps, @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue) this.mood, this.shadowFrom, this.shadowUntil,  List<AwardModel> trophies = const [], this.muted = false}): _trophies = trophies;
   factory _FriendModel.fromJson(Map<String, dynamic> json) => _$FriendModelFromJson(json);
 
 @override final  String id;
@@ -256,6 +257,7 @@ class _FriendModel implements FriendModel {
   return EqualUnmodifiableListView(_trophies);
 }
 
+@override@JsonKey() final  bool muted;
 
 /// Create a copy of FriendModel
 /// with the given fields replaced by the non-null parameter values.
@@ -270,18 +272,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _FriendModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.handle, handle) || other.handle == handle)&&(identical(other.appearance, appearance) || other.appearance == appearance)&&(identical(other.closeness, closeness) || other.closeness == closeness)&&(identical(other.streakDays, streakDays) || other.streakDays == streakDays)&&(identical(other.lastExchangeAt, lastExchangeAt) || other.lastExchangeAt == lastExchangeAt)&&(identical(other.hasUnreadSnaps, hasUnreadSnaps) || other.hasUnreadSnaps == hasUnreadSnaps)&&(identical(other.mood, mood) || other.mood == mood)&&(identical(other.shadowFrom, shadowFrom) || other.shadowFrom == shadowFrom)&&(identical(other.shadowUntil, shadowUntil) || other.shadowUntil == shadowUntil)&&const DeepCollectionEquality().equals(other.trophies, _trophies));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _FriendModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.handle, handle) || other.handle == handle)&&(identical(other.appearance, appearance) || other.appearance == appearance)&&(identical(other.closeness, closeness) || other.closeness == closeness)&&(identical(other.streakDays, streakDays) || other.streakDays == streakDays)&&(identical(other.lastExchangeAt, lastExchangeAt) || other.lastExchangeAt == lastExchangeAt)&&(identical(other.hasUnreadSnaps, hasUnreadSnaps) || other.hasUnreadSnaps == hasUnreadSnaps)&&(identical(other.mood, mood) || other.mood == mood)&&(identical(other.shadowFrom, shadowFrom) || other.shadowFrom == shadowFrom)&&(identical(other.shadowUntil, shadowUntil) || other.shadowUntil == shadowUntil)&&const DeepCollectionEquality().equals(other.trophies, _trophies)&&(identical(other.muted, muted) || other.muted == muted));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,id,name,handle,appearance,closeness,streakDays,lastExchangeAt,hasUnreadSnaps,mood,shadowFrom,shadowUntil,const DeepCollectionEquality().hash(_trophies));
+    return Object.hash(runtimeType,id,name,handle,appearance,closeness,streakDays,lastExchangeAt,hasUnreadSnaps,mood,shadowFrom,shadowUntil,const DeepCollectionEquality().hash(_trophies),muted);
 }
 
 @override
 String toString() {
-    return 'FriendModel(id: $id, name: $name, handle: $handle, appearance: $appearance, closeness: $closeness, streakDays: $streakDays, lastExchangeAt: $lastExchangeAt, hasUnreadSnaps: $hasUnreadSnaps, mood: $mood, shadowFrom: $shadowFrom, shadowUntil: $shadowUntil, trophies: $trophies)';
+    return 'FriendModel(id: $id, name: $name, handle: $handle, appearance: $appearance, closeness: $closeness, streakDays: $streakDays, lastExchangeAt: $lastExchangeAt, hasUnreadSnaps: $hasUnreadSnaps, mood: $mood, shadowFrom: $shadowFrom, shadowUntil: $shadowUntil, trophies: $trophies, muted: $muted)';
 }
 
 
@@ -292,7 +294,7 @@ abstract mixin class _$FriendModelCopyWith<$Res> implements $FriendModelCopyWith
   factory _$FriendModelCopyWith(_FriendModel value, $Res Function(_FriendModel) _then) = __$FriendModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String name, String handle, PlanetAppearanceModel appearance, int closeness, int streakDays, DateTime lastExchangeAt, bool hasUnreadSnaps,@JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue) Mood? mood, DateTime? shadowFrom, DateTime? shadowUntil, List<AwardModel> trophies
+ String id, String name, String handle, PlanetAppearanceModel appearance, int closeness, int streakDays, DateTime lastExchangeAt, bool hasUnreadSnaps,@JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue) Mood? mood, DateTime? shadowFrom, DateTime? shadowUntil, List<AwardModel> trophies, bool muted
 });
 
 
@@ -309,7 +311,7 @@ class __$FriendModelCopyWithImpl<$Res>
 
 /// Create a copy of FriendModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? handle = null,Object? appearance = null,Object? closeness = null,Object? streakDays = null,Object? lastExchangeAt = null,Object? hasUnreadSnaps = null,Object? mood = freezed,Object? shadowFrom = freezed,Object? shadowUntil = freezed,Object? trophies = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? handle = null,Object? appearance = null,Object? closeness = null,Object? streakDays = null,Object? lastExchangeAt = null,Object? hasUnreadSnaps = null,Object? mood = freezed,Object? shadowFrom = freezed,Object? shadowUntil = freezed,Object? trophies = null,Object? muted = null,}) {
   return _then(_FriendModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -323,7 +325,8 @@ as bool,mood: freezed == mood ? _self.mood : mood // ignore: cast_nullable_to_no
 as Mood?,shadowFrom: freezed == shadowFrom ? _self.shadowFrom : shadowFrom // ignore: cast_nullable_to_non_nullable
 as DateTime?,shadowUntil: freezed == shadowUntil ? _self.shadowUntil : shadowUntil // ignore: cast_nullable_to_non_nullable
 as DateTime?,trophies: null == trophies ? _self._trophies : trophies // ignore: cast_nullable_to_non_nullable
-as List<AwardModel>,
+as List<AwardModel>,muted: null == muted ? _self.muted : muted // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 

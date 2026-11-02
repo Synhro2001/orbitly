@@ -35,6 +35,7 @@ _FriendModel _$FriendModelFromJson(Map<String, dynamic> json) => _FriendModel(
           ?.map((e) => AwardModel.fromJson(e as Map<String, dynamic>))
           .toList() ??
       const [],
+  muted: json['muted'] as bool? ?? false,
 );
 
 Map<String, dynamic> _$FriendModelToJson(_FriendModel instance) =>
@@ -51,6 +52,7 @@ Map<String, dynamic> _$FriendModelToJson(_FriendModel instance) =>
       'shadow_from': instance.shadowFrom?.toIso8601String(),
       'shadow_until': instance.shadowUntil?.toIso8601String(),
       'trophies': instance.trophies.map((e) => e.toJson()).toList(),
+      'muted': instance.muted,
     };
 
 const _$MoodEnumMap = {

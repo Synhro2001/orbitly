@@ -141,7 +141,7 @@ class CometsPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final t = clock.value;
     for (final orbit in layout.orbits) {
-      if (!orbit.friend.hasUnreadSnaps) continue;
+      if (!orbit.friend.glows) continue;
       final target = layout.positionOf(orbit, t);
       final progress = (t * _tripsPerCycle + orbit.phase) % 1;
       final head = Offset.lerp(layout.center, target, progress)!;

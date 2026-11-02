@@ -14,6 +14,8 @@ abstract final class AppRoutes {
   static const settingsAppearance = '/settings/appearance';
   static const settingsAccount = '/settings/account';
   static const settingsPrivacy = '/settings/privacy';
+  static const settingsBlocked = '/settings/privacy/blocked';
+  static const settingsQuietOrbit = '/settings/privacy/quiet';
 
   static String chat(String friendId) => '/chat/$friendId';
   static String invite(String code) => '/invite/$code';

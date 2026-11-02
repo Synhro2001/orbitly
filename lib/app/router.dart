@@ -18,6 +18,7 @@ import 'package:orbitly/features/planet/presentation/screens/my_planet_screen.da
 import 'package:orbitly/features/report/presentation/screens/report_screen.dart';
 import 'package:orbitly/features/settings/presentation/screens/account_settings_screen.dart';
 import 'package:orbitly/features/settings/presentation/screens/appearance_settings_screen.dart';
+import 'package:orbitly/features/settings/presentation/screens/people_list_screen.dart';
 import 'package:orbitly/features/settings/presentation/screens/privacy_settings_screen.dart';
 import 'package:orbitly/features/settings/presentation/screens/settings_screen.dart';
 import 'package:orbitly/features/system/presentation/screens/system_screen.dart';
@@ -151,6 +152,16 @@ GoRouter router(Ref ref) {
           GoRoute(
             path: 'privacy',
             builder: (_, _) => const PrivacySettingsScreen(),
+            routes: [
+              GoRoute(
+                path: 'blocked',
+                builder: (_, _) => const BlockedUsersScreen(),
+              ),
+              GoRoute(
+                path: 'quiet',
+                builder: (_, _) => const QuietOrbitScreen(),
+              ),
+            ],
           ),
           GoRoute(
             path: 'account',

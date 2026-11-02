@@ -23,12 +23,7 @@ class SupabaseFriendsRepository implements FriendsRepository {
       'search_profiles',
       params: {'p_query': q},
     );
-    return parseValid(
-      rows,
-      (row) =>
-          UserSummaryModel.fromJson({...row, 'name': row['display_name']})
-              .toEntity(),
-    );
+    return parseValid(rows, userSummaryFromRow);
   }
 
   @override
@@ -72,10 +67,7 @@ class SupabaseFriendsRepository implements FriendsRepository {
   @override
   Future<UserSummary?> getInvite(String code) async {
     final rows = await _client.rpcRows('get_invite', params: {'p_code': code});
-    return parseValid(
-      rows,
-      (json) => UserSummaryModel.fromJson(json).toEntity(),
-    ).firstOrNull;
+    return parseValid(rows, userSummaryFromRow).firstOrNull;
   }
 
   @override

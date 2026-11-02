@@ -28,5 +28,13 @@ abstract class Friend with _$Friend {
 
     /// Trophies we earned together.
     @Default([]) List<Award> sharedTrophies,
+
+    /// In my quiet orbit: no notifications and no glow.
+    @Default(false) bool muted,
   }) = _Friend;
+
+  const Friend._();
+
+  /// The planet glows when there is an unseen snap, unless I muted them.
+  bool get glows => hasUnreadSnaps && !muted;
 }

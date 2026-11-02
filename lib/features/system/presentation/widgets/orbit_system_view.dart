@@ -130,7 +130,7 @@ class _FriendPlanet extends ConsumerWidget {
     final friend = orbit.friend;
     final l10n = context.l10n;
     final bodySize = orbit.planetSize * PlanetPainter.bodyRadiusFactor * 2;
-    final unread = friend.hasUnreadSnaps;
+    final unread = friend.glows;
     final now = ref.watch(clockProvider)();
     final inShadow = friend.shadow?.isActiveAt(now) ?? false;
     return Semantics(
