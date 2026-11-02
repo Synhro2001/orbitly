@@ -1,18 +1,19 @@
--- Чат: текст и капсулы времени через серверные функции.
+-- Chat: text and time capsules through server functions.
 --
--- Клиент не читает таблицу messages напрямую — ни select, ни Realtime.
--- Так текст чужой капсулы физически не уходит с сервера до срока.
--- О новых сообщениях приложение узнаёт по Realtime из interactions:
--- там только «кто, кому, когда», без текста.
+-- The client never reads the messages table directly, neither by select nor
+-- by Realtime. That way a friend's capsule text never leaves the server
+-- before it opens. The app learns about new messages through Realtime on
+-- interactions, which only has "who, to whom, when", no text.
 --
--- Снапы пока не отправляются (нужно хранилище медиа), но полученный снап
--- можно открыть, и он подсвечивается как непрочитанный.
+-- Snaps cannot be sent yet (that needs media storage), but a received snap
+-- can be opened, and it glows as unread.
 
--- View из первой миграции требовал права на саму таблицу — а с ними текст
--- капсулы можно было бы прочитать в обход view. Заменён функциями ниже.
+-- The view from the first migration needed privileges on the table itself,
+-- and with those the capsule text could be read around the view. It is
+-- replaced by the functions below.
 drop view public.messages_visible;
 
--- Сообщение глазами пользователя p_me: чужая капсула до срока — без текста.
+-- A message as user p_me sees it: a friend's unopened capsule has no text.
 create function private.message_for(m public.messages, p_me uuid)
 returns table (
   id uuid,
@@ -41,8 +42,8 @@ as $$
     m.opened_at is not null;
 $$;
 
--- Защита от спама и случайных циклов в клиенте: не больше 30 сообщений
--- в минуту от одного пользователя.
+-- Guard against spam and accidental loops in the client: at most 30 messages
+-- per minute from one user.
 create function private.check_send_rate(p_user uuid)
 returns void
 language plpgsql
@@ -59,7 +60,7 @@ begin
 end;
 $$;
 
--- Общие проверки отправки: друзья, длина текста, частота.
+-- Shared send checks: friendship, text length, rate.
 create function private.prepare_send(p_to uuid, p_text text)
 returns text
 language plpgsql
@@ -83,7 +84,7 @@ end;
 $$;
 
 -- ---------------------------------------------------------------------------
--- Отправка
+-- Sending
 -- ---------------------------------------------------------------------------
 
 create function public.send_message(p_to uuid, p_text text)
@@ -100,11 +101,11 @@ declare
   v_text text := private.prepare_send(p_to, p_text);
   v_msg public.messages;
 begin
-  -- clock_timestamp, а не now(): порядок сохраняется и внутри одной транзакции.
+  -- clock_timestamp, not now(): order holds even within one transaction.
   insert into public.messages (from_user, to_user, kind, body, created_at)
     values (me, p_to, 'text', v_text, clock_timestamp())
     returning * into v_msg;
-  -- Журнал событий: близость, серия, достижения и сигнал для Realtime.
+  -- Event log: closeness, streak, achievements and the Realtime signal.
   insert into public.interactions (from_user, to_user, kind)
     values (me, p_to, 'text');
   return query select * from private.message_for(v_msg, me);
@@ -141,12 +142,12 @@ end;
 $$;
 
 -- ---------------------------------------------------------------------------
--- Чтение
+-- Reading
 -- ---------------------------------------------------------------------------
 
--- Переписка с другом, последние p_limit сообщений по порядку.
--- Попутно открывает капсулы, срок которых наступил: получатель их увидел —
--- это событие capsule_opened (достижение «Хранитель времени»).
+-- The conversation with a friend: the last p_limit messages in order.
+-- It also opens capsules whose time has come: the recipient has seen them,
+-- which is a capsule_opened event (the "Time keeper" achievement).
 create function public.get_thread(p_friend uuid, p_limit int default 200)
 returns table (
   id uuid, kind text, is_mine boolean, sent_at timestamptz,
@@ -194,7 +195,7 @@ begin
 end;
 $$;
 
--- Последнее сообщение с каждым другом — для списка чатов.
+-- The last message with each friend, for the chat list.
 create function public.get_chat_previews()
 returns table (
   friend_id uuid,
@@ -219,7 +220,7 @@ as $$
   where private.are_friends((select auth.uid()), last.friend_id);
 $$;
 
--- Открыть полученный снап (смотреть можно один раз).
+-- Open a received snap (it can be viewed once).
 create function public.open_snap(p_message uuid)
 returns void
 language plpgsql
@@ -240,7 +241,7 @@ end;
 $$;
 
 -- ---------------------------------------------------------------------------
--- Друзья: добавляем «есть непросмотренные снапы» (свечение на карте).
+-- Friends: add "has unseen snaps" (the glow on the map).
 -- ---------------------------------------------------------------------------
 
 drop function public.get_my_friends();
@@ -313,7 +314,7 @@ $$;
 create index messages_to_created_idx on public.messages (to_user, created_at);
 
 -- ---------------------------------------------------------------------------
--- Права и Realtime
+-- Privileges and Realtime
 -- ---------------------------------------------------------------------------
 
 revoke execute on all functions in schema public from public, anon;
@@ -331,5 +332,5 @@ grant execute on function
   public.get_my_friends()
   to authenticated;
 
--- Сигнал о новом сообщении: строка журнала без текста (RLS: только свои).
+-- New message signal: a log row without text (RLS: own rows only).
 alter publication supabase_realtime add table public.interactions;

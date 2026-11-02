@@ -1,24 +1,24 @@
--- Ядро Orbitly: профили (планеты), дружба, близость, взаимодействия.
--- Таблица сообщений создаётся на будущее; клиент к ней пока не подключён.
+-- Orbitly core: profiles (planets), friendships, closeness, interactions.
+-- The messages table is created ahead of time for the chat.
 --
--- Правила доступа:
---  * RLS включён на каждой таблице.
---  * У ролей anon/authenticated сначала отбираются все права, затем выдаются
---    только нужные (новые таблицы в Supabase по умолчанию открыты).
---  * Всё, что влияет на прогресс и награды, меняется только функциями на
---    сервере: клиенту нельзя доверять.
+-- Access rules:
+--  * RLS is on for every table.
+--  * anon/authenticated first lose all privileges, then get only what they
+--    need (new tables in Supabase are open by default).
+--  * Anything that affects progress and rewards changes only through server
+--    functions: the client cannot be trusted.
 
 create schema if not exists private;
 revoke all on schema private from public;
--- Политикам RLS нужны функции-помощники из private.
+-- RLS policies need helper functions from the private schema.
 grant usage on schema private to authenticated;
 
 -- ---------------------------------------------------------------------------
--- Профиль = планета пользователя
+-- Profile = the user's planet
 -- ---------------------------------------------------------------------------
 
--- Базовый вид планеты: только 7 обычных типов. Редкие типы открываются
--- наградами и хранятся в user_cosmetics.
+-- Base planet look: only the 7 regular types. Rare types are unlocked as
+-- rewards and stored in user_cosmetics.
 create function private.is_valid_base_appearance(appearance jsonb)
 returns boolean
 language sql
@@ -41,7 +41,7 @@ create table public.profiles (
   appearance jsonb not null check (private.is_valid_base_appearance(appearance)),
   mood text not null default 'happy'
     check (mood in ('happy', 'calm', 'inLove', 'excited', 'tired', 'sad')),
-  -- Опыт и уровень пишет только сервер (журнал xp_events).
+  -- XP and level are written only by the server (the xp_events log).
   xp int not null default 0 check (xp >= 0),
   level int not null default 1 check (level >= 1),
   best_streak_days int not null default 0,
@@ -53,7 +53,7 @@ create table public.profiles (
 );
 
 -- ---------------------------------------------------------------------------
--- Дружба: одна строка на пару, user_a < user_b
+-- Friendships: one row per pair, user_a < user_b
 -- ---------------------------------------------------------------------------
 
 create table public.friendships (
@@ -87,7 +87,7 @@ revoke execute on function private.are_friends(uuid, uuid) from public;
 grant execute on function private.are_friends(uuid, uuid) to authenticated;
 
 -- ---------------------------------------------------------------------------
--- Близость и серия пары
+-- Closeness and streak of a pair
 -- ---------------------------------------------------------------------------
 
 create table public.closeness (
@@ -96,7 +96,7 @@ create table public.closeness (
   score int not null default 10 check (score between 0 and 100),
   streak_days int not null default 0 check (streak_days >= 0),
   last_exchange_at timestamptz,
-  -- С какого момента близость держится на уровне 90+ без перерыва.
+  -- Since when closeness has stayed at 90+ without a break.
   high_since timestamptz,
   primary key (user_a, user_b),
   foreign key (user_a, user_b)
@@ -105,8 +105,8 @@ create table public.closeness (
 );
 
 -- ---------------------------------------------------------------------------
--- Взаимодействия: журнал событий, из которого считаются близость и награды.
--- Пишет только сервер (будущий чат — триггером, сейчас — seed и тесты).
+-- Interactions: the event log that closeness and rewards are computed from.
+-- Written only by the server (chat functions, seed and tests).
 -- ---------------------------------------------------------------------------
 
 create table public.interactions (
@@ -122,7 +122,7 @@ create index interactions_from_kind_idx on public.interactions (from_user, kind)
 create index interactions_to_created_idx on public.interactions (to_user, created_at);
 
 -- ---------------------------------------------------------------------------
--- Сообщения (следующий этап: чат, снапы, капсулы)
+-- Messages (chat, snaps, capsules; see the chat migration)
 -- ---------------------------------------------------------------------------
 
 create table public.messages (
@@ -141,8 +141,8 @@ create table public.messages (
 create index messages_pair_created_idx
   on public.messages (from_user, to_user, created_at);
 
--- Текст чужой капсулы не отдаётся до срока: читать переписку клиент будет
--- через этот view, а не из таблицы.
+-- A friend's capsule text is hidden until it opens. Replaced by server
+-- functions in the chat migration.
 create view public.messages_visible
 with (security_invoker = true)
 as
@@ -159,7 +159,7 @@ select
 from public.messages m;
 
 -- ---------------------------------------------------------------------------
--- Права и политики
+-- Privileges and policies
 -- ---------------------------------------------------------------------------
 
 alter table public.profiles enable row level security;
@@ -174,37 +174,37 @@ revoke all on public.profiles, public.friendships, public.closeness,
 
 grant select on public.profiles, public.friendships, public.closeness,
   public.interactions to authenticated;
--- Своё имя, название, настроение и базовый вид меняет сам пользователь.
--- Опыт, уровень, тень — только функции на сервере.
+-- Users change their own name, planet name, mood and base look.
+-- XP, level and shadow change only through server functions.
 grant update (display_name, planet_name, mood, appearance)
   on public.profiles to authenticated;
 
-create policy "Профиль: я и мои друзья"
+create policy "Profiles: me and my friends"
   on public.profiles for select to authenticated
   using (
     id = (select auth.uid())
     or private.are_friends((select auth.uid()), id)
   );
 
-create policy "Профиль: менять только свой"
+create policy "Profiles: update only your own"
   on public.profiles for update to authenticated
   using (id = (select auth.uid()))
   with check (id = (select auth.uid()));
 
-create policy "Дружба: только свои пары"
+create policy "Friendships: only your own pairs"
   on public.friendships for select to authenticated
   using ((select auth.uid()) in (user_a, user_b));
 
-create policy "Близость: только свои пары"
+create policy "Closeness: only your own pairs"
   on public.closeness for select to authenticated
   using ((select auth.uid()) in (user_a, user_b));
 
-create policy "Взаимодействия: только свои"
+create policy "Interactions: only your own"
   on public.interactions for select to authenticated
   using ((select auth.uid()) in (from_user, to_user));
 
--- Политики для чата написаны заранее; права на таблицу клиенту выдадим на
--- следующем этапе.
-create policy "Сообщения: только участники"
+-- The chat policy is written ahead of time; the client itself never gets
+-- privileges on the table (see the chat migration).
+create policy "Messages: participants only"
   on public.messages for select to authenticated
   using ((select auth.uid()) in (from_user, to_user));
