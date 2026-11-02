@@ -613,4 +613,85 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get actionCancel => 'Cancel';
+
+  @override
+  String get friendsRequestClosed =>
+      'Didn\'t work. This person may only accept requests through their own link';
+
+  @override
+  String get inviteTitle => 'Invite';
+
+  @override
+  String inviteFrom(String name) {
+    return '$name invites you into their orbit';
+  }
+
+  @override
+  String get inviteAccept => 'Add friend';
+
+  @override
+  String get inviteSent => 'Request sent';
+
+  @override
+  String get inviteUnknown =>
+      'This link is old or wrong. Ask your friend for a new one';
+
+  @override
+  String get settingsPrivacy => 'Privacy';
+
+  @override
+  String get privacySearch => 'Who can find me by username';
+
+  @override
+  String get privacyRequests => 'Who can send me friend requests';
+
+  @override
+  String get privacyMood => 'Who sees my mood';
+
+  @override
+  String get privacyMoments => 'Who sees my moments';
+
+  @override
+  String get privacyComingSoon => 'Starts working with upcoming features';
+
+  @override
+  String get privacyLastSeen => 'Show when I was last online';
+
+  @override
+  String get privacyReadReceipts => 'Read receipts';
+
+  @override
+  String get privacyReadReceiptsHint =>
+      'Mutual: turn them off and you won\'t see others\' either';
+
+  @override
+  String get privacyTyping => 'Show “typing…”';
+
+  @override
+  String get privacyGalaxy => 'My system shows in friends\' “galaxy”';
+
+  @override
+  String get privacyGalaxyHint =>
+      'Friends of friends will see your planet from afar';
+
+  @override
+  String get audienceEveryone => 'Everyone';
+
+  @override
+  String get audienceFriendsOfFriends => 'Friends of friends';
+
+  @override
+  String get audienceFriends => 'All friends';
+
+  @override
+  String get audienceCloseOrbit => 'Close orbit';
+
+  @override
+  String get audienceNobody => 'Nobody';
+
+  @override
+  String get audienceCustom => 'Choose manually';
+
+  @override
+  String get audienceInviteOnly => 'Nobody, only through my link';
 }

@@ -110,9 +110,19 @@ class _SearchResults extends ConsumerWidget {
                         style: Theme.of(context).textTheme.bodySmall,
                       )
                     : FilledButton.tonal(
-                        onPressed: () => ref
-                            .read(sentRequestsProvider.notifier)
-                            .send(user.id),
+                        onPressed: () async {
+                          final messenger = ScaffoldMessenger.of(context);
+                          final closed = l10n.friendsRequestClosed;
+                          try {
+                            await ref
+                                .read(sentRequestsProvider.notifier)
+                                .send(user.id);
+                          } on Object {
+                            messenger.showSnackBar(
+                              SnackBar(content: Text(closed)),
+                            );
+                          }
+                        },
                         child: Text(l10n.friendsAdd),
                       ),
               ),

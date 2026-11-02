@@ -1165,6 +1165,156 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Отмена'**
   String get actionCancel;
+
+  /// No description provided for @friendsRequestClosed.
+  ///
+  /// In ru, this message translates to:
+  /// **'Не получилось. Возможно, этот человек принимает заявки только по своей ссылке'**
+  String get friendsRequestClosed;
+
+  /// No description provided for @inviteTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Приглашение'**
+  String get inviteTitle;
+
+  /// No description provided for @inviteFrom.
+  ///
+  /// In ru, this message translates to:
+  /// **'{name} зовёт тебя на свою орбиту'**
+  String inviteFrom(String name);
+
+  /// No description provided for @inviteAccept.
+  ///
+  /// In ru, this message translates to:
+  /// **'Добавить в друзья'**
+  String get inviteAccept;
+
+  /// No description provided for @inviteSent.
+  ///
+  /// In ru, this message translates to:
+  /// **'Заявка отправлена'**
+  String get inviteSent;
+
+  /// No description provided for @inviteUnknown.
+  ///
+  /// In ru, this message translates to:
+  /// **'Ссылка устарела или неверна. Попроси у друга новую'**
+  String get inviteUnknown;
+
+  /// No description provided for @settingsPrivacy.
+  ///
+  /// In ru, this message translates to:
+  /// **'Приватность'**
+  String get settingsPrivacy;
+
+  /// No description provided for @privacySearch.
+  ///
+  /// In ru, this message translates to:
+  /// **'Кто может найти меня по нику'**
+  String get privacySearch;
+
+  /// No description provided for @privacyRequests.
+  ///
+  /// In ru, this message translates to:
+  /// **'Кто может отправить заявку в друзья'**
+  String get privacyRequests;
+
+  /// No description provided for @privacyMood.
+  ///
+  /// In ru, this message translates to:
+  /// **'Кто видит моё настроение'**
+  String get privacyMood;
+
+  /// No description provided for @privacyMoments.
+  ///
+  /// In ru, this message translates to:
+  /// **'Кто видит мои моменты'**
+  String get privacyMoments;
+
+  /// No description provided for @privacyComingSoon.
+  ///
+  /// In ru, this message translates to:
+  /// **'Заработает вместе с новыми функциями'**
+  String get privacyComingSoon;
+
+  /// No description provided for @privacyLastSeen.
+  ///
+  /// In ru, this message translates to:
+  /// **'Показывать, когда я был в сети'**
+  String get privacyLastSeen;
+
+  /// No description provided for @privacyReadReceipts.
+  ///
+  /// In ru, this message translates to:
+  /// **'Отчёты о прочтении'**
+  String get privacyReadReceipts;
+
+  /// No description provided for @privacyReadReceiptsHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Взаимно: если выключить, ты тоже не увидишь, прочитали ли тебя'**
+  String get privacyReadReceiptsHint;
+
+  /// No description provided for @privacyTyping.
+  ///
+  /// In ru, this message translates to:
+  /// **'Показывать «печатает…»'**
+  String get privacyTyping;
+
+  /// No description provided for @privacyGalaxy.
+  ///
+  /// In ru, this message translates to:
+  /// **'Моя система видна в «галактике» друзей'**
+  String get privacyGalaxy;
+
+  /// No description provided for @privacyGalaxyHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Друзья друзей увидят твою планету издалека'**
+  String get privacyGalaxyHint;
+
+  /// No description provided for @audienceEveryone.
+  ///
+  /// In ru, this message translates to:
+  /// **'Все'**
+  String get audienceEveryone;
+
+  /// No description provided for @audienceFriendsOfFriends.
+  ///
+  /// In ru, this message translates to:
+  /// **'Друзья друзей'**
+  String get audienceFriendsOfFriends;
+
+  /// No description provided for @audienceFriends.
+  ///
+  /// In ru, this message translates to:
+  /// **'Все друзья'**
+  String get audienceFriends;
+
+  /// No description provided for @audienceCloseOrbit.
+  ///
+  /// In ru, this message translates to:
+  /// **'Ближняя орбита'**
+  String get audienceCloseOrbit;
+
+  /// No description provided for @audienceNobody.
+  ///
+  /// In ru, this message translates to:
+  /// **'Никто'**
+  String get audienceNobody;
+
+  /// No description provided for @audienceCustom.
+  ///
+  /// In ru, this message translates to:
+  /// **'Выбрать вручную'**
+  String get audienceCustom;
+
+  /// No description provided for @audienceInviteOnly.
+  ///
+  /// In ru, this message translates to:
+  /// **'Никто, только по моей ссылке'**
+  String get audienceInviteOnly;
 }
 
 class _AppLocalizationsDelegate

@@ -38,7 +38,7 @@ class ChatHeader extends StatelessWidget {
             size: AppSizes.chatHeaderPlanet,
           ),
           Text(
-            '${friend.name} ${friend.mood.emoji()}',
+            '${friend.name} ${friend.mood?.emoji() ?? ''}'.trim(),
             style: textTheme.titleLarge,
           ),
           Text('@${friend.handle}', style: textTheme.bodySmall),

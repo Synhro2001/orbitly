@@ -48,7 +48,7 @@ select is(
   1, 'own achievements are visible');
 select is(
   (select count(*)::int from public.profiles where id = '00000000-0000-0000-0000-00000000000b'),
-  1, 'a friend''s profile is visible');
+  0, 'a friend''s profile is read only through server functions, which apply privacy settings');
 select is(
   (select count(*)::int from public.profiles where id = '00000000-0000-0000-0000-00000000000c'),
   0, 'a stranger''s profile is hidden');

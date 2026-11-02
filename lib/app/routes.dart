@@ -13,6 +13,8 @@ abstract final class AppRoutes {
   static const settings = '/settings';
   static const settingsAppearance = '/settings/appearance';
   static const settingsAccount = '/settings/account';
+  static const settingsPrivacy = '/settings/privacy';
 
   static String chat(String friendId) => '/chat/$friendId';
+  static String invite(String code) => '/invite/$code';
 }

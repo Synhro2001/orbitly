@@ -58,6 +58,9 @@ class MockStore {
   /// all defaults.
   Json settings = {};
 
+  /// The code in my invite link.
+  String inviteCode = 'my-invite';
+
   int _idCounter = 0;
   String nextId(String prefix) => '$prefix-${_idCounter++}';
 

@@ -47,7 +47,8 @@ Friend friendFromRpcRow(Map<String, Object?> row) {
           DateTime.tryParse('${row['last_exchange_at']}') ??
           DateTime.fromMillisecondsSinceEpoch(0),
     ),
-    mood: Mood.values.asNameMap()[row['mood']] ?? Mood.calm,
+    // Null: hidden by the friend's settings (or unknown to this version).
+    mood: Mood.values.asNameMap()[row['mood']],
     hasUnreadSnaps: row['has_unread_snaps'] == true,
     shadow: shadowFromFields(
       DateTime.tryParse('${row['shadow_from']}'),

@@ -59,13 +59,28 @@ class SupabaseFriendsRepository implements FriendsRepository {
         params: {'p_user': requestId, 'p_accept': accept},
       );
 
+  /// The link carries a random code, not the handle: it can be renewed,
+  /// and it does not reveal who I am to someone who only sees the link.
   @override
-  Future<String> getInviteLink() async {
-    final row = await _client
-        .from('profiles')
-        .select('handle')
-        .eq('id', _client.auth.currentUser!.id)
-        .single();
-    return 'https://orbitly.app/invite/${row['handle']}';
+  Future<String> getInviteLink() async =>
+      inviteLinkFor(await _client.rpc<String>('get_my_invite_code'));
+
+  @override
+  Future<String> renewInviteLink() async =>
+      inviteLinkFor(await _client.rpc<String>('rotate_invite_code'));
+
+  @override
+  Future<UserSummary?> getInvite(String code) async {
+    final rows = await _client.rpcRows('get_invite', params: {'p_code': code});
+    return parseValid(
+      rows,
+      (json) => UserSummaryModel.fromJson(json).toEntity(),
+    ).firstOrNull;
   }
+
+  @override
+  Future<void> sendRequestByInvite(String code) => _client.rpc<void>(
+    'send_friend_request_by_invite',
+    params: {'p_code': code},
+  );
 }

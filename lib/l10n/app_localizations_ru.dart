@@ -619,4 +619,84 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get actionCancel => 'Отмена';
+
+  @override
+  String get friendsRequestClosed =>
+      'Не получилось. Возможно, этот человек принимает заявки только по своей ссылке';
+
+  @override
+  String get inviteTitle => 'Приглашение';
+
+  @override
+  String inviteFrom(String name) {
+    return '$name зовёт тебя на свою орбиту';
+  }
+
+  @override
+  String get inviteAccept => 'Добавить в друзья';
+
+  @override
+  String get inviteSent => 'Заявка отправлена';
+
+  @override
+  String get inviteUnknown =>
+      'Ссылка устарела или неверна. Попроси у друга новую';
+
+  @override
+  String get settingsPrivacy => 'Приватность';
+
+  @override
+  String get privacySearch => 'Кто может найти меня по нику';
+
+  @override
+  String get privacyRequests => 'Кто может отправить заявку в друзья';
+
+  @override
+  String get privacyMood => 'Кто видит моё настроение';
+
+  @override
+  String get privacyMoments => 'Кто видит мои моменты';
+
+  @override
+  String get privacyComingSoon => 'Заработает вместе с новыми функциями';
+
+  @override
+  String get privacyLastSeen => 'Показывать, когда я был в сети';
+
+  @override
+  String get privacyReadReceipts => 'Отчёты о прочтении';
+
+  @override
+  String get privacyReadReceiptsHint =>
+      'Взаимно: если выключить, ты тоже не увидишь, прочитали ли тебя';
+
+  @override
+  String get privacyTyping => 'Показывать «печатает…»';
+
+  @override
+  String get privacyGalaxy => 'Моя система видна в «галактике» друзей';
+
+  @override
+  String get privacyGalaxyHint => 'Друзья друзей увидят твою планету издалека';
+
+  @override
+  String get audienceEveryone => 'Все';
+
+  @override
+  String get audienceFriendsOfFriends => 'Друзья друзей';
+
+  @override
+  String get audienceFriends => 'Все друзья';
+
+  @override
+  String get audienceCloseOrbit => 'Ближняя орбита';
+
+  @override
+  String get audienceNobody => 'Никто';
+
+  @override
+  String get audienceCustom => 'Выбрать вручную';
+
+  @override
+  String get audienceInviteOnly => 'Никто, только по моей ссылке';
 }

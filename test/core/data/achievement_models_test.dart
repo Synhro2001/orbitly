@@ -113,6 +113,26 @@ void main() {
     });
   });
 
+  test('get_my_friends row: a hidden mood comes as null', () {
+    final friend = friendFromRpcRow({
+      'id': 'a0000000-0000-0000-0000-000000000003',
+      'handle': 'lera.moon',
+      'display_name': 'Лера',
+      'planet_name': 'Луна',
+      'appearance': {'type': 'candy', 'seed': 7, 'hue': 330},
+      'equipped': <Object?>[],
+      'mood': null,
+      'closeness': 40,
+      'streak_days': 0,
+      'last_exchange_at': null,
+      'shadow_from': null,
+      'shadow_until': null,
+      'has_unread_snaps': false,
+      'trophies': <Object?>[],
+    });
+    expect(friend.mood, isNull);
+  });
+
   test('get_my_friends row: equipped cosmetics change the planet', () {
     final friend = friendFromRpcRow({
       'id': 'a0000000-0000-0000-0000-000000000002',

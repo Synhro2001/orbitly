@@ -22,6 +22,12 @@ class SettingsScreen extends StatelessWidget {
         const _ProfileCard(),
         const SizedBox(height: AppSpacing.l),
         SettingsLink(
+          key: const Key('settings-privacy'),
+          icon: Icons.lock_outline_rounded,
+          title: l10n.settingsPrivacy,
+          onTap: () => context.push(AppRoutes.settingsPrivacy),
+        ),
+        SettingsLink(
           key: const Key('settings-appearance'),
           icon: Icons.palette_outlined,
           title: l10n.settingsAppearance,

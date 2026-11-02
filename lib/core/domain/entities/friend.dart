@@ -18,7 +18,9 @@ abstract class Friend with _$Friend {
     /// Closeness, 0–100. The higher it is, the closer the orbit.
     required int closeness,
     required Streak streak,
-    required Mood mood,
+
+    /// Null when the friend does not share it with me.
+    required Mood? mood,
     required bool hasUnreadSnaps,
 
     /// Set when the friend is in shadow (or has scheduled one).

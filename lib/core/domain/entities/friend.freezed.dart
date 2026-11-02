@@ -16,7 +16,8 @@ T _$identity<T>(T value) => value;
 mixin _$Friend {
 
  String get id; String get name; String get handle; PlanetAppearance get appearance;/// Closeness, 0–100. The higher it is, the closer the orbit.
- int get closeness; Streak get streak; Mood get mood; bool get hasUnreadSnaps;/// Set when the friend is in shadow (or has scheduled one).
+ int get closeness; Streak get streak;/// Null when the friend does not share it with me.
+ Mood? get mood; bool get hasUnreadSnaps;/// Set when the friend is in shadow (or has scheduled one).
  Shadow? get shadow;/// Trophies we earned together.
  List<Award> get sharedTrophies;
 /// Create a copy of Friend
@@ -54,7 +55,7 @@ abstract mixin class $FriendCopyWith<$Res>  {
   factory $FriendCopyWith(Friend value, $Res Function(Friend) _then) = _$FriendCopyWithImpl;
 @useResult
 $Res call({
- String id, String name, String handle, PlanetAppearance appearance, int closeness, Streak streak, Mood mood, bool hasUnreadSnaps, Shadow? shadow, List<Award> sharedTrophies
+ String id, String name, String handle, PlanetAppearance appearance, int closeness, Streak streak, Mood? mood, bool hasUnreadSnaps, Shadow? shadow, List<Award> sharedTrophies
 });
 
 
@@ -71,7 +72,7 @@ class _$FriendCopyWithImpl<$Res>
 
 /// Create a copy of Friend
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? handle = null,Object? appearance = null,Object? closeness = null,Object? streak = null,Object? mood = null,Object? hasUnreadSnaps = null,Object? shadow = freezed,Object? sharedTrophies = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? handle = null,Object? appearance = null,Object? closeness = null,Object? streak = null,Object? mood = freezed,Object? hasUnreadSnaps = null,Object? shadow = freezed,Object? sharedTrophies = null,}) {
   return _then(Friend(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -79,8 +80,8 @@ as String,handle: null == handle ? _self.handle : handle // ignore: cast_nullabl
 as String,appearance: null == appearance ? _self.appearance : appearance // ignore: cast_nullable_to_non_nullable
 as PlanetAppearance,closeness: null == closeness ? _self.closeness : closeness // ignore: cast_nullable_to_non_nullable
 as int,streak: null == streak ? _self.streak : streak // ignore: cast_nullable_to_non_nullable
-as Streak,mood: null == mood ? _self.mood : mood // ignore: cast_nullable_to_non_nullable
-as Mood,hasUnreadSnaps: null == hasUnreadSnaps ? _self.hasUnreadSnaps : hasUnreadSnaps // ignore: cast_nullable_to_non_nullable
+as Streak,mood: freezed == mood ? _self.mood : mood // ignore: cast_nullable_to_non_nullable
+as Mood?,hasUnreadSnaps: null == hasUnreadSnaps ? _self.hasUnreadSnaps : hasUnreadSnaps // ignore: cast_nullable_to_non_nullable
 as bool,shadow: freezed == shadow ? _self.shadow : shadow // ignore: cast_nullable_to_non_nullable
 as Shadow?,sharedTrophies: null == sharedTrophies ? _self.sharedTrophies : sharedTrophies // ignore: cast_nullable_to_non_nullable
 as List<Award>,
@@ -198,7 +199,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  String handle,  PlanetAppearance appearance,  int closeness,  Streak streak,  Mood mood,  bool hasUnreadSnaps,  Shadow? shadow,  List<Award> sharedTrophies)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  String handle,  PlanetAppearance appearance,  int closeness,  Streak streak,  Mood? mood,  bool hasUnreadSnaps,  Shadow? shadow,  List<Award> sharedTrophies)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Friend() when $default != null:
 return $default(_that.id,_that.name,_that.handle,_that.appearance,_that.closeness,_that.streak,_that.mood,_that.hasUnreadSnaps,_that.shadow,_that.sharedTrophies);case _:
@@ -219,7 +220,7 @@ return $default(_that.id,_that.name,_that.handle,_that.appearance,_that.closenes
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  String handle,  PlanetAppearance appearance,  int closeness,  Streak streak,  Mood mood,  bool hasUnreadSnaps,  Shadow? shadow,  List<Award> sharedTrophies)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  String handle,  PlanetAppearance appearance,  int closeness,  Streak streak,  Mood? mood,  bool hasUnreadSnaps,  Shadow? shadow,  List<Award> sharedTrophies)  $default,) {final _that = this;
 switch (_that) {
 case _Friend():
 return $default(_that.id,_that.name,_that.handle,_that.appearance,_that.closeness,_that.streak,_that.mood,_that.hasUnreadSnaps,_that.shadow,_that.sharedTrophies);case _:
@@ -239,7 +240,7 @@ return $default(_that.id,_that.name,_that.handle,_that.appearance,_that.closenes
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  String handle,  PlanetAppearance appearance,  int closeness,  Streak streak,  Mood mood,  bool hasUnreadSnaps,  Shadow? shadow,  List<Award> sharedTrophies)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  String handle,  PlanetAppearance appearance,  int closeness,  Streak streak,  Mood? mood,  bool hasUnreadSnaps,  Shadow? shadow,  List<Award> sharedTrophies)?  $default,) {final _that = this;
 switch (_that) {
 case _Friend() when $default != null:
 return $default(_that.id,_that.name,_that.handle,_that.appearance,_that.closeness,_that.streak,_that.mood,_that.hasUnreadSnaps,_that.shadow,_that.sharedTrophies);case _:
@@ -264,7 +265,8 @@ class _Friend implements Friend {
 /// Closeness, 0–100. The higher it is, the closer the orbit.
 @override final  int closeness;
 @override final  Streak streak;
-@override final  Mood mood;
+/// Null when the friend does not share it with me.
+@override final  Mood? mood;
 @override final  bool hasUnreadSnaps;
 /// Set when the friend is in shadow (or has scheduled one).
 @override final  Shadow? shadow;
@@ -310,7 +312,7 @@ abstract mixin class _$FriendCopyWith<$Res> implements $FriendCopyWith<$Res> {
   factory _$FriendCopyWith(_Friend value, $Res Function(_Friend) _then) = __$FriendCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String name, String handle, PlanetAppearance appearance, int closeness, Streak streak, Mood mood, bool hasUnreadSnaps, Shadow? shadow, List<Award> sharedTrophies
+ String id, String name, String handle, PlanetAppearance appearance, int closeness, Streak streak, Mood? mood, bool hasUnreadSnaps, Shadow? shadow, List<Award> sharedTrophies
 });
 
 
@@ -327,7 +329,7 @@ class __$FriendCopyWithImpl<$Res>
 
 /// Create a copy of Friend
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? handle = null,Object? appearance = null,Object? closeness = null,Object? streak = null,Object? mood = null,Object? hasUnreadSnaps = null,Object? shadow = freezed,Object? sharedTrophies = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? handle = null,Object? appearance = null,Object? closeness = null,Object? streak = null,Object? mood = freezed,Object? hasUnreadSnaps = null,Object? shadow = freezed,Object? sharedTrophies = null,}) {
   return _then(_Friend(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -335,8 +337,8 @@ as String,handle: null == handle ? _self.handle : handle // ignore: cast_nullabl
 as String,appearance: null == appearance ? _self.appearance : appearance // ignore: cast_nullable_to_non_nullable
 as PlanetAppearance,closeness: null == closeness ? _self.closeness : closeness // ignore: cast_nullable_to_non_nullable
 as int,streak: null == streak ? _self.streak : streak // ignore: cast_nullable_to_non_nullable
-as Streak,mood: null == mood ? _self.mood : mood // ignore: cast_nullable_to_non_nullable
-as Mood,hasUnreadSnaps: null == hasUnreadSnaps ? _self.hasUnreadSnaps : hasUnreadSnaps // ignore: cast_nullable_to_non_nullable
+as Streak,mood: freezed == mood ? _self.mood : mood // ignore: cast_nullable_to_non_nullable
+as Mood?,hasUnreadSnaps: null == hasUnreadSnaps ? _self.hasUnreadSnaps : hasUnreadSnaps // ignore: cast_nullable_to_non_nullable
 as bool,shadow: freezed == shadow ? _self.shadow : shadow // ignore: cast_nullable_to_non_nullable
 as Shadow?,sharedTrophies: null == sharedTrophies ? _self._sharedTrophies : sharedTrophies // ignore: cast_nullable_to_non_nullable
 as List<Award>,

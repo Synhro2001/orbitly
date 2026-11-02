@@ -60,6 +60,26 @@ class MockFriendsRepository implements FriendsRepository {
   @override
   Future<String> getInviteLink() async {
     await _store.delay();
-    return 'https://orbitly.app/invite/${_store.myPlanet?['handle'] ?? 'me'}';
+    return inviteLinkFor(_store.inviteCode);
   }
+
+  @override
+  Future<String> renewInviteLink() async {
+    await _store.delay();
+    _store.inviteCode = _store.nextId('invite');
+    return inviteLinkFor(_store.inviteCode);
+  }
+
+  /// In the mocks, the code of a user in the directory is their id.
+  @override
+  Future<UserSummary?> getInvite(String code) async {
+    await _store.delay();
+    return parseValid(
+      _store.directory.where((json) => json['id'] == code),
+      (json) => UserSummaryModel.fromJson(json).toEntity(),
+    ).firstOrNull;
+  }
+
+  @override
+  Future<void> sendRequestByInvite(String code) => _store.delay();
 }

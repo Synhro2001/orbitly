@@ -86,7 +86,7 @@ class _AppBarTitle extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                '${friend.name} ${friend.mood.emoji()}',
+                '${friend.name} ${friend.mood?.emoji() ?? ''}'.trim(),
                 style: textTheme.titleMedium,
                 overflow: TextOverflow.ellipsis,
               ),

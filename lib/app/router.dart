@@ -11,12 +11,14 @@ import 'package:orbitly/features/camera/presentation/screens/camera_screen.dart'
 import 'package:orbitly/features/chat/presentation/screens/chat_screen.dart';
 import 'package:orbitly/features/chat/presentation/screens/chats_screen.dart';
 import 'package:orbitly/features/friends/presentation/screens/friends_screen.dart';
+import 'package:orbitly/features/friends/presentation/screens/invite_screen.dart';
 import 'package:orbitly/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:orbitly/features/planet/presentation/controllers/my_planet_controller.dart';
 import 'package:orbitly/features/planet/presentation/screens/my_planet_screen.dart';
 import 'package:orbitly/features/report/presentation/screens/report_screen.dart';
 import 'package:orbitly/features/settings/presentation/screens/account_settings_screen.dart';
 import 'package:orbitly/features/settings/presentation/screens/appearance_settings_screen.dart';
+import 'package:orbitly/features/settings/presentation/screens/privacy_settings_screen.dart';
 import 'package:orbitly/features/settings/presentation/screens/settings_screen.dart';
 import 'package:orbitly/features/system/presentation/screens/system_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -118,6 +120,12 @@ GoRouter router(Ref ref) {
           ),
         ],
       ),
+      // Someone's invite link (https://orbitly.app/invite/<code>) or QR code.
+      GoRoute(
+        path: '/invite/:code',
+        builder: (_, state) =>
+            InviteScreen(code: state.pathParameters['code']!),
+      ),
       GoRoute(
         path: '/chat/:friendId',
         builder: (_, state) =>
@@ -139,6 +147,10 @@ GoRouter router(Ref ref) {
           GoRoute(
             path: 'appearance',
             builder: (_, _) => const AppearanceSettingsScreen(),
+          ),
+          GoRoute(
+            path: 'privacy',
+            builder: (_, _) => const PrivacySettingsScreen(),
           ),
           GoRoute(
             path: 'account',
