@@ -56,17 +56,17 @@ abstract class _$AchievementsController extends $AsyncNotifier<List<Award>> {
   }
 }
 
-/// Открытые, но ещё не показанные достижения — очередь анимаций открытия.
+/// Unlocked but not yet shown achievements: the unlock animation queue.
 
 @ProviderFor(pendingUnlocks)
 final pendingUnlocksProvider = PendingUnlocksProvider._();
 
-/// Открытые, но ещё не показанные достижения — очередь анимаций открытия.
+/// Unlocked but not yet shown achievements: the unlock animation queue.
 
 final class PendingUnlocksProvider
     extends $FunctionalProvider<List<Award>, List<Award>, List<Award>>
     with $Provider<List<Award>> {
-  /// Открытые, но ещё не показанные достижения — очередь анимаций открытия.
+  /// Unlocked but not yet shown achievements: the unlock animation queue.
   PendingUnlocksProvider._()
     : super(
         from: null,
@@ -146,29 +146,29 @@ abstract class _$OwnedCosmetics extends $AsyncNotifier<List<Cosmetic>> {
   }
 }
 
-/// Новые открытия с сервера (Realtime). Слушатель перечитывает каталог,
-/// косметику и планету — из них и складывается очередь анимаций.
+/// New unlocks from the server (Realtime). The listener reloads the
+/// catalogue, cosmetics and planet, which feed the animation queue.
 ///
-/// Подписка привязана к пользователю: после повторного входа (истекла
-/// сессия, другой аккаунт) она переподключается, а не молчит.
+/// The subscription is tied to the user: after signing in again (expired
+/// session, another account) it reconnects instead of going silent.
 
 @ProviderFor(achievementUnlocks)
 final achievementUnlocksProvider = AchievementUnlocksProvider._();
 
-/// Новые открытия с сервера (Realtime). Слушатель перечитывает каталог,
-/// косметику и планету — из них и складывается очередь анимаций.
+/// New unlocks from the server (Realtime). The listener reloads the
+/// catalogue, cosmetics and planet, which feed the animation queue.
 ///
-/// Подписка привязана к пользователю: после повторного входа (истекла
-/// сессия, другой аккаунт) она переподключается, а не молчит.
+/// The subscription is tied to the user: after signing in again (expired
+/// session, another account) it reconnects instead of going silent.
 
 final class AchievementUnlocksProvider
     extends $FunctionalProvider<AsyncValue<String>, String, Stream<String>>
     with $FutureModifier<String>, $StreamProvider<String> {
-  /// Новые открытия с сервера (Realtime). Слушатель перечитывает каталог,
-  /// косметику и планету — из них и складывается очередь анимаций.
+  /// New unlocks from the server (Realtime). The listener reloads the
+  /// catalogue, cosmetics and planet, which feed the animation queue.
   ///
-  /// Подписка привязана к пользователю: после повторного входа (истекла
-  /// сессия, другой аккаунт) она переподключается, а не молчит.
+  /// The subscription is tied to the user: after signing in again (expired
+  /// session, another account) it reconnects instead of going silent.
   AchievementUnlocksProvider._()
     : super(
         from: null,

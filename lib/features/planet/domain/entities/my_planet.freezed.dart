@@ -15,8 +15,8 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$MyPlanet {
 
- String get name; String get handle;/// Вид, выбранный при создании: тип, seed, оттенок.
- PlanetAppearance get baseAppearance; int get level; int get xp; int get xpForNextLevel; int get bestStreakDays; Mood get mood;/// Надетые награды.
+ String get name; String get handle;/// The look chosen at creation: type, seed, hue.
+ PlanetAppearance get baseAppearance; int get level; int get xp; int get xpForNextLevel; int get bestStreakDays; Mood get mood;/// Worn rewards.
  List<Cosmetic> get equipped; Shadow? get shadow;
 /// Create a copy of MyPlanet
 /// with the given fields replaced by the non-null parameter values.
@@ -249,16 +249,16 @@ class _MyPlanet extends MyPlanet {
 
 @override final  String name;
 @override final  String handle;
-/// Вид, выбранный при создании: тип, seed, оттенок.
+/// The look chosen at creation: type, seed, hue.
 @override final  PlanetAppearance baseAppearance;
 @override final  int level;
 @override final  int xp;
 @override final  int xpForNextLevel;
 @override final  int bestStreakDays;
 @override final  Mood mood;
-/// Надетые награды.
+/// Worn rewards.
  final  List<Cosmetic> _equipped;
-/// Надетые награды.
+/// Worn rewards.
 @override@JsonKey() List<Cosmetic> get equipped {
   if (_equipped is EqualUnmodifiableListView) return _equipped;
   // ignore: implicit_dynamic_type

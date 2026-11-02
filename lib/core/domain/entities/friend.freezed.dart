@@ -15,9 +15,9 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Friend {
 
- String get id; String get name; String get handle; PlanetAppearance get appearance;/// Близость общения, 0–100. Чем больше, тем ближе орбита.
- int get closeness; Streak get streak; Mood get mood; bool get hasUnreadSnaps;/// Если друг в тени (или запланировал её).
- Shadow? get shadow;/// Общие трофеи нашей дружбы.
+ String get id; String get name; String get handle; PlanetAppearance get appearance;/// Closeness, 0–100. The higher it is, the closer the orbit.
+ int get closeness; Streak get streak; Mood get mood; bool get hasUnreadSnaps;/// Set when the friend is in shadow (or has scheduled one).
+ Shadow? get shadow;/// Trophies we earned together.
  List<Award> get sharedTrophies;
 /// Create a copy of Friend
 /// with the given fields replaced by the non-null parameter values.
@@ -261,16 +261,16 @@ class _Friend implements Friend {
 @override final  String name;
 @override final  String handle;
 @override final  PlanetAppearance appearance;
-/// Близость общения, 0–100. Чем больше, тем ближе орбита.
+/// Closeness, 0–100. The higher it is, the closer the orbit.
 @override final  int closeness;
 @override final  Streak streak;
 @override final  Mood mood;
 @override final  bool hasUnreadSnaps;
-/// Если друг в тени (или запланировал её).
+/// Set when the friend is in shadow (or has scheduled one).
 @override final  Shadow? shadow;
-/// Общие трофеи нашей дружбы.
+/// Trophies we earned together.
  final  List<Award> _sharedTrophies;
-/// Общие трофеи нашей дружбы.
+/// Trophies we earned together.
 @override@JsonKey() List<Award> get sharedTrophies {
   if (_sharedTrophies is EqualUnmodifiableListView) return _sharedTrophies;
   // ignore: implicit_dynamic_type
