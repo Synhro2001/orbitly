@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:orbitly/app/app.dart';
@@ -10,7 +11,12 @@ import 'package:orbitly/core/data/mock/mock_store.dart';
 /// бесконечных анимаций (включено «уменьшить движение»).
 ///
 /// [store] — своё моковое хранилище, например с новым открытием.
-Future<GoRouter> pumpApp(WidgetTester tester, {MockStore? store}) async {
+/// [overrides] — подмена отдельных репозиториев, например падающего.
+Future<GoRouter> pumpApp(
+  WidgetTester tester, {
+  MockStore? store,
+  List<Override> overrides = const [],
+}) async {
   tester.platformDispatcher.accessibilityFeaturesTestValue =
       const FakeAccessibilityFeatures(disableAnimations: true);
   addTearDown(tester.platformDispatcher.clearAccessibilityFeaturesTestValue);
@@ -21,6 +27,7 @@ Future<GoRouter> pumpApp(WidgetTester tester, {MockStore? store}) async {
         mockStoreProvider.overrideWithValue(
           store ?? MockStore(latency: Duration.zero, withPlanet: true),
         ),
+        ...overrides,
       ],
       child: const OrbitlyApp(),
     ),

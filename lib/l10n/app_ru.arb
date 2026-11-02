@@ -142,6 +142,7 @@
   "@chatSnapFrom": {"placeholders": {"name": {"type": "String"}}},
   "chatMessageHint": "Сообщение…",
   "chatSend": "Отправить",
+  "chatSendFailed": "Не удалось отправить. Проверь связь",
   "chatSharedTrophies": "Общие трофеи",
   "chatsLastCapsule": "⏳ Капсула времени",
   "chatStartersTitle": "С чего начать?",

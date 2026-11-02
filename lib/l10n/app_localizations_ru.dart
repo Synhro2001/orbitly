@@ -392,6 +392,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get chatSend => 'Отправить';
 
   @override
+  String get chatSendFailed => 'Не удалось отправить. Проверь связь';
+
+  @override
   String get chatSharedTrophies => 'Общие трофеи';
 
   @override

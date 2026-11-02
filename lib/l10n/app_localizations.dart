@@ -772,6 +772,12 @@ abstract class AppLocalizations {
   /// **'Отправить'**
   String get chatSend;
 
+  /// No description provided for @chatSendFailed.
+  ///
+  /// In ru, this message translates to:
+  /// **'Не удалось отправить. Проверь связь'**
+  String get chatSendFailed;
+
   /// No description provided for @chatSharedTrophies.
   ///
   /// In ru, this message translates to:

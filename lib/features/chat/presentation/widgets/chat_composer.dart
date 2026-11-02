@@ -41,7 +41,25 @@ class _ChatComposerState extends State<ChatComposer> {
     if (text.trim().isEmpty) return;
     _controller.clear();
     unawaited(HapticFeedback.lightImpact());
-    await widget.onSend(text);
+    await _deliver(text, () => widget.onSend(text));
+  }
+
+  /// Поле очищается сразу — так отправка ощущается мгновенной. Если сеть
+  /// подвела, текст возвращается в поле, а не пропадает молча.
+  Future<void> _deliver(String text, Future<void> Function() send) async {
+    try {
+      await send();
+    } on Object {
+      if (!mounted) return;
+      if (_controller.text.isEmpty) {
+        _controller
+          ..text = text
+          ..selection = TextSelection.collapsed(offset: text.length);
+      }
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(context.l10n.chatSendFailed)));
+    }
   }
 
   Future<void> _sendCapsule() async {
@@ -56,7 +74,7 @@ class _ChatComposerState extends State<ChatComposer> {
     if (delay == null) return;
     _controller.clear();
     unawaited(HapticFeedback.mediumImpact());
-    await widget.onSendCapsule(text, delay);
+    await _deliver(text, () => widget.onSendCapsule(text, delay));
   }
 
   /// Подставляем подсказку в поле, а не отправляем: её можно дописать.
