@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Только отладочная сборка: локальный Supabase из `supabase start` работает
-     по http. Эмулятор Android видит компьютер как 10.0.2.2.
-     В релизе нешифрованный трафик запрещён (main/AndroidManifest.xml). -->
+<!-- Debug builds only: the local Supabase from `supabase start` speaks plain
+     http. The Android emulator sees the host computer as 10.0.2.2.
+     Release builds forbid cleartext traffic (main/AndroidManifest.xml). -->
 <network-security-config>
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="false">10.0.2.2</domain>

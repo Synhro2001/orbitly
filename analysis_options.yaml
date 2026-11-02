@@ -14,8 +14,8 @@ analyzer:
 
 linter:
   rules:
-    # Это приложение, а не пакет: документировать каждый публичный член избыточно.
+    # This is an app, not a package: documenting every public member is overkill.
     public_member_api_docs: false
-    # Новый синтаксис конструкторов Dart 3.13 (`new(...)`). Freezed и его
-    # документация используют классический — держим один стиль везде.
+    # The new Dart 3.13 constructor syntax (`new(...)`). Freezed and its docs
+    # use the classic one, so we keep a single style everywhere.
     unnecessary_type_name_in_constructor: false

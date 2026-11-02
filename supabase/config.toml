@@ -244,8 +244,8 @@ otp_expiry = 3600
 # admin_email = "admin@email.com"
 # sender_name = "Admin"
 
-# Вход по 6-значному коду: и новым, и существующим пользователям приходит
-# {{ .Token }}, а не ссылка.
+# Sign-in with a 6-digit code: new and existing users both get
+# {{ .Token }}, not a link.
 [auth.email.template.magic_link]
 subject = "Код входа в Orbitly"
 content_path = "./supabase/templates/otp.html"

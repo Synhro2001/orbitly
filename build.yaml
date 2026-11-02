@@ -3,10 +3,10 @@ targets:
     builders:
       json_serializable:
         options:
-          # Supabase/Postgres отдают snake_case.
+          # Supabase/Postgres return snake_case.
           field_rename: snake
           explicit_to_json: true
-      # Анализатор проверяет .g.dart как часть библиотеки, exclude не помогает.
+      # The analyzer checks .g.dart as part of the library; exclude does not help.
       source_gen:combining_builder:
         options:
           ignore_for_file:

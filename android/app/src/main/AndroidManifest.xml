@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Нужен для Supabase: вход, база, Realtime. -->
+    <!-- Needed for Supabase: sign-in, database, Realtime. -->
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:label="orbitly"
