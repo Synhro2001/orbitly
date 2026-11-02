@@ -11,6 +11,9 @@ abstract interface class PlanetRepository {
     required String displayName,
     required String name,
     required PlanetAppearance appearance,
+
+    /// The user confirmed being 18 or older; the server refuses otherwise.
+    required bool isAdult,
   });
 
   Future<void> setMood(Mood mood);

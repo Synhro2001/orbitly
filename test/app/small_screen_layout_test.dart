@@ -27,6 +27,7 @@ void main() {
     AppRoutes.settingsWellbeing,
     AppRoutes.settingsChatsMedia,
     AppRoutes.settingsDeleteAccount,
+    AppRoutes.settingsHelp,
   ];
 
   for (final route in [...screens, AppRoutes.chat('friend-0')]) {

@@ -20,6 +20,7 @@ import 'package:orbitly/features/planet/data/repositories/supabase_planet_reposi
 import 'package:orbitly/features/planet/domain/repositories/planet_repository.dart';
 import 'package:orbitly/features/report/data/repositories/mock_report_repository.dart';
 import 'package:orbitly/features/report/domain/repositories/report_repository.dart';
+import 'package:orbitly/features/settings/data/repositories/feedback_repositories.dart';
 import 'package:orbitly/features/settings/data/repositories/in_memory_settings_repository.dart';
 import 'package:orbitly/features/settings/data/repositories/mock_account_repository.dart';
 import 'package:orbitly/features/settings/data/repositories/mock_profile_repository.dart';
@@ -28,6 +29,7 @@ import 'package:orbitly/features/settings/data/repositories/supabase_account_rep
 import 'package:orbitly/features/settings/data/repositories/supabase_profile_repository.dart';
 import 'package:orbitly/features/settings/data/repositories/supabase_user_settings_repository.dart';
 import 'package:orbitly/features/settings/domain/repositories/account_repository.dart';
+import 'package:orbitly/features/settings/domain/repositories/feedback_repository.dart';
 import 'package:orbitly/features/settings/domain/repositories/profile_repository.dart';
 import 'package:orbitly/features/settings/domain/repositories/settings_repository.dart';
 import 'package:orbitly/features/settings/domain/repositories/user_settings_repository.dart';
@@ -68,6 +70,11 @@ ProfileRepository profileRepository(Ref ref) => ref.watch(useMocksProvider)
 AccountRepository accountRepository(Ref ref) => ref.watch(useMocksProvider)
     ? MockAccountRepository(ref.watch(mockStoreProvider))
     : SupabaseAccountRepository(ref.watch(supabaseClientProvider));
+
+@Riverpod(keepAlive: true)
+FeedbackRepository feedbackRepository(Ref ref) => ref.watch(useMocksProvider)
+    ? MockFeedbackRepository(ref.watch(mockStoreProvider))
+    : SupabaseFeedbackRepository(ref.watch(supabaseClientProvider));
 
 /// Account settings on the server.
 @Riverpod(keepAlive: true)

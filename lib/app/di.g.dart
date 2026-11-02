@@ -288,6 +288,54 @@ final class AccountRepositoryProvider
 
 String _$accountRepositoryHash() => r'b51100dd2bb8c36a7aeba99cc38f2dac776995a1';
 
+@ProviderFor(feedbackRepository)
+final feedbackRepositoryProvider = FeedbackRepositoryProvider._();
+
+final class FeedbackRepositoryProvider
+    extends
+        $FunctionalProvider<
+          FeedbackRepository,
+          FeedbackRepository,
+          FeedbackRepository
+        >
+    with $Provider<FeedbackRepository> {
+  FeedbackRepositoryProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'feedbackRepositoryProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$feedbackRepositoryHash();
+
+  @$internal
+  @override
+  $ProviderElement<FeedbackRepository> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  FeedbackRepository create(Ref ref) {
+    return feedbackRepository(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(FeedbackRepository value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<FeedbackRepository>(value),
+    );
+  }
+}
+
+String _$feedbackRepositoryHash() =>
+    r'1416e4833e78e7b5533e9f9fa556a05541510e68';
+
 /// Account settings on the server.
 
 @ProviderFor(userSettingsRepository)

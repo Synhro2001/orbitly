@@ -2065,6 +2065,78 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Удаление аккаунта отменено. С возвращением!'**
   String get deleteCancelled;
+
+  /// No description provided for @onboardingAdult.
+  ///
+  /// In ru, this message translates to:
+  /// **'Мне есть 18 лет'**
+  String get onboardingAdult;
+
+  /// No description provided for @onboardingAdultHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Orbitly — для взрослых'**
+  String get onboardingAdultHint;
+
+  /// No description provided for @settingsHelp.
+  ///
+  /// In ru, this message translates to:
+  /// **'Помощь и о приложении'**
+  String get settingsHelp;
+
+  /// No description provided for @helpReportProblem.
+  ///
+  /// In ru, this message translates to:
+  /// **'Сообщить о проблеме'**
+  String get helpReportProblem;
+
+  /// No description provided for @helpReportHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Что случилось и как это повторить?'**
+  String get helpReportHint;
+
+  /// No description provided for @helpReportIncludes.
+  ///
+  /// In ru, this message translates to:
+  /// **'Вместе с текстом отправятся версия приложения и модель телефона.'**
+  String get helpReportIncludes;
+
+  /// No description provided for @helpThanks.
+  ///
+  /// In ru, this message translates to:
+  /// **'Спасибо! Мы прочитаем'**
+  String get helpThanks;
+
+  /// No description provided for @helpCommunityRules.
+  ///
+  /// In ru, this message translates to:
+  /// **'Правила сообщества'**
+  String get helpCommunityRules;
+
+  /// No description provided for @helpPrivacyPolicy.
+  ///
+  /// In ru, this message translates to:
+  /// **'Политика конфиденциальности'**
+  String get helpPrivacyPolicy;
+
+  /// No description provided for @helpTerms.
+  ///
+  /// In ru, this message translates to:
+  /// **'Условия использования'**
+  String get helpTerms;
+
+  /// No description provided for @helpLicenses.
+  ///
+  /// In ru, this message translates to:
+  /// **'Лицензии'**
+  String get helpLicenses;
+
+  /// No description provided for @helpVersion.
+  ///
+  /// In ru, this message translates to:
+  /// **'Версия'**
+  String get helpVersion;
 }
 
 class _AppLocalizationsDelegate

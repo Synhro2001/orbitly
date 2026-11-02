@@ -20,6 +20,7 @@ import 'package:orbitly/features/settings/presentation/screens/account_settings_
 import 'package:orbitly/features/settings/presentation/screens/appearance_settings_screen.dart';
 import 'package:orbitly/features/settings/presentation/screens/chats_media_settings_screen.dart';
 import 'package:orbitly/features/settings/presentation/screens/delete_account_screen.dart';
+import 'package:orbitly/features/settings/presentation/screens/help_settings_screen.dart';
 import 'package:orbitly/features/settings/presentation/screens/notification_settings_screen.dart';
 import 'package:orbitly/features/settings/presentation/screens/people_list_screen.dart';
 import 'package:orbitly/features/settings/presentation/screens/privacy_settings_screen.dart';
@@ -196,6 +197,7 @@ GoRouter router(Ref ref) {
             path: 'chats',
             builder: (_, _) => const ChatsMediaSettingsScreen(),
           ),
+          GoRoute(path: 'help', builder: (_, _) => const HelpSettingsScreen()),
           GoRoute(
             path: 'account',
             builder: (_, _) => const AccountSettingsScreen(),

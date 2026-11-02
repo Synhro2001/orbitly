@@ -59,6 +59,12 @@ class SettingsScreen extends StatelessWidget {
           title: l10n.settingsAccount,
           onTap: () => context.push(AppRoutes.settingsAccount),
         ),
+        SettingsLink(
+          key: const Key('settings-help'),
+          icon: Icons.help_outline_rounded,
+          title: l10n.settingsHelp,
+          onTap: () => context.push(AppRoutes.settingsHelp),
+        ),
       ],
     );
   }

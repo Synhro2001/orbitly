@@ -40,6 +40,7 @@ class MockPlanetRepository implements PlanetRepository {
     required String displayName,
     required String name,
     required PlanetAppearance appearance,
+    required bool isAdult,
   }) async {
     await _store.delay();
     _store.createPlanet(

@@ -345,5 +345,17 @@
   "deleteConfirm": "Delete account",
   "deleteDone": "Your account is hidden and will be deleted on {date}. Changed your mind? Just sign in before that day.",
   "deleteDoneOk": "OK, sign out",
-  "deleteCancelled": "Account deletion cancelled. Welcome back!"
+  "deleteCancelled": "Account deletion cancelled. Welcome back!",
+  "onboardingAdult": "I am 18 or older",
+  "onboardingAdultHint": "Orbitly is for adults",
+  "settingsHelp": "Help and about",
+  "helpReportProblem": "Report a problem",
+  "helpReportHint": "What happened, and how can we see it again?",
+  "helpReportIncludes": "The app version and phone model are sent with the text.",
+  "helpThanks": "Thank you! We'll read it",
+  "helpCommunityRules": "Community rules",
+  "helpPrivacyPolicy": "Privacy policy",
+  "helpTerms": "Terms of use",
+  "helpLicenses": "Licenses",
+  "helpVersion": "Version"
 }

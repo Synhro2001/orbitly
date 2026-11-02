@@ -87,7 +87,17 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 onChanged: controller.setDisplayName,
                 onSubmitted: (_) => controller.create(),
               ),
-              const SizedBox(height: AppSpacing.l),
+              CheckboxListTile(
+                key: const Key('onboarding-adult'),
+                contentPadding: EdgeInsets.zero,
+                controlAffinity: ListTileControlAffinity.leading,
+                value: draft.isAdult,
+                onChanged: (value) =>
+                    controller.setAdult(value: value ?? false),
+                title: Text(l10n.onboardingAdult),
+                subtitle: Text(l10n.onboardingAdultHint),
+              ),
+              const SizedBox(height: AppSpacing.s),
               FilledButton(
                 onPressed: draft.canSubmit ? controller.create : null,
                 child: draft.isSubmitting

@@ -66,6 +66,9 @@ class MockStore {
   /// Chat rules for disappearing messages; the seeded chats keep history.
   final retention = <String, String>{};
 
+  /// "Report a problem" messages I sent.
+  final feedback = <Json>[];
+
   /// When I asked to delete my account (null: not asked).
   DateTime? deletionRequestedAt;
 

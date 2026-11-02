@@ -21,6 +21,7 @@ abstract final class AppRoutes {
   static const settingsNotifications = '/settings/notifications';
   static const settingsWellbeing = '/settings/wellbeing';
   static const settingsChatsMedia = '/settings/chats';
+  static const settingsHelp = '/settings/help';
   static const settingsPrivacy = '/settings/privacy';
   static const settingsBlocked = '/settings/privacy/blocked';
   static const settingsQuietOrbit = '/settings/privacy/quiet';

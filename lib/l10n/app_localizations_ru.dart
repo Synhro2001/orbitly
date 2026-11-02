@@ -1142,4 +1142,41 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get deleteCancelled => 'Удаление аккаунта отменено. С возвращением!';
+
+  @override
+  String get onboardingAdult => 'Мне есть 18 лет';
+
+  @override
+  String get onboardingAdultHint => 'Orbitly — для взрослых';
+
+  @override
+  String get settingsHelp => 'Помощь и о приложении';
+
+  @override
+  String get helpReportProblem => 'Сообщить о проблеме';
+
+  @override
+  String get helpReportHint => 'Что случилось и как это повторить?';
+
+  @override
+  String get helpReportIncludes =>
+      'Вместе с текстом отправятся версия приложения и модель телефона.';
+
+  @override
+  String get helpThanks => 'Спасибо! Мы прочитаем';
+
+  @override
+  String get helpCommunityRules => 'Правила сообщества';
+
+  @override
+  String get helpPrivacyPolicy => 'Политика конфиденциальности';
+
+  @override
+  String get helpTerms => 'Условия использования';
+
+  @override
+  String get helpLicenses => 'Лицензии';
+
+  @override
+  String get helpVersion => 'Версия';
 }

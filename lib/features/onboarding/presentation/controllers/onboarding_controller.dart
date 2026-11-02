@@ -14,6 +14,9 @@ abstract class OnboardingDraft with _$OnboardingDraft {
     required PlanetAppearance appearance,
     @Default('') String name,
     @Default('') String displayName,
+
+    /// "I am 18 or older": Orbitly is for adults.
+    @Default(false) bool isAdult,
     @Default(false) bool isSubmitting,
   }) = _OnboardingDraft;
 
@@ -34,7 +37,8 @@ abstract class OnboardingDraft with _$OnboardingDraft {
     return length >= 1 && length <= displayNameMaxLength;
   }
 
-  bool get canSubmit => isNameValid && isDisplayNameValid && !isSubmitting;
+  bool get canSubmit =>
+      isNameValid && isDisplayNameValid && isAdult && !isSubmitting;
 }
 
 @riverpod
@@ -62,6 +66,9 @@ class OnboardingController extends _$OnboardingController {
   void setDisplayName(String value) =>
       state = state.copyWith(displayName: value);
 
+  void setAdult({required bool value}) =>
+      state = state.copyWith(isAdult: value);
+
   Future<void> create() async {
     if (!state.canSubmit) return;
     state = state.copyWith(isSubmitting: true);
@@ -72,6 +79,7 @@ class OnboardingController extends _$OnboardingController {
             displayName: state.displayName.trim(),
             name: state.name.trim(),
             appearance: state.appearance,
+            isAdult: state.isAdult,
           );
       // The router sees the planet exists and opens the system.
       ref.invalidate(hasPlanetProvider);

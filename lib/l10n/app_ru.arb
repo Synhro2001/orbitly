@@ -378,5 +378,17 @@
   "deleteDone": "Аккаунт скрыт и будет удалён {date}. Передумаешь — просто войди до этого дня.",
   "@deleteDone": {"placeholders": {"date": {"type": "DateTime", "format": "yMMMMd"}}},
   "deleteDoneOk": "Понятно, выйти",
-  "deleteCancelled": "Удаление аккаунта отменено. С возвращением!"
+  "deleteCancelled": "Удаление аккаунта отменено. С возвращением!",
+  "onboardingAdult": "Мне есть 18 лет",
+  "onboardingAdultHint": "Orbitly — для взрослых",
+  "settingsHelp": "Помощь и о приложении",
+  "helpReportProblem": "Сообщить о проблеме",
+  "helpReportHint": "Что случилось и как это повторить?",
+  "helpReportIncludes": "Вместе с текстом отправятся версия приложения и модель телефона.",
+  "helpThanks": "Спасибо! Мы прочитаем",
+  "helpCommunityRules": "Правила сообщества",
+  "helpPrivacyPolicy": "Политика конфиденциальности",
+  "helpTerms": "Условия использования",
+  "helpLicenses": "Лицензии",
+  "helpVersion": "Версия"
 }

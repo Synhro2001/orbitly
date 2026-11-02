@@ -54,10 +54,12 @@ class SupabasePlanetRepository implements PlanetRepository {
     required String displayName,
     required String name,
     required PlanetAppearance appearance,
+    required bool isAdult,
   }) => _client.rpc<void>(
     'complete_onboarding',
     params: {
       'p_display_name': displayName,
+      'p_is_adult': isAdult,
       'p_planet_name': name,
       'p_appearance': {
         'type': appearance.type.name,

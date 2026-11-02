@@ -1132,4 +1132,41 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get deleteCancelled => 'Account deletion cancelled. Welcome back!';
+
+  @override
+  String get onboardingAdult => 'I am 18 or older';
+
+  @override
+  String get onboardingAdultHint => 'Orbitly is for adults';
+
+  @override
+  String get settingsHelp => 'Help and about';
+
+  @override
+  String get helpReportProblem => 'Report a problem';
+
+  @override
+  String get helpReportHint => 'What happened, and how can we see it again?';
+
+  @override
+  String get helpReportIncludes =>
+      'The app version and phone model are sent with the text.';
+
+  @override
+  String get helpThanks => 'Thank you! We\'ll read it';
+
+  @override
+  String get helpCommunityRules => 'Community rules';
+
+  @override
+  String get helpPrivacyPolicy => 'Privacy policy';
+
+  @override
+  String get helpTerms => 'Terms of use';
+
+  @override
+  String get helpLicenses => 'Licenses';
+
+  @override
+  String get helpVersion => 'Version';
 }
