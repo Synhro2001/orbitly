@@ -22,6 +22,7 @@ void main() {
     AppRoutes.settingsPrivacy,
     AppRoutes.settingsBlocked,
     AppRoutes.settingsQuietOrbit,
+    AppRoutes.settingsProfile,
   ];
 
   for (final route in [...screens, AppRoutes.chat('friend-0')]) {

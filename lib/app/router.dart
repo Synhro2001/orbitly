@@ -20,6 +20,7 @@ import 'package:orbitly/features/settings/presentation/screens/account_settings_
 import 'package:orbitly/features/settings/presentation/screens/appearance_settings_screen.dart';
 import 'package:orbitly/features/settings/presentation/screens/people_list_screen.dart';
 import 'package:orbitly/features/settings/presentation/screens/privacy_settings_screen.dart';
+import 'package:orbitly/features/settings/presentation/screens/profile_settings_screen.dart';
 import 'package:orbitly/features/settings/presentation/screens/settings_screen.dart';
 import 'package:orbitly/features/system/presentation/screens/system_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -145,6 +146,10 @@ GoRouter router(Ref ref) {
         path: AppRoutes.settings,
         builder: (_, _) => const SettingsScreen(),
         routes: [
+          GoRoute(
+            path: 'profile',
+            builder: (_, _) => const ProfileSettingsScreen(),
+          ),
           GoRoute(
             path: 'appearance',
             builder: (_, _) => const AppearanceSettingsScreen(),

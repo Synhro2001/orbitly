@@ -21,8 +21,11 @@ import 'package:orbitly/features/planet/domain/repositories/planet_repository.da
 import 'package:orbitly/features/report/data/repositories/mock_report_repository.dart';
 import 'package:orbitly/features/report/domain/repositories/report_repository.dart';
 import 'package:orbitly/features/settings/data/repositories/in_memory_settings_repository.dart';
+import 'package:orbitly/features/settings/data/repositories/mock_profile_repository.dart';
 import 'package:orbitly/features/settings/data/repositories/mock_user_settings_repository.dart';
+import 'package:orbitly/features/settings/data/repositories/supabase_profile_repository.dart';
 import 'package:orbitly/features/settings/data/repositories/supabase_user_settings_repository.dart';
+import 'package:orbitly/features/settings/domain/repositories/profile_repository.dart';
 import 'package:orbitly/features/settings/domain/repositories/settings_repository.dart';
 import 'package:orbitly/features/settings/domain/repositories/user_settings_repository.dart';
 import 'package:orbitly/features/system/data/repositories/mock_system_repository.dart';
@@ -52,6 +55,11 @@ SettingsRepository settingsRepository(Ref ref) => InMemorySettingsRepository();
 SafetyRepository safetyRepository(Ref ref) => ref.watch(useMocksProvider)
     ? MockSafetyRepository(ref.watch(mockStoreProvider))
     : SupabaseSafetyRepository(ref.watch(supabaseClientProvider));
+
+@Riverpod(keepAlive: true)
+ProfileRepository profileRepository(Ref ref) => ref.watch(useMocksProvider)
+    ? MockProfileRepository(ref.watch(mockStoreProvider))
+    : SupabaseProfileRepository(ref.watch(supabaseClientProvider));
 
 /// Account settings on the server.
 @Riverpod(keepAlive: true)

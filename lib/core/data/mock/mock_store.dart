@@ -93,10 +93,12 @@ class MockStore {
     for (final f in friends) friendJson(f['id']! as String),
   ];
 
-  void createPlanet(String name, Json appearance) {
+  void createPlanet(String name, Json appearance, {String displayName = 'Я'}) {
     myPlanet = {
       'planet_name': name,
+      'display_name': displayName,
       'handle': 'me',
+      'handle_changed_at': null,
       'appearance': appearance,
       // Level 4 = 450…800 XP (level = floor(sqrt(xp / 50)) + 1).
       'level': 4,

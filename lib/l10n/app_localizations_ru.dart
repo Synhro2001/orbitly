@@ -788,4 +788,81 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get settingsQuietOrbitEmpty =>
       'Пока никого. Добавить друга можно в меню чата';
+
+  @override
+  String get actionSave => 'Сохранить';
+
+  @override
+  String get settingsProfile => 'Профиль';
+
+  @override
+  String get profileName => 'Имя';
+
+  @override
+  String get profilePlanetName => 'Название планеты';
+
+  @override
+  String get profileHandle => 'Ник';
+
+  @override
+  String get profileHandleRule => 'менять можно раз в 30 дней';
+
+  @override
+  String profileHandleNextChange(DateTime date) {
+    final intl.DateFormat dateDateFormat = intl.DateFormat.yMMMd(localeName);
+    final String dateString = dateDateFormat.format(date);
+
+    return 'сменить можно с $dateString';
+  }
+
+  @override
+  String get profileHandleChecking => 'Проверяю…';
+
+  @override
+  String get profileHandleOk => 'Свободен';
+
+  @override
+  String get profileHandleMine => 'Это твой ник сейчас';
+
+  @override
+  String get profileHandleTaken => 'Занят';
+
+  @override
+  String get profileHandleInvalid =>
+      'От 3 до 32 символов: латиница, цифры, точка, подчёркивание';
+
+  @override
+  String get profileHandleTooSoon => 'Ник уже меняли меньше 30 дней назад';
+
+  @override
+  String get profileHandleWarning =>
+      'Следующая смена — через 30 дней. Старый ник ещё 14 дней никто не сможет занять.';
+
+  @override
+  String get profileInvite => 'Приглашение на мою орбиту';
+
+  @override
+  String get profileInviteHint =>
+      'Покажи QR-код или отправь ссылку. По ней тебя смогут добавить, даже если поиск и заявки закрыты.';
+
+  @override
+  String get profileQrLabel => 'QR-код приглашения';
+
+  @override
+  String get profileShare => 'Поделиться';
+
+  @override
+  String profileInviteShareText(String link) {
+    return 'Добавляйся ко мне в Orbitly: $link';
+  }
+
+  @override
+  String get profileNewLink => 'Новая ссылка';
+
+  @override
+  String get profileNewLinkConfirm => 'Сделать новую ссылку?';
+
+  @override
+  String get profileNewLinkBody =>
+      'Старая ссылка и QR-код перестанут работать. Это полезно, если ссылка попала не к тем людям.';
 }

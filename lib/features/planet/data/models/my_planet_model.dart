@@ -19,6 +19,8 @@ abstract class MyPlanetModel with _$MyPlanetModel {
     required int xp,
     required int bestStreakDays,
     @JsonKey(unknownEnumValue: Mood.calm) required Mood mood,
+    @Default('') String displayName,
+    DateTime? handleChangedAt,
     DateTime? shadowFrom,
     DateTime? shadowUntil,
   }) = _MyPlanetModel;
@@ -38,6 +40,8 @@ extension MyPlanetModelX on MyPlanetModel {
     return MyPlanet(
       name: planetName,
       handle: handle,
+      displayName: displayName,
+      handleChangedAt: handleChangedAt,
       baseAppearance: appearance.toEntity(),
       level: level,
       // The screen shows XP within the current level.

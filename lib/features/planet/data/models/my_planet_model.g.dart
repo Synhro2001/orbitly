@@ -19,6 +19,10 @@ _MyPlanetModel _$MyPlanetModelFromJson(Map<String, dynamic> json) =>
       xp: (json['xp'] as num).toInt(),
       bestStreakDays: (json['best_streak_days'] as num).toInt(),
       mood: $enumDecode(_$MoodEnumMap, json['mood'], unknownValue: Mood.calm),
+      displayName: json['display_name'] as String? ?? '',
+      handleChangedAt: json['handle_changed_at'] == null
+          ? null
+          : DateTime.parse(json['handle_changed_at'] as String),
       shadowFrom: json['shadow_from'] == null
           ? null
           : DateTime.parse(json['shadow_from'] as String),
@@ -36,6 +40,8 @@ Map<String, dynamic> _$MyPlanetModelToJson(_MyPlanetModel instance) =>
       'xp': instance.xp,
       'best_streak_days': instance.bestStreakDays,
       'mood': _$MoodEnumMap[instance.mood]!,
+      'display_name': instance.displayName,
+      'handle_changed_at': instance.handleChangedAt?.toIso8601String(),
       'shadow_from': instance.shadowFrom?.toIso8601String(),
       'shadow_until': instance.shadowUntil?.toIso8601String(),
     };

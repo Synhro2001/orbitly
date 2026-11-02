@@ -45,6 +45,7 @@ class MockPlanetRepository implements PlanetRepository {
     _store.createPlanet(
       name,
       PlanetAppearanceModel.fromEntity(appearance).toJson(),
+      displayName: displayName,
     );
   }
 

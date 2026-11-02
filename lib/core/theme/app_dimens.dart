@@ -24,6 +24,7 @@ abstract final class AppSizes {
   static const chatHeaderPlanet = 96.0;
   static const myPlanetHero = 240.0;
   static const wardrobePreview = 200.0;
+  static const inviteQr = 180.0;
   static const unlockPlanet = 220.0;
   static const onboardingPreview = 260.0;
   static const shutterButton = 78.0;

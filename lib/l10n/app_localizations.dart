@@ -1477,6 +1477,138 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Пока никого. Добавить друга можно в меню чата'**
   String get settingsQuietOrbitEmpty;
+
+  /// No description provided for @actionSave.
+  ///
+  /// In ru, this message translates to:
+  /// **'Сохранить'**
+  String get actionSave;
+
+  /// No description provided for @settingsProfile.
+  ///
+  /// In ru, this message translates to:
+  /// **'Профиль'**
+  String get settingsProfile;
+
+  /// No description provided for @profileName.
+  ///
+  /// In ru, this message translates to:
+  /// **'Имя'**
+  String get profileName;
+
+  /// No description provided for @profilePlanetName.
+  ///
+  /// In ru, this message translates to:
+  /// **'Название планеты'**
+  String get profilePlanetName;
+
+  /// No description provided for @profileHandle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Ник'**
+  String get profileHandle;
+
+  /// No description provided for @profileHandleRule.
+  ///
+  /// In ru, this message translates to:
+  /// **'менять можно раз в 30 дней'**
+  String get profileHandleRule;
+
+  /// No description provided for @profileHandleNextChange.
+  ///
+  /// In ru, this message translates to:
+  /// **'сменить можно с {date}'**
+  String profileHandleNextChange(DateTime date);
+
+  /// No description provided for @profileHandleChecking.
+  ///
+  /// In ru, this message translates to:
+  /// **'Проверяю…'**
+  String get profileHandleChecking;
+
+  /// No description provided for @profileHandleOk.
+  ///
+  /// In ru, this message translates to:
+  /// **'Свободен'**
+  String get profileHandleOk;
+
+  /// No description provided for @profileHandleMine.
+  ///
+  /// In ru, this message translates to:
+  /// **'Это твой ник сейчас'**
+  String get profileHandleMine;
+
+  /// No description provided for @profileHandleTaken.
+  ///
+  /// In ru, this message translates to:
+  /// **'Занят'**
+  String get profileHandleTaken;
+
+  /// No description provided for @profileHandleInvalid.
+  ///
+  /// In ru, this message translates to:
+  /// **'От 3 до 32 символов: латиница, цифры, точка, подчёркивание'**
+  String get profileHandleInvalid;
+
+  /// No description provided for @profileHandleTooSoon.
+  ///
+  /// In ru, this message translates to:
+  /// **'Ник уже меняли меньше 30 дней назад'**
+  String get profileHandleTooSoon;
+
+  /// No description provided for @profileHandleWarning.
+  ///
+  /// In ru, this message translates to:
+  /// **'Следующая смена — через 30 дней. Старый ник ещё 14 дней никто не сможет занять.'**
+  String get profileHandleWarning;
+
+  /// No description provided for @profileInvite.
+  ///
+  /// In ru, this message translates to:
+  /// **'Приглашение на мою орбиту'**
+  String get profileInvite;
+
+  /// No description provided for @profileInviteHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Покажи QR-код или отправь ссылку. По ней тебя смогут добавить, даже если поиск и заявки закрыты.'**
+  String get profileInviteHint;
+
+  /// No description provided for @profileQrLabel.
+  ///
+  /// In ru, this message translates to:
+  /// **'QR-код приглашения'**
+  String get profileQrLabel;
+
+  /// No description provided for @profileShare.
+  ///
+  /// In ru, this message translates to:
+  /// **'Поделиться'**
+  String get profileShare;
+
+  /// No description provided for @profileInviteShareText.
+  ///
+  /// In ru, this message translates to:
+  /// **'Добавляйся ко мне в Orbitly: {link}'**
+  String profileInviteShareText(String link);
+
+  /// No description provided for @profileNewLink.
+  ///
+  /// In ru, this message translates to:
+  /// **'Новая ссылка'**
+  String get profileNewLink;
+
+  /// No description provided for @profileNewLinkConfirm.
+  ///
+  /// In ru, this message translates to:
+  /// **'Сделать новую ссылку?'**
+  String get profileNewLinkConfirm;
+
+  /// No description provided for @profileNewLinkBody.
+  ///
+  /// In ru, this message translates to:
+  /// **'Старая ссылка и QR-код перестанут работать. Это полезно, если ссылка попала не к тем людям.'**
+  String get profileNewLinkBody;
 }
 
 class _AppLocalizationsDelegate

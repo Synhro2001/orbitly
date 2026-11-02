@@ -53,38 +53,48 @@ class _ProfileCard extends ConsumerWidget {
     final planet = ref.watch(myPlanetControllerProvider).value;
     if (planet == null) return const SizedBox.shrink();
     final textTheme = Theme.of(context).textTheme;
-    return Container(
-      padding: const EdgeInsets.all(AppSpacing.m),
-      decoration: BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: BorderRadius.circular(AppRadii.l),
-      ),
-      child: Row(
-        children: [
-          PlanetView(appearance: planet.appearance, size: AppSizes.listAvatar),
-          const SizedBox(width: AppSpacing.m),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  planet.name,
-                  style: textTheme.titleMedium,
-                  overflow: TextOverflow.ellipsis,
+    return Material(
+      color: AppColors.surface,
+      borderRadius: BorderRadius.circular(AppRadii.l),
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        key: const Key('settings-profile'),
+        onTap: () => context.push(AppRoutes.settingsProfile),
+        child: Padding(
+          padding: const EdgeInsets.all(AppSpacing.m),
+          child: Row(
+            children: [
+              PlanetView(
+                appearance: planet.appearance,
+                size: AppSizes.listAvatar,
+              ),
+              const SizedBox(width: AppSpacing.m),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      planet.displayName.isEmpty
+                          ? planet.name
+                          : planet.displayName,
+                      style: textTheme.titleMedium,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Text(
+                      '@${planet.handle}',
+                      style: textTheme.bodySmall,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
                 ),
-                Text(
-                  '@${planet.handle}',
-                  style: textTheme.bodySmall,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ],
-            ),
+              ),
+              TextButton(
+                onPressed: () => context.push(AppRoutes.wardrobe),
+                child: Text(context.l10n.wardrobeTitle),
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: () => context.push(AppRoutes.wardrobe),
-            child: Text(context.l10n.wardrobeTitle),
-          ),
-        ],
+        ),
       ),
     );
   }

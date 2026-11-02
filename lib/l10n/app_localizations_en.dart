@@ -783,4 +783,82 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get settingsQuietOrbitEmpty =>
       'No one yet. Add a friend from the chat menu';
+
+  @override
+  String get actionSave => 'Save';
+
+  @override
+  String get settingsProfile => 'Profile';
+
+  @override
+  String get profileName => 'Name';
+
+  @override
+  String get profilePlanetName => 'Planet name';
+
+  @override
+  String get profileHandle => 'Username';
+
+  @override
+  String get profileHandleRule => 'can be changed once in 30 days';
+
+  @override
+  String profileHandleNextChange(DateTime date) {
+    final intl.DateFormat dateDateFormat = intl.DateFormat.yMMMd(localeName);
+    final String dateString = dateDateFormat.format(date);
+
+    return 'can be changed from $dateString';
+  }
+
+  @override
+  String get profileHandleChecking => 'Checking…';
+
+  @override
+  String get profileHandleOk => 'Available';
+
+  @override
+  String get profileHandleMine => 'This is your username now';
+
+  @override
+  String get profileHandleTaken => 'Taken';
+
+  @override
+  String get profileHandleInvalid =>
+      '3 to 32 characters: latin letters, digits, dot, underscore';
+
+  @override
+  String get profileHandleTooSoon =>
+      'The username was changed less than 30 days ago';
+
+  @override
+  String get profileHandleWarning =>
+      'The next change is possible in 30 days. Nobody can take the old username for 14 days.';
+
+  @override
+  String get profileInvite => 'Invite to my orbit';
+
+  @override
+  String get profileInviteHint =>
+      'Show the QR code or send the link. People can add you with it even when search and requests are closed.';
+
+  @override
+  String get profileQrLabel => 'Invite QR code';
+
+  @override
+  String get profileShare => 'Share';
+
+  @override
+  String profileInviteShareText(String link) {
+    return 'Join me on Orbitly: $link';
+  }
+
+  @override
+  String get profileNewLink => 'New link';
+
+  @override
+  String get profileNewLinkConfirm => 'Make a new link?';
+
+  @override
+  String get profileNewLinkBody =>
+      'The old link and QR code will stop working. Useful if the link reached the wrong people.';
 }

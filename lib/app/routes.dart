@@ -12,6 +12,7 @@ abstract final class AppRoutes {
   static const friends = '/friends';
   static const settings = '/settings';
   static const settingsAppearance = '/settings/appearance';
+  static const settingsProfile = '/settings/profile';
   static const settingsAccount = '/settings/account';
   static const settingsPrivacy = '/settings/privacy';
   static const settingsBlocked = '/settings/privacy/blocked';
