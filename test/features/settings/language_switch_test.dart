@@ -31,6 +31,27 @@ class _RecordingAuth implements AuthRepository {
     required String email,
     required String code,
   }) async {}
+
+  @override
+  Future<void> signOutOtherDevices() async {}
+
+  @override
+  String? get email => 'me@orbitly.test';
+
+  @override
+  Future<void> requestEmailChange(String newEmail) async {}
+
+  @override
+  Future<void> confirmEmailChange({
+    required String newEmail,
+    required String code,
+  }) async {}
+
+  @override
+  Future<void> sendCodeToMe() async {}
+
+  @override
+  Future<void> verifyCodeFromMe(String code) async {}
 }
 
 void main() {

@@ -11,6 +11,26 @@ abstract interface class AuthRepository {
 
   Future<void> signOut();
 
+  /// Signs out every other phone and browser; this one stays signed in.
+  Future<void> signOutOtherDevices();
+
   /// Remembers the app language on the account (for sign-in emails).
   Future<void> saveLanguage(String language);
+
+  /// The signed-in account's email.
+  String? get email;
+
+  /// Sends a code to [newEmail]; the change happens on [confirmEmailChange].
+  Future<void> requestEmailChange(String newEmail);
+
+  Future<void> confirmEmailChange({
+    required String newEmail,
+    required String code,
+  });
+
+  /// A fresh code to my own email, to confirm a serious step (deletion).
+  Future<void> sendCodeToMe();
+
+  /// Signs in again with that code: the session becomes "just verified".
+  Future<void> verifyCodeFromMe(String code);
 }

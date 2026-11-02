@@ -9,6 +9,7 @@ import 'package:orbitly/features/settings/presentation/controllers/device_settin
 import 'package:orbitly/features/settings/presentation/controllers/language_controller.dart';
 import 'package:orbitly/features/settings/presentation/controllers/user_settings_controller.dart';
 import 'package:orbitly/features/settings/presentation/widgets/daily_usage_reminder.dart';
+import 'package:orbitly/features/settings/presentation/widgets/deletion_cancelled_notice.dart';
 import 'package:orbitly/l10n/app_localizations.dart';
 
 class OrbitlyApp extends ConsumerStatefulWidget {
@@ -64,7 +65,9 @@ class _OrbitlyAppState extends ConsumerState<OrbitlyApp>
               : media,
           child: StreakVisibility(
             hidden: hideStreaks,
-            child: DailyUsageReminder(child: child!),
+            child: DeletionCancelledNotice(
+              child: DailyUsageReminder(child: child!),
+            ),
           ),
         );
       },

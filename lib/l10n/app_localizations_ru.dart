@@ -1059,4 +1059,87 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get appearanceMotionReduced => 'Всегда меньше';
+
+  @override
+  String get accountEmail => 'Email';
+
+  @override
+  String get accountEmailChange => 'Новый email';
+
+  @override
+  String get accountEmailNew => 'Новый адрес';
+
+  @override
+  String get accountEmailChanged => 'Email изменён';
+
+  @override
+  String get accountSignOutOthers => 'Выйти на других устройствах';
+
+  @override
+  String get accountSignOutOthersHint => 'Этот телефон останется в аккаунте';
+
+  @override
+  String get accountSignedOutOthers =>
+      'Готово: другие устройства вышли из аккаунта';
+
+  @override
+  String get accountExport => 'Скачать мои данные';
+
+  @override
+  String get accountExportHint =>
+      'Профиль, друзья, достижения и мои сообщения — файлом JSON';
+
+  @override
+  String get accountExportFailed =>
+      'Не получилось собрать данные. Попробуй ещё раз';
+
+  @override
+  String get accountDelete => 'Удалить аккаунт';
+
+  @override
+  String get deleteWhat => 'Что произойдёт';
+
+  @override
+  String get deleteWhatProfile =>
+      'Удалятся профиль, планета, достижения, награды и настройки.';
+
+  @override
+  String get deleteWhatMessages =>
+      'Удалятся все твои сообщения, снапы и капсулы.';
+
+  @override
+  String get deleteWhatFriends =>
+      'Друзья сразу перестанут тебя видеть — твоя планета исчезнет с их орбит.';
+
+  @override
+  String get deleteWhatTrophies =>
+      'Достижения, которые вы открыли вместе, у друга останутся, но без твоего имени.';
+
+  @override
+  String get deleteWhatGrace =>
+      'Аккаунт скроется сразу, а удалится навсегда через 7 дней. Если за это время войти снова, удаление отменится.';
+
+  @override
+  String get deleteExportFirst =>
+      'Хочешь сохранить переписку и данные? Сначала скачай их в «Аккаунт и данные».';
+
+  @override
+  String get deleteSendCode => 'Получить код для удаления';
+
+  @override
+  String get deleteConfirm => 'Удалить аккаунт';
+
+  @override
+  String deleteDone(DateTime date) {
+    final intl.DateFormat dateDateFormat = intl.DateFormat.yMMMMd(localeName);
+    final String dateString = dateDateFormat.format(date);
+
+    return 'Аккаунт скрыт и будет удалён $dateString. Передумаешь — просто войди до этого дня.';
+  }
+
+  @override
+  String get deleteDoneOk => 'Понятно, выйти';
+
+  @override
+  String get deleteCancelled => 'Удаление аккаунта отменено. С возвращением!';
 }

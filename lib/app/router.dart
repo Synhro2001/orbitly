@@ -19,6 +19,7 @@ import 'package:orbitly/features/report/presentation/screens/report_screen.dart'
 import 'package:orbitly/features/settings/presentation/screens/account_settings_screen.dart';
 import 'package:orbitly/features/settings/presentation/screens/appearance_settings_screen.dart';
 import 'package:orbitly/features/settings/presentation/screens/chats_media_settings_screen.dart';
+import 'package:orbitly/features/settings/presentation/screens/delete_account_screen.dart';
 import 'package:orbitly/features/settings/presentation/screens/notification_settings_screen.dart';
 import 'package:orbitly/features/settings/presentation/screens/people_list_screen.dart';
 import 'package:orbitly/features/settings/presentation/screens/privacy_settings_screen.dart';
@@ -56,8 +57,16 @@ GoRouter router(Ref ref) {
       if (auth is! AsyncData<bool>) {
         return location == AppRoutes.splash ? null : AppRoutes.splash;
       }
+      // The web page for deleting an account comes back after signing in.
+      final next = state.uri.queryParameters['next'];
       if (!auth.value) {
-        return location == AppRoutes.login ? null : AppRoutes.login;
+        if (location == AppRoutes.login) return null;
+        return location == AppRoutes.deleteAccount
+            ? '${AppRoutes.login}?next=${AppRoutes.deleteAccount}'
+            : AppRoutes.login;
+      }
+      if (location == AppRoutes.login && next == AppRoutes.deleteAccount) {
+        return AppRoutes.deleteAccount;
       }
       final status = hasPlanet.value;
       if (status is! AsyncData<bool>) {
@@ -146,6 +155,10 @@ GoRouter router(Ref ref) {
       ),
       GoRoute(path: AppRoutes.report, builder: (_, _) => const ReportScreen()),
       GoRoute(
+        path: AppRoutes.deleteAccount,
+        builder: (_, _) => const DeleteAccountScreen(),
+      ),
+      GoRoute(
         path: AppRoutes.settings,
         builder: (_, _) => const SettingsScreen(),
         routes: [
@@ -186,6 +199,12 @@ GoRouter router(Ref ref) {
           GoRoute(
             path: 'account',
             builder: (_, _) => const AccountSettingsScreen(),
+            routes: [
+              GoRoute(
+                path: 'delete',
+                builder: (_, _) => const DeleteAccountScreen(),
+              ),
+            ],
           ),
         ],
       ),

@@ -1,0 +1,9 @@
+{{ if eq .Data.locale "ru" }}
+<h2>Новый email для Orbitly</h2>
+<p>Код подтверждения: <strong style="font-size: 24px; letter-spacing: 4px">{{ .Token }}</strong></p>
+<p>Код действует час. Если ты не менял email в Orbitly, просто проигнорируй письмо.</p>
+{{ else }}
+<h2>New email for Orbitly</h2>
+<p>Confirmation code: <strong style="font-size: 24px; letter-spacing: 4px">{{ .Token }}</strong></p>
+<p>The code is valid for one hour. If you didn't change your email in Orbitly, just ignore this email.</p>
+{{ end }}

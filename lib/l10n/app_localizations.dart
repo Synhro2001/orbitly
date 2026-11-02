@@ -1927,6 +1927,144 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Всегда меньше'**
   String get appearanceMotionReduced;
+
+  /// No description provided for @accountEmail.
+  ///
+  /// In ru, this message translates to:
+  /// **'Email'**
+  String get accountEmail;
+
+  /// No description provided for @accountEmailChange.
+  ///
+  /// In ru, this message translates to:
+  /// **'Новый email'**
+  String get accountEmailChange;
+
+  /// No description provided for @accountEmailNew.
+  ///
+  /// In ru, this message translates to:
+  /// **'Новый адрес'**
+  String get accountEmailNew;
+
+  /// No description provided for @accountEmailChanged.
+  ///
+  /// In ru, this message translates to:
+  /// **'Email изменён'**
+  String get accountEmailChanged;
+
+  /// No description provided for @accountSignOutOthers.
+  ///
+  /// In ru, this message translates to:
+  /// **'Выйти на других устройствах'**
+  String get accountSignOutOthers;
+
+  /// No description provided for @accountSignOutOthersHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Этот телефон останется в аккаунте'**
+  String get accountSignOutOthersHint;
+
+  /// No description provided for @accountSignedOutOthers.
+  ///
+  /// In ru, this message translates to:
+  /// **'Готово: другие устройства вышли из аккаунта'**
+  String get accountSignedOutOthers;
+
+  /// No description provided for @accountExport.
+  ///
+  /// In ru, this message translates to:
+  /// **'Скачать мои данные'**
+  String get accountExport;
+
+  /// No description provided for @accountExportHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Профиль, друзья, достижения и мои сообщения — файлом JSON'**
+  String get accountExportHint;
+
+  /// No description provided for @accountExportFailed.
+  ///
+  /// In ru, this message translates to:
+  /// **'Не получилось собрать данные. Попробуй ещё раз'**
+  String get accountExportFailed;
+
+  /// No description provided for @accountDelete.
+  ///
+  /// In ru, this message translates to:
+  /// **'Удалить аккаунт'**
+  String get accountDelete;
+
+  /// No description provided for @deleteWhat.
+  ///
+  /// In ru, this message translates to:
+  /// **'Что произойдёт'**
+  String get deleteWhat;
+
+  /// No description provided for @deleteWhatProfile.
+  ///
+  /// In ru, this message translates to:
+  /// **'Удалятся профиль, планета, достижения, награды и настройки.'**
+  String get deleteWhatProfile;
+
+  /// No description provided for @deleteWhatMessages.
+  ///
+  /// In ru, this message translates to:
+  /// **'Удалятся все твои сообщения, снапы и капсулы.'**
+  String get deleteWhatMessages;
+
+  /// No description provided for @deleteWhatFriends.
+  ///
+  /// In ru, this message translates to:
+  /// **'Друзья сразу перестанут тебя видеть — твоя планета исчезнет с их орбит.'**
+  String get deleteWhatFriends;
+
+  /// No description provided for @deleteWhatTrophies.
+  ///
+  /// In ru, this message translates to:
+  /// **'Достижения, которые вы открыли вместе, у друга останутся, но без твоего имени.'**
+  String get deleteWhatTrophies;
+
+  /// No description provided for @deleteWhatGrace.
+  ///
+  /// In ru, this message translates to:
+  /// **'Аккаунт скроется сразу, а удалится навсегда через 7 дней. Если за это время войти снова, удаление отменится.'**
+  String get deleteWhatGrace;
+
+  /// No description provided for @deleteExportFirst.
+  ///
+  /// In ru, this message translates to:
+  /// **'Хочешь сохранить переписку и данные? Сначала скачай их в «Аккаунт и данные».'**
+  String get deleteExportFirst;
+
+  /// No description provided for @deleteSendCode.
+  ///
+  /// In ru, this message translates to:
+  /// **'Получить код для удаления'**
+  String get deleteSendCode;
+
+  /// No description provided for @deleteConfirm.
+  ///
+  /// In ru, this message translates to:
+  /// **'Удалить аккаунт'**
+  String get deleteConfirm;
+
+  /// No description provided for @deleteDone.
+  ///
+  /// In ru, this message translates to:
+  /// **'Аккаунт скрыт и будет удалён {date}. Передумаешь — просто войди до этого дня.'**
+  String deleteDone(DateTime date);
+
+  /// No description provided for @deleteDoneOk.
+  ///
+  /// In ru, this message translates to:
+  /// **'Понятно, выйти'**
+  String get deleteDoneOk;
+
+  /// No description provided for @deleteCancelled.
+  ///
+  /// In ru, this message translates to:
+  /// **'Удаление аккаунта отменено. С возвращением!'**
+  String get deleteCancelled;
 }
 
 class _AppLocalizationsDelegate

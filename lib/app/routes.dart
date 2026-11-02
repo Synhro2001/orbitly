@@ -14,6 +14,10 @@ abstract final class AppRoutes {
   static const settingsAppearance = '/settings/appearance';
   static const settingsProfile = '/settings/profile';
   static const settingsAccount = '/settings/account';
+  static const settingsDeleteAccount = '/settings/account/delete';
+
+  /// The same deletion screen in the web build, for the store listing.
+  static const deleteAccount = '/delete-account';
   static const settingsNotifications = '/settings/notifications';
   static const settingsWellbeing = '/settings/wellbeing';
   static const settingsChatsMedia = '/settings/chats';

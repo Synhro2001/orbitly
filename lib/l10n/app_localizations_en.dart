@@ -1050,4 +1050,86 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get appearanceMotionReduced => 'Always fewer';
+
+  @override
+  String get accountEmail => 'Email';
+
+  @override
+  String get accountEmailChange => 'New email';
+
+  @override
+  String get accountEmailNew => 'New address';
+
+  @override
+  String get accountEmailChanged => 'Email changed';
+
+  @override
+  String get accountSignOutOthers => 'Sign out on other devices';
+
+  @override
+  String get accountSignOutOthersHint => 'This phone stays signed in';
+
+  @override
+  String get accountSignedOutOthers => 'Done: other devices are signed out';
+
+  @override
+  String get accountExport => 'Download my data';
+
+  @override
+  String get accountExportHint =>
+      'Profile, friends, achievements and my messages as a JSON file';
+
+  @override
+  String get accountExportFailed =>
+      'Couldn\'t collect the data. Please try again';
+
+  @override
+  String get accountDelete => 'Delete account';
+
+  @override
+  String get deleteWhat => 'What happens';
+
+  @override
+  String get deleteWhatProfile =>
+      'Your profile, planet, achievements, rewards and settings are deleted.';
+
+  @override
+  String get deleteWhatMessages =>
+      'All your messages, snaps and capsules are deleted.';
+
+  @override
+  String get deleteWhatFriends =>
+      'Friends stop seeing you at once — your planet leaves their orbits.';
+
+  @override
+  String get deleteWhatTrophies =>
+      'Achievements you unlocked together stay with your friend, without your name.';
+
+  @override
+  String get deleteWhatGrace =>
+      'The account is hidden at once and deleted for good in 7 days. Sign in again before then to cancel.';
+
+  @override
+  String get deleteExportFirst =>
+      'Want to keep your chats and data? Download them first in “Account and data”.';
+
+  @override
+  String get deleteSendCode => 'Get a code to delete';
+
+  @override
+  String get deleteConfirm => 'Delete account';
+
+  @override
+  String deleteDone(DateTime date) {
+    final intl.DateFormat dateDateFormat = intl.DateFormat.yMMMMd(localeName);
+    final String dateString = dateDateFormat.format(date);
+
+    return 'Your account is hidden and will be deleted on $dateString. Changed your mind? Just sign in before that day.';
+  }
+
+  @override
+  String get deleteDoneOk => 'OK, sign out';
+
+  @override
+  String get deleteCancelled => 'Account deletion cancelled. Welcome back!';
 }

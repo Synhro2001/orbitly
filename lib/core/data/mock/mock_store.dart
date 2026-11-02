@@ -66,6 +66,9 @@ class MockStore {
   /// Chat rules for disappearing messages; the seeded chats keep history.
   final retention = <String, String>{};
 
+  /// When I asked to delete my account (null: not asked).
+  DateTime? deletionRequestedAt;
+
   /// The code in my invite link.
   String inviteCode = 'my-invite';
 
