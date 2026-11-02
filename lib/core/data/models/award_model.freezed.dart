@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AwardModel {
 
- String get id; String get title; String get emoji; bool get unlocked;
+ String get id;@JsonKey(unknownEnumValue: AwardCategory.collection) AwardCategory get category;@JsonKey(unknownEnumValue: Rarity.common) Rarity get rarity; String? get title; String? get description; String? get icon; bool get hidden; bool get pair; int? get progress; int? get target; DateTime? get unlockedAt; DateTime? get seenAt; String? get rewardCosmeticId; String? get rewardTitle;
 /// Create a copy of AwardModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -30,20 +30,20 @@ $AwardModelCopyWith<AwardModel> get copyWith => _$AwardModelCopyWithImpl<AwardMo
 @override
 bool operator ==(Object other) {
   final _this = this as AwardModel;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AwardModel&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.title, _this.title) || other.title == _this.title)&&(identical(other.emoji, _this.emoji) || other.emoji == _this.emoji)&&(identical(other.unlocked, _this.unlocked) || other.unlocked == _this.unlocked));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AwardModel&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.category, _this.category) || other.category == _this.category)&&(identical(other.rarity, _this.rarity) || other.rarity == _this.rarity)&&(identical(other.title, _this.title) || other.title == _this.title)&&(identical(other.description, _this.description) || other.description == _this.description)&&(identical(other.icon, _this.icon) || other.icon == _this.icon)&&(identical(other.hidden, _this.hidden) || other.hidden == _this.hidden)&&(identical(other.pair, _this.pair) || other.pair == _this.pair)&&(identical(other.progress, _this.progress) || other.progress == _this.progress)&&(identical(other.target, _this.target) || other.target == _this.target)&&(identical(other.unlockedAt, _this.unlockedAt) || other.unlockedAt == _this.unlockedAt)&&(identical(other.seenAt, _this.seenAt) || other.seenAt == _this.seenAt)&&(identical(other.rewardCosmeticId, _this.rewardCosmeticId) || other.rewardCosmeticId == _this.rewardCosmeticId)&&(identical(other.rewardTitle, _this.rewardTitle) || other.rewardTitle == _this.rewardTitle));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as AwardModel;
-  return Object.hash(runtimeType,_this.id,_this.title,_this.emoji,_this.unlocked);
+  return Object.hash(runtimeType,_this.id,_this.category,_this.rarity,_this.title,_this.description,_this.icon,_this.hidden,_this.pair,_this.progress,_this.target,_this.unlockedAt,_this.seenAt,_this.rewardCosmeticId,_this.rewardTitle);
 }
 
 @override
 String toString() {
   final _this = this as AwardModel;
-  return 'AwardModel(id: ${_this.id}, title: ${_this.title}, emoji: ${_this.emoji}, unlocked: ${_this.unlocked})';
+  return 'AwardModel(id: ${_this.id}, category: ${_this.category}, rarity: ${_this.rarity}, title: ${_this.title}, description: ${_this.description}, icon: ${_this.icon}, hidden: ${_this.hidden}, pair: ${_this.pair}, progress: ${_this.progress}, target: ${_this.target}, unlockedAt: ${_this.unlockedAt}, seenAt: ${_this.seenAt}, rewardCosmeticId: ${_this.rewardCosmeticId}, rewardTitle: ${_this.rewardTitle})';
 }
 
 
@@ -54,7 +54,7 @@ abstract mixin class $AwardModelCopyWith<$Res>  {
   factory $AwardModelCopyWith(AwardModel value, $Res Function(AwardModel) _then) = _$AwardModelCopyWithImpl;
 @useResult
 $Res call({
- String id, String title, String emoji, bool unlocked
+ String id,@JsonKey(unknownEnumValue: AwardCategory.collection) AwardCategory category,@JsonKey(unknownEnumValue: Rarity.common) Rarity rarity, String? title, String? description, String? icon, bool hidden, bool pair, int? progress, int? target, DateTime? unlockedAt, DateTime? seenAt, String? rewardCosmeticId, String? rewardTitle
 });
 
 
@@ -71,13 +71,23 @@ class _$AwardModelCopyWithImpl<$Res>
 
 /// Create a copy of AwardModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? emoji = null,Object? unlocked = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? category = null,Object? rarity = null,Object? title = freezed,Object? description = freezed,Object? icon = freezed,Object? hidden = null,Object? pair = null,Object? progress = freezed,Object? target = freezed,Object? unlockedAt = freezed,Object? seenAt = freezed,Object? rewardCosmeticId = freezed,Object? rewardTitle = freezed,}) {
   return _then(AwardModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
-as String,emoji: null == emoji ? _self.emoji : emoji // ignore: cast_nullable_to_non_nullable
-as String,unlocked: null == unlocked ? _self.unlocked : unlocked // ignore: cast_nullable_to_non_nullable
-as bool,
+as String,category: null == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
+as AwardCategory,rarity: null == rarity ? _self.rarity : rarity // ignore: cast_nullable_to_non_nullable
+as Rarity,title: freezed == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as String?,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as String?,icon: freezed == icon ? _self.icon : icon // ignore: cast_nullable_to_non_nullable
+as String?,hidden: null == hidden ? _self.hidden : hidden // ignore: cast_nullable_to_non_nullable
+as bool,pair: null == pair ? _self.pair : pair // ignore: cast_nullable_to_non_nullable
+as bool,progress: freezed == progress ? _self.progress : progress // ignore: cast_nullable_to_non_nullable
+as int?,target: freezed == target ? _self.target : target // ignore: cast_nullable_to_non_nullable
+as int?,unlockedAt: freezed == unlockedAt ? _self.unlockedAt : unlockedAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,seenAt: freezed == seenAt ? _self.seenAt : seenAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,rewardCosmeticId: freezed == rewardCosmeticId ? _self.rewardCosmeticId : rewardCosmeticId // ignore: cast_nullable_to_non_nullable
+as String?,rewardTitle: freezed == rewardTitle ? _self.rewardTitle : rewardTitle // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 
@@ -162,10 +172,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String title,  String emoji,  bool unlocked)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id, @JsonKey(unknownEnumValue: AwardCategory.collection)  AwardCategory category, @JsonKey(unknownEnumValue: Rarity.common)  Rarity rarity,  String? title,  String? description,  String? icon,  bool hidden,  bool pair,  int? progress,  int? target,  DateTime? unlockedAt,  DateTime? seenAt,  String? rewardCosmeticId,  String? rewardTitle)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AwardModel() when $default != null:
-return $default(_that.id,_that.title,_that.emoji,_that.unlocked);case _:
+return $default(_that.id,_that.category,_that.rarity,_that.title,_that.description,_that.icon,_that.hidden,_that.pair,_that.progress,_that.target,_that.unlockedAt,_that.seenAt,_that.rewardCosmeticId,_that.rewardTitle);case _:
   return orElse();
 
 }
@@ -183,10 +193,10 @@ return $default(_that.id,_that.title,_that.emoji,_that.unlocked);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String title,  String emoji,  bool unlocked)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id, @JsonKey(unknownEnumValue: AwardCategory.collection)  AwardCategory category, @JsonKey(unknownEnumValue: Rarity.common)  Rarity rarity,  String? title,  String? description,  String? icon,  bool hidden,  bool pair,  int? progress,  int? target,  DateTime? unlockedAt,  DateTime? seenAt,  String? rewardCosmeticId,  String? rewardTitle)  $default,) {final _that = this;
 switch (_that) {
 case _AwardModel():
-return $default(_that.id,_that.title,_that.emoji,_that.unlocked);case _:
+return $default(_that.id,_that.category,_that.rarity,_that.title,_that.description,_that.icon,_that.hidden,_that.pair,_that.progress,_that.target,_that.unlockedAt,_that.seenAt,_that.rewardCosmeticId,_that.rewardTitle);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -203,10 +213,10 @@ return $default(_that.id,_that.title,_that.emoji,_that.unlocked);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String title,  String emoji,  bool unlocked)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id, @JsonKey(unknownEnumValue: AwardCategory.collection)  AwardCategory category, @JsonKey(unknownEnumValue: Rarity.common)  Rarity rarity,  String? title,  String? description,  String? icon,  bool hidden,  bool pair,  int? progress,  int? target,  DateTime? unlockedAt,  DateTime? seenAt,  String? rewardCosmeticId,  String? rewardTitle)?  $default,) {final _that = this;
 switch (_that) {
 case _AwardModel() when $default != null:
-return $default(_that.id,_that.title,_that.emoji,_that.unlocked);case _:
+return $default(_that.id,_that.category,_that.rarity,_that.title,_that.description,_that.icon,_that.hidden,_that.pair,_that.progress,_that.target,_that.unlockedAt,_that.seenAt,_that.rewardCosmeticId,_that.rewardTitle);case _:
   return null;
 
 }
@@ -218,13 +228,23 @@ return $default(_that.id,_that.title,_that.emoji,_that.unlocked);case _:
 @JsonSerializable()
 
 class _AwardModel implements AwardModel {
-  const _AwardModel({required this.id, required this.title, required this.emoji, required this.unlocked});
+  const _AwardModel({required this.id, @JsonKey(unknownEnumValue: AwardCategory.collection) this.category = AwardCategory.collection, @JsonKey(unknownEnumValue: Rarity.common) this.rarity = Rarity.common, this.title, this.description, this.icon, this.hidden = false, this.pair = false, this.progress, this.target, this.unlockedAt, this.seenAt, this.rewardCosmeticId, this.rewardTitle});
   factory _AwardModel.fromJson(Map<String, dynamic> json) => _$AwardModelFromJson(json);
 
 @override final  String id;
-@override final  String title;
-@override final  String emoji;
-@override final  bool unlocked;
+@override@JsonKey(unknownEnumValue: AwardCategory.collection) final  AwardCategory category;
+@override@JsonKey(unknownEnumValue: Rarity.common) final  Rarity rarity;
+@override final  String? title;
+@override final  String? description;
+@override final  String? icon;
+@override@JsonKey() final  bool hidden;
+@override@JsonKey() final  bool pair;
+@override final  int? progress;
+@override final  int? target;
+@override final  DateTime? unlockedAt;
+@override final  DateTime? seenAt;
+@override final  String? rewardCosmeticId;
+@override final  String? rewardTitle;
 
 /// Create a copy of AwardModel
 /// with the given fields replaced by the non-null parameter values.
@@ -239,18 +259,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _AwardModel&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.emoji, emoji) || other.emoji == emoji)&&(identical(other.unlocked, unlocked) || other.unlocked == unlocked));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _AwardModel&&(identical(other.id, id) || other.id == id)&&(identical(other.category, category) || other.category == category)&&(identical(other.rarity, rarity) || other.rarity == rarity)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.icon, icon) || other.icon == icon)&&(identical(other.hidden, hidden) || other.hidden == hidden)&&(identical(other.pair, pair) || other.pair == pair)&&(identical(other.progress, progress) || other.progress == progress)&&(identical(other.target, target) || other.target == target)&&(identical(other.unlockedAt, unlockedAt) || other.unlockedAt == unlockedAt)&&(identical(other.seenAt, seenAt) || other.seenAt == seenAt)&&(identical(other.rewardCosmeticId, rewardCosmeticId) || other.rewardCosmeticId == rewardCosmeticId)&&(identical(other.rewardTitle, rewardTitle) || other.rewardTitle == rewardTitle));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,id,title,emoji,unlocked);
+    return Object.hash(runtimeType,id,category,rarity,title,description,icon,hidden,pair,progress,target,unlockedAt,seenAt,rewardCosmeticId,rewardTitle);
 }
 
 @override
 String toString() {
-    return 'AwardModel(id: $id, title: $title, emoji: $emoji, unlocked: $unlocked)';
+    return 'AwardModel(id: $id, category: $category, rarity: $rarity, title: $title, description: $description, icon: $icon, hidden: $hidden, pair: $pair, progress: $progress, target: $target, unlockedAt: $unlockedAt, seenAt: $seenAt, rewardCosmeticId: $rewardCosmeticId, rewardTitle: $rewardTitle)';
 }
 
 
@@ -261,7 +281,7 @@ abstract mixin class _$AwardModelCopyWith<$Res> implements $AwardModelCopyWith<$
   factory _$AwardModelCopyWith(_AwardModel value, $Res Function(_AwardModel) _then) = __$AwardModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String title, String emoji, bool unlocked
+ String id,@JsonKey(unknownEnumValue: AwardCategory.collection) AwardCategory category,@JsonKey(unknownEnumValue: Rarity.common) Rarity rarity, String? title, String? description, String? icon, bool hidden, bool pair, int? progress, int? target, DateTime? unlockedAt, DateTime? seenAt, String? rewardCosmeticId, String? rewardTitle
 });
 
 
@@ -278,13 +298,23 @@ class __$AwardModelCopyWithImpl<$Res>
 
 /// Create a copy of AwardModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? emoji = null,Object? unlocked = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? category = null,Object? rarity = null,Object? title = freezed,Object? description = freezed,Object? icon = freezed,Object? hidden = null,Object? pair = null,Object? progress = freezed,Object? target = freezed,Object? unlockedAt = freezed,Object? seenAt = freezed,Object? rewardCosmeticId = freezed,Object? rewardTitle = freezed,}) {
   return _then(_AwardModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
-as String,emoji: null == emoji ? _self.emoji : emoji // ignore: cast_nullable_to_non_nullable
-as String,unlocked: null == unlocked ? _self.unlocked : unlocked // ignore: cast_nullable_to_non_nullable
-as bool,
+as String,category: null == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
+as AwardCategory,rarity: null == rarity ? _self.rarity : rarity // ignore: cast_nullable_to_non_nullable
+as Rarity,title: freezed == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as String?,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as String?,icon: freezed == icon ? _self.icon : icon // ignore: cast_nullable_to_non_nullable
+as String?,hidden: null == hidden ? _self.hidden : hidden // ignore: cast_nullable_to_non_nullable
+as bool,pair: null == pair ? _self.pair : pair // ignore: cast_nullable_to_non_nullable
+as bool,progress: freezed == progress ? _self.progress : progress // ignore: cast_nullable_to_non_nullable
+as int?,target: freezed == target ? _self.target : target // ignore: cast_nullable_to_non_nullable
+as int?,unlockedAt: freezed == unlockedAt ? _self.unlockedAt : unlockedAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,seenAt: freezed == seenAt ? _self.seenAt : seenAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,rewardCosmeticId: freezed == rewardCosmeticId ? _self.rewardCosmeticId : rewardCosmeticId // ignore: cast_nullable_to_non_nullable
+as String?,rewardTitle: freezed == rewardTitle ? _self.rewardTitle : rewardTitle // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 

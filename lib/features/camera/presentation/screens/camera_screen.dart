@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:orbitly/app/routes.dart';
 import 'package:orbitly/core/theme/app_colors.dart';
@@ -31,6 +34,7 @@ class _CameraScreenState extends State<CameraScreen> {
   }
 
   Future<void> _shoot() async {
+    unawaited(HapticFeedback.mediumImpact());
     if (MediaQuery.disableAnimationsOf(context)) return;
     setState(() => _shutterFlash = true);
     await Future<void>.delayed(AppDurations.fast);

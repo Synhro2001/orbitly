@@ -4,6 +4,8 @@ import 'package:flutter/rendering.dart';
 import 'package:orbitly/core/domain/entities/planet_appearance.dart';
 import 'package:orbitly/core/planet_render/seeded_random.dart';
 
+part 'rare_planets.dart';
+
 /// Рисует планету по её описанию. Цвета не из темы: они вычисляются
 /// из оттенка и типа планеты, это часть процедурной генерации.
 ///
@@ -28,14 +30,57 @@ class PlanetPainter extends CustomPainter {
     final a = appearance;
     final rnd = SeededRandom(a.seed);
 
-    if (a.glows) _paintGlow(canvas, center, r);
+    // Слои за планетой.
+    if (a.hasCometTrail) _paintCometTrail(canvas, center, r);
+    switch (a.glow) {
+      case GlowStyle.none:
+        break;
+      case GlowStyle.soft:
+      case GlowStyle.doubleStar:
+        _paintGlow(canvas, center, r);
+      case GlowStyle.aurora:
+        _paintAuroraGlow(canvas, center, r);
+    }
+    if (a.type == PlanetType.solarCorona) _paintCorona(canvas, center, r, rnd);
+    if (a.type == PlanetType.blackHole) {
+      _paintAccretionDisk(canvas, center, r, front: false);
+    }
+    if (a.type == PlanetType.ringWorld) {
+      _paintRingWorldRings(canvas, center, r, rnd, front: false);
+    }
     if (a.hasRings) _paintRing(canvas, center, r, front: false);
 
-    canvas
-      ..save()
-      ..clipPath(Path()..addOval(Rect.fromCircle(center: center, radius: r)));
-    _paintBase(canvas, center, r);
-    switch (a.type) {
+    // Тело.
+    if (a.type == PlanetType.gemini) {
+      _paintGemini(canvas, center, r, rnd);
+    } else {
+      canvas
+        ..save()
+        ..clipPath(Path()..addOval(Rect.fromCircle(center: center, radius: r)));
+      _paintBase(canvas, center, r);
+      _paintSurface(canvas, center, r, rnd);
+      if (a.type != PlanetType.blackHole && a.type != PlanetType.solarCorona) {
+        _paintShading(canvas, center, r);
+      }
+      canvas.restore();
+    }
+
+    // Слои перед планетой.
+    if (_hasAtmosphere) _paintAtmosphere(canvas, center, r);
+    if (a.type == PlanetType.blackHole) {
+      _paintPhotonRing(canvas, center, r);
+      _paintAccretionDisk(canvas, center, r, front: true);
+    }
+    if (a.type == PlanetType.ringWorld) {
+      _paintRingWorldRings(canvas, center, r, rnd, front: true);
+    }
+    if (a.hasRings) _paintRing(canvas, center, r, front: true);
+    _paintMoons(canvas, center, r, rnd);
+    if (a.glow == GlowStyle.doubleStar) _paintCompanionStar(canvas, center, r);
+  }
+
+  void _paintSurface(Canvas canvas, Offset center, double r, SeededRandom rnd) {
+    switch (appearance.type) {
       case PlanetType.gas:
         _paintBands(canvas, center, r, rnd);
       case PlanetType.candy:
@@ -56,13 +101,20 @@ class PlanetPainter extends CustomPainter {
       case PlanetType.crystal:
         _paintFacets(canvas, center, r, rnd);
         _paintCraters(canvas, center, r, rnd, count: 2);
+      case PlanetType.nebula:
+        _paintNebula(canvas, center, r, rnd);
+      case PlanetType.blackHole:
+        break;
+      case PlanetType.aurora:
+        _paintAuroraSurface(canvas, center, r, rnd);
+      case PlanetType.solarCorona:
+        _paintSolarSurface(canvas, center, r, rnd);
+      case PlanetType.ringWorld:
+        _paintFacets(canvas, center, r, rnd);
+        _paintCracks(canvas, center, r, rnd, glowing: true);
+      case PlanetType.gemini:
+        break;
     }
-    _paintShading(canvas, center, r);
-    canvas.restore();
-
-    if (_hasAtmosphere) _paintAtmosphere(canvas, center, r);
-    if (a.hasRings) _paintRing(canvas, center, r, front: true);
-    _paintMoons(canvas, center, r, rnd);
   }
 
   bool get _hasAtmosphere => switch (appearance.type) {
@@ -70,14 +122,30 @@ class PlanetPainter extends CustomPainter {
     PlanetType.jungle ||
     PlanetType.ice ||
     PlanetType.gas ||
-    PlanetType.candy => true,
-    PlanetType.lava || PlanetType.crystal => false,
+    PlanetType.candy ||
+    PlanetType.nebula ||
+    PlanetType.aurora => true,
+    PlanetType.lava ||
+    PlanetType.crystal ||
+    PlanetType.blackHole ||
+    PlanetType.solarCorona ||
+    PlanetType.gemini ||
+    PlanetType.ringWorld => false,
   };
 
   Color _hsl(double hueShift, double s, double l, [double alpha = 1]) =>
       HSLColor.fromAHSL(
         alpha,
         (appearance.hue + hueShift) % 360,
+        s.clamp(0, 1),
+        l.clamp(0, 1),
+      ).toColor();
+
+  /// Тёплый цвет для «Солнечной короны»: оттенок не от пользователя.
+  Color _sun(double hueShift, double s, double l, [double alpha = 1]) =>
+      HSLColor.fromAHSL(
+        alpha,
+        (40 + hueShift) % 360,
         s.clamp(0, 1),
         l.clamp(0, 1),
       ).toColor();
@@ -91,6 +159,13 @@ class PlanetPainter extends CustomPainter {
     PlanetType.candy => (_hsl(0, 0.85, 0.85), _hsl(20, 0.7, 0.68)),
     PlanetType.crystal => (_hsl(0, 0.65, 0.7), _hsl(25, 0.6, 0.4)),
     PlanetType.gas => (_hsl(0, 0.6, 0.72), _hsl(-15, 0.55, 0.42)),
+    PlanetType.nebula => (_hsl(0, 0.55, 0.18), _hsl(40, 0.6, 0.05)),
+    PlanetType.blackHole => (const Color(0xFF050308), const Color(0xFF000000)),
+    PlanetType.aurora => (_hsl(0, 0.5, 0.24), _hsl(15, 0.6, 0.07)),
+    // Солнце всегда золотое, независимо от выбранного оттенка.
+    PlanetType.solarCorona => (_sun(10, 1, 0.82), _sun(-15, 1, 0.5)),
+    PlanetType.gemini => (_hsl(0, 0.6, 0.68), _hsl(20, 0.6, 0.35)),
+    PlanetType.ringWorld => (_hsl(0, 0.35, 0.62), _hsl(15, 0.4, 0.28)),
   };
 
   void _paintBase(Canvas canvas, Offset c, double r) {
@@ -396,6 +471,10 @@ class PlanetPainter extends CustomPainter {
       final moonR = r * rnd.range(0.09, 0.15);
       final center =
           c + Offset(math.cos(angle) * dist, math.sin(angle) * dist * 0.45);
+      if (appearance.moonSkin == MoonSkin.hourglass) {
+        _paintHourglassMoon(canvas, center, moonR * 1.3);
+        continue;
+      }
       canvas.drawCircle(
         center,
         moonR,

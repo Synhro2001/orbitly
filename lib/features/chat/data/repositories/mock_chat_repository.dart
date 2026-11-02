@@ -1,9 +1,11 @@
 import 'package:orbitly/core/data/mock/mock_store.dart';
 import 'package:orbitly/core/data/models/award_model.dart';
 import 'package:orbitly/core/data/models/friend_model.dart';
+import 'package:orbitly/core/data/parse.dart';
 import 'package:orbitly/features/chat/data/models/message_model.dart';
 import 'package:orbitly/features/chat/domain/entities/chat.dart';
 import 'package:orbitly/features/chat/domain/entities/message.dart';
+import 'package:orbitly/features/chat/domain/message_rules.dart';
 import 'package:orbitly/features/chat/domain/repositories/chat_repository.dart';
 
 class MockChatRepository implements ChatRepository {
@@ -11,21 +13,29 @@ class MockChatRepository implements ChatRepository {
 
   final MockStore _store;
 
-  List<Message> _messages(String friendId) => [
+  List<Message> _messages(String friendId) => parseValid([
     for (final json in _store.messages[friendId] ?? const <Json>[])
-      MessageModel.fromJson(json).toEntity(),
-  ];
+      _sealed(json),
+  ], (json) => MessageModel.fromJson(json).toEntity());
+
+  /// Как сделает сервер: текст чужой капсулы не уходит до срока.
+  Json _sealed(Json json) {
+    if (json['kind'] != 'capsule' || json['is_mine'] == true) return json;
+    final opensAt = DateTime.tryParse(json['opens_at'] as String? ?? '');
+    if (opensAt != null && !DateTime.now().isBefore(opensAt)) return json;
+    return {...json}..remove('text');
+  }
 
   @override
   Future<List<ChatPreview>> getChats() async {
     await _store.delay();
-    final chats = [
-      for (final json in _store.friendsJson())
-        ChatPreview(
-          friend: FriendModel.fromJson(json).toEntity(),
-          lastMessage: _messages(json['id']! as String).lastOrNull,
-        ),
-    ];
+    final chats = parseValid(
+      _store.friendsJson(),
+      (json) => ChatPreview(
+        friend: FriendModel.fromJson(json).toEntity(),
+        lastMessage: _messages(json['id']! as String).lastOrNull,
+      ),
+    );
     final epoch = DateTime.fromMillisecondsSinceEpoch(0);
     return chats..sort(
       (a, b) => (b.lastMessage?.sentAt ?? epoch).compareTo(
@@ -42,7 +52,7 @@ class MockChatRepository implements ChatRepository {
       friend: FriendModel.fromJson(_store.friendJson(friendId)).toEntity(),
       messages: _messages(friendId),
       sharedTrophies: [
-        for (final json in _store.awards)
+        for (final json in _store.achievements)
           if (trophyIds.contains(json['id']))
             AwardModel.fromJson(json).toEntity(),
       ],
@@ -53,6 +63,9 @@ class MockChatRepository implements ChatRepository {
   @override
   Future<Message> sendText(String friendId, String text) async {
     await _store.delay();
+    if (!MessageRules.isValid(text)) {
+      throw ArgumentError.value(text.length, 'text', 'Invalid message length');
+    }
     final json = <String, Object?>{
       'kind': 'text',
       'id': _store.nextId('msg'),
@@ -71,6 +84,12 @@ class MockChatRepository implements ChatRepository {
     required DateTime opensAt,
   }) async {
     await _store.delay();
+    if (!MessageRules.isValid(text)) {
+      throw ArgumentError.value(text.length, 'text', 'Invalid message length');
+    }
+    if (!MessageRules.isValidCapsuleDate(opensAt, now: DateTime.now())) {
+      throw ArgumentError.value(opensAt, 'opensAt', 'Out of allowed range');
+    }
     final json = <String, Object?>{
       'kind': 'capsule',
       'id': _store.nextId('msg'),
@@ -82,6 +101,10 @@ class MockChatRepository implements ChatRepository {
     (_store.messages[friendId] ??= []).add(json);
     return MessageModel.fromJson(json).toEntity();
   }
+
+  /// В моках собеседников нет — новых сообщений не приходит.
+  @override
+  Stream<String> watchIncoming() => const Stream.empty();
 
   @override
   Future<void> openSnap(String friendId, String messageId) async {

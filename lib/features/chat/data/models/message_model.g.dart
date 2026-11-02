@@ -50,7 +50,7 @@ CapsuleMessageModel _$CapsuleMessageModelFromJson(Map<String, dynamic> json) =>
       isMine: json['is_mine'] as bool,
       sentAt: DateTime.parse(json['sent_at'] as String),
       opensAt: DateTime.parse(json['opens_at'] as String),
-      text: json['text'] as String,
+      text: json['text'] as String?,
       $type: json['kind'] as String?,
     );
 

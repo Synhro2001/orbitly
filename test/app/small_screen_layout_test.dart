@@ -14,6 +14,8 @@ void main() {
     AppRoutes.planet,
     AppRoutes.report,
     AppRoutes.camera,
+    AppRoutes.collection,
+    AppRoutes.wardrobe,
   ];
 
   for (final route in [...screens, AppRoutes.chat('friend-0')]) {

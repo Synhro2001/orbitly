@@ -11,12 +11,30 @@ part of 'planet_appearance_model.dart';
 _PlanetAppearanceModel _$PlanetAppearanceModelFromJson(
   Map<String, dynamic> json,
 ) => _PlanetAppearanceModel(
-  type: $enumDecode(_$PlanetTypeEnumMap, json['type']),
+  type: $enumDecode(
+    _$PlanetTypeEnumMap,
+    json['type'],
+    unknownValue: PlanetType.ocean,
+  ),
   seed: (json['seed'] as num).toInt(),
   hue: (json['hue'] as num).toDouble(),
   moons: (json['moons'] as num?)?.toInt() ?? 0,
   hasRings: json['has_rings'] as bool? ?? false,
-  glows: json['glows'] as bool? ?? false,
+  glow:
+      $enumDecodeNullable(
+        _$GlowStyleEnumMap,
+        json['glow'],
+        unknownValue: GlowStyle.none,
+      ) ??
+      GlowStyle.none,
+  moonSkin:
+      $enumDecodeNullable(
+        _$MoonSkinEnumMap,
+        json['moon_skin'],
+        unknownValue: MoonSkin.plain,
+      ) ??
+      MoonSkin.plain,
+  hasCometTrail: json['has_comet_trail'] as bool? ?? false,
 );
 
 Map<String, dynamic> _$PlanetAppearanceModelToJson(
@@ -27,7 +45,9 @@ Map<String, dynamic> _$PlanetAppearanceModelToJson(
   'hue': instance.hue,
   'moons': instance.moons,
   'has_rings': instance.hasRings,
-  'glows': instance.glows,
+  'glow': _$GlowStyleEnumMap[instance.glow]!,
+  'moon_skin': _$MoonSkinEnumMap[instance.moonSkin]!,
+  'has_comet_trail': instance.hasCometTrail,
 };
 
 const _$PlanetTypeEnumMap = {
@@ -38,4 +58,22 @@ const _$PlanetTypeEnumMap = {
   PlanetType.candy: 'candy',
   PlanetType.crystal: 'crystal',
   PlanetType.gas: 'gas',
+  PlanetType.nebula: 'nebula',
+  PlanetType.blackHole: 'blackHole',
+  PlanetType.aurora: 'aurora',
+  PlanetType.solarCorona: 'solarCorona',
+  PlanetType.gemini: 'gemini',
+  PlanetType.ringWorld: 'ringWorld',
+};
+
+const _$GlowStyleEnumMap = {
+  GlowStyle.none: 'none',
+  GlowStyle.soft: 'soft',
+  GlowStyle.aurora: 'aurora',
+  GlowStyle.doubleStar: 'doubleStar',
+};
+
+const _$MoonSkinEnumMap = {
+  MoonSkin.plain: 'plain',
+  MoonSkin.hourglass: 'hourglass',
 };

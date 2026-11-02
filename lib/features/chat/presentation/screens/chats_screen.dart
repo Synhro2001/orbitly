@@ -5,6 +5,7 @@ import 'package:orbitly/app/routes.dart';
 import 'package:orbitly/core/domain/entities/shadow.dart';
 import 'package:orbitly/core/theme/app_colors.dart';
 import 'package:orbitly/core/theme/app_dimens.dart';
+import 'package:orbitly/core/utils/clock.dart';
 import 'package:orbitly/core/utils/l10n.dart';
 import 'package:orbitly/core/widgets/async_view.dart';
 import 'package:orbitly/core/widgets/planet_view.dart';
@@ -27,29 +28,44 @@ class ChatsScreen extends ConsumerWidget {
       body: AsyncView(
         value: ref.watch(chatsProvider),
         onRetry: () => ref.invalidate(chatsProvider),
-        builder: (chats) => chats.isEmpty
-            ? Center(child: Text(l10n.chatsEmpty))
-            : ListView.builder(
-                itemCount: chats.length,
-                itemBuilder: (context, i) =>
-                    _ChatTile(chats[i], myShadow: myShadow),
-              ),
+        builder: (chats) => RefreshIndicator(
+          onRefresh: () => ref.refresh(chatsProvider.future),
+          child: chats.isEmpty
+              ? ListView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(AppSpacing.xxl),
+                      child: Center(child: Text(l10n.chatsEmpty)),
+                    ),
+                  ],
+                )
+              : ListView.builder(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  itemCount: chats.length,
+                  itemBuilder: (context, i) =>
+                      _ChatTile(chats[i], myShadow: myShadow),
+                ),
+        ),
       ),
     );
   }
 }
 
-class _ChatTile extends StatelessWidget {
+class _ChatTile extends ConsumerWidget {
   const _ChatTile(this.chat, {required this.myShadow});
 
   final ChatPreview chat;
   final Shadow? myShadow;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l10n = context.l10n;
     final textTheme = Theme.of(context).textTheme;
     final friend = chat.friend;
+    final unread = friend.hasUnreadSnaps;
+    final sentAt = chat.lastMessage?.sentAt;
+    final now = ref.watch(clockProvider)();
     final subtitle = switch (chat.lastMessage) {
       TextMessage(:final text) => text,
       SnapMessage() => l10n.chatsLastSnap,
@@ -67,14 +83,47 @@ class _ChatTile extends StatelessWidget {
         subtitle,
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
-        style: friend.hasUnreadSnaps
+        style: unread
             ? textTheme.bodyMedium?.copyWith(color: AppColors.mint)
             : textTheme.bodySmall,
       ),
-      trailing: StreakBadge(
-        streak: friend.streak,
-        shadows: [?friend.shadow, ?myShadow],
-        compact: true,
+      trailing: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (unread) ...[
+                Semantics(
+                  label: l10n.chatsUnread,
+                  child: Container(
+                    width: AppSpacing.s,
+                    height: AppSpacing.s,
+                    decoration: const BoxDecoration(
+                      color: AppColors.mint,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: AppSpacing.xs),
+              ],
+              if (sentAt != null)
+                Text(
+                  formatTimeAgo(l10n, sentAt, now: now),
+                  style: textTheme.labelSmall?.copyWith(
+                    color: unread ? AppColors.mint : null,
+                  ),
+                ),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.xs),
+          StreakBadge(
+            streak: friend.streak,
+            shadows: [?friend.shadow, ?myShadow],
+            compact: true,
+          ),
+        ],
       ),
     );
   }

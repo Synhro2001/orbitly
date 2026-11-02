@@ -1,32 +1,51 @@
 import 'package:orbitly/app/di.dart';
 import 'package:orbitly/core/utils/clock.dart';
+import 'package:orbitly/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:orbitly/features/chat/domain/entities/chat.dart';
 import 'package:orbitly/features/chat/domain/entities/message.dart';
+import 'package:orbitly/features/chat/domain/message_rules.dart';
 import 'package:orbitly/features/system/presentation/controllers/system_controller.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'chat_controller.g.dart';
 
+/// От кого только что пришло сообщение (Realtime). Подписка привязана к
+/// пользователю и переподключается после повторного входа.
+@Riverpod(keepAlive: true)
+Stream<String> incomingMessages(Ref ref) {
+  ref.watch(signedInProvider);
+  return ref.watch(chatRepositoryProvider).watchIncoming();
+}
+
 @riverpod
-Future<List<ChatPreview>> chats(Ref ref) =>
-    ref.watch(chatRepositoryProvider).getChats();
+Future<List<ChatPreview>> chats(Ref ref) {
+  // Новое сообщение меняет порядок чатов и последнюю строку.
+  ref.listen(incomingMessagesProvider, (_, _) => ref.invalidateSelf());
+  return ref.watch(chatRepositoryProvider).getChats();
+}
 
 @riverpod
 class ChatController extends _$ChatController {
   @override
-  Future<ChatThread> build(String friendId) =>
-      ref.watch(chatRepositoryProvider).getThread(friendId);
+  Future<ChatThread> build(String friendId) {
+    // Друг написал — перечитываем переписку (старые сообщения остаются на
+    // экране, пока грузятся новые).
+    ref.listen(incomingMessagesProvider, (_, next) {
+      if (next.value == friendId) ref.invalidateSelf();
+    });
+    return ref.watch(chatRepositoryProvider).getThread(friendId);
+  }
 
   Future<void> send(String text) async {
+    if (!MessageRules.isValid(text)) return;
     final trimmed = text.trim();
-    if (trimmed.isEmpty) return;
     _append(await ref.read(chatRepositoryProvider).sendText(friendId, trimmed));
   }
 
   /// Капсула времени: друг прочитает послание только через [delay].
   Future<void> sendCapsule(String text, Duration delay) async {
+    if (!MessageRules.isValid(text)) return;
     final trimmed = text.trim();
-    if (trimmed.isEmpty) return;
     final opensAt = ref.read(clockProvider)().add(delay);
     _append(
       await ref

@@ -13,6 +13,7 @@ abstract class OnboardingDraft with _$OnboardingDraft {
   const factory OnboardingDraft({
     required PlanetAppearance appearance,
     @Default('') String name,
+    @Default('') String displayName,
     @Default(false) bool isSubmitting,
   }) = _OnboardingDraft;
 
@@ -21,10 +22,19 @@ abstract class OnboardingDraft with _$OnboardingDraft {
   static const nameMinLength = 2;
   static const nameMaxLength = 20;
 
+  static const displayNameMaxLength = 40;
+
   bool get isNameValid {
     final length = name.trim().length;
     return length >= nameMinLength && length <= nameMaxLength;
   }
+
+  bool get isDisplayNameValid {
+    final length = displayName.trim().length;
+    return length >= 1 && length <= displayNameMaxLength;
+  }
+
+  bool get canSubmit => isNameValid && isDisplayNameValid && !isSubmitting;
 }
 
 @riverpod
@@ -37,7 +47,6 @@ class OnboardingController extends _$OnboardingController {
         type: PlanetType.ocean,
         seed: seed,
         hue: 200,
-        moons: 1,
       ),
     );
   }
@@ -50,13 +59,20 @@ class OnboardingController extends _$OnboardingController {
 
   void setName(String name) => state = state.copyWith(name: name);
 
+  void setDisplayName(String value) =>
+      state = state.copyWith(displayName: value);
+
   Future<void> create() async {
-    if (!state.isNameValid || state.isSubmitting) return;
+    if (!state.canSubmit) return;
     state = state.copyWith(isSubmitting: true);
     try {
       await ref
           .read(planetRepositoryProvider)
-          .createPlanet(name: state.name.trim(), appearance: state.appearance);
+          .createPlanet(
+            displayName: state.displayName.trim(),
+            name: state.name.trim(),
+            appearance: state.appearance,
+          );
       // Роутер увидит, что планета есть, и откроет систему.
       ref.invalidate(hasPlanetProvider);
     } finally {

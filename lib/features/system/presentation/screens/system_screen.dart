@@ -10,7 +10,7 @@ import 'package:orbitly/core/utils/clock.dart';
 import 'package:orbitly/core/utils/l10n.dart';
 import 'package:orbitly/core/widgets/async_view.dart';
 import 'package:orbitly/core/widgets/content_viewer.dart';
-import 'package:orbitly/core/widgets/planet_view.dart';
+import 'package:orbitly/core/widgets/planet_disc.dart';
 import 'package:orbitly/features/planet/domain/entities/my_planet.dart';
 import 'package:orbitly/features/planet/presentation/controllers/my_planet_controller.dart';
 import 'package:orbitly/features/system/presentation/controllers/system_controller.dart';
@@ -226,20 +226,7 @@ class _LevelChip extends ConsumerWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // Планета без колец и полей — только диск.
-                  ClipOval(
-                    child: SizedBox.square(
-                      dimension: _planetIcon,
-                      child: OverflowBox(
-                        maxWidth: _planetIcon * 1.7,
-                        maxHeight: _planetIcon * 1.7,
-                        child: PlanetView(
-                          appearance: me.appearance,
-                          size: _planetIcon * 1.7,
-                        ),
-                      ),
-                    ),
-                  ),
+                  PlanetDisc(appearance: me.appearance, diameter: _planetIcon),
                   const SizedBox(width: AppSpacing.s),
                   Text(label, style: Theme.of(context).textTheme.labelMedium),
                 ],

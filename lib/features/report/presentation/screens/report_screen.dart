@@ -25,18 +25,22 @@ class ReportScreen extends ConsumerWidget {
           if (report.closer.isEmpty && report.drifting.isEmpty) {
             return Center(child: Text(l10n.reportEmpty));
           }
-          return ListView(
-            padding: const EdgeInsets.symmetric(vertical: AppSpacing.s),
-            children: [
-              if (report.closer.isNotEmpty) ...[
-                _SectionTitle('🚀 ${l10n.reportCloser}'),
-                for (final entry in report.closer) _EntryTile(entry),
+          return RefreshIndicator(
+            onRefresh: () => ref.refresh(weeklyReportProvider.future),
+            child: ListView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              padding: const EdgeInsets.symmetric(vertical: AppSpacing.s),
+              children: [
+                if (report.closer.isNotEmpty) ...[
+                  _SectionTitle('🚀 ${l10n.reportCloser}'),
+                  for (final entry in report.closer) _EntryTile(entry),
+                ],
+                if (report.drifting.isNotEmpty) ...[
+                  _SectionTitle('🌌 ${l10n.reportDrifting}'),
+                  for (final entry in report.drifting) _EntryTile(entry),
+                ],
               ],
-              if (report.drifting.isNotEmpty) ...[
-                _SectionTitle('🌌 ${l10n.reportDrifting}'),
-                for (final entry in report.drifting) _EntryTile(entry),
-              ],
-            ],
+            ),
           );
         },
       ),

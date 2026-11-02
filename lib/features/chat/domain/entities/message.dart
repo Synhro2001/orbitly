@@ -20,12 +20,14 @@ sealed class Message with _$Message {
   }) = SnapMessage;
 
   /// Капсула времени: послание, которое откроется только в [opensAt].
+  /// [text] — `null`, пока капсула запечатана: сервер не отдаёт текст
+  /// получателю раньше срока, так что подсмотреть его нельзя.
   const factory Message.capsule({
     required String id,
     required bool isMine,
     required DateTime sentAt,
     required DateTime opensAt,
-    required String text,
+    String? text,
   }) = CapsuleMessage;
 }
 

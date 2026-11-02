@@ -7,12 +7,19 @@ part 'planet_appearance_model.g.dart';
 @freezed
 abstract class PlanetAppearanceModel with _$PlanetAppearanceModel {
   const factory PlanetAppearanceModel({
-    required PlanetType type,
+    // Неизвестный тип (новая версия сервера) не ломает список друзей.
+    @JsonKey(unknownEnumValue: PlanetType.ocean) required PlanetType type,
     required int seed,
     required double hue,
     @Default(0) int moons,
     @Default(false) bool hasRings,
-    @Default(false) bool glows,
+    @JsonKey(unknownEnumValue: GlowStyle.none)
+    @Default(GlowStyle.none)
+    GlowStyle glow,
+    @JsonKey(unknownEnumValue: MoonSkin.plain)
+    @Default(MoonSkin.plain)
+    MoonSkin moonSkin,
+    @Default(false) bool hasCometTrail,
   }) = _PlanetAppearanceModel;
 
   factory PlanetAppearanceModel.fromJson(Map<String, Object?> json) =>
@@ -25,7 +32,9 @@ abstract class PlanetAppearanceModel with _$PlanetAppearanceModel {
         hue: e.hue,
         moons: e.moons,
         hasRings: e.hasRings,
-        glows: e.glows,
+        glow: e.glow,
+        moonSkin: e.moonSkin,
+        hasCometTrail: e.hasCometTrail,
       );
 }
 
@@ -36,6 +45,8 @@ extension PlanetAppearanceModelX on PlanetAppearanceModel {
     hue: hue,
     moons: moons,
     hasRings: hasRings,
-    glows: glows,
+    glow: glow,
+    moonSkin: moonSkin,
+    hasCometTrail: hasCometTrail,
   );
 }

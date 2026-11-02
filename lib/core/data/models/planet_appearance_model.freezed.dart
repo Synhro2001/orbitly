@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$PlanetAppearanceModel {
 
- PlanetType get type; int get seed; double get hue; int get moons; bool get hasRings; bool get glows;
+@JsonKey(unknownEnumValue: PlanetType.ocean) PlanetType get type; int get seed; double get hue; int get moons; bool get hasRings;@JsonKey(unknownEnumValue: GlowStyle.none) GlowStyle get glow;@JsonKey(unknownEnumValue: MoonSkin.plain) MoonSkin get moonSkin; bool get hasCometTrail;
 /// Create a copy of PlanetAppearanceModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -30,20 +30,20 @@ $PlanetAppearanceModelCopyWith<PlanetAppearanceModel> get copyWith => _$PlanetAp
 @override
 bool operator ==(Object other) {
   final _this = this as PlanetAppearanceModel;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PlanetAppearanceModel&&(identical(other.type, _this.type) || other.type == _this.type)&&(identical(other.seed, _this.seed) || other.seed == _this.seed)&&(identical(other.hue, _this.hue) || other.hue == _this.hue)&&(identical(other.moons, _this.moons) || other.moons == _this.moons)&&(identical(other.hasRings, _this.hasRings) || other.hasRings == _this.hasRings)&&(identical(other.glows, _this.glows) || other.glows == _this.glows));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PlanetAppearanceModel&&(identical(other.type, _this.type) || other.type == _this.type)&&(identical(other.seed, _this.seed) || other.seed == _this.seed)&&(identical(other.hue, _this.hue) || other.hue == _this.hue)&&(identical(other.moons, _this.moons) || other.moons == _this.moons)&&(identical(other.hasRings, _this.hasRings) || other.hasRings == _this.hasRings)&&(identical(other.glow, _this.glow) || other.glow == _this.glow)&&(identical(other.moonSkin, _this.moonSkin) || other.moonSkin == _this.moonSkin)&&(identical(other.hasCometTrail, _this.hasCometTrail) || other.hasCometTrail == _this.hasCometTrail));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as PlanetAppearanceModel;
-  return Object.hash(runtimeType,_this.type,_this.seed,_this.hue,_this.moons,_this.hasRings,_this.glows);
+  return Object.hash(runtimeType,_this.type,_this.seed,_this.hue,_this.moons,_this.hasRings,_this.glow,_this.moonSkin,_this.hasCometTrail);
 }
 
 @override
 String toString() {
   final _this = this as PlanetAppearanceModel;
-  return 'PlanetAppearanceModel(type: ${_this.type}, seed: ${_this.seed}, hue: ${_this.hue}, moons: ${_this.moons}, hasRings: ${_this.hasRings}, glows: ${_this.glows})';
+  return 'PlanetAppearanceModel(type: ${_this.type}, seed: ${_this.seed}, hue: ${_this.hue}, moons: ${_this.moons}, hasRings: ${_this.hasRings}, glow: ${_this.glow}, moonSkin: ${_this.moonSkin}, hasCometTrail: ${_this.hasCometTrail})';
 }
 
 
@@ -54,7 +54,7 @@ abstract mixin class $PlanetAppearanceModelCopyWith<$Res>  {
   factory $PlanetAppearanceModelCopyWith(PlanetAppearanceModel value, $Res Function(PlanetAppearanceModel) _then) = _$PlanetAppearanceModelCopyWithImpl;
 @useResult
 $Res call({
- PlanetType type, int seed, double hue, int moons, bool hasRings, bool glows
+@JsonKey(unknownEnumValue: PlanetType.ocean) PlanetType type, int seed, double hue, int moons, bool hasRings,@JsonKey(unknownEnumValue: GlowStyle.none) GlowStyle glow,@JsonKey(unknownEnumValue: MoonSkin.plain) MoonSkin moonSkin, bool hasCometTrail
 });
 
 
@@ -71,14 +71,16 @@ class _$PlanetAppearanceModelCopyWithImpl<$Res>
 
 /// Create a copy of PlanetAppearanceModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? type = null,Object? seed = null,Object? hue = null,Object? moons = null,Object? hasRings = null,Object? glows = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? type = null,Object? seed = null,Object? hue = null,Object? moons = null,Object? hasRings = null,Object? glow = null,Object? moonSkin = null,Object? hasCometTrail = null,}) {
   return _then(PlanetAppearanceModel(
 type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as PlanetType,seed: null == seed ? _self.seed : seed // ignore: cast_nullable_to_non_nullable
 as int,hue: null == hue ? _self.hue : hue // ignore: cast_nullable_to_non_nullable
 as double,moons: null == moons ? _self.moons : moons // ignore: cast_nullable_to_non_nullable
 as int,hasRings: null == hasRings ? _self.hasRings : hasRings // ignore: cast_nullable_to_non_nullable
-as bool,glows: null == glows ? _self.glows : glows // ignore: cast_nullable_to_non_nullable
+as bool,glow: null == glow ? _self.glow : glow // ignore: cast_nullable_to_non_nullable
+as GlowStyle,moonSkin: null == moonSkin ? _self.moonSkin : moonSkin // ignore: cast_nullable_to_non_nullable
+as MoonSkin,hasCometTrail: null == hasCometTrail ? _self.hasCometTrail : hasCometTrail // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }
@@ -164,10 +166,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( PlanetType type,  int seed,  double hue,  int moons,  bool hasRings,  bool glows)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(unknownEnumValue: PlanetType.ocean)  PlanetType type,  int seed,  double hue,  int moons,  bool hasRings, @JsonKey(unknownEnumValue: GlowStyle.none)  GlowStyle glow, @JsonKey(unknownEnumValue: MoonSkin.plain)  MoonSkin moonSkin,  bool hasCometTrail)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _PlanetAppearanceModel() when $default != null:
-return $default(_that.type,_that.seed,_that.hue,_that.moons,_that.hasRings,_that.glows);case _:
+return $default(_that.type,_that.seed,_that.hue,_that.moons,_that.hasRings,_that.glow,_that.moonSkin,_that.hasCometTrail);case _:
   return orElse();
 
 }
@@ -185,10 +187,10 @@ return $default(_that.type,_that.seed,_that.hue,_that.moons,_that.hasRings,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( PlanetType type,  int seed,  double hue,  int moons,  bool hasRings,  bool glows)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(unknownEnumValue: PlanetType.ocean)  PlanetType type,  int seed,  double hue,  int moons,  bool hasRings, @JsonKey(unknownEnumValue: GlowStyle.none)  GlowStyle glow, @JsonKey(unknownEnumValue: MoonSkin.plain)  MoonSkin moonSkin,  bool hasCometTrail)  $default,) {final _that = this;
 switch (_that) {
 case _PlanetAppearanceModel():
-return $default(_that.type,_that.seed,_that.hue,_that.moons,_that.hasRings,_that.glows);case _:
+return $default(_that.type,_that.seed,_that.hue,_that.moons,_that.hasRings,_that.glow,_that.moonSkin,_that.hasCometTrail);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -205,10 +207,10 @@ return $default(_that.type,_that.seed,_that.hue,_that.moons,_that.hasRings,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( PlanetType type,  int seed,  double hue,  int moons,  bool hasRings,  bool glows)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(unknownEnumValue: PlanetType.ocean)  PlanetType type,  int seed,  double hue,  int moons,  bool hasRings, @JsonKey(unknownEnumValue: GlowStyle.none)  GlowStyle glow, @JsonKey(unknownEnumValue: MoonSkin.plain)  MoonSkin moonSkin,  bool hasCometTrail)?  $default,) {final _that = this;
 switch (_that) {
 case _PlanetAppearanceModel() when $default != null:
-return $default(_that.type,_that.seed,_that.hue,_that.moons,_that.hasRings,_that.glows);case _:
+return $default(_that.type,_that.seed,_that.hue,_that.moons,_that.hasRings,_that.glow,_that.moonSkin,_that.hasCometTrail);case _:
   return null;
 
 }
@@ -220,15 +222,17 @@ return $default(_that.type,_that.seed,_that.hue,_that.moons,_that.hasRings,_that
 @JsonSerializable()
 
 class _PlanetAppearanceModel implements PlanetAppearanceModel {
-  const _PlanetAppearanceModel({required this.type, required this.seed, required this.hue, this.moons = 0, this.hasRings = false, this.glows = false});
+  const _PlanetAppearanceModel({@JsonKey(unknownEnumValue: PlanetType.ocean) required this.type, required this.seed, required this.hue, this.moons = 0, this.hasRings = false, @JsonKey(unknownEnumValue: GlowStyle.none) this.glow = GlowStyle.none, @JsonKey(unknownEnumValue: MoonSkin.plain) this.moonSkin = MoonSkin.plain, this.hasCometTrail = false});
   factory _PlanetAppearanceModel.fromJson(Map<String, dynamic> json) => _$PlanetAppearanceModelFromJson(json);
 
-@override final  PlanetType type;
+@override@JsonKey(unknownEnumValue: PlanetType.ocean) final  PlanetType type;
 @override final  int seed;
 @override final  double hue;
 @override@JsonKey() final  int moons;
 @override@JsonKey() final  bool hasRings;
-@override@JsonKey() final  bool glows;
+@override@JsonKey(unknownEnumValue: GlowStyle.none) final  GlowStyle glow;
+@override@JsonKey(unknownEnumValue: MoonSkin.plain) final  MoonSkin moonSkin;
+@override@JsonKey() final  bool hasCometTrail;
 
 /// Create a copy of PlanetAppearanceModel
 /// with the given fields replaced by the non-null parameter values.
@@ -243,18 +247,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PlanetAppearanceModel&&(identical(other.type, type) || other.type == type)&&(identical(other.seed, seed) || other.seed == seed)&&(identical(other.hue, hue) || other.hue == hue)&&(identical(other.moons, moons) || other.moons == moons)&&(identical(other.hasRings, hasRings) || other.hasRings == hasRings)&&(identical(other.glows, glows) || other.glows == glows));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PlanetAppearanceModel&&(identical(other.type, type) || other.type == type)&&(identical(other.seed, seed) || other.seed == seed)&&(identical(other.hue, hue) || other.hue == hue)&&(identical(other.moons, moons) || other.moons == moons)&&(identical(other.hasRings, hasRings) || other.hasRings == hasRings)&&(identical(other.glow, glow) || other.glow == glow)&&(identical(other.moonSkin, moonSkin) || other.moonSkin == moonSkin)&&(identical(other.hasCometTrail, hasCometTrail) || other.hasCometTrail == hasCometTrail));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,type,seed,hue,moons,hasRings,glows);
+    return Object.hash(runtimeType,type,seed,hue,moons,hasRings,glow,moonSkin,hasCometTrail);
 }
 
 @override
 String toString() {
-    return 'PlanetAppearanceModel(type: $type, seed: $seed, hue: $hue, moons: $moons, hasRings: $hasRings, glows: $glows)';
+    return 'PlanetAppearanceModel(type: $type, seed: $seed, hue: $hue, moons: $moons, hasRings: $hasRings, glow: $glow, moonSkin: $moonSkin, hasCometTrail: $hasCometTrail)';
 }
 
 
@@ -265,7 +269,7 @@ abstract mixin class _$PlanetAppearanceModelCopyWith<$Res> implements $PlanetApp
   factory _$PlanetAppearanceModelCopyWith(_PlanetAppearanceModel value, $Res Function(_PlanetAppearanceModel) _then) = __$PlanetAppearanceModelCopyWithImpl;
 @override @useResult
 $Res call({
- PlanetType type, int seed, double hue, int moons, bool hasRings, bool glows
+@JsonKey(unknownEnumValue: PlanetType.ocean) PlanetType type, int seed, double hue, int moons, bool hasRings,@JsonKey(unknownEnumValue: GlowStyle.none) GlowStyle glow,@JsonKey(unknownEnumValue: MoonSkin.plain) MoonSkin moonSkin, bool hasCometTrail
 });
 
 
@@ -282,14 +286,16 @@ class __$PlanetAppearanceModelCopyWithImpl<$Res>
 
 /// Create a copy of PlanetAppearanceModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? type = null,Object? seed = null,Object? hue = null,Object? moons = null,Object? hasRings = null,Object? glows = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? type = null,Object? seed = null,Object? hue = null,Object? moons = null,Object? hasRings = null,Object? glow = null,Object? moonSkin = null,Object? hasCometTrail = null,}) {
   return _then(_PlanetAppearanceModel(
 type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as PlanetType,seed: null == seed ? _self.seed : seed // ignore: cast_nullable_to_non_nullable
 as int,hue: null == hue ? _self.hue : hue // ignore: cast_nullable_to_non_nullable
 as double,moons: null == moons ? _self.moons : moons // ignore: cast_nullable_to_non_nullable
 as int,hasRings: null == hasRings ? _self.hasRings : hasRings // ignore: cast_nullable_to_non_nullable
-as bool,glows: null == glows ? _self.glows : glows // ignore: cast_nullable_to_non_nullable
+as bool,glow: null == glow ? _self.glow : glow // ignore: cast_nullable_to_non_nullable
+as GlowStyle,moonSkin: null == moonSkin ? _self.moonSkin : moonSkin // ignore: cast_nullable_to_non_nullable
+as MoonSkin,hasCometTrail: null == hasCometTrail ? _self.hasCometTrail : hasCometTrail // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }

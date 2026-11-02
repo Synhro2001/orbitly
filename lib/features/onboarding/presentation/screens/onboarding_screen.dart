@@ -45,7 +45,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 spacing: AppSpacing.s,
                 runSpacing: AppSpacing.s,
                 children: [
-                  for (final type in PlanetType.values)
+                  for (final type in PlanetType.base)
                     ChoiceChip(
                       label: Text(type.label(l10n)),
                       selected: draft.appearance.type == type,
@@ -74,13 +74,22 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   setState(() => _nameTouched = true);
                   controller.setName(value);
                 },
+              ),
+              _Label(l10n.onboardingDisplayNameLabel),
+              TextField(
+                key: const Key('onboarding-display-name'),
+                maxLength: OnboardingDraft.displayNameMaxLength,
+                textCapitalization: TextCapitalization.words,
+                decoration: InputDecoration(
+                  hintText: l10n.onboardingDisplayNameHint,
+                  counterText: '',
+                ),
+                onChanged: controller.setDisplayName,
                 onSubmitted: (_) => controller.create(),
               ),
               const SizedBox(height: AppSpacing.l),
               FilledButton(
-                onPressed: draft.isNameValid && !draft.isSubmitting
-                    ? controller.create
-                    : null,
+                onPressed: draft.canSubmit ? controller.create : null,
                 child: draft.isSubmitting
                     ? const SizedBox.square(
                         dimension: AppSpacing.l,

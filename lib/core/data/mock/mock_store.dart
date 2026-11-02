@@ -1,7 +1,9 @@
 // Фейковый бэкенд в памяти. Хранит данные в виде JSON, как их отдал бы
 // сервер, чтобы mock-репозитории проходили тот же путь
 // JSON → модель → сущность.
-// Удаляется целиком при подключении Supabase.
+// Работает при USE_MOCKS=true: для тестов и запуска без сети.
+
+import 'dart:async';
 
 typedef Json = Map<String, Object?>;
 
@@ -10,21 +12,24 @@ class MockStore {
     DateTime? now,
     this.latency = const Duration(milliseconds: 350),
     bool withPlanet = false,
+    this.withNewUnlock = false,
   }) : _now = now ?? DateTime.now() {
     _seed();
     if (withPlanet) {
-      createPlanet('Орбитания', {
-        'type': 'ocean',
-        'seed': 7,
-        'hue': 200.0,
-        'moons': 1,
-        'has_rings': true,
-        'glows': true,
-      });
+      createPlanet('Орбитания', {'type': 'ocean', 'seed': 7, 'hue': 200.0});
+      // Спутник и кольца — уже надетые награды.
+      equipped.addAll(['moon_first', 'ring_belt']);
     }
   }
 
   final DateTime _now;
+
+  /// «Хранитель времени» открыт, но ещё не показан — при запуске будет
+  /// анимация открытия. В тестах выключено, чтобы она не закрывала экран.
+  final bool withNewUnlock;
+
+  /// Новые открытия — как Realtime в Supabase.
+  final unlocks = StreamController<String>.broadcast();
 
   /// Имитация сети.
   final Duration latency;
@@ -35,7 +40,15 @@ class MockStore {
   final friends = <Json>[];
   final messages = <String, List<Json>>{};
   final sharedTrophyIds = <String, List<String>>{};
-  final awards = <Json>[];
+
+  /// Каталог достижений с моим прогрессом — в том виде, как его отдаёт
+  /// get_my_achievements() в Supabase.
+  final achievements = <Json>[];
+  final cosmetics = <Json>[];
+
+  /// Открытая косметика и что из неё надето.
+  final owned = <String>{};
+  final equipped = <String>{};
   final moments = <Json>[];
   final incomingRequests = <Json>[];
   final directory = <Json>[];
@@ -53,7 +66,14 @@ class MockStore {
       (m) =>
           m['kind'] == 'snap' && m['is_mine'] == false && m['opened'] == false,
     );
-    return {...friend, 'has_unread_snaps': hasUnread};
+    return {
+      ...friend,
+      'has_unread_snaps': hasUnread,
+      'trophies': [
+        for (final id in sharedTrophyIds[id] ?? const <String>[])
+          achievements.firstWhere((a) => a['id'] == id),
+      ],
+    };
   }
 
   List<Json> friendsJson() => [
@@ -62,12 +82,12 @@ class MockStore {
 
   void createPlanet(String name, Json appearance) {
     myPlanet = {
-      'name': name,
+      'planet_name': name,
       'handle': 'me',
       'appearance': appearance,
+      // Уровень 4 = 450…800 опыта (level = floor(sqrt(xp / 50)) + 1).
       'level': 4,
-      'xp': 340,
-      'xp_for_next_level': 500,
+      'xp': 600,
       'best_streak_days': 27,
       'mood': 'happy',
     };
@@ -108,7 +128,7 @@ class MockStore {
           'hue': hue,
           'moons': moons,
           'has_rings': rings,
-          'glows': glows,
+          'glow': glows ? 'soft' : 'none',
         },
         'closeness': closeness,
         'streak_days': streakDays[i],
@@ -122,9 +142,9 @@ class MockStore {
       });
       messages[id] = _conversation(i, unreadSnap: const {0, 3, 7}.contains(i));
       sharedTrophyIds[id] = [
-        'award-0',
-        if (closeness > 50) 'award-1',
-        if (closeness > 75) 'award-3',
+        'first_contact',
+        if (closeness > 50) 'week_on_orbit',
+        if (closeness > 75) 'month_together',
       ];
     }
 
@@ -144,25 +164,7 @@ class MockStore {
       });
     }
 
-    const awardSeed = [
-      ('Первый контакт', '🛰️', true),
-      ('Неделя на орбите', '🔥', true),
-      ('Ночная смена', '🌙', true),
-      ('Лучшие друзья', '💫', true),
-      ('Месяц без перерыва', '☄️', false),
-      ('Звёздный фотограф', '📸', false),
-      ('Душа компании', '🪐', false),
-      ('Сто снапов', '💯', false),
-      ('Сверхновая', '🌟', false),
-    ];
-    for (final (i, a) in awardSeed.indexed) {
-      awards.add({
-        'id': 'award-$i',
-        'title': a.$1,
-        'emoji': a.$2,
-        'unlocked': a.$3,
-      });
-    }
+    _seedAchievements();
 
     incomingRequests.addAll([
       {
@@ -217,6 +219,18 @@ class MockStore {
     });
   }
 
+  /// Открыть достижение «как сервер»: прогресс, награда, событие Realtime.
+  void unlock(String achievementId) {
+    final row = achievements.firstWhere((a) => a['id'] == achievementId);
+    if (row['unlocked_at'] != null) return;
+    row
+      ..['unlocked_at'] = DateTime.now().toIso8601String()
+      ..['seen_at'] = null
+      ..['progress'] = row['target'];
+    if (row['reward_cosmetic_id'] case final String reward) owned.add(reward);
+    unlocks.add(achievementId);
+  }
+
   /// Подсказки «с чего начать» — только для тех, с кем общение затихает:
   /// друг в списке отдаляющихся или с последнего обмена прошли сутки.
   List<String> conversationStarters(String friendId) {
@@ -235,6 +249,273 @@ class MockStore {
       'Что было самым странным на этой неделе?',
       'Созвонимся на выходных?',
     ];
+  }
+
+  void _seedAchievements() {
+    cosmetics.addAll([
+      for (final (id, title, kind, rarity, params) in const [
+        ('moon_first', 'Первый спутник', 'moon', 'common', {'moons': 1}),
+        (
+          'moon_hourglass',
+          'Песочные часы',
+          'moon',
+          'common',
+          {'moons': 1, 'skin': 'hourglass'},
+        ),
+        ('moon_twin', 'Двойник', 'moon', 'rare', {'moons': 2}),
+        ('ring_belt', 'Пояс астероидов', 'ring', 'common', <String, Object?>{}),
+        (
+          'planet_ring_world',
+          'Кольцевой мир',
+          'planet_type',
+          'rare',
+          {'type': 'ringWorld'},
+        ),
+        (
+          'planet_nebula',
+          'Туманность',
+          'planet_type',
+          'rare',
+          {'type': 'nebula'},
+        ),
+      ])
+        {
+          'id': id,
+          'title': title,
+          'kind': kind,
+          'rarity': rarity,
+          'params': params,
+        },
+    ]);
+
+    // (id, название, описание, значок, категория, редкость, прогресс, цель,
+    //  открыто дней назад или null, секрет, pair, награда)
+    const catalog = [
+      (
+        'first_contact',
+        'Первый контакт',
+        'Найди первого друга на орбите',
+        '🛰️',
+        'friendship',
+        'common',
+        1,
+        1,
+        60,
+        false,
+        false,
+        'moon_first',
+      ),
+      (
+        'week_on_orbit',
+        'Неделя на орбите',
+        'Серия 7 дней с одним другом',
+        '🔥',
+        'streak',
+        'common',
+        7,
+        7,
+        40,
+        false,
+        false,
+        'ring_belt',
+      ),
+      (
+        'time_keeper',
+        'Хранитель времени',
+        'Открой первую капсулу времени',
+        '⏳',
+        'collection',
+        'common',
+        1,
+        1,
+        0,
+        false,
+        false,
+        'moon_hourglass',
+      ),
+      (
+        'month_together',
+        'Месяц вместе',
+        'Серия 30 дней с другом — общий спутник вам обоим',
+        '🌗',
+        'streak',
+        'rare',
+        30,
+        30,
+        18,
+        false,
+        true,
+        'moon_twin',
+      ),
+      (
+        'constellation',
+        'Созвездие',
+        'Пять друзей на орбите',
+        '✨',
+        'friendship',
+        'rare',
+        5,
+        5,
+        30,
+        false,
+        false,
+        'planet_ring_world',
+      ),
+      (
+        'own_galaxy',
+        'Своя галактика',
+        'Десять друзей на орбите',
+        '🌌',
+        'friendship',
+        'rare',
+        10,
+        10,
+        9,
+        false,
+        false,
+        'planet_nebula',
+      ),
+      (
+        'comeback',
+        'Возвращение',
+        'Вернись из тени и продолжи серию',
+        '🌘',
+        'streak',
+        'rare',
+        0,
+        1,
+        null,
+        false,
+        false,
+        'glow_aurora',
+      ),
+      (
+        'polar_night',
+        'Полярная ночь',
+        'Три раза вернись из тени, не потеряв серию',
+        '🌠',
+        'collection',
+        'rare',
+        0,
+        3,
+        null,
+        false,
+        false,
+        'planet_aurora',
+      ),
+      (
+        'double_star',
+        'Двойная звезда',
+        'Близость 90+ с другом 30 дней подряд',
+        '💫',
+        'closeness',
+        'epic',
+        24,
+        30,
+        null,
+        false,
+        true,
+        'glow_double_star',
+      ),
+      (
+        'hundred_days',
+        'Сто дней',
+        'Серия 100 дней',
+        '☄️',
+        'streak',
+        'epic',
+        48,
+        100,
+        null,
+        false,
+        false,
+        'trail_comet',
+      ),
+      (
+        'secret_01',
+        null,
+        null,
+        null,
+        'secret',
+        'epic',
+        null,
+        null,
+        null,
+        true,
+        true,
+        null,
+      ),
+      (
+        'secret_02',
+        null,
+        null,
+        null,
+        'secret',
+        'epic',
+        null,
+        null,
+        null,
+        true,
+        false,
+        null,
+      ),
+      (
+        'year_of_friendship',
+        'Год дружбы',
+        'Серия 365 дней',
+        '👑',
+        'streak',
+        'legendary',
+        48,
+        365,
+        null,
+        false,
+        false,
+        'planet_solar_corona',
+      ),
+    ];
+    for (final (
+          id,
+          title,
+          description,
+          icon,
+          category,
+          rarity,
+          progress,
+          target,
+          unlockedDaysAgo,
+          hidden,
+          pair,
+          reward,
+        )
+        in catalog) {
+      final rewardTitle = cosmetics
+          .where((c) => c['id'] == reward)
+          .map((c) => c['title'])
+          .firstOrNull;
+      achievements.add({
+        'id': id,
+        'title': title,
+        'description': description,
+        'icon': icon,
+        'category': category,
+        'rarity': rarity,
+        'hidden': hidden,
+        'pair': pair,
+        'progress': progress,
+        'target': target,
+        'unlocked_at': unlockedDaysAgo == null
+            ? null
+            : _ago(Duration(days: unlockedDaysAgo)),
+        'seen_at':
+            unlockedDaysAgo == null || (id == 'time_keeper' && withNewUnlock)
+            ? null
+            : _ago(Duration(days: unlockedDaysAgo)),
+        'reward_cosmetic_id': reward,
+        'reward_title': rewardTitle,
+      });
+      if (unlockedDaysAgo != null && reward != null) owned.add(reward);
+    }
   }
 
   Json _user(String id, String name, String handle, String type, double hue) =>

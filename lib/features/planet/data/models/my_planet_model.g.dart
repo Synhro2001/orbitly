@@ -10,15 +10,15 @@ part of 'my_planet_model.dart';
 
 _MyPlanetModel _$MyPlanetModelFromJson(Map<String, dynamic> json) =>
     _MyPlanetModel(
-      name: json['name'] as String,
+      planetName: json['planet_name'] as String,
+      handle: json['handle'] as String,
       appearance: PlanetAppearanceModel.fromJson(
         json['appearance'] as Map<String, dynamic>,
       ),
       level: (json['level'] as num).toInt(),
       xp: (json['xp'] as num).toInt(),
-      xpForNextLevel: (json['xp_for_next_level'] as num).toInt(),
       bestStreakDays: (json['best_streak_days'] as num).toInt(),
-      mood: $enumDecode(_$MoodEnumMap, json['mood']),
+      mood: $enumDecode(_$MoodEnumMap, json['mood'], unknownValue: Mood.calm),
       shadowFrom: json['shadow_from'] == null
           ? null
           : DateTime.parse(json['shadow_from'] as String),
@@ -29,11 +29,11 @@ _MyPlanetModel _$MyPlanetModelFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$MyPlanetModelToJson(_MyPlanetModel instance) =>
     <String, dynamic>{
-      'name': instance.name,
+      'planet_name': instance.planetName,
+      'handle': instance.handle,
       'appearance': instance.appearance.toJson(),
       'level': instance.level,
       'xp': instance.xp,
-      'xp_for_next_level': instance.xpForNextLevel,
       'best_streak_days': instance.bestStreakDays,
       'mood': _$MoodEnumMap[instance.mood]!,
       'shadow_from': instance.shadowFrom?.toIso8601String(),

@@ -10,6 +10,46 @@ part of 'chat_controller.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// От кого только что пришло сообщение (Realtime). Подписка привязана к
+/// пользователю и переподключается после повторного входа.
+
+@ProviderFor(incomingMessages)
+final incomingMessagesProvider = IncomingMessagesProvider._();
+
+/// От кого только что пришло сообщение (Realtime). Подписка привязана к
+/// пользователю и переподключается после повторного входа.
+
+final class IncomingMessagesProvider
+    extends $FunctionalProvider<AsyncValue<String>, String, Stream<String>>
+    with $FutureModifier<String>, $StreamProvider<String> {
+  /// От кого только что пришло сообщение (Realtime). Подписка привязана к
+  /// пользователю и переподключается после повторного входа.
+  IncomingMessagesProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'incomingMessagesProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$incomingMessagesHash();
+
+  @$internal
+  @override
+  $StreamProviderElement<String> $createElement($ProviderPointer pointer) =>
+      $StreamProviderElement(pointer);
+
+  @override
+  Stream<String> create(Ref ref) {
+    return incomingMessages(ref);
+  }
+}
+
+String _$incomingMessagesHash() => r'f2121897ecf2f601dc8ec70017f7a2cee1aa4dbe';
 
 @ProviderFor(chats)
 final chatsProvider = ChatsProvider._();
@@ -50,7 +90,7 @@ final class ChatsProvider
   }
 }
 
-String _$chatsHash() => r'1275409f18af9e1ca58e97f4a72da3c0f7ec7cd9';
+String _$chatsHash() => r'29f1980a6d684b5f6265a8502cceb05e7c74be00';
 
 @ProviderFor(ChatController)
 final chatControllerProvider = ChatControllerFamily._();
@@ -93,7 +133,7 @@ final class ChatControllerProvider
   }
 }
 
-String _$chatControllerHash() => r'c342f4a359cfd0ddefc11a0ab54fbd6fdedccee2';
+String _$chatControllerHash() => r'6d31b7e2cd3ac6f8423cbfd3384e0a667dbab3a9';
 
 final class ChatControllerFamily extends $Family
     with

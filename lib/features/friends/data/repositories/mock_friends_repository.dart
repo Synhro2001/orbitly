@@ -1,6 +1,8 @@
 import 'package:orbitly/core/data/mock/mock_store.dart';
+import 'package:orbitly/core/data/parse.dart';
 import 'package:orbitly/features/friends/data/models/friends_models.dart';
 import 'package:orbitly/features/friends/domain/entities/friends_entities.dart';
+import 'package:orbitly/features/friends/domain/friend_search_rules.dart';
 import 'package:orbitly/features/friends/domain/repositories/friends_repository.dart';
 
 class MockFriendsRepository implements FriendsRepository {
@@ -11,13 +13,13 @@ class MockFriendsRepository implements FriendsRepository {
   @override
   Future<List<UserSummary>> searchByHandle(String query) async {
     final q = query.trim().toLowerCase().replaceFirst('@', '');
+    if (q.length > FriendSearchRules.maxQueryLength) return const [];
     if (q.isEmpty) return const [];
     await _store.delay();
-    return [
-      for (final json in _store.directory)
-        if ((json['handle']! as String).contains(q))
-          UserSummaryModel.fromJson(json).toEntity(),
-    ];
+    return parseValid(
+      _store.directory.where((json) => '${json['handle']}'.contains(q)),
+      (json) => UserSummaryModel.fromJson(json).toEntity(),
+    );
   }
 
   @override
@@ -26,10 +28,10 @@ class MockFriendsRepository implements FriendsRepository {
   @override
   Future<List<FriendRequest>> getIncomingRequests() async {
     await _store.delay();
-    return [
-      for (final json in _store.incomingRequests)
-        FriendRequestModel.fromJson(json).toEntity(),
-    ];
+    return parseValid(
+      _store.incomingRequests,
+      (json) => FriendRequestModel.fromJson(json).toEntity(),
+    );
   }
 
   @override

@@ -3,6 +3,10 @@ import 'package:go_router/go_router.dart';
 import 'package:orbitly/app/home_shell.dart';
 import 'package:orbitly/app/routes.dart';
 import 'package:orbitly/app/splash_screen.dart';
+import 'package:orbitly/features/achievements/presentation/screens/collection_screen.dart';
+import 'package:orbitly/features/achievements/presentation/screens/wardrobe_screen.dart';
+import 'package:orbitly/features/auth/presentation/controllers/auth_controller.dart';
+import 'package:orbitly/features/auth/presentation/screens/login_screen.dart';
 import 'package:orbitly/features/camera/presentation/screens/camera_screen.dart';
 import 'package:orbitly/features/chat/presentation/screens/chat_screen.dart';
 import 'package:orbitly/features/chat/presentation/screens/chats_screen.dart';
@@ -18,19 +22,34 @@ part 'router.g.dart';
 
 @Riverpod(keepAlive: true)
 GoRouter router(Ref ref) {
-  // Роутер пересчитывает redirect, когда меняется «есть ли планета».
+  // Роутер пересчитывает redirect, когда меняется вход или «есть ли
+  // планета».
+  final signedIn = ValueNotifier<AsyncValue<bool>>(const AsyncLoading());
   final hasPlanet = ValueNotifier<AsyncValue<bool>>(const AsyncLoading());
-  ref.listen(
-    hasPlanetProvider,
-    (_, next) => hasPlanet.value = next,
-    fireImmediately: true,
-  );
+  ref
+    ..listen(
+      signedInProvider,
+      (_, next) => signedIn.value = next,
+      fireImmediately: true,
+    )
+    ..listen(
+      hasPlanetProvider,
+      (_, next) => hasPlanet.value = next,
+      fireImmediately: true,
+    );
 
   final router = GoRouter(
     initialLocation: AppRoutes.system,
-    refreshListenable: hasPlanet,
+    refreshListenable: Listenable.merge([signedIn, hasPlanet]),
     redirect: (context, state) {
       final location = state.matchedLocation;
+      final auth = signedIn.value;
+      if (auth is! AsyncData<bool>) {
+        return location == AppRoutes.splash ? null : AppRoutes.splash;
+      }
+      if (!auth.value) {
+        return location == AppRoutes.login ? null : AppRoutes.login;
+      }
       final status = hasPlanet.value;
       if (status is! AsyncData<bool>) {
         return location == AppRoutes.splash ? null : AppRoutes.splash;
@@ -38,13 +57,24 @@ GoRouter router(Ref ref) {
       if (!status.value) {
         return location == AppRoutes.onboarding ? null : AppRoutes.onboarding;
       }
-      if (location == AppRoutes.splash || location == AppRoutes.onboarding) {
+      if (location == AppRoutes.splash ||
+          location == AppRoutes.onboarding ||
+          location == AppRoutes.login) {
         return AppRoutes.system;
       }
       return null;
     },
     routes: [
       GoRoute(path: AppRoutes.splash, builder: (_, _) => const SplashScreen()),
+      GoRoute(path: AppRoutes.login, builder: (_, _) => const LoginScreen()),
+      GoRoute(
+        path: AppRoutes.collection,
+        builder: (_, _) => const CollectionScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.wardrobe,
+        builder: (_, _) => const WardrobeScreen(),
+      ),
       GoRoute(
         path: AppRoutes.onboarding,
         builder: (_, _) => const OnboardingScreen(),
@@ -106,6 +136,7 @@ GoRouter router(Ref ref) {
   ref.onDispose(() {
     router.dispose();
     hasPlanet.dispose();
+    signedIn.dispose();
   });
   return router;
 }
