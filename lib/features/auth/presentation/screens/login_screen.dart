@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:orbitly/app/env.dart';
 import 'package:orbitly/core/theme/app_colors.dart';
 import 'package:orbitly/core/theme/app_dimens.dart';
 import 'package:orbitly/core/utils/l10n.dart';
@@ -57,6 +59,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     : l10n.loginSubtitle,
                 style: textTheme.bodyMedium,
               ),
+              // Debug builds against a local Supabase: the email never reaches
+              // a real inbox, so say where the code is.
+              if (state.codeSent && kDebugMode && Env.isLocalSupabase) ...[
+                const SizedBox(height: AppSpacing.s),
+                Text(l10n.loginLocalMailHint, style: textTheme.bodySmall),
+              ],
               const SizedBox(height: AppSpacing.xl),
               if (!state.codeSent)
                 TextField(

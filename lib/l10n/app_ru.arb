@@ -83,6 +83,7 @@
   "loginInvalidEmail": "Похоже, в адресе ошибка",
   "loginInvalidCode": "Код не подошёл — проверь письмо",
   "loginSendError": "Не получилось отправить код. Попробуй ещё раз",
+  "loginLocalMailHint": "Локальный сервер не шлёт настоящие письма. Код — в Mailpit на компьютере: http://127.0.0.1:54324",
 
   "collectionTitle": "Коллекция",
   "collectionProgress": "Открыто {unlocked} из {total}",

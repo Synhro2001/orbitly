@@ -490,6 +490,12 @@ abstract class AppLocalizations {
   /// **'Не получилось отправить код. Попробуй ещё раз'**
   String get loginSendError;
 
+  /// No description provided for @loginLocalMailHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Локальный сервер не шлёт настоящие письма. Код — в Mailpit на компьютере: http://127.0.0.1:54324'**
+  String get loginLocalMailHint;
+
   /// No description provided for @collectionTitle.
   ///
   /// In ru, this message translates to:

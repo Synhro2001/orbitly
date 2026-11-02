@@ -235,6 +235,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String get loginSendError => 'Не получилось отправить код. Попробуй ещё раз';
 
   @override
+  String get loginLocalMailHint =>
+      'Локальный сервер не шлёт настоящие письма. Код — в Mailpit на компьютере: http://127.0.0.1:54324';
+
+  @override
   String get collectionTitle => 'Коллекция';
 
   @override
