@@ -33,7 +33,9 @@ use.
 | Achievements, cosmetics, unlock animation | Supabase + Realtime |
 | Chat: text and time capsules | Supabase + Realtime |
 | Snaps (sending), moments, camera | UI only; needs media storage |
-| Languages (Russian, English), settings, sign-out | Done |
+| Languages (Russian, English) | Done |
+| Settings: privacy, block and report, profile and handle, disappearing messages, wellbeing, account deletion and data export | Supabase |
+| Notification settings | Saved; hidden until push exists |
 | Weekly report | Mock data |
 
 ## Running
@@ -145,7 +147,7 @@ lib/
     onboarding/   planet creation
     planet/       my planet: level, XP, mood, shadow
     report/       weekly report
-    settings/     language and account settings
+    settings/     settings screens, account and device settings
     system/       main screen: orbits, moments
   l10n/          UI strings: app_ru.arb (template), app_en.arb
 supabase/
@@ -191,6 +193,11 @@ widgets, Riverpod controllers).
   the account metadata, and the sign-in email uses it. To add a language:
   add `app_<code>.arb`, add the key to every catalogue row, add a branch to
   `supabase/templates/otp.html`, and add it to `AppLanguage`.
+- **Privacy by default.** Every setting starts at the most private sensible
+  choice and is enforced in SQL (search, requests, invites, mood, blocks,
+  disappearing messages), not only hidden in the UI. Friends read each
+  other's profiles only through server functions. Account deletion waits
+  7 days and runs in pg_cron inside the database; no service role key.
 - **Fonts:** Golos Text and Unbounded (OFL), in `assets/fonts`.
 - **Analysis:** `very_good_analysis` with two rules off: `public_member_api_docs`
   (this is an app, not a package) and the new constructor syntax rule
