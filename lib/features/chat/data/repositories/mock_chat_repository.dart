@@ -2,6 +2,7 @@ import 'package:orbitly/core/data/mock/mock_store.dart';
 import 'package:orbitly/core/data/models/award_model.dart';
 import 'package:orbitly/core/data/models/friend_model.dart';
 import 'package:orbitly/core/data/parse.dart';
+import 'package:orbitly/features/chat/data/conversation_starters.dart';
 import 'package:orbitly/features/chat/data/models/message_model.dart';
 import 'package:orbitly/features/chat/domain/entities/chat.dart';
 import 'package:orbitly/features/chat/domain/entities/message.dart';
@@ -36,27 +37,25 @@ class MockChatRepository implements ChatRepository {
         lastMessage: _messages(json['id']! as String).lastOrNull,
       ),
     );
-    final epoch = DateTime.fromMillisecondsSinceEpoch(0);
-    return chats..sort(
-      (a, b) => (b.lastMessage?.sentAt ?? epoch).compareTo(
-        a.lastMessage?.sentAt ?? epoch,
-      ),
-    );
+    return newestFirst(chats);
   }
 
   @override
   Future<ChatThread> getThread(String friendId) async {
     await _store.delay();
     final trophyIds = _store.sharedTrophyIds[friendId] ?? const [];
+    final friend = FriendModel.fromJson(_store.friendJson(friendId)).toEntity();
     return ChatThread(
-      friend: FriendModel.fromJson(_store.friendJson(friendId)).toEntity(),
+      friend: friend,
       messages: _messages(friendId),
       sharedTrophies: [
         for (final json in _store.achievements)
           if (trophyIds.contains(json['id']))
             AwardModel.fromJson(json).toEntity(),
       ],
-      conversationStarters: _store.conversationStarters(friendId),
+      conversationStarters: _store.isDrifting(friendId)
+          ? conversationStarters(friend.name)
+          : const [],
     );
   }
 

@@ -1,4 +1,5 @@
 import 'package:orbitly/core/data/parse.dart';
+import 'package:orbitly/core/data/supabase/rpc_rows.dart';
 import 'package:orbitly/features/friends/data/models/friends_models.dart';
 import 'package:orbitly/features/friends/domain/entities/friends_entities.dart';
 import 'package:orbitly/features/friends/domain/friend_search_rules.dart';
@@ -18,12 +19,12 @@ class SupabaseFriendsRepository implements FriendsRepository {
     if (q.isEmpty || q.length > FriendSearchRules.maxQueryLength) {
       return const [];
     }
-    final rows = await _client.rpc<List<dynamic>>(
+    final rows = await _client.rpcRows(
       'search_profiles',
       params: {'p_query': q},
     );
     return parseValid(
-      rows.cast<Map<String, dynamic>>(),
+      rows,
       (row) =>
           UserSummaryModel.fromJson({...row, 'name': row['display_name']})
               .toEntity(),
@@ -36,9 +37,8 @@ class SupabaseFriendsRepository implements FriendsRepository {
 
   @override
   Future<List<FriendRequest>> getIncomingRequests() async {
-    final rows = await _client.rpc<List<dynamic>>('get_incoming_requests');
     return parseValid(
-      rows.cast<Map<String, dynamic>>(),
+      await _client.rpcRows('get_incoming_requests'),
       (row) => FriendRequestModel.fromJson({
         'id': row['user_id'],
         'user': {

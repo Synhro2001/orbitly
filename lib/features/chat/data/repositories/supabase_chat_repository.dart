@@ -1,12 +1,13 @@
 import 'dart:async';
 
 import 'package:orbitly/core/data/parse.dart';
-import 'package:orbitly/core/domain/entities/friend.dart';
+import 'package:orbitly/core/data/supabase/friend_rows.dart';
+import 'package:orbitly/core/data/supabase/rpc_rows.dart';
+import 'package:orbitly/features/chat/data/conversation_starters.dart';
 import 'package:orbitly/features/chat/data/models/message_model.dart';
 import 'package:orbitly/features/chat/domain/entities/chat.dart';
 import 'package:orbitly/features/chat/domain/entities/message.dart';
 import 'package:orbitly/features/chat/domain/repositories/chat_repository.dart';
-import 'package:orbitly/features/system/data/repositories/supabase_system_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 /// Чат через функции на сервере. Таблицу messages клиент не читает: сервер
@@ -19,43 +20,31 @@ class SupabaseChatRepository implements ChatRepository {
   /// Через сколько тишины подсказываем, с чего начать разговор.
   static const _quietFor = Duration(hours: 24);
 
-  Future<List<Friend>> _friends() async {
-    final rows = await _client.rpc<List<dynamic>>('get_my_friends');
-    return parseValid(rows.cast<Map<String, dynamic>>(), friendFromRpcRow);
-  }
-
   @override
   Future<List<ChatPreview>> getChats() async {
     final (friends, previews) = await (
-      _friends(),
-      _client.rpc<List<dynamic>>('get_chat_previews'),
+      fetchMyFriends(_client),
+      _client.rpcRows('get_chat_previews'),
     ).wait;
     final lastByFriend = <String, Message>{
-      for (final row in previews.cast<Map<String, dynamic>>())
-        if ((row['friend_id'], _tryMessage(row))
-            case (final String id, final Message message))
+      for (final row in previews)
+        if ((row['friend_id'], _tryMessage(row)) case (
+          final String id,
+          final Message message,
+        ))
           id: message,
     };
-    final chats = [
+    return newestFirst([
       for (final friend in friends)
         ChatPreview(friend: friend, lastMessage: lastByFriend[friend.id]),
-    ];
-    final epoch = DateTime.fromMillisecondsSinceEpoch(0);
-    return chats..sort(
-      (a, b) => (b.lastMessage?.sentAt ?? epoch).compareTo(
-        a.lastMessage?.sentAt ?? epoch,
-      ),
-    );
+    ]);
   }
 
   @override
   Future<ChatThread> getThread(String friendId) async {
     final (friends, rows) = await (
-      _friends(),
-      _client.rpc<List<dynamic>>(
-        'get_thread',
-        params: {'p_friend': friendId},
-      ),
+      fetchMyFriends(_client),
+      _client.rpcRows('get_thread', params: {'p_friend': friendId}),
     ).wait;
     final friend = friends.firstWhere(
       (f) => f.id == friendId,
@@ -67,13 +56,15 @@ class SupabaseChatRepository implements ChatRepository {
       friend: friend,
       messages: messagesFromRpcRows(rows),
       sharedTrophies: friend.sharedTrophies,
-      conversationStarters: quiet ? _starters(friend.name) : const [],
+      conversationStarters: quiet
+          ? conversationStarters(friend.name)
+          : const [],
     );
   }
 
   @override
   Future<Message> sendText(String friendId, String text) async {
-    final rows = await _client.rpc<List<dynamic>>(
+    final rows = await _client.rpcRows(
       'send_message',
       params: {'p_to': friendId, 'p_text': text},
     );
@@ -86,7 +77,7 @@ class SupabaseChatRepository implements ChatRepository {
     String text, {
     required DateTime opensAt,
   }) async {
-    final rows = await _client.rpc<List<dynamic>>(
+    final rows = await _client.rpcRows(
       'send_capsule',
       params: {
         'p_to': friendId,
@@ -131,19 +122,11 @@ class SupabaseChatRepository implements ChatRepository {
     controller.onCancel = () => _client.removeChannel(channel);
     return controller.stream;
   }
-
-  /// Подсказки, пока их не генерирует сервер. Те же, что в моках.
-  static List<String> _starters(String name) => [
-    'Привет, $name! Давно не болтали — как ты?',
-    'Сегодня кое-что напомнило мне о тебе 👀',
-    'Что было самым странным на этой неделе?',
-    'Созвонимся на выходных?',
-  ];
 }
 
 /// Строки get_thread / send_message → сообщения. Битые пропускаются.
-List<Message> messagesFromRpcRows(List<dynamic> rows) => [
-  for (final row in rows.cast<Map<String, dynamic>>()) ?_tryMessage(row),
+List<Message> messagesFromRpcRows(List<Map<String, dynamic>> rows) => [
+  for (final row in rows) ?_tryMessage(row),
 ];
 
 Message? _tryMessage(Map<String, dynamic> row) => parseValid([

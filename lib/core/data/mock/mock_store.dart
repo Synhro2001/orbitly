@@ -233,22 +233,15 @@ class MockStore {
 
   /// Подсказки «с чего начать» — только для тех, с кем общение затихает:
   /// друг в списке отдаляющихся или с последнего обмена прошли сутки.
-  List<String> conversationStarters(String friendId) {
+  /// The friend is drifting away or has been quiet for a day — the chat
+  /// suggests how to restart the conversation.
+  bool isDrifting(String friendId) {
     final friend = friends.firstWhere((f) => f['id'] == friendId);
     final last = DateTime.parse(friend['last_exchange_at']! as String);
     final drifting = (weeklyReport['drifting'] ?? const <Json>[]).any(
       (row) => row['friend_id'] == friendId,
     );
-    if (!drifting && _now.difference(last) < const Duration(hours: 24)) {
-      return const [];
-    }
-    final name = friend['name']! as String;
-    return [
-      'Привет, $name! Давно не болтали — как ты?',
-      'Сегодня кое-что напомнило мне о тебе 👀',
-      'Что было самым странным на этой неделе?',
-      'Созвонимся на выходных?',
-    ];
+    return drifting || _now.difference(last) >= const Duration(hours: 24);
   }
 
   void _seedAchievements() {

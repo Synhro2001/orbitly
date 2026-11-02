@@ -26,3 +26,13 @@ abstract class ChatPreview with _$ChatPreview {
     required Message? lastMessage,
   }) = _ChatPreview;
 }
+
+/// Chats with the freshest message first; chats without messages go last.
+List<ChatPreview> newestFirst(List<ChatPreview> chats) {
+  final epoch = DateTime.fromMillisecondsSinceEpoch(0);
+  return chats..sort(
+    (a, b) => (b.lastMessage?.sentAt ?? epoch).compareTo(
+      a.lastMessage?.sentAt ?? epoch,
+    ),
+  );
+}

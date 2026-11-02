@@ -56,9 +56,8 @@ class _ChatComposerState extends State<ChatComposer> {
           ..text = text
           ..selection = TextSelection.collapsed(offset: text.length);
       }
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text(context.l10n.chatSendFailed)));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(context.l10n.chatSendFailed)));
     }
   }
 

@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:orbitly/core/data/models/award_model.dart';
 import 'package:orbitly/core/data/models/cosmetic_model.dart';
+import 'package:orbitly/core/data/supabase/friend_rows.dart';
 import 'package:orbitly/core/domain/entities/award.dart';
 import 'package:orbitly/core/domain/entities/cosmetic.dart';
 import 'package:orbitly/core/domain/entities/planet_appearance.dart';
-import 'package:orbitly/features/system/data/repositories/supabase_system_repository.dart';
 
 /// Строки — в том виде, как их отдают функции Supabase.
 void main() {
