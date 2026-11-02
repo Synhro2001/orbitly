@@ -63,6 +63,9 @@ class MockStore {
   final muted = <String>{};
   final reports = <Json>[];
 
+  /// Chat rules for disappearing messages; the seeded chats keep history.
+  final retention = <String, String>{};
+
   /// The code in my invite link.
   String inviteCode = 'my-invite';
 
@@ -82,6 +85,7 @@ class MockStore {
       ...friend,
       'has_unread_snaps': hasUnread,
       'muted': muted.contains(id),
+      'message_retention': retention[id] ?? 'keep',
       'trophies': [
         for (final id in sharedTrophyIds[id] ?? const <String>[])
           achievements.firstWhere((a) => a['id'] == id),

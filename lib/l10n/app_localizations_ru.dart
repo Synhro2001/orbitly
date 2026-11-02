@@ -865,4 +865,30 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get profileNewLinkBody =>
       'Старая ссылка и QR-код перестанут работать. Это полезно, если ссылка попала не к тем людям.';
+
+  @override
+  String get chatRetention => 'Исчезающие сообщения';
+
+  @override
+  String get chatRetentionHint =>
+      'Правило общее для вас двоих и действует для новых сообщений. Капсулы не исчезают, пока не откроются.';
+
+  @override
+  String get retentionAfterSeen => 'Исчезают после прочтения';
+
+  @override
+  String get retentionDay => 'Исчезают через 24 часа';
+
+  @override
+  String get retentionKeep => 'Хранятся';
+
+  @override
+  String get retentionNoteAfterSeen =>
+      '⏱ Сообщения исчезают через час после прочтения';
+
+  @override
+  String get retentionNoteDay => '⏱ Сообщения исчезают через 24 часа';
+
+  @override
+  String get retentionNoteKeep => 'Сообщения хранятся';
 }

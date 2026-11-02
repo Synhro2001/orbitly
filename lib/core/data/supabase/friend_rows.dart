@@ -5,6 +5,7 @@ import 'package:orbitly/core/data/models/shadow_json.dart';
 import 'package:orbitly/core/data/parse.dart';
 import 'package:orbitly/core/data/supabase/rpc_rows.dart';
 import 'package:orbitly/core/domain/entities/friend.dart';
+import 'package:orbitly/core/domain/entities/message_retention.dart';
 import 'package:orbitly/core/domain/entities/mood.dart';
 import 'package:orbitly/core/domain/entities/streak.dart';
 import 'package:orbitly/core/domain/usecases/apply_cosmetics.dart';
@@ -51,6 +52,9 @@ Friend friendFromRpcRow(Map<String, Object?> row) {
     mood: Mood.values.asNameMap()[row['mood']],
     hasUnreadSnaps: row['has_unread_snaps'] == true,
     muted: row['muted'] == true,
+    messageRetention:
+        MessageRetention.values.asNameMap()[row['message_retention']] ??
+        MessageRetention.keep,
     shadow: shadowFromFields(
       DateTime.tryParse('${row['shadow_from']}'),
       DateTime.tryParse('${row['shadow_until']}'),

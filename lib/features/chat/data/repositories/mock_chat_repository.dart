@@ -2,6 +2,7 @@ import 'package:orbitly/core/data/mock/mock_store.dart';
 import 'package:orbitly/core/data/models/award_model.dart';
 import 'package:orbitly/core/data/models/friend_model.dart';
 import 'package:orbitly/core/data/parse.dart';
+import 'package:orbitly/core/domain/entities/message_retention.dart';
 import 'package:orbitly/features/chat/data/models/message_model.dart';
 import 'package:orbitly/features/chat/domain/entities/chat.dart';
 import 'package:orbitly/features/chat/domain/entities/message.dart';
@@ -96,6 +97,12 @@ class MockChatRepository implements ChatRepository {
     };
     (_store.messages[friendId] ??= []).add(json);
     return MessageModel.fromJson(json).toEntity();
+  }
+
+  @override
+  Future<void> setRetention(String friendId, MessageRetention retention) async {
+    await _store.delay();
+    _store.retention[friendId] = retention.name;
   }
 
   /// Mocks have no one on the other side, so no new messages arrive.

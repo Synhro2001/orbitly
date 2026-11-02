@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:orbitly/core/domain/entities/award.dart';
+import 'package:orbitly/core/domain/entities/message_retention.dart';
 import 'package:orbitly/core/domain/entities/mood.dart';
 import 'package:orbitly/core/domain/entities/planet_appearance.dart';
 import 'package:orbitly/core/domain/entities/shadow.dart';
@@ -31,6 +32,9 @@ abstract class Friend with _$Friend {
 
     /// In my quiet orbit: no notifications and no glow.
     @Default(false) bool muted,
+
+    /// Our chat's rule for disappearing messages.
+    @Default(MessageRetention.keep) MessageRetention messageRetention,
   }) = _Friend;
 
   const Friend._();

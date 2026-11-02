@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:orbitly/core/data/parse.dart';
 import 'package:orbitly/core/data/supabase/friend_rows.dart';
 import 'package:orbitly/core/data/supabase/rpc_rows.dart';
+import 'package:orbitly/core/domain/entities/message_retention.dart';
 import 'package:orbitly/features/chat/data/models/message_model.dart';
 import 'package:orbitly/features/chat/domain/entities/chat.dart';
 import 'package:orbitly/features/chat/domain/entities/message.dart';
@@ -88,6 +89,13 @@ class SupabaseChatRepository implements ChatRepository {
   @override
   Future<void> openSnap(String friendId, String messageId) =>
       _client.rpc<void>('open_snap', params: {'p_message': messageId});
+
+  @override
+  Future<void> setRetention(String friendId, MessageRetention retention) =>
+      _client.rpc<void>(
+        'set_chat_retention',
+        params: {'p_friend': friendId, 'p_retention': retention.name},
+      );
 
   /// Realtime: the server logs one row in `interactions` per message. It has
   /// no text, only who wrote to whom; RLS lets through only my rows. On a

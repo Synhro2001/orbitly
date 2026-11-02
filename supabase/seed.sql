@@ -107,6 +107,10 @@ update public.user_cosmetics
   where user_id = 'a0000000-0000-0000-0000-000000000001'
     and cosmetic_id = 'moon_first';
 
+-- The test chats keep their history: with the default rule ("gone after
+-- 24 hours") the older messages below would be hidden at once.
+update public.friendships set message_retention = 'keep';
+
 -- Message texts. The messages table does not update closeness (the
 -- interactions log above does), so this is only what the chat shows.
 insert into public.messages (from_user, to_user, kind, body, opens_at, opened_at, created_at) values

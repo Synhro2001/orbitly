@@ -1609,6 +1609,54 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Старая ссылка и QR-код перестанут работать. Это полезно, если ссылка попала не к тем людям.'**
   String get profileNewLinkBody;
+
+  /// No description provided for @chatRetention.
+  ///
+  /// In ru, this message translates to:
+  /// **'Исчезающие сообщения'**
+  String get chatRetention;
+
+  /// No description provided for @chatRetentionHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Правило общее для вас двоих и действует для новых сообщений. Капсулы не исчезают, пока не откроются.'**
+  String get chatRetentionHint;
+
+  /// No description provided for @retentionAfterSeen.
+  ///
+  /// In ru, this message translates to:
+  /// **'Исчезают после прочтения'**
+  String get retentionAfterSeen;
+
+  /// No description provided for @retentionDay.
+  ///
+  /// In ru, this message translates to:
+  /// **'Исчезают через 24 часа'**
+  String get retentionDay;
+
+  /// No description provided for @retentionKeep.
+  ///
+  /// In ru, this message translates to:
+  /// **'Хранятся'**
+  String get retentionKeep;
+
+  /// No description provided for @retentionNoteAfterSeen.
+  ///
+  /// In ru, this message translates to:
+  /// **'⏱ Сообщения исчезают через час после прочтения'**
+  String get retentionNoteAfterSeen;
+
+  /// No description provided for @retentionNoteDay.
+  ///
+  /// In ru, this message translates to:
+  /// **'⏱ Сообщения исчезают через 24 часа'**
+  String get retentionNoteDay;
+
+  /// No description provided for @retentionNoteKeep.
+  ///
+  /// In ru, this message translates to:
+  /// **'Сообщения хранятся'**
+  String get retentionNoteKeep;
 }
 
 class _AppLocalizationsDelegate

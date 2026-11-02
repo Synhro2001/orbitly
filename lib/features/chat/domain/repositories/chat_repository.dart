@@ -1,3 +1,4 @@
+import 'package:orbitly/core/domain/entities/message_retention.dart';
 import 'package:orbitly/features/chat/domain/entities/chat.dart';
 import 'package:orbitly/features/chat/domain/entities/message.dart';
 
@@ -16,6 +17,9 @@ abstract interface class ChatRepository {
     String text, {
     required DateTime opensAt,
   });
+
+  /// The chat's rule for disappearing messages; applies to new messages.
+  Future<void> setRetention(String friendId, MessageRetention retention);
 
   /// Ids of friends who have just sent a message. No text: it is a signal
   /// to reload the conversation.

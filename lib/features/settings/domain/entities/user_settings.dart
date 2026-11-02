@@ -1,4 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:orbitly/core/domain/entities/message_retention.dart';
+
+export 'package:orbitly/core/domain/entities/message_retention.dart';
 
 part 'user_settings.freezed.dart';
 
@@ -11,10 +14,6 @@ enum MomentsAudience { closeOrbit, friends, custom }
 enum MoodAudience { closeOrbit, friends, nobody }
 
 enum NotificationPreview { full, sender, none }
-
-/// What happens to chat messages: gone an hour after the friend has seen
-/// them, gone after 24 hours, or kept.
-enum MessageRetention { afterSeen, day, keep }
 
 /// Account settings, kept on the server so they apply on every device. The
 /// defaults match the database: the most private sensible choice.

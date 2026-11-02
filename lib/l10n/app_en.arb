@@ -269,5 +269,13 @@
   "profileInviteShareText": "Join me on Orbitly: {link}",
   "profileNewLink": "New link",
   "profileNewLinkConfirm": "Make a new link?",
-  "profileNewLinkBody": "The old link and QR code will stop working. Useful if the link reached the wrong people."
+  "profileNewLinkBody": "The old link and QR code will stop working. Useful if the link reached the wrong people.",
+  "chatRetention": "Disappearing messages",
+  "chatRetentionHint": "The rule is shared by you both and applies to new messages. Capsules don't disappear before they open.",
+  "retentionAfterSeen": "Disappear after being read",
+  "retentionDay": "Disappear after 24 hours",
+  "retentionKeep": "Kept",
+  "retentionNoteAfterSeen": "⏱ Messages disappear an hour after being read",
+  "retentionNoteDay": "⏱ Messages disappear after 24 hours",
+  "retentionNoteKeep": "Messages are kept"
 }

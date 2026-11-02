@@ -296,5 +296,13 @@
   "@profileInviteShareText": {"placeholders": {"link": {"type": "String"}}},
   "profileNewLink": "Новая ссылка",
   "profileNewLinkConfirm": "Сделать новую ссылку?",
-  "profileNewLinkBody": "Старая ссылка и QR-код перестанут работать. Это полезно, если ссылка попала не к тем людям."
+  "profileNewLinkBody": "Старая ссылка и QR-код перестанут работать. Это полезно, если ссылка попала не к тем людям.",
+  "chatRetention": "Исчезающие сообщения",
+  "chatRetentionHint": "Правило общее для вас двоих и действует для новых сообщений. Капсулы не исчезают, пока не откроются.",
+  "retentionAfterSeen": "Исчезают после прочтения",
+  "retentionDay": "Исчезают через 24 часа",
+  "retentionKeep": "Хранятся",
+  "retentionNoteAfterSeen": "⏱ Сообщения исчезают через час после прочтения",
+  "retentionNoteDay": "⏱ Сообщения исчезают через 24 часа",
+  "retentionNoteKeep": "Сообщения хранятся"
 }
