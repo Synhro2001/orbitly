@@ -18,10 +18,13 @@ import 'package:orbitly/features/planet/presentation/screens/my_planet_screen.da
 import 'package:orbitly/features/report/presentation/screens/report_screen.dart';
 import 'package:orbitly/features/settings/presentation/screens/account_settings_screen.dart';
 import 'package:orbitly/features/settings/presentation/screens/appearance_settings_screen.dart';
+import 'package:orbitly/features/settings/presentation/screens/chats_media_settings_screen.dart';
+import 'package:orbitly/features/settings/presentation/screens/notification_settings_screen.dart';
 import 'package:orbitly/features/settings/presentation/screens/people_list_screen.dart';
 import 'package:orbitly/features/settings/presentation/screens/privacy_settings_screen.dart';
 import 'package:orbitly/features/settings/presentation/screens/profile_settings_screen.dart';
 import 'package:orbitly/features/settings/presentation/screens/settings_screen.dart';
+import 'package:orbitly/features/settings/presentation/screens/wellbeing_settings_screen.dart';
 import 'package:orbitly/features/system/presentation/screens/system_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -167,6 +170,18 @@ GoRouter router(Ref ref) {
                 builder: (_, _) => const QuietOrbitScreen(),
               ),
             ],
+          ),
+          GoRoute(
+            path: 'notifications',
+            builder: (_, _) => const NotificationSettingsScreen(),
+          ),
+          GoRoute(
+            path: 'wellbeing',
+            builder: (_, _) => const WellbeingSettingsScreen(),
+          ),
+          GoRoute(
+            path: 'chats',
+            builder: (_, _) => const ChatsMediaSettingsScreen(),
           ),
           GoRoute(
             path: 'account',

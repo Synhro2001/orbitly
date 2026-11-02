@@ -891,4 +891,172 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get retentionNoteKeep => 'Сообщения хранятся';
+
+  @override
+  String systemLevelOnly(int level) {
+    return 'Ур. $level';
+  }
+
+  @override
+  String minutes(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count минуты',
+      many: '$count минут',
+      few: '$count минуты',
+      one: '$count минута',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get settingsWellbeing => 'Благополучие';
+
+  @override
+  String get wellbeingShadowHint =>
+      'Уйти в тень на день, три или неделю — серии замрут';
+
+  @override
+  String get wellbeingHideStreaks => 'Серии без давления';
+
+  @override
+  String get wellbeingHideStreaksHint =>
+      'Скрыть счётчики серий и «трещины». Серии продолжают считаться для достижений.';
+
+  @override
+  String get wellbeingLimit => 'Мягкий лимит времени';
+
+  @override
+  String get wellbeingLimitHint =>
+      'Напомню, сколько ты сегодня в Orbitly. Это напоминание, а не блокировка.';
+
+  @override
+  String get wellbeingLimitOff => 'Выключен';
+
+  @override
+  String wellbeingReminder(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other:
+          'Ты сегодня в Orbitly уже $count минуты. Может, пора отдохнуть? 🌙',
+      many: 'Ты сегодня в Orbitly уже $count минут. Может, пора отдохнуть? 🌙',
+      few: 'Ты сегодня в Orbitly уже $count минуты. Может, пора отдохнуть? 🌙',
+      one: 'Ты сегодня в Orbitly уже $count минуту. Может, пора отдохнуть? 🌙',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get settingsNotifications => 'Уведомления';
+
+  @override
+  String get notificationsWhat => 'О чём сообщать';
+
+  @override
+  String get notifyMessages => 'Сообщения и снапы';
+
+  @override
+  String get notifyRequests => 'Заявки в друзья';
+
+  @override
+  String get notifyCapsules => 'Капсула открылась';
+
+  @override
+  String get notifyShadow => 'Друг вышел из тени';
+
+  @override
+  String get notifyStreaks => 'Серия под угрозой';
+
+  @override
+  String get notifyAchievements => 'Новое достижение';
+
+  @override
+  String get notifyWeeklyReport => 'Отчёт недели';
+
+  @override
+  String get notificationsPreview => 'Что показывать в уведомлении';
+
+  @override
+  String get previewFull => 'Текст сообщения';
+
+  @override
+  String get previewSender => 'Только «Новое сообщение от Ани»';
+
+  @override
+  String get previewNone => 'Только «Новое сообщение»';
+
+  @override
+  String get notificationsQuietHours => 'Тихие часы';
+
+  @override
+  String get notificationsQuietHoursHint =>
+      'В это время уведомления копятся и приходят утром одной сводкой';
+
+  @override
+  String notificationsQuietFromTo(String from, String to) {
+    return 'С $from до $to';
+  }
+
+  @override
+  String get notificationsSystem => 'Звук и вибрация';
+
+  @override
+  String get notificationsSystemHint =>
+      'Открыть системные настройки уведомлений';
+
+  @override
+  String get settingsChatsMedia => 'Чаты и медиа';
+
+  @override
+  String get chatsDefaultRetention => 'Сообщения в новых чатах';
+
+  @override
+  String get chatsDefaultRetentionHint =>
+      'Для чата берётся более строгое правило из двух; в чате его можно поменять';
+
+  @override
+  String get chatsMedia => 'Медиа';
+
+  @override
+  String get mediaAutoload => 'Автозагрузка фото и видео';
+
+  @override
+  String get mediaAlways => 'Всегда';
+
+  @override
+  String get mediaWifi => 'Только по Wi-Fi';
+
+  @override
+  String get mediaNever => 'Никогда';
+
+  @override
+  String get dataSaver => 'Экономия трафика';
+
+  @override
+  String get dataSaverHint => 'Отправлять фото и видео в меньшем размере';
+
+  @override
+  String get clearCache => 'Очистить кэш';
+
+  @override
+  String cacheSize(String size) {
+    return 'Кэш: $size МБ';
+  }
+
+  @override
+  String get cacheCleared => 'Кэш очищен';
+
+  @override
+  String get appearanceHaptics => 'Тактильный отклик';
+
+  @override
+  String get appearanceMotion => 'Анимации';
+
+  @override
+  String get appearanceMotionSystem => 'Как в системе';
+
+  @override
+  String get appearanceMotionReduced => 'Всегда меньше';
 }

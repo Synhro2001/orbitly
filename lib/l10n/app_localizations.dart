@@ -1657,6 +1657,276 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Сообщения хранятся'**
   String get retentionNoteKeep;
+
+  /// No description provided for @systemLevelOnly.
+  ///
+  /// In ru, this message translates to:
+  /// **'Ур. {level}'**
+  String systemLevelOnly(int level);
+
+  /// No description provided for @minutes.
+  ///
+  /// In ru, this message translates to:
+  /// **'{count, plural, one{{count} минута} few{{count} минуты} many{{count} минут} other{{count} минуты}}'**
+  String minutes(int count);
+
+  /// No description provided for @settingsWellbeing.
+  ///
+  /// In ru, this message translates to:
+  /// **'Благополучие'**
+  String get settingsWellbeing;
+
+  /// No description provided for @wellbeingShadowHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Уйти в тень на день, три или неделю — серии замрут'**
+  String get wellbeingShadowHint;
+
+  /// No description provided for @wellbeingHideStreaks.
+  ///
+  /// In ru, this message translates to:
+  /// **'Серии без давления'**
+  String get wellbeingHideStreaks;
+
+  /// No description provided for @wellbeingHideStreaksHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Скрыть счётчики серий и «трещины». Серии продолжают считаться для достижений.'**
+  String get wellbeingHideStreaksHint;
+
+  /// No description provided for @wellbeingLimit.
+  ///
+  /// In ru, this message translates to:
+  /// **'Мягкий лимит времени'**
+  String get wellbeingLimit;
+
+  /// No description provided for @wellbeingLimitHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Напомню, сколько ты сегодня в Orbitly. Это напоминание, а не блокировка.'**
+  String get wellbeingLimitHint;
+
+  /// No description provided for @wellbeingLimitOff.
+  ///
+  /// In ru, this message translates to:
+  /// **'Выключен'**
+  String get wellbeingLimitOff;
+
+  /// No description provided for @wellbeingReminder.
+  ///
+  /// In ru, this message translates to:
+  /// **'{count, plural, one{Ты сегодня в Orbitly уже {count} минуту. Может, пора отдохнуть? 🌙} few{Ты сегодня в Orbitly уже {count} минуты. Может, пора отдохнуть? 🌙} many{Ты сегодня в Orbitly уже {count} минут. Может, пора отдохнуть? 🌙} other{Ты сегодня в Orbitly уже {count} минуты. Может, пора отдохнуть? 🌙}}'**
+  String wellbeingReminder(int count);
+
+  /// No description provided for @settingsNotifications.
+  ///
+  /// In ru, this message translates to:
+  /// **'Уведомления'**
+  String get settingsNotifications;
+
+  /// No description provided for @notificationsWhat.
+  ///
+  /// In ru, this message translates to:
+  /// **'О чём сообщать'**
+  String get notificationsWhat;
+
+  /// No description provided for @notifyMessages.
+  ///
+  /// In ru, this message translates to:
+  /// **'Сообщения и снапы'**
+  String get notifyMessages;
+
+  /// No description provided for @notifyRequests.
+  ///
+  /// In ru, this message translates to:
+  /// **'Заявки в друзья'**
+  String get notifyRequests;
+
+  /// No description provided for @notifyCapsules.
+  ///
+  /// In ru, this message translates to:
+  /// **'Капсула открылась'**
+  String get notifyCapsules;
+
+  /// No description provided for @notifyShadow.
+  ///
+  /// In ru, this message translates to:
+  /// **'Друг вышел из тени'**
+  String get notifyShadow;
+
+  /// No description provided for @notifyStreaks.
+  ///
+  /// In ru, this message translates to:
+  /// **'Серия под угрозой'**
+  String get notifyStreaks;
+
+  /// No description provided for @notifyAchievements.
+  ///
+  /// In ru, this message translates to:
+  /// **'Новое достижение'**
+  String get notifyAchievements;
+
+  /// No description provided for @notifyWeeklyReport.
+  ///
+  /// In ru, this message translates to:
+  /// **'Отчёт недели'**
+  String get notifyWeeklyReport;
+
+  /// No description provided for @notificationsPreview.
+  ///
+  /// In ru, this message translates to:
+  /// **'Что показывать в уведомлении'**
+  String get notificationsPreview;
+
+  /// No description provided for @previewFull.
+  ///
+  /// In ru, this message translates to:
+  /// **'Текст сообщения'**
+  String get previewFull;
+
+  /// No description provided for @previewSender.
+  ///
+  /// In ru, this message translates to:
+  /// **'Только «Новое сообщение от Ани»'**
+  String get previewSender;
+
+  /// No description provided for @previewNone.
+  ///
+  /// In ru, this message translates to:
+  /// **'Только «Новое сообщение»'**
+  String get previewNone;
+
+  /// No description provided for @notificationsQuietHours.
+  ///
+  /// In ru, this message translates to:
+  /// **'Тихие часы'**
+  String get notificationsQuietHours;
+
+  /// No description provided for @notificationsQuietHoursHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'В это время уведомления копятся и приходят утром одной сводкой'**
+  String get notificationsQuietHoursHint;
+
+  /// No description provided for @notificationsQuietFromTo.
+  ///
+  /// In ru, this message translates to:
+  /// **'С {from} до {to}'**
+  String notificationsQuietFromTo(String from, String to);
+
+  /// No description provided for @notificationsSystem.
+  ///
+  /// In ru, this message translates to:
+  /// **'Звук и вибрация'**
+  String get notificationsSystem;
+
+  /// No description provided for @notificationsSystemHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Открыть системные настройки уведомлений'**
+  String get notificationsSystemHint;
+
+  /// No description provided for @settingsChatsMedia.
+  ///
+  /// In ru, this message translates to:
+  /// **'Чаты и медиа'**
+  String get settingsChatsMedia;
+
+  /// No description provided for @chatsDefaultRetention.
+  ///
+  /// In ru, this message translates to:
+  /// **'Сообщения в новых чатах'**
+  String get chatsDefaultRetention;
+
+  /// No description provided for @chatsDefaultRetentionHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Для чата берётся более строгое правило из двух; в чате его можно поменять'**
+  String get chatsDefaultRetentionHint;
+
+  /// No description provided for @chatsMedia.
+  ///
+  /// In ru, this message translates to:
+  /// **'Медиа'**
+  String get chatsMedia;
+
+  /// No description provided for @mediaAutoload.
+  ///
+  /// In ru, this message translates to:
+  /// **'Автозагрузка фото и видео'**
+  String get mediaAutoload;
+
+  /// No description provided for @mediaAlways.
+  ///
+  /// In ru, this message translates to:
+  /// **'Всегда'**
+  String get mediaAlways;
+
+  /// No description provided for @mediaWifi.
+  ///
+  /// In ru, this message translates to:
+  /// **'Только по Wi-Fi'**
+  String get mediaWifi;
+
+  /// No description provided for @mediaNever.
+  ///
+  /// In ru, this message translates to:
+  /// **'Никогда'**
+  String get mediaNever;
+
+  /// No description provided for @dataSaver.
+  ///
+  /// In ru, this message translates to:
+  /// **'Экономия трафика'**
+  String get dataSaver;
+
+  /// No description provided for @dataSaverHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Отправлять фото и видео в меньшем размере'**
+  String get dataSaverHint;
+
+  /// No description provided for @clearCache.
+  ///
+  /// In ru, this message translates to:
+  /// **'Очистить кэш'**
+  String get clearCache;
+
+  /// No description provided for @cacheSize.
+  ///
+  /// In ru, this message translates to:
+  /// **'Кэш: {size} МБ'**
+  String cacheSize(String size);
+
+  /// No description provided for @cacheCleared.
+  ///
+  /// In ru, this message translates to:
+  /// **'Кэш очищен'**
+  String get cacheCleared;
+
+  /// No description provided for @appearanceHaptics.
+  ///
+  /// In ru, this message translates to:
+  /// **'Тактильный отклик'**
+  String get appearanceHaptics;
+
+  /// No description provided for @appearanceMotion.
+  ///
+  /// In ru, this message translates to:
+  /// **'Анимации'**
+  String get appearanceMotion;
+
+  /// No description provided for @appearanceMotionSystem.
+  ///
+  /// In ru, this message translates to:
+  /// **'Как в системе'**
+  String get appearanceMotionSystem;
+
+  /// No description provided for @appearanceMotionReduced.
+  ///
+  /// In ru, this message translates to:
+  /// **'Всегда меньше'**
+  String get appearanceMotionReduced;
 }
 
 class _AppLocalizationsDelegate

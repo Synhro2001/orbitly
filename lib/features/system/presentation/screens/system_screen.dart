@@ -11,6 +11,7 @@ import 'package:orbitly/core/utils/l10n.dart';
 import 'package:orbitly/core/widgets/async_view.dart';
 import 'package:orbitly/core/widgets/content_viewer.dart';
 import 'package:orbitly/core/widgets/planet_disc.dart';
+import 'package:orbitly/core/widgets/streak_visibility.dart';
 import 'package:orbitly/features/planet/domain/entities/my_planet.dart';
 import 'package:orbitly/features/planet/presentation/controllers/my_planet_controller.dart';
 import 'package:orbitly/features/system/presentation/controllers/system_controller.dart';
@@ -208,6 +209,8 @@ class _LevelChip extends ConsumerWidget {
     final now = ref.watch(clockProvider)();
     final label = (me.shadow?.isActiveAt(now) ?? false)
         ? l10n.systemShadowChip
+        : StreakVisibility.hiddenOf(context)
+        ? l10n.systemLevelOnly(me.level)
         : l10n.systemLevelChip(me.level, me.bestStreakDays);
     return Semantics(
       button: true,

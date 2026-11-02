@@ -887,4 +887,167 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get retentionNoteKeep => 'Messages are kept';
+
+  @override
+  String systemLevelOnly(int level) {
+    return 'Lv. $level';
+  }
+
+  @override
+  String minutes(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count minutes',
+      one: '$count minute',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get settingsWellbeing => 'Wellbeing';
+
+  @override
+  String get wellbeingShadowHint =>
+      'Go into the shadow for a day, three or a week — streaks freeze';
+
+  @override
+  String get wellbeingHideStreaks => 'Streaks without pressure';
+
+  @override
+  String get wellbeingHideStreaksHint =>
+      'Hide streak counters and cracks. Streaks still count for achievements.';
+
+  @override
+  String get wellbeingLimit => 'Soft time limit';
+
+  @override
+  String get wellbeingLimitHint =>
+      'I\'ll remind you how long you\'ve been in Orbitly today. A reminder, not a lock.';
+
+  @override
+  String get wellbeingLimitOff => 'Off';
+
+  @override
+  String wellbeingReminder(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other:
+          'You\'ve spent $count minutes in Orbitly today. Time for a break? 🌙',
+      one: 'You\'ve spent $count minute in Orbitly today. Time for a break? 🌙',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get settingsNotifications => 'Notifications';
+
+  @override
+  String get notificationsWhat => 'Notify me about';
+
+  @override
+  String get notifyMessages => 'Messages and snaps';
+
+  @override
+  String get notifyRequests => 'Friend requests';
+
+  @override
+  String get notifyCapsules => 'A capsule opened';
+
+  @override
+  String get notifyShadow => 'A friend left the shadow';
+
+  @override
+  String get notifyStreaks => 'A streak at risk';
+
+  @override
+  String get notifyAchievements => 'New achievement';
+
+  @override
+  String get notifyWeeklyReport => 'Weekly report';
+
+  @override
+  String get notificationsPreview => 'What notifications show';
+
+  @override
+  String get previewFull => 'Message text';
+
+  @override
+  String get previewSender => 'Only “New message from Anya”';
+
+  @override
+  String get previewNone => 'Only “New message”';
+
+  @override
+  String get notificationsQuietHours => 'Quiet hours';
+
+  @override
+  String get notificationsQuietHoursHint =>
+      'Notifications wait and arrive in the morning as one summary';
+
+  @override
+  String notificationsQuietFromTo(String from, String to) {
+    return 'From $from to $to';
+  }
+
+  @override
+  String get notificationsSystem => 'Sound and vibration';
+
+  @override
+  String get notificationsSystemHint => 'Open system notification settings';
+
+  @override
+  String get settingsChatsMedia => 'Chats and media';
+
+  @override
+  String get chatsDefaultRetention => 'Messages in new chats';
+
+  @override
+  String get chatsDefaultRetentionHint =>
+      'A chat takes the stricter of both rules; it can be changed in the chat';
+
+  @override
+  String get chatsMedia => 'Media';
+
+  @override
+  String get mediaAutoload => 'Auto-download photos and videos';
+
+  @override
+  String get mediaAlways => 'Always';
+
+  @override
+  String get mediaWifi => 'Wi-Fi only';
+
+  @override
+  String get mediaNever => 'Never';
+
+  @override
+  String get dataSaver => 'Data saver';
+
+  @override
+  String get dataSaverHint => 'Send photos and videos at a smaller size';
+
+  @override
+  String get clearCache => 'Clear cache';
+
+  @override
+  String cacheSize(String size) {
+    return 'Cache: $size MB';
+  }
+
+  @override
+  String get cacheCleared => 'Cache cleared';
+
+  @override
+  String get appearanceHaptics => 'Haptics';
+
+  @override
+  String get appearanceMotion => 'Animations';
+
+  @override
+  String get appearanceMotionSystem => 'Same as the system';
+
+  @override
+  String get appearanceMotionReduced => 'Always fewer';
 }

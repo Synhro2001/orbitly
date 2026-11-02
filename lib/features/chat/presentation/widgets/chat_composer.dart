@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:orbitly/core/theme/app_colors.dart';
 import 'package:orbitly/core/theme/app_dimens.dart';
+import 'package:orbitly/core/utils/haptics.dart';
 import 'package:orbitly/core/utils/l10n.dart';
 import 'package:orbitly/features/chat/domain/message_rules.dart';
 
@@ -40,7 +40,7 @@ class _ChatComposerState extends State<ChatComposer> {
     final text = _controller.text;
     if (text.trim().isEmpty) return;
     _controller.clear();
-    unawaited(HapticFeedback.lightImpact());
+    unawaited(AppHaptics.light());
     await _deliver(text, () => widget.onSend(text));
   }
 
@@ -72,7 +72,7 @@ class _ChatComposerState extends State<ChatComposer> {
     );
     if (delay == null) return;
     _controller.clear();
-    unawaited(HapticFeedback.mediumImpact());
+    unawaited(AppHaptics.medium());
     await _deliver(text, () => widget.onSendCapsule(text, delay));
   }
 

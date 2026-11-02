@@ -1,13 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:orbitly/core/domain/entities/award.dart';
 import 'package:orbitly/core/domain/entities/cosmetic.dart';
 import 'package:orbitly/core/domain/usecases/apply_cosmetics.dart';
 import 'package:orbitly/core/theme/app_colors.dart';
 import 'package:orbitly/core/theme/app_dimens.dart';
+import 'package:orbitly/core/utils/haptics.dart';
 import 'package:orbitly/core/utils/l10n.dart';
 import 'package:orbitly/core/widgets/planet_view.dart';
 import 'package:orbitly/features/achievements/presentation/controllers/achievements_controller.dart';
@@ -66,7 +66,7 @@ class _UnlockCelebrationState extends ConsumerState<UnlockCelebration>
   @override
   void initState() {
     super.initState();
-    unawaited(HapticFeedback.heavyImpact());
+    unawaited(AppHaptics.heavy());
   }
 
   @override

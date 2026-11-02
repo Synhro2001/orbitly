@@ -34,6 +34,12 @@ class PlanetImageCache {
   final _images = <_Key, ui.Image>{};
   final _pending = <_Key, Future<ui.Image>>{};
 
+  /// Forget every image ("Clear cache"). Planets on screen redraw.
+  void clear() {
+    _images.clear();
+    _bytes = 0;
+  }
+
   /// Pixel size is rounded up to a multiple of 16 so that similar sizes
   /// share one image.
   static int bucket(double physicalPixels) =>

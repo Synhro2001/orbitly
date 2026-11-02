@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:orbitly/core/utils/l10n.dart';
 import 'package:orbitly/features/settings/domain/app_language.dart';
+import 'package:orbitly/features/settings/domain/entities/device_settings.dart';
+import 'package:orbitly/features/settings/presentation/controllers/device_settings_controller.dart';
 import 'package:orbitly/features/settings/presentation/controllers/language_controller.dart';
 import 'package:orbitly/features/settings/presentation/widgets/settings_widgets.dart';
 import 'package:orbitly/l10n/app_localizations.dart';
@@ -16,6 +18,8 @@ class AppearanceSettingsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = context.l10n;
     final language = ref.watch(languageControllerProvider);
+    final device = ref.watch(deviceSettingsControllerProvider);
+    final devices = ref.read(deviceSettingsControllerProvider.notifier);
     return SettingsPage(
       title: l10n.settingsAppearance,
       children: [
@@ -41,6 +45,29 @@ class AppearanceSettingsScreen extends ConsumerWidget {
                     ),
                 ],
               ),
+            ),
+          ],
+        ),
+        SettingsSection(
+          children: [
+            SettingsSwitch(
+              key: const Key('appearance-haptics'),
+              title: l10n.appearanceHaptics,
+              value: device.haptics,
+              onChanged: (v) =>
+                  unawaited(devices.change((d) => d.copyWith(haptics: v))),
+            ),
+            SettingsChoice<MotionPreference>(
+              key: const Key('appearance-motion'),
+              title: l10n.appearanceMotion,
+              value: device.motion,
+              options: MotionPreference.values,
+              label: (v) => switch (v) {
+                MotionPreference.system => l10n.appearanceMotionSystem,
+                MotionPreference.reduced => l10n.appearanceMotionReduced,
+              },
+              onChanged: (v) =>
+                  unawaited(devices.change((d) => d.copyWith(motion: v))),
             ),
           ],
         ),

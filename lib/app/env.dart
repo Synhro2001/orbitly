@@ -15,6 +15,12 @@ abstract final class Env {
     defaultValue: supabaseUrl == '',
   );
 
+  /// Push notifications are not connected yet; their settings screen stays
+  /// hidden until they are.
+  static const notificationsEnabled = bool.fromEnvironment(
+    'NOTIFICATIONS_ENABLED',
+  );
+
   /// A Supabase started with `supabase start` on this computer. It never
   /// sends real email: sign-in codes land in its Mailpit inbox instead.
   static final bool isLocalSupabase = RegExp(

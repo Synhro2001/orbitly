@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:orbitly/app/env.dart';
 import 'package:orbitly/app/routes.dart';
 import 'package:orbitly/core/theme/app_colors.dart';
 import 'package:orbitly/core/theme/app_dimens.dart';
@@ -26,6 +27,25 @@ class SettingsScreen extends StatelessWidget {
           icon: Icons.lock_outline_rounded,
           title: l10n.settingsPrivacy,
           onTap: () => context.push(AppRoutes.settingsPrivacy),
+        ),
+        if (Env.notificationsEnabled)
+          SettingsLink(
+            key: const Key('settings-notifications'),
+            icon: Icons.notifications_outlined,
+            title: l10n.settingsNotifications,
+            onTap: () => context.push(AppRoutes.settingsNotifications),
+          ),
+        SettingsLink(
+          key: const Key('settings-wellbeing'),
+          icon: Icons.spa_outlined,
+          title: l10n.settingsWellbeing,
+          onTap: () => context.push(AppRoutes.settingsWellbeing),
+        ),
+        SettingsLink(
+          key: const Key('settings-chats'),
+          icon: Icons.chat_bubble_outline_rounded,
+          title: l10n.settingsChatsMedia,
+          onTap: () => context.push(AppRoutes.settingsChatsMedia),
         ),
         SettingsLink(
           key: const Key('settings-appearance'),

@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:orbitly/app/routes.dart';
 import 'package:orbitly/core/theme/app_colors.dart';
 import 'package:orbitly/core/theme/app_dimens.dart';
+import 'package:orbitly/core/utils/haptics.dart';
 import 'package:orbitly/core/utils/l10n.dart';
 
 /// Camera UI. A gradient placeholder instead of a preview; no capture yet.
@@ -34,7 +34,7 @@ class _CameraScreenState extends State<CameraScreen> {
   }
 
   Future<void> _shoot() async {
-    unawaited(HapticFeedback.mediumImpact());
+    unawaited(AppHaptics.medium());
     if (MediaQuery.disableAnimationsOf(context)) return;
     setState(() => _shutterFlash = true);
     await Future<void>.delayed(AppDurations.fast);

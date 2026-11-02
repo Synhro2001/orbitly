@@ -7,6 +7,7 @@ import 'package:orbitly/core/theme/app_colors.dart';
 import 'package:orbitly/core/theme/app_dimens.dart';
 import 'package:orbitly/core/utils/clock.dart';
 import 'package:orbitly/core/utils/l10n.dart';
+import 'package:orbitly/core/widgets/streak_visibility.dart';
 
 /// Day streak with its state: active / cracked / lost / paused.
 class StreakBadge extends ConsumerWidget {
@@ -27,6 +28,7 @@ class StreakBadge extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    if (StreakVisibility.hiddenOf(context)) return const SizedBox.shrink();
     final l10n = context.l10n;
     final now = ref.watch(clockProvider)();
     final status = const EvaluateStreak()(streak, now, shadows: shadows);

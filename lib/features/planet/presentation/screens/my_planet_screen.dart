@@ -10,6 +10,7 @@ import 'package:orbitly/core/utils/l10n.dart';
 import 'package:orbitly/core/utils/time.dart';
 import 'package:orbitly/core/widgets/async_view.dart';
 import 'package:orbitly/core/widgets/planet_view.dart';
+import 'package:orbitly/core/widgets/streak_visibility.dart';
 import 'package:orbitly/features/achievements/presentation/controllers/achievements_controller.dart';
 import 'package:orbitly/features/planet/domain/entities/my_planet.dart';
 import 'package:orbitly/features/planet/presentation/controllers/my_planet_controller.dart';
@@ -91,21 +92,25 @@ class _PlanetContent extends ConsumerWidget {
                 backgroundColor: AppColors.surfaceHigh,
                 borderRadius: BorderRadius.circular(AppRadii.pill),
               ),
-              const SizedBox(height: AppSpacing.l),
-              Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      l10n.planetBestStreak,
-                      style: textTheme.bodyMedium,
+              if (!StreakVisibility.hiddenOf(context)) ...[
+                const SizedBox(height: AppSpacing.l),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        l10n.planetBestStreak,
+                        style: textTheme.bodyMedium,
+                      ),
                     ),
-                  ),
-                  Text(
-                    '🔥 ${l10n.streakDays(planet.bestStreakDays)}',
-                    style: textTheme.titleSmall?.copyWith(color: AppColors.sun),
-                  ),
-                ],
-              ),
+                    Text(
+                      '🔥 ${l10n.streakDays(planet.bestStreakDays)}',
+                      style: textTheme.titleSmall?.copyWith(
+                        color: AppColors.sun,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ],
           ),
         ),
