@@ -7,6 +7,7 @@ import 'package:orbitly/features/auth/data/repositories/mock_auth_repository.dar
 import 'package:orbitly/features/auth/data/repositories/supabase_auth_repository.dart';
 import 'package:orbitly/features/auth/domain/repositories/auth_repository.dart';
 import 'package:orbitly/features/chat/data/repositories/mock_chat_repository.dart';
+import 'package:orbitly/features/chat/data/repositories/supabase_chat_repository.dart';
 import 'package:orbitly/features/chat/domain/repositories/chat_repository.dart';
 import 'package:orbitly/features/friends/data/repositories/mock_friends_repository.dart';
 import 'package:orbitly/features/friends/data/repositories/supabase_friends_repository.dart';
@@ -65,8 +66,9 @@ AchievementsRepository achievementsRepository(Ref ref) =>
     : SupabaseAchievementsRepository(ref.watch(supabaseClientProvider));
 
 @Riverpod(keepAlive: true)
-ChatRepository chatRepository(Ref ref) =>
-    MockChatRepository(ref.watch(mockStoreProvider));
+ChatRepository chatRepository(Ref ref) => ref.watch(useMocksProvider)
+    ? MockChatRepository(ref.watch(mockStoreProvider))
+    : SupabaseChatRepository(ref.watch(supabaseClientProvider));
 
 @Riverpod(keepAlive: true)
 ReportRepository reportRepository(Ref ref) =>

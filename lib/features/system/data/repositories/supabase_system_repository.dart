@@ -65,8 +65,7 @@ Friend friendFromRpcRow(Map<String, Object?> row) {
           DateTime.fromMillisecondsSinceEpoch(0),
     ),
     mood: Mood.values.asNameMap()[row['mood']] ?? Mood.calm,
-    // Снапы пока на моках — непрочитанных с сервера нет.
-    hasUnreadSnaps: false,
+    hasUnreadSnaps: row['has_unread_snaps'] == true,
     shadow: shadowFromFields(
       DateTime.tryParse('${row['shadow_from']}'),
       DateTime.tryParse('${row['shadow_until']}'),

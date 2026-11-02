@@ -102,6 +102,10 @@ class MockChatRepository implements ChatRepository {
     return MessageModel.fromJson(json).toEntity();
   }
 
+  /// В моках собеседников нет — новых сообщений не приходит.
+  @override
+  Stream<String> watchIncoming() => const Stream.empty();
+
   @override
   Future<void> openSnap(String friendId, String messageId) async {
     await _store.delay();

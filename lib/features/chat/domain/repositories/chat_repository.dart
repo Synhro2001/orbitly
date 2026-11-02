@@ -16,4 +16,8 @@ abstract interface class ChatRepository {
     String text, {
     required DateTime opensAt,
   });
+
+  /// id друзей, от которых только что пришло сообщение. Без текста:
+  /// это сигнал перечитать переписку.
+  Stream<String> watchIncoming();
 }

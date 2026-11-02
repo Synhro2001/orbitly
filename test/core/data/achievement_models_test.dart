@@ -126,6 +126,7 @@ void main() {
       'last_exchange_at': '2026-10-31T12:00:00Z',
       'shadow_from': null,
       'shadow_until': null,
+      'has_unread_snaps': true,
       'trophies': [
         {
           'id': 'month_together',
@@ -143,6 +144,7 @@ void main() {
     expect(friend.appearance.seed, 1038);
     expect(friend.streak.days, 6);
     expect(friend.shadow, isNull);
+    expect(friend.hasUnreadSnaps, isTrue);
     expect(friend.sharedTrophies.single.emoji, '🌗');
     expect(friend.sharedTrophies.single.unlocked, isTrue);
   });
