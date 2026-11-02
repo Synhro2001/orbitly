@@ -15,6 +15,8 @@ import 'package:orbitly/features/chat/domain/entities/message.dart';
 import 'package:orbitly/features/chat/presentation/controllers/chat_controller.dart';
 import 'package:orbitly/features/chat/presentation/widgets/chat_composer.dart';
 import 'package:orbitly/features/chat/presentation/widgets/chat_header.dart';
+import 'package:orbitly/features/chat/presentation/widgets/chat_menu.dart';
+import 'package:orbitly/features/chat/presentation/widgets/conversation_openers.dart';
 import 'package:orbitly/features/chat/presentation/widgets/message_bubbles.dart';
 import 'package:orbitly/features/planet/presentation/controllers/my_planet_controller.dart';
 
@@ -38,6 +40,7 @@ class ChatScreen extends ConsumerWidget {
         title: friend == null
             ? null
             : _AppBarTitle(friend: friend, shadows: shadows),
+        actions: [?(friend == null ? null : ChatMenu(friend: friend))],
       ),
       body: AsyncView(
         value: thread,
@@ -48,7 +51,9 @@ class ChatScreen extends ConsumerWidget {
               child: _MessageList(thread: thread, shadows: shadows),
             ),
             ChatComposer(
-              starters: thread.conversationStarters,
+              starters: thread.suggestOpeners
+                  ? conversationOpeners(context.l10n, thread.friend.name)
+                  : const [],
               onSend: controller.send,
               onSendCapsule: controller.sendCapsule,
               onCamera: () => context.push(AppRoutes.camera),
@@ -60,8 +65,8 @@ class ChatScreen extends ConsumerWidget {
   }
 }
 
-/// Компактная шапка: всегда видно, с кем переписка, даже когда карточка
-/// друга уехала вверх вместе с историей.
+/// Compact header: you always see who you are talking to, even after the
+/// friend card has scrolled up with the history.
 class _AppBarTitle extends StatelessWidget {
   const _AppBarTitle({required this.friend, required this.shadows});
 
@@ -83,7 +88,7 @@ class _AppBarTitle extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                '${friend.name} ${friend.mood.emoji()}',
+                '${friend.name} ${friend.mood?.emoji() ?? ''}'.trim(),
                 style: textTheme.titleMedium,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -100,7 +105,7 @@ class _AppBarTitle extends StatelessWidget {
   }
 }
 
-/// Переписка снизу вверх; самый верхний элемент — карточка друга.
+/// Conversation from the bottom up; the topmost item is the friend card.
 class _MessageList extends ConsumerWidget {
   const _MessageList({required this.thread, required this.shadows});
 

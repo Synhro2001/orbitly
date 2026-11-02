@@ -1,0 +1,127 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:orbitly/app/env.dart';
+import 'package:orbitly/app/routes.dart';
+import 'package:orbitly/core/theme/app_colors.dart';
+import 'package:orbitly/core/theme/app_dimens.dart';
+import 'package:orbitly/core/utils/l10n.dart';
+import 'package:orbitly/core/widgets/planet_view.dart';
+import 'package:orbitly/features/planet/presentation/controllers/my_planet_controller.dart';
+import 'package:orbitly/features/settings/presentation/widgets/settings_widgets.dart';
+
+/// Settings: a profile card on top, then one row per section.
+class SettingsScreen extends StatelessWidget {
+  const SettingsScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    return SettingsPage(
+      title: l10n.settingsTitle,
+      children: [
+        const _ProfileCard(),
+        const SizedBox(height: AppSpacing.l),
+        SettingsLink(
+          key: const Key('settings-privacy'),
+          icon: Icons.lock_outline_rounded,
+          title: l10n.settingsPrivacy,
+          onTap: () => context.push(AppRoutes.settingsPrivacy),
+        ),
+        if (Env.notificationsEnabled)
+          SettingsLink(
+            key: const Key('settings-notifications'),
+            icon: Icons.notifications_outlined,
+            title: l10n.settingsNotifications,
+            onTap: () => context.push(AppRoutes.settingsNotifications),
+          ),
+        SettingsLink(
+          key: const Key('settings-wellbeing'),
+          icon: Icons.spa_outlined,
+          title: l10n.settingsWellbeing,
+          onTap: () => context.push(AppRoutes.settingsWellbeing),
+        ),
+        SettingsLink(
+          key: const Key('settings-chats'),
+          icon: Icons.chat_bubble_outline_rounded,
+          title: l10n.settingsChatsMedia,
+          onTap: () => context.push(AppRoutes.settingsChatsMedia),
+        ),
+        SettingsLink(
+          key: const Key('settings-appearance'),
+          icon: Icons.palette_outlined,
+          title: l10n.settingsAppearance,
+          onTap: () => context.push(AppRoutes.settingsAppearance),
+        ),
+        SettingsLink(
+          key: const Key('settings-account'),
+          icon: Icons.manage_accounts_outlined,
+          title: l10n.settingsAccount,
+          onTap: () => context.push(AppRoutes.settingsAccount),
+        ),
+        SettingsLink(
+          key: const Key('settings-help'),
+          icon: Icons.help_outline_rounded,
+          title: l10n.settingsHelp,
+          onTap: () => context.push(AppRoutes.settingsHelp),
+        ),
+      ],
+    );
+  }
+}
+
+/// My planet, its name and my handle, with a shortcut to the wardrobe.
+class _ProfileCard extends ConsumerWidget {
+  const _ProfileCard();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final planet = ref.watch(myPlanetControllerProvider).value;
+    if (planet == null) return const SizedBox.shrink();
+    final textTheme = Theme.of(context).textTheme;
+    return Material(
+      color: AppColors.surface,
+      borderRadius: BorderRadius.circular(AppRadii.l),
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        key: const Key('settings-profile'),
+        onTap: () => context.push(AppRoutes.settingsProfile),
+        child: Padding(
+          padding: const EdgeInsets.all(AppSpacing.m),
+          child: Row(
+            children: [
+              PlanetView(
+                appearance: planet.appearance,
+                size: AppSizes.listAvatar,
+              ),
+              const SizedBox(width: AppSpacing.m),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      planet.displayName.isEmpty
+                          ? planet.name
+                          : planet.displayName,
+                      style: textTheme.titleMedium,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Text(
+                      '@${planet.handle}',
+                      style: textTheme.bodySmall,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
+              ),
+              TextButton(
+                onPressed: () => context.push(AppRoutes.wardrobe),
+                child: Text(context.l10n.wardrobeTitle),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

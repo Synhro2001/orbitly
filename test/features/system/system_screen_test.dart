@@ -14,7 +14,7 @@ void main() {
     expect(find.byType(OrbitSystemView), findsOneWidget);
     expect(find.bySemanticsLabel('Моя система'), findsOneWidget);
     expect(find.bySemanticsLabel('Планета Миша'), findsOneWidget);
-    // У Димы непрочитанный снап — это видно и в подписи для скринридера.
+    // Dima has an unread snap; the screen reader label says so too.
     expect(
       find.bySemanticsLabel('Планета Дима, есть новый снап'),
       findsOneWidget,

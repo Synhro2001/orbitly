@@ -11,13 +11,16 @@ abstract interface class PlanetRepository {
     required String displayName,
     required String name,
     required PlanetAppearance appearance,
+
+    /// The user confirmed being 18 or older; the server refuses otherwise.
+    required bool isAdult,
   });
 
   Future<void> setMood(Mood mood);
 
-  /// Тень начинается сейчас и длится [duration] (сервер разрешает 1–7 дней).
+  /// The shadow starts now and lasts [duration] (the server allows 1–7 days).
   Future<void> enterShadow(Duration duration);
 
-  /// Досрочный выход: тень заканчивается сейчас.
+  /// Leave early: the shadow ends now.
   Future<void> leaveShadow();
 }

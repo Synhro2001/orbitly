@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Android 12+: переписка и токены не попадают ни в облачный бэкап,
-     ни в перенос на новый телефон. -->
+<!-- Android 12+: chats and tokens go neither to cloud backup nor to a
+     transfer to a new phone. -->
 <data-extraction-rules>
     <cloud-backup>
         <exclude domain="root" />

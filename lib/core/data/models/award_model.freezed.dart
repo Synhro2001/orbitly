@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AwardModel {
 
- String get id;@JsonKey(unknownEnumValue: AwardCategory.collection) AwardCategory get category;@JsonKey(unknownEnumValue: Rarity.common) Rarity get rarity; String? get title; String? get description; String? get icon; bool get hidden; bool get pair; int? get progress; int? get target; DateTime? get unlockedAt; DateTime? get seenAt; String? get rewardCosmeticId; String? get rewardTitle;
+ String get id;@JsonKey(unknownEnumValue: AwardCategory.collection) AwardCategory get category;@JsonKey(unknownEnumValue: Rarity.common) Rarity get rarity;@LocalizedTextConverter() LocalizedText? get title;@LocalizedTextConverter() LocalizedText? get description; String? get icon; bool get hidden; bool get pair; int? get progress; int? get target; DateTime? get unlockedAt; DateTime? get seenAt; String? get rewardCosmeticId;@LocalizedTextConverter() LocalizedText? get rewardTitle;
 /// Create a copy of AwardModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -54,11 +54,11 @@ abstract mixin class $AwardModelCopyWith<$Res>  {
   factory $AwardModelCopyWith(AwardModel value, $Res Function(AwardModel) _then) = _$AwardModelCopyWithImpl;
 @useResult
 $Res call({
- String id,@JsonKey(unknownEnumValue: AwardCategory.collection) AwardCategory category,@JsonKey(unknownEnumValue: Rarity.common) Rarity rarity, String? title, String? description, String? icon, bool hidden, bool pair, int? progress, int? target, DateTime? unlockedAt, DateTime? seenAt, String? rewardCosmeticId, String? rewardTitle
+ String id,@JsonKey(unknownEnumValue: AwardCategory.collection) AwardCategory category,@JsonKey(unknownEnumValue: Rarity.common) Rarity rarity,@LocalizedTextConverter() LocalizedText? title,@LocalizedTextConverter() LocalizedText? description, String? icon, bool hidden, bool pair, int? progress, int? target, DateTime? unlockedAt, DateTime? seenAt, String? rewardCosmeticId,@LocalizedTextConverter() LocalizedText? rewardTitle
 });
 
 
-
+$LocalizedTextCopyWith<$Res>? get title;$LocalizedTextCopyWith<$Res>? get description;$LocalizedTextCopyWith<$Res>? get rewardTitle;
 
 }
 /// @nodoc
@@ -77,8 +77,8 @@ id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,category: null == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
 as AwardCategory,rarity: null == rarity ? _self.rarity : rarity // ignore: cast_nullable_to_non_nullable
 as Rarity,title: freezed == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
-as String?,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
-as String?,icon: freezed == icon ? _self.icon : icon // ignore: cast_nullable_to_non_nullable
+as LocalizedText?,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as LocalizedText?,icon: freezed == icon ? _self.icon : icon // ignore: cast_nullable_to_non_nullable
 as String?,hidden: null == hidden ? _self.hidden : hidden // ignore: cast_nullable_to_non_nullable
 as bool,pair: null == pair ? _self.pair : pair // ignore: cast_nullable_to_non_nullable
 as bool,progress: freezed == progress ? _self.progress : progress // ignore: cast_nullable_to_non_nullable
@@ -87,10 +87,46 @@ as int?,unlockedAt: freezed == unlockedAt ? _self.unlockedAt : unlockedAt // ign
 as DateTime?,seenAt: freezed == seenAt ? _self.seenAt : seenAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,rewardCosmeticId: freezed == rewardCosmeticId ? _self.rewardCosmeticId : rewardCosmeticId // ignore: cast_nullable_to_non_nullable
 as String?,rewardTitle: freezed == rewardTitle ? _self.rewardTitle : rewardTitle // ignore: cast_nullable_to_non_nullable
-as String?,
+as LocalizedText?,
   ));
 }
+/// Create a copy of AwardModel
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$LocalizedTextCopyWith<$Res>? get title {
+    if (_self.title == null) {
+    return null;
+  }
 
+  return $LocalizedTextCopyWith<$Res>(_self.title!, (value) {
+    return _then(_self.copyWith(title: value));
+  });
+}/// Create a copy of AwardModel
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$LocalizedTextCopyWith<$Res>? get description {
+    if (_self.description == null) {
+    return null;
+  }
+
+  return $LocalizedTextCopyWith<$Res>(_self.description!, (value) {
+    return _then(_self.copyWith(description: value));
+  });
+}/// Create a copy of AwardModel
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$LocalizedTextCopyWith<$Res>? get rewardTitle {
+    if (_self.rewardTitle == null) {
+    return null;
+  }
+
+  return $LocalizedTextCopyWith<$Res>(_self.rewardTitle!, (value) {
+    return _then(_self.copyWith(rewardTitle: value));
+  });
+}
 }
 
 
@@ -172,7 +208,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id, @JsonKey(unknownEnumValue: AwardCategory.collection)  AwardCategory category, @JsonKey(unknownEnumValue: Rarity.common)  Rarity rarity,  String? title,  String? description,  String? icon,  bool hidden,  bool pair,  int? progress,  int? target,  DateTime? unlockedAt,  DateTime? seenAt,  String? rewardCosmeticId,  String? rewardTitle)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id, @JsonKey(unknownEnumValue: AwardCategory.collection)  AwardCategory category, @JsonKey(unknownEnumValue: Rarity.common)  Rarity rarity, @LocalizedTextConverter()  LocalizedText? title, @LocalizedTextConverter()  LocalizedText? description,  String? icon,  bool hidden,  bool pair,  int? progress,  int? target,  DateTime? unlockedAt,  DateTime? seenAt,  String? rewardCosmeticId, @LocalizedTextConverter()  LocalizedText? rewardTitle)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AwardModel() when $default != null:
 return $default(_that.id,_that.category,_that.rarity,_that.title,_that.description,_that.icon,_that.hidden,_that.pair,_that.progress,_that.target,_that.unlockedAt,_that.seenAt,_that.rewardCosmeticId,_that.rewardTitle);case _:
@@ -193,7 +229,7 @@ return $default(_that.id,_that.category,_that.rarity,_that.title,_that.descripti
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id, @JsonKey(unknownEnumValue: AwardCategory.collection)  AwardCategory category, @JsonKey(unknownEnumValue: Rarity.common)  Rarity rarity,  String? title,  String? description,  String? icon,  bool hidden,  bool pair,  int? progress,  int? target,  DateTime? unlockedAt,  DateTime? seenAt,  String? rewardCosmeticId,  String? rewardTitle)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id, @JsonKey(unknownEnumValue: AwardCategory.collection)  AwardCategory category, @JsonKey(unknownEnumValue: Rarity.common)  Rarity rarity, @LocalizedTextConverter()  LocalizedText? title, @LocalizedTextConverter()  LocalizedText? description,  String? icon,  bool hidden,  bool pair,  int? progress,  int? target,  DateTime? unlockedAt,  DateTime? seenAt,  String? rewardCosmeticId, @LocalizedTextConverter()  LocalizedText? rewardTitle)  $default,) {final _that = this;
 switch (_that) {
 case _AwardModel():
 return $default(_that.id,_that.category,_that.rarity,_that.title,_that.description,_that.icon,_that.hidden,_that.pair,_that.progress,_that.target,_that.unlockedAt,_that.seenAt,_that.rewardCosmeticId,_that.rewardTitle);case _:
@@ -213,7 +249,7 @@ return $default(_that.id,_that.category,_that.rarity,_that.title,_that.descripti
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id, @JsonKey(unknownEnumValue: AwardCategory.collection)  AwardCategory category, @JsonKey(unknownEnumValue: Rarity.common)  Rarity rarity,  String? title,  String? description,  String? icon,  bool hidden,  bool pair,  int? progress,  int? target,  DateTime? unlockedAt,  DateTime? seenAt,  String? rewardCosmeticId,  String? rewardTitle)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id, @JsonKey(unknownEnumValue: AwardCategory.collection)  AwardCategory category, @JsonKey(unknownEnumValue: Rarity.common)  Rarity rarity, @LocalizedTextConverter()  LocalizedText? title, @LocalizedTextConverter()  LocalizedText? description,  String? icon,  bool hidden,  bool pair,  int? progress,  int? target,  DateTime? unlockedAt,  DateTime? seenAt,  String? rewardCosmeticId, @LocalizedTextConverter()  LocalizedText? rewardTitle)?  $default,) {final _that = this;
 switch (_that) {
 case _AwardModel() when $default != null:
 return $default(_that.id,_that.category,_that.rarity,_that.title,_that.description,_that.icon,_that.hidden,_that.pair,_that.progress,_that.target,_that.unlockedAt,_that.seenAt,_that.rewardCosmeticId,_that.rewardTitle);case _:
@@ -228,14 +264,14 @@ return $default(_that.id,_that.category,_that.rarity,_that.title,_that.descripti
 @JsonSerializable()
 
 class _AwardModel implements AwardModel {
-  const _AwardModel({required this.id, @JsonKey(unknownEnumValue: AwardCategory.collection) this.category = AwardCategory.collection, @JsonKey(unknownEnumValue: Rarity.common) this.rarity = Rarity.common, this.title, this.description, this.icon, this.hidden = false, this.pair = false, this.progress, this.target, this.unlockedAt, this.seenAt, this.rewardCosmeticId, this.rewardTitle});
+  const _AwardModel({required this.id, @JsonKey(unknownEnumValue: AwardCategory.collection) this.category = AwardCategory.collection, @JsonKey(unknownEnumValue: Rarity.common) this.rarity = Rarity.common, @LocalizedTextConverter() this.title, @LocalizedTextConverter() this.description, this.icon, this.hidden = false, this.pair = false, this.progress, this.target, this.unlockedAt, this.seenAt, this.rewardCosmeticId, @LocalizedTextConverter() this.rewardTitle});
   factory _AwardModel.fromJson(Map<String, dynamic> json) => _$AwardModelFromJson(json);
 
 @override final  String id;
 @override@JsonKey(unknownEnumValue: AwardCategory.collection) final  AwardCategory category;
 @override@JsonKey(unknownEnumValue: Rarity.common) final  Rarity rarity;
-@override final  String? title;
-@override final  String? description;
+@override@LocalizedTextConverter() final  LocalizedText? title;
+@override@LocalizedTextConverter() final  LocalizedText? description;
 @override final  String? icon;
 @override@JsonKey() final  bool hidden;
 @override@JsonKey() final  bool pair;
@@ -244,7 +280,7 @@ class _AwardModel implements AwardModel {
 @override final  DateTime? unlockedAt;
 @override final  DateTime? seenAt;
 @override final  String? rewardCosmeticId;
-@override final  String? rewardTitle;
+@override@LocalizedTextConverter() final  LocalizedText? rewardTitle;
 
 /// Create a copy of AwardModel
 /// with the given fields replaced by the non-null parameter values.
@@ -281,11 +317,11 @@ abstract mixin class _$AwardModelCopyWith<$Res> implements $AwardModelCopyWith<$
   factory _$AwardModelCopyWith(_AwardModel value, $Res Function(_AwardModel) _then) = __$AwardModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id,@JsonKey(unknownEnumValue: AwardCategory.collection) AwardCategory category,@JsonKey(unknownEnumValue: Rarity.common) Rarity rarity, String? title, String? description, String? icon, bool hidden, bool pair, int? progress, int? target, DateTime? unlockedAt, DateTime? seenAt, String? rewardCosmeticId, String? rewardTitle
+ String id,@JsonKey(unknownEnumValue: AwardCategory.collection) AwardCategory category,@JsonKey(unknownEnumValue: Rarity.common) Rarity rarity,@LocalizedTextConverter() LocalizedText? title,@LocalizedTextConverter() LocalizedText? description, String? icon, bool hidden, bool pair, int? progress, int? target, DateTime? unlockedAt, DateTime? seenAt, String? rewardCosmeticId,@LocalizedTextConverter() LocalizedText? rewardTitle
 });
 
 
-
+@override $LocalizedTextCopyWith<$Res>? get title;@override $LocalizedTextCopyWith<$Res>? get description;@override $LocalizedTextCopyWith<$Res>? get rewardTitle;
 
 }
 /// @nodoc
@@ -304,8 +340,8 @@ id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,category: null == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
 as AwardCategory,rarity: null == rarity ? _self.rarity : rarity // ignore: cast_nullable_to_non_nullable
 as Rarity,title: freezed == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
-as String?,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
-as String?,icon: freezed == icon ? _self.icon : icon // ignore: cast_nullable_to_non_nullable
+as LocalizedText?,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as LocalizedText?,icon: freezed == icon ? _self.icon : icon // ignore: cast_nullable_to_non_nullable
 as String?,hidden: null == hidden ? _self.hidden : hidden // ignore: cast_nullable_to_non_nullable
 as bool,pair: null == pair ? _self.pair : pair // ignore: cast_nullable_to_non_nullable
 as bool,progress: freezed == progress ? _self.progress : progress // ignore: cast_nullable_to_non_nullable
@@ -314,11 +350,47 @@ as int?,unlockedAt: freezed == unlockedAt ? _self.unlockedAt : unlockedAt // ign
 as DateTime?,seenAt: freezed == seenAt ? _self.seenAt : seenAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,rewardCosmeticId: freezed == rewardCosmeticId ? _self.rewardCosmeticId : rewardCosmeticId // ignore: cast_nullable_to_non_nullable
 as String?,rewardTitle: freezed == rewardTitle ? _self.rewardTitle : rewardTitle // ignore: cast_nullable_to_non_nullable
-as String?,
+as LocalizedText?,
   ));
 }
 
+/// Create a copy of AwardModel
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$LocalizedTextCopyWith<$Res>? get title {
+    if (_self.title == null) {
+    return null;
+  }
 
+  return $LocalizedTextCopyWith<$Res>(_self.title!, (value) {
+    return _then(_self.copyWith(title: value));
+  });
+}/// Create a copy of AwardModel
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$LocalizedTextCopyWith<$Res>? get description {
+    if (_self.description == null) {
+    return null;
+  }
+
+  return $LocalizedTextCopyWith<$Res>(_self.description!, (value) {
+    return _then(_self.copyWith(description: value));
+  });
+}/// Create a copy of AwardModel
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$LocalizedTextCopyWith<$Res>? get rewardTitle {
+    if (_self.rewardTitle == null) {
+    return null;
+  }
+
+  return $LocalizedTextCopyWith<$Res>(_self.rewardTitle!, (value) {
+    return _then(_self.copyWith(rewardTitle: value));
+  });
+}
 }
 
 // dart format on

@@ -1,4 +1,4 @@
-/// Отступы, радиусы, размеры и длительности — токены дизайн-системы.
+/// Spacing, radii, sizes and durations: design system tokens.
 abstract final class AppSpacing {
   static const xs = 4.0;
   static const s = 8.0;
@@ -24,32 +24,33 @@ abstract final class AppSizes {
   static const chatHeaderPlanet = 96.0;
   static const myPlanetHero = 240.0;
   static const wardrobePreview = 200.0;
+  static const inviteQr = 180.0;
   static const unlockPlanet = 220.0;
   static const onboardingPreview = 260.0;
   static const shutterButton = 78.0;
   static const iconButton = 44.0;
   static const edgeSwipeZone = 28.0;
 
-  /// Минимальная зона касания (Material / Apple HIG).
+  /// Minimum touch target (Material / Apple HIG).
   static const minTapTarget = 48.0;
 
-  // Плавающая нижняя панель.
+  // Floating bottom bar.
   static const navBarHeight = 64.0;
   static const navCenterButton = 58.0;
 
-  /// Частицы пылевого диска вокруг системы.
+  /// Dust disk particles around the system.
   static const dustParticles = 700;
 
-  /// Пылевой диск тянется до этого множителя от внешней орбиты друзей.
+  /// The dust disk reaches this multiple of the outermost friend orbit.
   static const dustOuterFactor = 2.8;
 
-  /// Размеры планет в системе заданы для этой стороны экрана; на меньших
-  /// экранах они уменьшаются, но не меньше чем в [systemMinScale] раз.
+  /// Planet sizes in the system are set for this screen side; on smaller
+  /// screens they shrink, but by no more than [systemMinScale].
   static const systemReferenceSide = 480.0;
   static const systemMinScale = 0.7;
 
-  /// Сжатие орбит по вертикали (наклон плоскости системы) зависит от
-  /// пропорций экрана: высота / ширина × коэффициент, в пределах min–max.
+  /// Vertical squash of the orbits (the tilt of the system plane) depends
+  /// on the screen ratio: height / width × factor, clamped to min–max.
   static const orbitTiltPerAspect = 0.55;
   static const orbitTiltMin = 0.5;
   static const orbitTiltMax = 0.85;
@@ -59,13 +60,13 @@ abstract final class AppDurations {
   static const fast = Duration(milliseconds: 180);
   static const medium = Duration(milliseconds: 320);
 
-  /// Полный цикл анимации системы; скорости орбит считаются от него.
+  /// One full system animation cycle; orbit speeds derive from it.
   static const systemCycle = Duration(seconds: 120);
   static const viewerAutoClose = Duration(seconds: 5);
 
-  /// Сколько висит подсказка про жесты, если её не закрыли касанием.
+  /// How long the gesture hint stays if nobody dismisses it with a touch.
   static const gestureHint = Duration(seconds: 6);
 
-  /// Вспышка и появление планеты при открытии достижения.
+  /// The flash and planet entrance when an achievement unlocks.
   static const unlock = Duration(milliseconds: 900);
 }

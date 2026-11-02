@@ -1,7 +1,7 @@
-// Фейковый бэкенд в памяти. Хранит данные в виде JSON, как их отдал бы
-// сервер, чтобы mock-репозитории проходили тот же путь
-// JSON → модель → сущность.
-// Работает при USE_MOCKS=true: для тестов и запуска без сети.
+// In-memory fake backend. Keeps data as JSON, the way the server would
+// return it, so mock repositories go through the same
+// JSON → model → entity path.
+// Used when USE_MOCKS=true: in tests and when running offline.
 
 import 'dart:async';
 
@@ -17,21 +17,21 @@ class MockStore {
     _seed();
     if (withPlanet) {
       createPlanet('Орбитания', {'type': 'ocean', 'seed': 7, 'hue': 200.0});
-      // Спутник и кольца — уже надетые награды.
+      // The moon and the rings are rewards already worn.
       equipped.addAll(['moon_first', 'ring_belt']);
     }
   }
 
   final DateTime _now;
 
-  /// «Хранитель времени» открыт, но ещё не показан — при запуске будет
-  /// анимация открытия. В тестах выключено, чтобы она не закрывала экран.
+  /// "Time keeper" is unlocked but not shown yet, so the unlock animation
+  /// plays on start. Off in tests so it does not cover the screen.
   final bool withNewUnlock;
 
-  /// Новые открытия — как Realtime в Supabase.
+  /// New unlocks, like Supabase Realtime.
   final unlocks = StreamController<String>.broadcast();
 
-  /// Имитация сети.
+  /// Simulated network delay.
   final Duration latency;
 
   Future<void> delay() => Future<void>.delayed(latency);
@@ -41,12 +41,12 @@ class MockStore {
   final messages = <String, List<Json>>{};
   final sharedTrophyIds = <String, List<String>>{};
 
-  /// Каталог достижений с моим прогрессом — в том виде, как его отдаёт
-  /// get_my_achievements() в Supabase.
+  /// Achievement catalogue with my progress, shaped like the rows of
+  /// get_my_achievements() in Supabase.
   final achievements = <Json>[];
   final cosmetics = <Json>[];
 
-  /// Открытая косметика и что из неё надето.
+  /// Unlocked cosmetics and which of them are worn.
   final owned = <String>{};
   final equipped = <String>{};
   final moments = <Json>[];
@@ -54,12 +54,33 @@ class MockStore {
   final directory = <Json>[];
   final weeklyReport = <String, List<Json>>{};
 
+  /// My account settings, shaped like a `user_settings` row. Empty means
+  /// all defaults.
+  Json settings = {};
+
+  /// People I blocked (user summaries), friends I muted, reports I filed.
+  final blocked = <Json>[];
+  final muted = <String>{};
+  final reports = <Json>[];
+
+  /// Chat rules for disappearing messages; the seeded chats keep history.
+  final retention = <String, String>{};
+
+  /// "Report a problem" messages I sent.
+  final feedback = <Json>[];
+
+  /// When I asked to delete my account (null: not asked).
+  DateTime? deletionRequestedAt;
+
+  /// The code in my invite link.
+  String inviteCode = 'my-invite';
+
   int _idCounter = 0;
   String nextId(String prefix) => '$prefix-${_idCounter++}';
 
   String _ago(Duration d) => _now.subtract(d).toIso8601String();
 
-  /// Друг с вычисленным флагом непрочитанных снапов.
+  /// A friend with the computed "has unread snaps" flag.
   Json friendJson(String id) {
     final friend = friends.firstWhere((f) => f['id'] == id);
     final hasUnread = (messages[id] ?? const <Json>[]).any(
@@ -69,6 +90,8 @@ class MockStore {
     return {
       ...friend,
       'has_unread_snaps': hasUnread,
+      'muted': muted.contains(id),
+      'message_retention': retention[id] ?? 'keep',
       'trophies': [
         for (final id in sharedTrophyIds[id] ?? const <String>[])
           achievements.firstWhere((a) => a['id'] == id),
@@ -80,12 +103,14 @@ class MockStore {
     for (final f in friends) friendJson(f['id']! as String),
   ];
 
-  void createPlanet(String name, Json appearance) {
+  void createPlanet(String name, Json appearance, {String displayName = 'Я'}) {
     myPlanet = {
       'planet_name': name,
+      'display_name': displayName,
       'handle': 'me',
+      'handle_changed_at': null,
       'appearance': appearance,
-      // Уровень 4 = 450…800 опыта (level = floor(sqrt(xp / 50)) + 1).
+      // Level 4 = 450…800 XP (level = floor(sqrt(xp / 50)) + 1).
       'level': 4,
       'xp': 600,
       'best_streak_days': 27,
@@ -109,8 +134,8 @@ class MockStore {
       ('Тимур', 'timur.t', 'crystal', 175.0, 8, 2, false, false),
     ];
     const moods = ['happy', 'calm', 'inLove', 'excited', 'tired', 'sad'];
-    // Часы с последнего обмена: большинство активны, пара в «трещине»,
-    // одна серия сгорела.
+    // Hours since the last exchange: most are active, a couple are
+    // cracked, one streak is lost.
     const hoursSinceExchange = [2, 5, 1, 30, 8, 12, 3, 40, 20, 60, 6, 10];
     const streakDays = [48, 31, 22, 15, 12, 9, 7, 5, 4, 0, 2, 1];
 
@@ -134,7 +159,7 @@ class MockStore {
         'streak_days': streakDays[i],
         'last_exchange_at': _ago(Duration(hours: hoursSinceExchange[i])),
         'mood': moods[i % moods.length],
-        // Паша на неделе экзаменов ушёл в тень — его серия на паузе.
+        // Pasha went into shadow for exam week, so his streak is paused.
         if (i == 7) ...{
           'shadow_from': _ago(const Duration(days: 2)),
           'shadow_until': _now.add(const Duration(days: 1)).toIso8601String(),
@@ -198,7 +223,7 @@ class MockStore {
       {'friend_id': 'friend-7', 'delta': -4},
     ];
 
-    // Капсулы времени: от Ани — уже открылась, от Леры — ещё запечатана.
+    // Time capsules: Anya's has opened, Lera's is still sealed.
     messages['friend-0']!.insert(0, {
       'kind': 'capsule',
       'id': 'capsule-0',
@@ -219,7 +244,8 @@ class MockStore {
     });
   }
 
-  /// Открыть достижение «как сервер»: прогресс, награда, событие Realtime.
+  /// Unlocks an achievement the way the server does: progress, reward and
+  /// a Realtime event.
   void unlock(String achievementId) {
     final row = achievements.firstWhere((a) => a['id'] == achievementId);
     if (row['unlocked_at'] != null) return;
@@ -231,49 +257,58 @@ class MockStore {
     unlocks.add(achievementId);
   }
 
-  /// Подсказки «с чего начать» — только для тех, с кем общение затихает:
-  /// друг в списке отдаляющихся или с последнего обмена прошли сутки.
-  List<String> conversationStarters(String friendId) {
+  /// The friend is drifting away or has been quiet for a day, so the chat
+  /// suggests how to restart the conversation.
+  bool isDrifting(String friendId) {
     final friend = friends.firstWhere((f) => f['id'] == friendId);
     final last = DateTime.parse(friend['last_exchange_at']! as String);
     final drifting = (weeklyReport['drifting'] ?? const <Json>[]).any(
       (row) => row['friend_id'] == friendId,
     );
-    if (!drifting && _now.difference(last) < const Duration(hours: 24)) {
-      return const [];
-    }
-    final name = friend['name']! as String;
-    return [
-      'Привет, $name! Давно не болтали — как ты?',
-      'Сегодня кое-что напомнило мне о тебе 👀',
-      'Что было самым странным на этой неделе?',
-      'Созвонимся на выходных?',
-    ];
+    return drifting || _now.difference(last) >= const Duration(hours: 24);
   }
 
   void _seedAchievements() {
     cosmetics.addAll([
       for (final (id, title, kind, rarity, params) in const [
-        ('moon_first', 'Первый спутник', 'moon', 'common', {'moons': 1}),
+        (
+          'moon_first',
+          {'ru': 'Первый спутник', 'en': 'First moon'},
+          'moon',
+          'common',
+          {'moons': 1},
+        ),
         (
           'moon_hourglass',
-          'Песочные часы',
+          {'ru': 'Песочные часы', 'en': 'Hourglass'},
           'moon',
           'common',
           {'moons': 1, 'skin': 'hourglass'},
         ),
-        ('moon_twin', 'Двойник', 'moon', 'rare', {'moons': 2}),
-        ('ring_belt', 'Пояс астероидов', 'ring', 'common', <String, Object?>{}),
+        (
+          'moon_twin',
+          {'ru': 'Двойник', 'en': 'Twin'},
+          'moon',
+          'rare',
+          {'moons': 2},
+        ),
+        (
+          'ring_belt',
+          {'ru': 'Пояс астероидов', 'en': 'Asteroid belt'},
+          'ring',
+          'common',
+          <String, Object?>{},
+        ),
         (
           'planet_ring_world',
-          'Кольцевой мир',
+          {'ru': 'Кольцевой мир', 'en': 'Ring world'},
           'planet_type',
           'rare',
           {'type': 'ringWorld'},
         ),
         (
           'planet_nebula',
-          'Туманность',
+          {'ru': 'Туманность', 'en': 'Nebula'},
           'planet_type',
           'rare',
           {'type': 'nebula'},
@@ -288,13 +323,16 @@ class MockStore {
         },
     ]);
 
-    // (id, название, описание, значок, категория, редкость, прогресс, цель,
-    //  открыто дней назад или null, секрет, pair, награда)
+    // (id, title, description, icon, category, rarity, progress, target,
+    //  unlocked days ago or null, secret, pair, reward)
     const catalog = [
       (
         'first_contact',
-        'Первый контакт',
-        'Найди первого друга на орбите',
+        {'ru': 'Первый контакт', 'en': 'First contact'},
+        {
+          'ru': 'Найди первого друга на орбите',
+          'en': 'Find your first friend in orbit',
+        },
         '🛰️',
         'friendship',
         'common',
@@ -307,8 +345,11 @@ class MockStore {
       ),
       (
         'week_on_orbit',
-        'Неделя на орбите',
-        'Серия 7 дней с одним другом',
+        {'ru': 'Неделя на орбите', 'en': 'A week in orbit'},
+        {
+          'ru': 'Серия 7 дней с одним другом',
+          'en': 'A 7-day streak with one friend',
+        },
         '🔥',
         'streak',
         'common',
@@ -321,8 +362,11 @@ class MockStore {
       ),
       (
         'time_keeper',
-        'Хранитель времени',
-        'Открой первую капсулу времени',
+        {'ru': 'Хранитель времени', 'en': 'Time keeper'},
+        {
+          'ru': 'Открой первую капсулу времени',
+          'en': 'Open your first time capsule',
+        },
         '⏳',
         'collection',
         'common',
@@ -335,8 +379,11 @@ class MockStore {
       ),
       (
         'month_together',
-        'Месяц вместе',
-        'Серия 30 дней с другом — общий спутник вам обоим',
+        {'ru': 'Месяц вместе', 'en': 'A month together'},
+        {
+          'ru': 'Серия 30 дней с другом — общий спутник вам обоим',
+          'en': 'A 30-day streak with a friend: a shared moon for you both',
+        },
         '🌗',
         'streak',
         'rare',
@@ -349,8 +396,8 @@ class MockStore {
       ),
       (
         'constellation',
-        'Созвездие',
-        'Пять друзей на орбите',
+        {'ru': 'Созвездие', 'en': 'Constellation'},
+        {'ru': 'Пять друзей на орбите', 'en': 'Five friends in orbit'},
         '✨',
         'friendship',
         'rare',
@@ -363,8 +410,8 @@ class MockStore {
       ),
       (
         'own_galaxy',
-        'Своя галактика',
-        'Десять друзей на орбите',
+        {'ru': 'Своя галактика', 'en': 'Your own galaxy'},
+        {'ru': 'Десять друзей на орбите', 'en': 'Ten friends in orbit'},
         '🌌',
         'friendship',
         'rare',
@@ -377,8 +424,11 @@ class MockStore {
       ),
       (
         'comeback',
-        'Возвращение',
-        'Вернись из тени и продолжи серию',
+        {'ru': 'Возвращение', 'en': 'Comeback'},
+        {
+          'ru': 'Вернись из тени и продолжи серию',
+          'en': 'Come back from the shadow and keep your streak',
+        },
         '🌘',
         'streak',
         'rare',
@@ -391,8 +441,11 @@ class MockStore {
       ),
       (
         'polar_night',
-        'Полярная ночь',
-        'Три раза вернись из тени, не потеряв серию',
+        {'ru': 'Полярная ночь', 'en': 'Polar night'},
+        {
+          'ru': 'Три раза вернись из тени, не потеряв серию',
+          'en': 'Come back from the shadow three times without losing a streak',
+        },
         '🌠',
         'collection',
         'rare',
@@ -405,8 +458,11 @@ class MockStore {
       ),
       (
         'double_star',
-        'Двойная звезда',
-        'Близость 90+ с другом 30 дней подряд',
+        {'ru': 'Двойная звезда', 'en': 'Double star'},
+        {
+          'ru': 'Близость 90+ с другом 30 дней подряд',
+          'en': 'Closeness 90+ with a friend for 30 days in a row',
+        },
         '💫',
         'closeness',
         'epic',
@@ -419,8 +475,8 @@ class MockStore {
       ),
       (
         'hundred_days',
-        'Сто дней',
-        'Серия 100 дней',
+        {'ru': 'Сто дней', 'en': 'A hundred days'},
+        {'ru': 'Серия 100 дней', 'en': 'A 100-day streak'},
         '☄️',
         'streak',
         'epic',
@@ -461,8 +517,8 @@ class MockStore {
       ),
       (
         'year_of_friendship',
-        'Год дружбы',
-        'Серия 365 дней',
+        {'ru': 'Год дружбы', 'en': 'A year of friendship'},
+        {'ru': 'Серия 365 дней', 'en': 'A 365-day streak'},
         '👑',
         'streak',
         'legendary',

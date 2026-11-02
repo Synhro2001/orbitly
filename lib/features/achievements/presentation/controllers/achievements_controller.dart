@@ -14,7 +14,7 @@ class AchievementsController extends _$AchievementsController {
   Future<List<Award>> build() =>
       ref.watch(achievementsRepositoryProvider).getAchievements();
 
-  /// Анимацию открытия показали — больше не показываем.
+  /// The unlock animation has been shown; do not show it again.
   Future<void> markSeen(String achievementId) async {
     final now = ref.read(clockProvider)();
     final current = state.value;
@@ -28,7 +28,7 @@ class AchievementsController extends _$AchievementsController {
   }
 }
 
-/// Открытые, но ещё не показанные достижения — очередь анимаций открытия.
+/// Unlocked but not yet shown achievements: the unlock animation queue.
 @riverpod
 List<Award> pendingUnlocks(Ref ref) => [
   for (final award
@@ -52,7 +52,7 @@ class OwnedCosmetics extends _$OwnedCosmetics {
     _refresh();
   }
 
-  /// Надетое меняет вид планеты — перечитываем и её.
+  /// What is worn changes the planet's look, so reload the planet too.
   void _refresh() {
     if (!ref.mounted) return;
     ref
@@ -61,11 +61,11 @@ class OwnedCosmetics extends _$OwnedCosmetics {
   }
 }
 
-/// Новые открытия с сервера (Realtime). Слушатель перечитывает каталог,
-/// косметику и планету — из них и складывается очередь анимаций.
+/// New unlocks from the server (Realtime). The listener reloads the
+/// catalogue, cosmetics and planet, which feed the animation queue.
 ///
-/// Подписка привязана к пользователю: после повторного входа (истекла
-/// сессия, другой аккаунт) она переподключается, а не молчит.
+/// The subscription is tied to the user: after signing in again (expired
+/// session, another account) it reconnects instead of going silent.
 @Riverpod(keepAlive: true)
 Stream<String> achievementUnlocks(Ref ref) {
   ref.watch(signedInProvider);

@@ -1,13 +1,13 @@
--- Достижения и награды: «планета растёт вместе с дружбой».
+-- Achievements and rewards: "the planet grows with the friendship".
 --
--- Каталог достижений и косметики — контент в БД, а не в приложении.
--- Прогресс и награды выдаёт только сервер: функция evaluate_achievements
--- (идемпотентна), вызывается триггерами и ночной задачей pg_cron.
--- Клиент читает результат и может только отметить «просмотрено» и надеть
--- открытую косметику.
+-- The achievement and cosmetics catalogues are content in the database, not
+-- in the app. Only the server grants progress and rewards: the idempotent
+-- evaluate_achievements function, called by triggers and a nightly pg_cron
+-- job. The client reads the result and can only mark things as seen and
+-- wear unlocked cosmetics.
 
 -- ---------------------------------------------------------------------------
--- Каталоги
+-- Catalogues
 -- ---------------------------------------------------------------------------
 
 create table public.cosmetics (
@@ -36,7 +36,7 @@ create table public.achievements (
 );
 
 -- ---------------------------------------------------------------------------
--- Состояние пользователя
+-- User state
 -- ---------------------------------------------------------------------------
 
 create table public.user_achievements (
@@ -63,7 +63,7 @@ create index pair_trophies_user_b_idx on public.pair_trophies (user_b);
 create table public.user_cosmetics (
   user_id uuid not null references public.profiles (id) on delete cascade,
   cosmetic_id text not null references public.cosmetics (id) on delete cascade,
-  -- Копия cosmetics.kind: нужна для правила «одна надетая вещь каждого вида».
+  -- Copy of cosmetics.kind, needed for the "one worn item per kind" rule.
   kind text not null,
   owned_at timestamptz not null default now(),
   equipped boolean not null default false,
@@ -83,7 +83,7 @@ create table public.xp_events (
 create index xp_events_user_idx on public.xp_events (user_id, created_at);
 
 -- ---------------------------------------------------------------------------
--- Контент: косметика и достижения
+-- Content: cosmetics and achievements
 -- ---------------------------------------------------------------------------
 
 insert into public.cosmetics (id, title, kind, rarity, params) values
@@ -101,8 +101,8 @@ insert into public.cosmetics (id, title, kind, rarity, params) values
   ('planet_black_hole',   'Чёрная дыра',        'planet_type', 'epic',      '{"type": "blackHole"}'),
   ('planet_solar_corona', 'Солнечная корона',   'planet_type', 'legendary', '{"type": "solarCorona"}');
 
--- У секретных достижений нейтральные id: id виден клиенту и не должен
--- выдавать секрет.
+-- Secret achievements have neutral ids: the client sees the id, and it must
+-- not give the secret away.
 insert into public.achievements
   (id, title, description, icon, category, rarity, condition, reward, hidden, pair, sort)
 values
@@ -147,7 +147,7 @@ values
     '{"cosmetic": "planet_solar_corona"}', false, false, 130);
 
 -- ---------------------------------------------------------------------------
--- Серия: та же логика, что EvaluateStreak в приложении
+-- Streak: the same logic as EvaluateStreak in the app
 -- ---------------------------------------------------------------------------
 
 create function private.streak_status(
@@ -176,7 +176,7 @@ begin
     where id in (p_a, p_b) and shadow_from is not null
     order by shadow_from
   loop
-    -- Тень не спасает серию, которая сгорела ещё до неё.
+    -- A shadow does not save a streak that was lost before it began.
     continue when s.f >= ref + interval '48 hours';
     if s.f <= p_at and p_at < s.u then
       return 'paused';
@@ -196,7 +196,7 @@ end;
 $$;
 
 -- ---------------------------------------------------------------------------
--- Условия достижений
+-- Achievement conditions
 -- ---------------------------------------------------------------------------
 
 create function private.condition_target(p_condition jsonb)
@@ -214,8 +214,8 @@ as $$
   end;
 $$;
 
--- Прогресс по условию. p_friend = null — лучший результат среди всех
--- друзей; иначе — только для этой пары (для общих достижений).
+-- Progress towards a condition. p_friend = null gives the best result across
+-- all friends; otherwise only this pair counts (for pair achievements).
 create function private.condition_progress(
   p_condition jsonb,
   p_user uuid,
@@ -236,8 +236,8 @@ begin
       where f.status = 'accepted' and p_user in (f.user_a, f.user_b);
 
     when 'streak_days' then
-      -- Сгоревшая серия не считается, даже если ночная задача её ещё не
-      -- обнулила.
+      -- A lost streak does not count, even if the nightly job has not reset
+      -- it yet.
       select coalesce(max(c.streak_days), 0) into result
       from public.closeness c
       where p_user in (c.user_a, c.user_b)
@@ -287,7 +287,7 @@ end;
 $$;
 
 -- ---------------------------------------------------------------------------
--- Выдача награды
+-- Granting rewards
 -- ---------------------------------------------------------------------------
 
 create function private.xp_for_rarity(p_rarity text)
@@ -305,8 +305,8 @@ as $$
   end;
 $$;
 
--- Открыть достижение и выдать награду. Возвращает true, только если
--- достижение открылось именно сейчас: повторный вызов ничего не выдаёт.
+-- Unlock an achievement and grant its reward. Returns true only if it
+-- unlocked right now: calling it again grants nothing.
 create function private.unlock(
   p_user uuid,
   p_achievement public.achievements
@@ -354,7 +354,7 @@ end;
 $$;
 
 -- ---------------------------------------------------------------------------
--- Движок: пересчитать прогресс и открыть заслуженное
+-- Engine: recompute progress and unlock what was earned
 -- ---------------------------------------------------------------------------
 
 create function private.evaluate_achievements(p_user uuid)
@@ -376,8 +376,8 @@ begin
     v_target := private.condition_target(a.condition);
 
     if a.pair then
-      -- Общее достижение открывается у обоих друзей пары и оставляет
-      -- общий трофей.
+      -- A pair achievement unlocks for both friends and leaves a shared
+      -- trophy.
       v_progress := 0;
       for f in
         select case when fr.user_a = p_user then fr.user_b else fr.user_a end as id
@@ -402,8 +402,8 @@ begin
       end if;
     end if;
 
-    -- Прогресс неоткрытых. Для секретных строку не заводим до открытия,
-    -- чтобы по ней нельзя было вычислить секрет.
+    -- Progress of locked achievements. Secrets get no row until unlocked,
+    -- so the row cannot be used to work out the secret.
     if not a.hidden then
       insert into public.user_achievements as ua
         (user_id, achievement_id, progress, target)
@@ -419,10 +419,10 @@ end;
 $$;
 
 -- ---------------------------------------------------------------------------
--- Триггеры
+-- Triggers
 -- ---------------------------------------------------------------------------
 
--- Опыт и уровень: level = floor(sqrt(xp / 50)) + 1.
+-- XP and level: level = floor(sqrt(xp / 50)) + 1.
 create function private.on_xp_event()
 returns trigger
 language plpgsql
@@ -442,7 +442,8 @@ create trigger xp_events_apply
   after insert on public.xp_events
   for each row execute function private.on_xp_event();
 
--- Общение: близость, серия, возвращение из тени, затем достижения обоих.
+-- Interaction: closeness, streak, return from shadow, then both users'
+-- achievements.
 create function private.on_interaction()
 returns trigger
 language plpgsql
@@ -501,8 +502,8 @@ begin
       set best_streak_days = greatest(best_streak_days, c.streak_days)
       where id in (a, b);
 
-    -- Возвращение: тень отправителя закончилась после прошлого обмена,
-    -- а серия при этом не сгорела. Засчитывается один раз на тень.
+    -- A return: the sender's shadow ended after the previous exchange and the
+    -- streak did not burn out. Counts once per shadow.
     select shadow_until into sender_shadow_until
       from public.profiles where id = new.from_user;
     if status <> 'burnt'
@@ -555,7 +556,7 @@ create trigger friendships_apply
   for each row execute function private.on_friendship();
 
 -- ---------------------------------------------------------------------------
--- Ночная задача: сгоревшие серии, остывание близости, условия по времени
+-- Nightly job: lost streaks, cooling closeness, time-based conditions
 -- ---------------------------------------------------------------------------
 
 create function private.nightly()
@@ -574,7 +575,7 @@ begin
         c.streak_days, c.last_exchange_at, c.user_a, c.user_b, now()
       ) = 'burnt';
 
-  -- Без общения три дня близость понемногу остывает.
+  -- After three days without contact, closeness slowly cools down.
   update public.closeness
     set score = greatest(0, score - 1)
     where last_exchange_at < now() - interval '3 days';
@@ -593,11 +594,11 @@ grant usage on schema cron to postgres;
 select cron.schedule('orbitly-nightly', '0 3 * * *', 'select private.nightly()');
 
 -- ---------------------------------------------------------------------------
--- RPC для клиента
+-- RPCs for the client
 -- ---------------------------------------------------------------------------
 
--- Каталог с моим прогрессом. Секретные неоткрытые достижения приходят без
--- названия, описания, прогресса и награды.
+-- The catalogue with my progress. Locked secrets come without title,
+-- description, progress and reward.
 create function public.get_my_achievements()
 returns table (
   id text,
@@ -703,8 +704,8 @@ begin
 end;
 $$;
 
--- Друзья для системы и списков: профиль, надетая косметика, близость,
--- серия, тень и общие трофеи пары.
+-- Friends for the system and lists: profile, worn cosmetics, closeness,
+-- streak, shadow and the pair's shared trophies.
 create function public.get_my_friends()
 returns table (
   id uuid,
@@ -765,7 +766,7 @@ as $$
 $$;
 
 -- ---------------------------------------------------------------------------
--- Права, политики, Realtime
+-- Privileges, policies, Realtime
 -- ---------------------------------------------------------------------------
 
 alter table public.cosmetics enable row level security;
@@ -779,29 +780,30 @@ revoke all on public.cosmetics, public.achievements, public.user_achievements,
   public.pair_trophies, public.user_cosmetics, public.xp_events
   from anon, authenticated;
 
--- Каталог достижений напрямую закрыт: условия и секреты отдаёт только
--- get_my_achievements(). Вставлять и менять что-либо клиент не может.
+-- The achievement catalogue is closed for direct reads: conditions and
+-- secrets go out only through get_my_achievements(). The client cannot
+-- insert or change anything.
 grant select on public.cosmetics, public.user_achievements,
   public.pair_trophies, public.user_cosmetics, public.xp_events
   to authenticated;
 
-create policy "Косметика: каталог виден всем вошедшим"
+create policy "Cosmetics: catalogue visible to signed-in users"
   on public.cosmetics for select to authenticated
   using (true);
 
-create policy "Достижения: только свои"
+create policy "Achievements: only your own"
   on public.user_achievements for select to authenticated
   using (user_id = (select auth.uid()));
 
-create policy "Общие трофеи: только своих пар"
+create policy "Shared trophies: only your own pairs"
   on public.pair_trophies for select to authenticated
   using ((select auth.uid()) in (user_a, user_b));
 
-create policy "Косметика пользователя: только своя"
+create policy "User cosmetics: only your own"
   on public.user_cosmetics for select to authenticated
   using (user_id = (select auth.uid()));
 
-create policy "Опыт: только свой"
+create policy "XP: only your own"
   on public.xp_events for select to authenticated
   using (user_id = (select auth.uid()));
 
@@ -819,5 +821,5 @@ grant execute on function
   public.get_my_friends()
   to authenticated;
 
--- Новые открытия приходят в приложение сразу (RLS применяется и здесь).
+-- New unlocks reach the app at once (RLS applies here too).
 alter publication supabase_realtime add table public.user_achievements;

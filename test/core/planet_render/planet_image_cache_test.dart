@@ -9,7 +9,7 @@ void main() {
   testWidgets('memory stays within the byte budget', (tester) async {
     const pixels = 64;
     const oneImage = pixels * pixels * 4;
-    // Помещаются ровно две картинки.
+    // Exactly two images fit.
     final cache = PlanetImageCache.withBudget(oneImage * 2);
 
     await tester.runAsync(() async {

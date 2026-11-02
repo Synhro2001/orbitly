@@ -10,6 +10,7 @@ import 'package:orbitly/core/utils/l10n.dart';
 import 'package:orbitly/core/utils/time.dart';
 import 'package:orbitly/core/widgets/async_view.dart';
 import 'package:orbitly/core/widgets/planet_view.dart';
+import 'package:orbitly/core/widgets/streak_visibility.dart';
 import 'package:orbitly/features/achievements/presentation/controllers/achievements_controller.dart';
 import 'package:orbitly/features/planet/domain/entities/my_planet.dart';
 import 'package:orbitly/features/planet/presentation/controllers/my_planet_controller.dart';
@@ -19,7 +20,7 @@ class MyPlanetScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // Фон-космос общий для вкладок — он в HomeShell.
+    // The space background is shared by the tabs and lives in HomeShell.
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: SafeArea(
@@ -45,6 +46,14 @@ class _PlanetContent extends ConsumerWidget {
     return ListView(
       padding: const EdgeInsets.all(AppSpacing.l),
       children: [
+        Align(
+          alignment: Alignment.centerRight,
+          child: IconButton(
+            icon: const Icon(Icons.settings_rounded),
+            tooltip: l10n.settingsTitle,
+            onPressed: () => context.push(AppRoutes.settings),
+          ),
+        ),
         Center(
           child: PlanetView(
             appearance: planet.appearance,
@@ -83,21 +92,25 @@ class _PlanetContent extends ConsumerWidget {
                 backgroundColor: AppColors.surfaceHigh,
                 borderRadius: BorderRadius.circular(AppRadii.pill),
               ),
-              const SizedBox(height: AppSpacing.l),
-              Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      l10n.planetBestStreak,
-                      style: textTheme.bodyMedium,
+              if (!StreakVisibility.hiddenOf(context)) ...[
+                const SizedBox(height: AppSpacing.l),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        l10n.planetBestStreak,
+                        style: textTheme.bodyMedium,
+                      ),
                     ),
-                  ),
-                  Text(
-                    '🔥 ${l10n.streakDays(planet.bestStreakDays)}',
-                    style: textTheme.titleSmall?.copyWith(color: AppColors.sun),
-                  ),
-                ],
-              ),
+                    Text(
+                      '🔥 ${l10n.streakDays(planet.bestStreakDays)}',
+                      style: textTheme.titleSmall?.copyWith(
+                        color: AppColors.sun,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ],
           ),
         ),
@@ -155,8 +168,8 @@ class _Section extends StatelessWidget {
   }
 }
 
-/// Сколько достижений открыто, последние значки и вход в коллекцию и
-/// гардероб.
+/// How many achievements are unlocked, the latest icons, and the way into
+/// the collection and the wardrobe.
 class _CollectionSummary extends ConsumerWidget {
   const _CollectionSummary();
 
@@ -207,7 +220,7 @@ class _CollectionSummary extends ConsumerWidget {
   }
 }
 
-/// Уйти в тень на время (серии замрут) или выйти из неё раньше срока.
+/// Go into shadow for a while (streaks freeze) or leave it early.
 class _ShadowControls extends ConsumerWidget {
   const _ShadowControls(this.planet);
 

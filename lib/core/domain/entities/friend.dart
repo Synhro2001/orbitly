@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:orbitly/core/domain/entities/award.dart';
+import 'package:orbitly/core/domain/entities/message_retention.dart';
 import 'package:orbitly/core/domain/entities/mood.dart';
 import 'package:orbitly/core/domain/entities/planet_appearance.dart';
 import 'package:orbitly/core/domain/entities/shadow.dart';
@@ -15,16 +16,29 @@ abstract class Friend with _$Friend {
     required String handle,
     required PlanetAppearance appearance,
 
-    /// Близость общения, 0–100. Чем больше, тем ближе орбита.
+    /// Closeness, 0–100. The higher it is, the closer the orbit.
     required int closeness,
     required Streak streak,
-    required Mood mood,
+
+    /// Null when the friend does not share it with me.
+    required Mood? mood,
     required bool hasUnreadSnaps,
 
-    /// Если друг в тени (или запланировал её).
+    /// Set when the friend is in shadow (or has scheduled one).
     Shadow? shadow,
 
-    /// Общие трофеи нашей дружбы.
+    /// Trophies we earned together.
     @Default([]) List<Award> sharedTrophies,
+
+    /// In my quiet orbit: no notifications and no glow.
+    @Default(false) bool muted,
+
+    /// Our chat's rule for disappearing messages.
+    @Default(MessageRetention.keep) MessageRetention messageRetention,
   }) = _Friend;
+
+  const Friend._();
+
+  /// The planet glows when there is an unseen snap, unless I muted them.
+  bool get glows => hasUnreadSnaps && !muted;
 }

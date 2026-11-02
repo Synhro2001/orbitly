@@ -121,15 +121,15 @@ final class InviteLinkProvider
 
 String _$inviteLinkHash() => r'b794d678357d25a057f44c63219cf18915ffd7aa';
 
-/// Кому из найденных уже отправлена заявка.
+/// Which of the found users already have a request from me.
 
 @ProviderFor(SentRequests)
 final sentRequestsProvider = SentRequestsProvider._();
 
-/// Кому из найденных уже отправлена заявка.
+/// Which of the found users already have a request from me.
 final class SentRequestsProvider
     extends $NotifierProvider<SentRequests, Set<String>> {
-  /// Кому из найденных уже отправлена заявка.
+  /// Which of the found users already have a request from me.
   SentRequestsProvider._()
     : super(
         from: null,
@@ -159,7 +159,7 @@ final class SentRequestsProvider
 
 String _$sentRequestsHash() => r'b191a591fedd2d02cecd7734a5a3df106632644e';
 
-/// Кому из найденных уже отправлена заявка.
+/// Which of the found users already have a request from me.
 
 abstract class _$SentRequests extends $Notifier<Set<String>> {
   Set<String> build();

@@ -6,7 +6,7 @@ import 'package:orbitly/features/achievements/presentation/widgets/unlock_celebr
 
 import '../../helpers/pump_app.dart';
 
-/// Первый вертикальный список на экране (у вкладок есть и горизонтальные).
+/// The first vertical list on screen (the tabs have horizontal ones too).
 final Finder _verticalList = find
     .byWidgetPredicate(
       (w) => w is Scrollable && w.axisDirection == AxisDirection.down,
@@ -14,7 +14,7 @@ final Finder _verticalList = find
     .first;
 
 void main() {
-  group('Коллекция', () {
+  group('Collection', () {
     testWidgets('progress, rarity, progress bars and hidden secrets', (
       tester,
     ) async {
@@ -38,7 +38,7 @@ void main() {
         scrollable: _verticalList,
       );
       expect(find.text('???'), findsWidgets);
-      // Секреты не раскрываются ни названием, ни наградой.
+      // Secrets reveal neither their title nor their reward.
       expect(find.text('Синхрон'), findsNothing);
       expect(find.textContaining('Чёрная дыра'), findsNothing);
     });
@@ -56,7 +56,7 @@ void main() {
     });
   });
 
-  group('Анимация открытия', () {
+  group('Unlock animation', () {
     testWidgets('an unseen unlock is celebrated and the reward can be worn', (
       tester,
     ) async {
@@ -77,7 +77,7 @@ void main() {
 
       expect(find.byType(UnlockCelebration), findsNothing);
       expect(store.equipped, contains('moon_hourglass'));
-      // Другой спутник снят: одна вещь каждого вида.
+      // The other moon is taken off: one item of each kind.
       expect(store.equipped, isNot(contains('moon_first')));
     });
 
@@ -99,7 +99,7 @@ void main() {
     });
   });
 
-  testWidgets('Гардероб: put on a rare planet', (tester) async {
+  testWidgets('Wardrobe: put on a rare planet', (tester) async {
     final store = MockStore(latency: Duration.zero, withPlanet: true);
     final router = await pumpApp(tester, store: store);
     router.go(AppRoutes.wardrobe);

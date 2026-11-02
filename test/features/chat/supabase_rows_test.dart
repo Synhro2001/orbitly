@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:orbitly/features/chat/data/repositories/supabase_chat_repository.dart';
 import 'package:orbitly/features/chat/domain/entities/message.dart';
 
-/// Строки — в том виде, как их отдают get_thread и send_message.
+/// Rows in the shape get_thread and send_message return them.
 void main() {
   Map<String, dynamic> row(String kind, {String? text, String? opensAt}) => {
     'id': '5b0c-$kind',
@@ -24,7 +24,7 @@ void main() {
     expect(messages, hasLength(3));
     expect((messages[0] as TextMessage).text, 'Привет!');
     final capsule = messages[1] as CapsuleMessage;
-    expect(capsule.text, isNull, reason: 'текст запечатанной капсулы скрыт');
+    expect(capsule.text, isNull, reason: 'sealed capsule text is hidden');
     expect(capsule.opensAt, DateTime.utc(2026, 11, 5, 10));
     expect((messages[2] as SnapMessage).opened, isFalse);
   });

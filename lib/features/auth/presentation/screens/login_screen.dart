@@ -1,12 +1,14 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:orbitly/app/env.dart';
 import 'package:orbitly/core/theme/app_colors.dart';
 import 'package:orbitly/core/theme/app_dimens.dart';
 import 'package:orbitly/core/utils/l10n.dart';
 import 'package:orbitly/core/widgets/starfield_background.dart';
 import 'package:orbitly/features/auth/presentation/controllers/auth_controller.dart';
 
-/// Вход по коду из письма: email → 6 цифр. Паролей нет.
+/// Sign-in with a code from email: email → 6 digits. No passwords.
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
 
@@ -24,6 +26,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     _code.dispose();
     super.dispose();
   }
+
+  /// The language on screen: a new account gets its emails in it.
+  String _language(BuildContext context) =>
+      Localizations.localeOf(context).languageCode;
 
   String? _errorText(LoginError? error) => switch (error) {
     LoginError.invalidEmail => context.l10n.loginInvalidEmail,
@@ -57,6 +63,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     : l10n.loginSubtitle,
                 style: textTheme.bodyMedium,
               ),
+              // Debug builds against a local Supabase: the email never reaches
+              // a real inbox, so say where the code is.
+              if (state.codeSent && kDebugMode && Env.isLocalSupabase) ...[
+                const SizedBox(height: AppSpacing.s),
+                Text(l10n.loginLocalMailHint, style: textTheme.bodySmall),
+              ],
               const SizedBox(height: AppSpacing.xl),
               if (!state.codeSent)
                 TextField(
@@ -65,7 +77,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   keyboardType: TextInputType.emailAddress,
                   autofillHints: const [AutofillHints.email],
                   textInputAction: TextInputAction.send,
-                  onSubmitted: controller.sendCode,
+                  onSubmitted: (email) =>
+                      controller.sendCode(email, language: _language(context)),
                   decoration: InputDecoration(
                     hintText: l10n.loginEmailHint,
                     errorText: _errorText(state.error),
@@ -92,7 +105,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     ? null
                     : () => state.codeSent
                           ? controller.verify(_code.text)
-                          : controller.sendCode(_email.text),
+                          : controller.sendCode(
+                              _email.text,
+                              language: _language(context),
+                            ),
                 child: state.isBusy
                     ? const SizedBox.square(
                         dimension: AppSpacing.l,

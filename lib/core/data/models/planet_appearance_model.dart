@@ -7,7 +7,7 @@ part 'planet_appearance_model.g.dart';
 @freezed
 abstract class PlanetAppearanceModel with _$PlanetAppearanceModel {
   const factory PlanetAppearanceModel({
-    // Неизвестный тип (новая версия сервера) не ломает список друзей.
+    // An unknown type from a newer server must not break the friend list.
     @JsonKey(unknownEnumValue: PlanetType.ocean) required PlanetType type,
     required int seed,
     required double hue,

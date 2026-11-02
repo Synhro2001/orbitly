@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
+import 'app_localizations_en.dart';
 import 'app_localizations_ru.dart';
 
 // ignore_for_file: type=lint
@@ -92,7 +93,10 @@ abstract class AppLocalizations {
       ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[Locale('ru')];
+  static const List<Locale> supportedLocales = <Locale>[
+    Locale('en'),
+    Locale('ru'),
+  ];
 
   /// No description provided for @appTitle.
   ///
@@ -490,6 +494,12 @@ abstract class AppLocalizations {
   /// **'Не получилось отправить код. Попробуй ещё раз'**
   String get loginSendError;
 
+  /// No description provided for @loginLocalMailHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Локальный сервер не шлёт настоящие письма. Код — в Mailpit на компьютере: http://127.0.0.1:54324'**
+  String get loginLocalMailHint;
+
   /// No description provided for @collectionTitle.
   ///
   /// In ru, this message translates to:
@@ -796,6 +806,30 @@ abstract class AppLocalizations {
   /// **'С чего начать?'**
   String get chatStartersTitle;
 
+  /// No description provided for @chatOpenerMissYou.
+  ///
+  /// In ru, this message translates to:
+  /// **'Привет, {name}! Давно не болтали — как ты?'**
+  String chatOpenerMissYou(String name);
+
+  /// No description provided for @chatOpenerRemindedMe.
+  ///
+  /// In ru, this message translates to:
+  /// **'Сегодня кое-что напомнило мне о тебе 👀'**
+  String get chatOpenerRemindedMe;
+
+  /// No description provided for @chatOpenerStrangest.
+  ///
+  /// In ru, this message translates to:
+  /// **'Что было самым странным на этой неделе?'**
+  String get chatOpenerStrangest;
+
+  /// No description provided for @chatOpenerCall.
+  ///
+  /// In ru, this message translates to:
+  /// **'Созвонимся на выходных?'**
+  String get chatOpenerCall;
+
   /// No description provided for @chatCapsule.
   ///
   /// In ru, this message translates to:
@@ -1071,6 +1105,1038 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Ссылка скопирована'**
   String get friendsLinkCopied;
+
+  /// No description provided for @settingsTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Настройки'**
+  String get settingsTitle;
+
+  /// No description provided for @settingsLanguage.
+  ///
+  /// In ru, this message translates to:
+  /// **'Язык'**
+  String get settingsLanguage;
+
+  /// No description provided for @settingsLanguageSystem.
+  ///
+  /// In ru, this message translates to:
+  /// **'Как на телефоне'**
+  String get settingsLanguageSystem;
+
+  /// No description provided for @settingsAccount.
+  ///
+  /// In ru, this message translates to:
+  /// **'Аккаунт и данные'**
+  String get settingsAccount;
+
+  /// No description provided for @settingsSignOut.
+  ///
+  /// In ru, this message translates to:
+  /// **'Выйти'**
+  String get settingsSignOut;
+
+  /// No description provided for @settingsSignOutConfirm.
+  ///
+  /// In ru, this message translates to:
+  /// **'Выйти из аккаунта?'**
+  String get settingsSignOutConfirm;
+
+  /// No description provided for @settingsSignOutBody.
+  ///
+  /// In ru, this message translates to:
+  /// **'Чтобы вернуться, понадобится код из письма.'**
+  String get settingsSignOutBody;
+
+  /// No description provided for @settingsAppearance.
+  ///
+  /// In ru, this message translates to:
+  /// **'Оформление'**
+  String get settingsAppearance;
+
+  /// No description provided for @settingsSaveFailed.
+  ///
+  /// In ru, this message translates to:
+  /// **'Не удалось сохранить. Проверь связь'**
+  String get settingsSaveFailed;
+
+  /// No description provided for @actionCancel.
+  ///
+  /// In ru, this message translates to:
+  /// **'Отмена'**
+  String get actionCancel;
+
+  /// No description provided for @friendsRequestClosed.
+  ///
+  /// In ru, this message translates to:
+  /// **'Не получилось. Возможно, этот человек принимает заявки только по своей ссылке'**
+  String get friendsRequestClosed;
+
+  /// No description provided for @inviteTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Приглашение'**
+  String get inviteTitle;
+
+  /// No description provided for @inviteFrom.
+  ///
+  /// In ru, this message translates to:
+  /// **'{name} зовёт тебя на свою орбиту'**
+  String inviteFrom(String name);
+
+  /// No description provided for @inviteAccept.
+  ///
+  /// In ru, this message translates to:
+  /// **'Добавить в друзья'**
+  String get inviteAccept;
+
+  /// No description provided for @inviteSent.
+  ///
+  /// In ru, this message translates to:
+  /// **'Заявка отправлена'**
+  String get inviteSent;
+
+  /// No description provided for @inviteUnknown.
+  ///
+  /// In ru, this message translates to:
+  /// **'Ссылка устарела или неверна. Попроси у друга новую'**
+  String get inviteUnknown;
+
+  /// No description provided for @settingsPrivacy.
+  ///
+  /// In ru, this message translates to:
+  /// **'Приватность'**
+  String get settingsPrivacy;
+
+  /// No description provided for @privacySearch.
+  ///
+  /// In ru, this message translates to:
+  /// **'Кто может найти меня по нику'**
+  String get privacySearch;
+
+  /// No description provided for @privacyRequests.
+  ///
+  /// In ru, this message translates to:
+  /// **'Кто может отправить заявку в друзья'**
+  String get privacyRequests;
+
+  /// No description provided for @privacyMood.
+  ///
+  /// In ru, this message translates to:
+  /// **'Кто видит моё настроение'**
+  String get privacyMood;
+
+  /// No description provided for @privacyMoments.
+  ///
+  /// In ru, this message translates to:
+  /// **'Кто видит мои моменты'**
+  String get privacyMoments;
+
+  /// No description provided for @privacyComingSoon.
+  ///
+  /// In ru, this message translates to:
+  /// **'Заработает вместе с новыми функциями'**
+  String get privacyComingSoon;
+
+  /// No description provided for @privacyLastSeen.
+  ///
+  /// In ru, this message translates to:
+  /// **'Показывать, когда я был в сети'**
+  String get privacyLastSeen;
+
+  /// No description provided for @privacyReadReceipts.
+  ///
+  /// In ru, this message translates to:
+  /// **'Отчёты о прочтении'**
+  String get privacyReadReceipts;
+
+  /// No description provided for @privacyReadReceiptsHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Взаимно: если выключить, ты тоже не увидишь, прочитали ли тебя'**
+  String get privacyReadReceiptsHint;
+
+  /// No description provided for @privacyTyping.
+  ///
+  /// In ru, this message translates to:
+  /// **'Показывать «печатает…»'**
+  String get privacyTyping;
+
+  /// No description provided for @privacyGalaxy.
+  ///
+  /// In ru, this message translates to:
+  /// **'Моя система видна в «галактике» друзей'**
+  String get privacyGalaxy;
+
+  /// No description provided for @privacyGalaxyHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Друзья друзей увидят твою планету издалека'**
+  String get privacyGalaxyHint;
+
+  /// No description provided for @audienceEveryone.
+  ///
+  /// In ru, this message translates to:
+  /// **'Все'**
+  String get audienceEveryone;
+
+  /// No description provided for @audienceFriendsOfFriends.
+  ///
+  /// In ru, this message translates to:
+  /// **'Друзья друзей'**
+  String get audienceFriendsOfFriends;
+
+  /// No description provided for @audienceFriends.
+  ///
+  /// In ru, this message translates to:
+  /// **'Все друзья'**
+  String get audienceFriends;
+
+  /// No description provided for @audienceCloseOrbit.
+  ///
+  /// In ru, this message translates to:
+  /// **'Ближняя орбита'**
+  String get audienceCloseOrbit;
+
+  /// No description provided for @audienceNobody.
+  ///
+  /// In ru, this message translates to:
+  /// **'Никто'**
+  String get audienceNobody;
+
+  /// No description provided for @audienceCustom.
+  ///
+  /// In ru, this message translates to:
+  /// **'Выбрать вручную'**
+  String get audienceCustom;
+
+  /// No description provided for @audienceInviteOnly.
+  ///
+  /// In ru, this message translates to:
+  /// **'Никто, только по моей ссылке'**
+  String get audienceInviteOnly;
+
+  /// No description provided for @chatMenu.
+  ///
+  /// In ru, this message translates to:
+  /// **'Ещё'**
+  String get chatMenu;
+
+  /// No description provided for @chatMute.
+  ///
+  /// In ru, this message translates to:
+  /// **'В тихую орбиту'**
+  String get chatMute;
+
+  /// No description provided for @chatUnmute.
+  ///
+  /// In ru, this message translates to:
+  /// **'Вернуть из тихой орбиты'**
+  String get chatUnmute;
+
+  /// No description provided for @chatMuted.
+  ///
+  /// In ru, this message translates to:
+  /// **'{name} в тихой орбите: без уведомлений и подсветки. Друг об этом не узнает'**
+  String chatMuted(String name);
+
+  /// No description provided for @chatUnmuted.
+  ///
+  /// In ru, this message translates to:
+  /// **'Снова на обычной орбите'**
+  String get chatUnmuted;
+
+  /// No description provided for @chatReport.
+  ///
+  /// In ru, this message translates to:
+  /// **'Пожаловаться'**
+  String get chatReport;
+
+  /// No description provided for @chatBlock.
+  ///
+  /// In ru, this message translates to:
+  /// **'Заблокировать'**
+  String get chatBlock;
+
+  /// No description provided for @blockConfirmTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Заблокировать {name}?'**
+  String blockConfirmTitle(String name);
+
+  /// No description provided for @blockConfirmBody.
+  ///
+  /// In ru, this message translates to:
+  /// **'Вы перестанете быть друзьями, переписка закроется, и вы не сможете найти друг друга и написать. Разблокировать можно в настройках приватности.'**
+  String get blockConfirmBody;
+
+  /// No description provided for @unblock.
+  ///
+  /// In ru, this message translates to:
+  /// **'Разблокировать'**
+  String get unblock;
+
+  /// No description provided for @abuseTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Что случилось?'**
+  String get abuseTitle;
+
+  /// No description provided for @abuseSpam.
+  ///
+  /// In ru, this message translates to:
+  /// **'Спам или реклама'**
+  String get abuseSpam;
+
+  /// No description provided for @abuseHarassment.
+  ///
+  /// In ru, this message translates to:
+  /// **'Травля или угрозы'**
+  String get abuseHarassment;
+
+  /// No description provided for @abuseInappropriate.
+  ///
+  /// In ru, this message translates to:
+  /// **'Неприемлемый контент'**
+  String get abuseInappropriate;
+
+  /// No description provided for @abuseImpersonation.
+  ///
+  /// In ru, this message translates to:
+  /// **'Выдаёт себя за другого'**
+  String get abuseImpersonation;
+
+  /// No description provided for @abuseUnderage.
+  ///
+  /// In ru, this message translates to:
+  /// **'Похоже, младше 18 лет'**
+  String get abuseUnderage;
+
+  /// No description provided for @abuseOther.
+  ///
+  /// In ru, this message translates to:
+  /// **'Другое'**
+  String get abuseOther;
+
+  /// No description provided for @abuseDetailsHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Подробности (необязательно)'**
+  String get abuseDetailsHint;
+
+  /// No description provided for @abuseSend.
+  ///
+  /// In ru, this message translates to:
+  /// **'Отправить жалобу'**
+  String get abuseSend;
+
+  /// No description provided for @abuseSent.
+  ///
+  /// In ru, this message translates to:
+  /// **'Жалоба отправлена. Спасибо, что помогаешь'**
+  String get abuseSent;
+
+  /// No description provided for @abuseFailed.
+  ///
+  /// In ru, this message translates to:
+  /// **'Не удалось отправить жалобу. Попробуй позже'**
+  String get abuseFailed;
+
+  /// No description provided for @settingsBlocked.
+  ///
+  /// In ru, this message translates to:
+  /// **'Заблокированные'**
+  String get settingsBlocked;
+
+  /// No description provided for @settingsBlockedHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Они не видят тебя и не могут написать. Разблокировка не возвращает дружбу — понадобится новая заявка.'**
+  String get settingsBlockedHint;
+
+  /// No description provided for @settingsBlockedEmpty.
+  ///
+  /// In ru, this message translates to:
+  /// **'Никого'**
+  String get settingsBlockedEmpty;
+
+  /// No description provided for @settingsQuietOrbit.
+  ///
+  /// In ru, this message translates to:
+  /// **'Тихая орбита'**
+  String get settingsQuietOrbit;
+
+  /// No description provided for @settingsQuietOrbitHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Сообщения этих друзей приходят без уведомлений, а их планеты не подсвечиваются. Друзья об этом не знают.'**
+  String get settingsQuietOrbitHint;
+
+  /// No description provided for @settingsQuietOrbitEmpty.
+  ///
+  /// In ru, this message translates to:
+  /// **'Пока никого. Добавить друга можно в меню чата'**
+  String get settingsQuietOrbitEmpty;
+
+  /// No description provided for @actionSave.
+  ///
+  /// In ru, this message translates to:
+  /// **'Сохранить'**
+  String get actionSave;
+
+  /// No description provided for @settingsProfile.
+  ///
+  /// In ru, this message translates to:
+  /// **'Профиль'**
+  String get settingsProfile;
+
+  /// No description provided for @profileName.
+  ///
+  /// In ru, this message translates to:
+  /// **'Имя'**
+  String get profileName;
+
+  /// No description provided for @profilePlanetName.
+  ///
+  /// In ru, this message translates to:
+  /// **'Название планеты'**
+  String get profilePlanetName;
+
+  /// No description provided for @profileHandle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Ник'**
+  String get profileHandle;
+
+  /// No description provided for @profileHandleRule.
+  ///
+  /// In ru, this message translates to:
+  /// **'менять можно раз в 30 дней'**
+  String get profileHandleRule;
+
+  /// No description provided for @profileHandleNextChange.
+  ///
+  /// In ru, this message translates to:
+  /// **'сменить можно с {date}'**
+  String profileHandleNextChange(DateTime date);
+
+  /// No description provided for @profileHandleChecking.
+  ///
+  /// In ru, this message translates to:
+  /// **'Проверяю…'**
+  String get profileHandleChecking;
+
+  /// No description provided for @profileHandleOk.
+  ///
+  /// In ru, this message translates to:
+  /// **'Свободен'**
+  String get profileHandleOk;
+
+  /// No description provided for @profileHandleMine.
+  ///
+  /// In ru, this message translates to:
+  /// **'Это твой ник сейчас'**
+  String get profileHandleMine;
+
+  /// No description provided for @profileHandleTaken.
+  ///
+  /// In ru, this message translates to:
+  /// **'Занят'**
+  String get profileHandleTaken;
+
+  /// No description provided for @profileHandleInvalid.
+  ///
+  /// In ru, this message translates to:
+  /// **'От 3 до 32 символов: латиница, цифры, точка, подчёркивание'**
+  String get profileHandleInvalid;
+
+  /// No description provided for @profileHandleTooSoon.
+  ///
+  /// In ru, this message translates to:
+  /// **'Ник уже меняли меньше 30 дней назад'**
+  String get profileHandleTooSoon;
+
+  /// No description provided for @profileHandleWarning.
+  ///
+  /// In ru, this message translates to:
+  /// **'Следующая смена — через 30 дней. Старый ник ещё 14 дней никто не сможет занять.'**
+  String get profileHandleWarning;
+
+  /// No description provided for @profileInvite.
+  ///
+  /// In ru, this message translates to:
+  /// **'Приглашение на мою орбиту'**
+  String get profileInvite;
+
+  /// No description provided for @profileInviteHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Покажи QR-код или отправь ссылку. По ней тебя смогут добавить, даже если поиск и заявки закрыты.'**
+  String get profileInviteHint;
+
+  /// No description provided for @profileQrLabel.
+  ///
+  /// In ru, this message translates to:
+  /// **'QR-код приглашения'**
+  String get profileQrLabel;
+
+  /// No description provided for @profileShare.
+  ///
+  /// In ru, this message translates to:
+  /// **'Поделиться'**
+  String get profileShare;
+
+  /// No description provided for @profileInviteShareText.
+  ///
+  /// In ru, this message translates to:
+  /// **'Добавляйся ко мне в Orbitly: {link}'**
+  String profileInviteShareText(String link);
+
+  /// No description provided for @profileNewLink.
+  ///
+  /// In ru, this message translates to:
+  /// **'Новая ссылка'**
+  String get profileNewLink;
+
+  /// No description provided for @profileNewLinkConfirm.
+  ///
+  /// In ru, this message translates to:
+  /// **'Сделать новую ссылку?'**
+  String get profileNewLinkConfirm;
+
+  /// No description provided for @profileNewLinkBody.
+  ///
+  /// In ru, this message translates to:
+  /// **'Старая ссылка и QR-код перестанут работать. Это полезно, если ссылка попала не к тем людям.'**
+  String get profileNewLinkBody;
+
+  /// No description provided for @chatRetention.
+  ///
+  /// In ru, this message translates to:
+  /// **'Исчезающие сообщения'**
+  String get chatRetention;
+
+  /// No description provided for @chatRetentionHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Правило общее для вас двоих и действует для новых сообщений. Капсулы не исчезают, пока не откроются.'**
+  String get chatRetentionHint;
+
+  /// No description provided for @retentionAfterSeen.
+  ///
+  /// In ru, this message translates to:
+  /// **'Исчезают после прочтения'**
+  String get retentionAfterSeen;
+
+  /// No description provided for @retentionDay.
+  ///
+  /// In ru, this message translates to:
+  /// **'Исчезают через 24 часа'**
+  String get retentionDay;
+
+  /// No description provided for @retentionKeep.
+  ///
+  /// In ru, this message translates to:
+  /// **'Хранятся'**
+  String get retentionKeep;
+
+  /// No description provided for @retentionNoteAfterSeen.
+  ///
+  /// In ru, this message translates to:
+  /// **'⏱ Сообщения исчезают через час после прочтения'**
+  String get retentionNoteAfterSeen;
+
+  /// No description provided for @retentionNoteDay.
+  ///
+  /// In ru, this message translates to:
+  /// **'⏱ Сообщения исчезают через 24 часа'**
+  String get retentionNoteDay;
+
+  /// No description provided for @retentionNoteKeep.
+  ///
+  /// In ru, this message translates to:
+  /// **'Сообщения хранятся'**
+  String get retentionNoteKeep;
+
+  /// No description provided for @systemLevelOnly.
+  ///
+  /// In ru, this message translates to:
+  /// **'Ур. {level}'**
+  String systemLevelOnly(int level);
+
+  /// No description provided for @minutes.
+  ///
+  /// In ru, this message translates to:
+  /// **'{count, plural, one{{count} минута} few{{count} минуты} many{{count} минут} other{{count} минуты}}'**
+  String minutes(int count);
+
+  /// No description provided for @settingsWellbeing.
+  ///
+  /// In ru, this message translates to:
+  /// **'Благополучие'**
+  String get settingsWellbeing;
+
+  /// No description provided for @wellbeingShadowHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Уйти в тень на день, три или неделю — серии замрут'**
+  String get wellbeingShadowHint;
+
+  /// No description provided for @wellbeingHideStreaks.
+  ///
+  /// In ru, this message translates to:
+  /// **'Серии без давления'**
+  String get wellbeingHideStreaks;
+
+  /// No description provided for @wellbeingHideStreaksHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Скрыть счётчики серий и «трещины». Серии продолжают считаться для достижений.'**
+  String get wellbeingHideStreaksHint;
+
+  /// No description provided for @wellbeingLimit.
+  ///
+  /// In ru, this message translates to:
+  /// **'Мягкий лимит времени'**
+  String get wellbeingLimit;
+
+  /// No description provided for @wellbeingLimitHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Напомню, сколько ты сегодня в Orbitly. Это напоминание, а не блокировка.'**
+  String get wellbeingLimitHint;
+
+  /// No description provided for @wellbeingLimitOff.
+  ///
+  /// In ru, this message translates to:
+  /// **'Выключен'**
+  String get wellbeingLimitOff;
+
+  /// No description provided for @wellbeingReminder.
+  ///
+  /// In ru, this message translates to:
+  /// **'{count, plural, one{Ты сегодня в Orbitly уже {count} минуту. Может, пора отдохнуть? 🌙} few{Ты сегодня в Orbitly уже {count} минуты. Может, пора отдохнуть? 🌙} many{Ты сегодня в Orbitly уже {count} минут. Может, пора отдохнуть? 🌙} other{Ты сегодня в Orbitly уже {count} минуты. Может, пора отдохнуть? 🌙}}'**
+  String wellbeingReminder(int count);
+
+  /// No description provided for @settingsNotifications.
+  ///
+  /// In ru, this message translates to:
+  /// **'Уведомления'**
+  String get settingsNotifications;
+
+  /// No description provided for @notificationsWhat.
+  ///
+  /// In ru, this message translates to:
+  /// **'О чём сообщать'**
+  String get notificationsWhat;
+
+  /// No description provided for @notifyMessages.
+  ///
+  /// In ru, this message translates to:
+  /// **'Сообщения и снапы'**
+  String get notifyMessages;
+
+  /// No description provided for @notifyRequests.
+  ///
+  /// In ru, this message translates to:
+  /// **'Заявки в друзья'**
+  String get notifyRequests;
+
+  /// No description provided for @notifyCapsules.
+  ///
+  /// In ru, this message translates to:
+  /// **'Капсула открылась'**
+  String get notifyCapsules;
+
+  /// No description provided for @notifyShadow.
+  ///
+  /// In ru, this message translates to:
+  /// **'Друг вышел из тени'**
+  String get notifyShadow;
+
+  /// No description provided for @notifyStreaks.
+  ///
+  /// In ru, this message translates to:
+  /// **'Серия под угрозой'**
+  String get notifyStreaks;
+
+  /// No description provided for @notifyAchievements.
+  ///
+  /// In ru, this message translates to:
+  /// **'Новое достижение'**
+  String get notifyAchievements;
+
+  /// No description provided for @notifyWeeklyReport.
+  ///
+  /// In ru, this message translates to:
+  /// **'Отчёт недели'**
+  String get notifyWeeklyReport;
+
+  /// No description provided for @notificationsPreview.
+  ///
+  /// In ru, this message translates to:
+  /// **'Что показывать в уведомлении'**
+  String get notificationsPreview;
+
+  /// No description provided for @previewFull.
+  ///
+  /// In ru, this message translates to:
+  /// **'Текст сообщения'**
+  String get previewFull;
+
+  /// No description provided for @previewSender.
+  ///
+  /// In ru, this message translates to:
+  /// **'Только «Новое сообщение от Ани»'**
+  String get previewSender;
+
+  /// No description provided for @previewNone.
+  ///
+  /// In ru, this message translates to:
+  /// **'Только «Новое сообщение»'**
+  String get previewNone;
+
+  /// No description provided for @notificationsQuietHours.
+  ///
+  /// In ru, this message translates to:
+  /// **'Тихие часы'**
+  String get notificationsQuietHours;
+
+  /// No description provided for @notificationsQuietHoursHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'В это время уведомления копятся и приходят утром одной сводкой'**
+  String get notificationsQuietHoursHint;
+
+  /// No description provided for @notificationsQuietFromTo.
+  ///
+  /// In ru, this message translates to:
+  /// **'С {from} до {to}'**
+  String notificationsQuietFromTo(String from, String to);
+
+  /// No description provided for @notificationsSystem.
+  ///
+  /// In ru, this message translates to:
+  /// **'Звук и вибрация'**
+  String get notificationsSystem;
+
+  /// No description provided for @notificationsSystemHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Открыть системные настройки уведомлений'**
+  String get notificationsSystemHint;
+
+  /// No description provided for @settingsChatsMedia.
+  ///
+  /// In ru, this message translates to:
+  /// **'Чаты и медиа'**
+  String get settingsChatsMedia;
+
+  /// No description provided for @chatsDefaultRetention.
+  ///
+  /// In ru, this message translates to:
+  /// **'Сообщения в новых чатах'**
+  String get chatsDefaultRetention;
+
+  /// No description provided for @chatsDefaultRetentionHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Для чата берётся более строгое правило из двух; в чате его можно поменять'**
+  String get chatsDefaultRetentionHint;
+
+  /// No description provided for @chatsMedia.
+  ///
+  /// In ru, this message translates to:
+  /// **'Медиа'**
+  String get chatsMedia;
+
+  /// No description provided for @mediaAutoload.
+  ///
+  /// In ru, this message translates to:
+  /// **'Автозагрузка фото и видео'**
+  String get mediaAutoload;
+
+  /// No description provided for @mediaAlways.
+  ///
+  /// In ru, this message translates to:
+  /// **'Всегда'**
+  String get mediaAlways;
+
+  /// No description provided for @mediaWifi.
+  ///
+  /// In ru, this message translates to:
+  /// **'Только по Wi-Fi'**
+  String get mediaWifi;
+
+  /// No description provided for @mediaNever.
+  ///
+  /// In ru, this message translates to:
+  /// **'Никогда'**
+  String get mediaNever;
+
+  /// No description provided for @dataSaver.
+  ///
+  /// In ru, this message translates to:
+  /// **'Экономия трафика'**
+  String get dataSaver;
+
+  /// No description provided for @dataSaverHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Отправлять фото и видео в меньшем размере'**
+  String get dataSaverHint;
+
+  /// No description provided for @clearCache.
+  ///
+  /// In ru, this message translates to:
+  /// **'Очистить кэш'**
+  String get clearCache;
+
+  /// No description provided for @cacheSize.
+  ///
+  /// In ru, this message translates to:
+  /// **'Кэш: {size} МБ'**
+  String cacheSize(String size);
+
+  /// No description provided for @cacheCleared.
+  ///
+  /// In ru, this message translates to:
+  /// **'Кэш очищен'**
+  String get cacheCleared;
+
+  /// No description provided for @appearanceHaptics.
+  ///
+  /// In ru, this message translates to:
+  /// **'Тактильный отклик'**
+  String get appearanceHaptics;
+
+  /// No description provided for @appearanceMotion.
+  ///
+  /// In ru, this message translates to:
+  /// **'Анимации'**
+  String get appearanceMotion;
+
+  /// No description provided for @appearanceMotionSystem.
+  ///
+  /// In ru, this message translates to:
+  /// **'Как в системе'**
+  String get appearanceMotionSystem;
+
+  /// No description provided for @appearanceMotionReduced.
+  ///
+  /// In ru, this message translates to:
+  /// **'Всегда меньше'**
+  String get appearanceMotionReduced;
+
+  /// No description provided for @accountEmail.
+  ///
+  /// In ru, this message translates to:
+  /// **'Email'**
+  String get accountEmail;
+
+  /// No description provided for @accountEmailChange.
+  ///
+  /// In ru, this message translates to:
+  /// **'Новый email'**
+  String get accountEmailChange;
+
+  /// No description provided for @accountEmailNew.
+  ///
+  /// In ru, this message translates to:
+  /// **'Новый адрес'**
+  String get accountEmailNew;
+
+  /// No description provided for @accountEmailChanged.
+  ///
+  /// In ru, this message translates to:
+  /// **'Email изменён'**
+  String get accountEmailChanged;
+
+  /// No description provided for @accountSignOutOthers.
+  ///
+  /// In ru, this message translates to:
+  /// **'Выйти на других устройствах'**
+  String get accountSignOutOthers;
+
+  /// No description provided for @accountSignOutOthersHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Этот телефон останется в аккаунте'**
+  String get accountSignOutOthersHint;
+
+  /// No description provided for @accountSignedOutOthers.
+  ///
+  /// In ru, this message translates to:
+  /// **'Готово: другие устройства вышли из аккаунта'**
+  String get accountSignedOutOthers;
+
+  /// No description provided for @accountExport.
+  ///
+  /// In ru, this message translates to:
+  /// **'Скачать мои данные'**
+  String get accountExport;
+
+  /// No description provided for @accountExportHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Профиль, друзья, достижения и мои сообщения — файлом JSON'**
+  String get accountExportHint;
+
+  /// No description provided for @accountExportFailed.
+  ///
+  /// In ru, this message translates to:
+  /// **'Не получилось собрать данные. Попробуй ещё раз'**
+  String get accountExportFailed;
+
+  /// No description provided for @accountDelete.
+  ///
+  /// In ru, this message translates to:
+  /// **'Удалить аккаунт'**
+  String get accountDelete;
+
+  /// No description provided for @deleteWhat.
+  ///
+  /// In ru, this message translates to:
+  /// **'Что произойдёт'**
+  String get deleteWhat;
+
+  /// No description provided for @deleteWhatProfile.
+  ///
+  /// In ru, this message translates to:
+  /// **'Удалятся профиль, планета, достижения, награды и настройки.'**
+  String get deleteWhatProfile;
+
+  /// No description provided for @deleteWhatMessages.
+  ///
+  /// In ru, this message translates to:
+  /// **'Удалятся все твои сообщения, снапы и капсулы.'**
+  String get deleteWhatMessages;
+
+  /// No description provided for @deleteWhatFriends.
+  ///
+  /// In ru, this message translates to:
+  /// **'Друзья сразу перестанут тебя видеть — твоя планета исчезнет с их орбит.'**
+  String get deleteWhatFriends;
+
+  /// No description provided for @deleteWhatTrophies.
+  ///
+  /// In ru, this message translates to:
+  /// **'Достижения, которые вы открыли вместе, у друга останутся, но без твоего имени.'**
+  String get deleteWhatTrophies;
+
+  /// No description provided for @deleteWhatGrace.
+  ///
+  /// In ru, this message translates to:
+  /// **'Аккаунт скроется сразу, а удалится навсегда через 7 дней. Если за это время войти снова, удаление отменится.'**
+  String get deleteWhatGrace;
+
+  /// No description provided for @deleteExportFirst.
+  ///
+  /// In ru, this message translates to:
+  /// **'Хочешь сохранить переписку и данные? Сначала скачай их в «Аккаунт и данные».'**
+  String get deleteExportFirst;
+
+  /// No description provided for @deleteSendCode.
+  ///
+  /// In ru, this message translates to:
+  /// **'Получить код для удаления'**
+  String get deleteSendCode;
+
+  /// No description provided for @deleteConfirm.
+  ///
+  /// In ru, this message translates to:
+  /// **'Удалить аккаунт'**
+  String get deleteConfirm;
+
+  /// No description provided for @deleteDone.
+  ///
+  /// In ru, this message translates to:
+  /// **'Аккаунт скрыт и будет удалён {date}. Передумаешь — просто войди до этого дня.'**
+  String deleteDone(DateTime date);
+
+  /// No description provided for @deleteDoneOk.
+  ///
+  /// In ru, this message translates to:
+  /// **'Понятно, выйти'**
+  String get deleteDoneOk;
+
+  /// No description provided for @deleteCancelled.
+  ///
+  /// In ru, this message translates to:
+  /// **'Удаление аккаунта отменено. С возвращением!'**
+  String get deleteCancelled;
+
+  /// No description provided for @onboardingAdult.
+  ///
+  /// In ru, this message translates to:
+  /// **'Мне есть 18 лет'**
+  String get onboardingAdult;
+
+  /// No description provided for @onboardingAdultHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Orbitly — для взрослых'**
+  String get onboardingAdultHint;
+
+  /// No description provided for @settingsHelp.
+  ///
+  /// In ru, this message translates to:
+  /// **'Помощь и о приложении'**
+  String get settingsHelp;
+
+  /// No description provided for @helpReportProblem.
+  ///
+  /// In ru, this message translates to:
+  /// **'Сообщить о проблеме'**
+  String get helpReportProblem;
+
+  /// No description provided for @helpReportHint.
+  ///
+  /// In ru, this message translates to:
+  /// **'Что случилось и как это повторить?'**
+  String get helpReportHint;
+
+  /// No description provided for @helpReportIncludes.
+  ///
+  /// In ru, this message translates to:
+  /// **'Вместе с текстом отправятся версия приложения и модель телефона.'**
+  String get helpReportIncludes;
+
+  /// No description provided for @helpThanks.
+  ///
+  /// In ru, this message translates to:
+  /// **'Спасибо! Мы прочитаем'**
+  String get helpThanks;
+
+  /// No description provided for @helpCommunityRules.
+  ///
+  /// In ru, this message translates to:
+  /// **'Правила сообщества'**
+  String get helpCommunityRules;
+
+  /// No description provided for @helpPrivacyPolicy.
+  ///
+  /// In ru, this message translates to:
+  /// **'Политика конфиденциальности'**
+  String get helpPrivacyPolicy;
+
+  /// No description provided for @helpTerms.
+  ///
+  /// In ru, this message translates to:
+  /// **'Условия использования'**
+  String get helpTerms;
+
+  /// No description provided for @helpLicenses.
+  ///
+  /// In ru, this message translates to:
+  /// **'Лицензии'**
+  String get helpLicenses;
+
+  /// No description provided for @helpVersion.
+  ///
+  /// In ru, this message translates to:
+  /// **'Версия'**
+  String get helpVersion;
 }
 
 class _AppLocalizationsDelegate
@@ -1084,7 +2150,7 @@ class _AppLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['ru'].contains(locale.languageCode);
+      <String>['en', 'ru'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -1093,6 +2159,8 @@ class _AppLocalizationsDelegate
 AppLocalizations lookupAppLocalizations(Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
+    case 'en':
+      return AppLocalizationsEn();
     case 'ru':
       return AppLocalizationsRu();
   }

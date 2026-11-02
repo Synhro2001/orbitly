@@ -10,13 +10,29 @@ import 'package:orbitly/features/chat/data/repositories/mock_chat_repository.dar
 import 'package:orbitly/features/chat/data/repositories/supabase_chat_repository.dart';
 import 'package:orbitly/features/chat/domain/repositories/chat_repository.dart';
 import 'package:orbitly/features/friends/data/repositories/mock_friends_repository.dart';
+import 'package:orbitly/features/friends/data/repositories/mock_safety_repository.dart';
 import 'package:orbitly/features/friends/data/repositories/supabase_friends_repository.dart';
+import 'package:orbitly/features/friends/data/repositories/supabase_safety_repository.dart';
 import 'package:orbitly/features/friends/domain/repositories/friends_repository.dart';
+import 'package:orbitly/features/friends/domain/repositories/safety_repository.dart';
 import 'package:orbitly/features/planet/data/repositories/mock_planet_repository.dart';
 import 'package:orbitly/features/planet/data/repositories/supabase_planet_repository.dart';
 import 'package:orbitly/features/planet/domain/repositories/planet_repository.dart';
 import 'package:orbitly/features/report/data/repositories/mock_report_repository.dart';
 import 'package:orbitly/features/report/domain/repositories/report_repository.dart';
+import 'package:orbitly/features/settings/data/repositories/feedback_repositories.dart';
+import 'package:orbitly/features/settings/data/repositories/in_memory_settings_repository.dart';
+import 'package:orbitly/features/settings/data/repositories/mock_account_repository.dart';
+import 'package:orbitly/features/settings/data/repositories/mock_profile_repository.dart';
+import 'package:orbitly/features/settings/data/repositories/mock_user_settings_repository.dart';
+import 'package:orbitly/features/settings/data/repositories/supabase_account_repository.dart';
+import 'package:orbitly/features/settings/data/repositories/supabase_profile_repository.dart';
+import 'package:orbitly/features/settings/data/repositories/supabase_user_settings_repository.dart';
+import 'package:orbitly/features/settings/domain/repositories/account_repository.dart';
+import 'package:orbitly/features/settings/domain/repositories/feedback_repository.dart';
+import 'package:orbitly/features/settings/domain/repositories/profile_repository.dart';
+import 'package:orbitly/features/settings/domain/repositories/settings_repository.dart';
+import 'package:orbitly/features/settings/domain/repositories/user_settings_repository.dart';
 import 'package:orbitly/features/system/data/repositories/mock_system_repository.dart';
 import 'package:orbitly/features/system/data/repositories/supabase_system_repository.dart';
 import 'package:orbitly/features/system/domain/repositories/system_repository.dart';
@@ -25,9 +41,9 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 part 'di.g.dart';
 
-// Единственное место, где UI связывается с реализациями репозиториев.
-// USE_MOCKS (см. env.dart) переключает моки и Supabase. Чат, снапы и отчёт
-// недели пока всегда на моках: им нужны Realtime и хранилище медиа.
+// The only place where the UI is wired to repository implementations.
+// USE_MOCKS (see env.dart) switches between mocks and Supabase. The weekly
+// report is still mock-only: it needs data the server does not collect yet.
 
 @Riverpod(keepAlive: true)
 bool useMocks(Ref ref) => Env.useMocks;
@@ -35,7 +51,39 @@ bool useMocks(Ref ref) => Env.useMocks;
 @Riverpod(keepAlive: true)
 MockStore mockStore(Ref ref) => MockStore(withNewUnlock: true);
 
-/// Клиент Supabase. Инициализируется в main(), только когда моки выключены.
+/// Settings on this phone. main() puts in the real storage; tests keep them
+/// in memory.
+@Riverpod(keepAlive: true)
+SettingsRepository settingsRepository(Ref ref) => InMemorySettingsRepository();
+
+@Riverpod(keepAlive: true)
+SafetyRepository safetyRepository(Ref ref) => ref.watch(useMocksProvider)
+    ? MockSafetyRepository(ref.watch(mockStoreProvider))
+    : SupabaseSafetyRepository(ref.watch(supabaseClientProvider));
+
+@Riverpod(keepAlive: true)
+ProfileRepository profileRepository(Ref ref) => ref.watch(useMocksProvider)
+    ? MockProfileRepository(ref.watch(mockStoreProvider))
+    : SupabaseProfileRepository(ref.watch(supabaseClientProvider));
+
+@Riverpod(keepAlive: true)
+AccountRepository accountRepository(Ref ref) => ref.watch(useMocksProvider)
+    ? MockAccountRepository(ref.watch(mockStoreProvider))
+    : SupabaseAccountRepository(ref.watch(supabaseClientProvider));
+
+@Riverpod(keepAlive: true)
+FeedbackRepository feedbackRepository(Ref ref) => ref.watch(useMocksProvider)
+    ? MockFeedbackRepository(ref.watch(mockStoreProvider))
+    : SupabaseFeedbackRepository(ref.watch(supabaseClientProvider));
+
+/// Account settings on the server.
+@Riverpod(keepAlive: true)
+UserSettingsRepository userSettingsRepository(Ref ref) =>
+    ref.watch(useMocksProvider)
+    ? MockUserSettingsRepository(ref.watch(mockStoreProvider))
+    : SupabaseUserSettingsRepository(ref.watch(supabaseClientProvider));
+
+/// Supabase client. Initialised in main() only when mocks are off.
 @Riverpod(keepAlive: true)
 SupabaseClient supabaseClient(Ref ref) => Supabase.instance.client;
 

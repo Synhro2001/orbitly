@@ -1,17 +1,19 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:orbitly/core/data/models/localized_text_converter.dart';
 import 'package:orbitly/core/domain/entities/award.dart';
 import 'package:orbitly/core/domain/entities/cosmetic.dart';
+import 'package:orbitly/core/domain/entities/localized_text.dart';
 
 part 'cosmetic_model.freezed.dart';
 part 'cosmetic_model.g.dart';
 
-/// Строка каталога `cosmetics`. Вид в базе — в snake_case (`planet_type`,
-/// `comet_trail`).
+/// A row of the `cosmetics` catalogue. The kind is snake_case in the
+/// database (`planet_type`, `comet_trail`).
 @freezed
 abstract class CosmeticModel with _$CosmeticModel {
   const factory CosmeticModel({
     required String id,
-    required String title,
+    @LocalizedTextConverter() required LocalizedText title,
     required String kind,
     @JsonKey(unknownEnumValue: Rarity.common)
     @Default(Rarity.common)
@@ -25,7 +27,7 @@ abstract class CosmeticModel with _$CosmeticModel {
 }
 
 extension CosmeticModelX on CosmeticModel {
-  /// `null` — вид, которого приложение ещё не знает (новая версия сервера).
+  /// `null` for a kind this app version does not know yet.
   Cosmetic? toEntity() {
     final cosmeticKind = cosmeticKindFromDb(kind);
     if (cosmeticKind == null) return null;

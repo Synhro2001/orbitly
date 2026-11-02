@@ -1,12 +1,12 @@
 import 'package:orbitly/core/domain/entities/cosmetic.dart';
 import 'package:orbitly/core/domain/entities/planet_appearance.dart';
 
-/// Как надетая косметика превращается во внешний вид планеты.
+/// Turns worn cosmetics into the planet's final appearance.
 ///
-/// Базовый вид (тип, seed, оттенок) выбирается при создании планеты, всё
-/// остальное — награды. Каждого вида надевается не больше одной вещи; если
-/// пришло несколько, побеждает последняя. Незнакомые параметры (новая версия
-/// сервера) пропускаются — планета остаётся такой, какой была.
+/// The base (type, seed, hue) is chosen when the planet is created; the rest
+/// comes from rewards. At most one item of each kind is worn; if several
+/// arrive, the last one wins. Unknown parameters (from a newer server) are
+/// skipped, and the planet stays as it was.
 class ApplyCosmetics {
   const ApplyCosmetics();
 

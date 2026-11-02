@@ -3,7 +3,7 @@ import 'package:orbitly/core/domain/entities/planet_appearance.dart';
 
 part 'friends_entities.freezed.dart';
 
-/// Пользователь, который ещё не друг: результат поиска или автор заявки.
+/// A user who is not a friend yet: a search result or a request sender.
 @freezed
 abstract class UserSummary with _$UserSummary {
   const factory UserSummary({

@@ -11,10 +11,22 @@ import 'package:orbitly/features/camera/presentation/screens/camera_screen.dart'
 import 'package:orbitly/features/chat/presentation/screens/chat_screen.dart';
 import 'package:orbitly/features/chat/presentation/screens/chats_screen.dart';
 import 'package:orbitly/features/friends/presentation/screens/friends_screen.dart';
+import 'package:orbitly/features/friends/presentation/screens/invite_screen.dart';
 import 'package:orbitly/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:orbitly/features/planet/presentation/controllers/my_planet_controller.dart';
 import 'package:orbitly/features/planet/presentation/screens/my_planet_screen.dart';
 import 'package:orbitly/features/report/presentation/screens/report_screen.dart';
+import 'package:orbitly/features/settings/presentation/screens/account_settings_screen.dart';
+import 'package:orbitly/features/settings/presentation/screens/appearance_settings_screen.dart';
+import 'package:orbitly/features/settings/presentation/screens/chats_media_settings_screen.dart';
+import 'package:orbitly/features/settings/presentation/screens/delete_account_screen.dart';
+import 'package:orbitly/features/settings/presentation/screens/help_settings_screen.dart';
+import 'package:orbitly/features/settings/presentation/screens/notification_settings_screen.dart';
+import 'package:orbitly/features/settings/presentation/screens/people_list_screen.dart';
+import 'package:orbitly/features/settings/presentation/screens/privacy_settings_screen.dart';
+import 'package:orbitly/features/settings/presentation/screens/profile_settings_screen.dart';
+import 'package:orbitly/features/settings/presentation/screens/settings_screen.dart';
+import 'package:orbitly/features/settings/presentation/screens/wellbeing_settings_screen.dart';
 import 'package:orbitly/features/system/presentation/screens/system_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -22,8 +34,7 @@ part 'router.g.dart';
 
 @Riverpod(keepAlive: true)
 GoRouter router(Ref ref) {
-  // Роутер пересчитывает redirect, когда меняется вход или «есть ли
-  // планета».
+  // Re-run the redirect whenever sign-in or "has a planet" changes.
   final signedIn = ValueNotifier<AsyncValue<bool>>(const AsyncLoading());
   final hasPlanet = ValueNotifier<AsyncValue<bool>>(const AsyncLoading());
   ref
@@ -47,8 +58,16 @@ GoRouter router(Ref ref) {
       if (auth is! AsyncData<bool>) {
         return location == AppRoutes.splash ? null : AppRoutes.splash;
       }
+      // The web page for deleting an account comes back after signing in.
+      final next = state.uri.queryParameters['next'];
       if (!auth.value) {
-        return location == AppRoutes.login ? null : AppRoutes.login;
+        if (location == AppRoutes.login) return null;
+        return location == AppRoutes.deleteAccount
+            ? '${AppRoutes.login}?next=${AppRoutes.deleteAccount}'
+            : AppRoutes.login;
+      }
+      if (location == AppRoutes.login && next == AppRoutes.deleteAccount) {
+        return AppRoutes.deleteAccount;
       }
       final status = hasPlanet.value;
       if (status is! AsyncData<bool>) {
@@ -116,6 +135,12 @@ GoRouter router(Ref ref) {
           ),
         ],
       ),
+      // Someone's invite link (https://orbitly.app/invite/<code>) or QR code.
+      GoRoute(
+        path: '/invite/:code',
+        builder: (_, state) =>
+            InviteScreen(code: state.pathParameters['code']!),
+      ),
       GoRoute(
         path: '/chat/:friendId',
         builder: (_, state) =>
@@ -130,6 +155,61 @@ GoRouter router(Ref ref) {
         ),
       ),
       GoRoute(path: AppRoutes.report, builder: (_, _) => const ReportScreen()),
+      GoRoute(
+        path: AppRoutes.deleteAccount,
+        builder: (_, _) => const DeleteAccountScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.settings,
+        builder: (_, _) => const SettingsScreen(),
+        routes: [
+          GoRoute(
+            path: 'profile',
+            builder: (_, _) => const ProfileSettingsScreen(),
+          ),
+          GoRoute(
+            path: 'appearance',
+            builder: (_, _) => const AppearanceSettingsScreen(),
+          ),
+          GoRoute(
+            path: 'privacy',
+            builder: (_, _) => const PrivacySettingsScreen(),
+            routes: [
+              GoRoute(
+                path: 'blocked',
+                builder: (_, _) => const BlockedUsersScreen(),
+              ),
+              GoRoute(
+                path: 'quiet',
+                builder: (_, _) => const QuietOrbitScreen(),
+              ),
+            ],
+          ),
+          GoRoute(
+            path: 'notifications',
+            builder: (_, _) => const NotificationSettingsScreen(),
+          ),
+          GoRoute(
+            path: 'wellbeing',
+            builder: (_, _) => const WellbeingSettingsScreen(),
+          ),
+          GoRoute(
+            path: 'chats',
+            builder: (_, _) => const ChatsMediaSettingsScreen(),
+          ),
+          GoRoute(path: 'help', builder: (_, _) => const HelpSettingsScreen()),
+          GoRoute(
+            path: 'account',
+            builder: (_, _) => const AccountSettingsScreen(),
+            routes: [
+              GoRoute(
+                path: 'delete',
+                builder: (_, _) => const DeleteAccountScreen(),
+              ),
+            ],
+          ),
+        ],
+      ),
     ],
   );
 
@@ -141,7 +221,7 @@ GoRouter router(Ref ref) {
   return router;
 }
 
-/// Камера выезжает справа — как продолжение свайпа влево.
+/// The camera slides in from the right, continuing the swipe left.
 Widget _slideFromRight(
   BuildContext context,
   Animation<double> animation,

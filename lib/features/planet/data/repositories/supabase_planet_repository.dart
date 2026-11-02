@@ -47,16 +47,19 @@ class SupabasePlanetRepository implements PlanetRepository {
     );
   }
 
-  /// Ник сервер генерирует сам; из вида берёт только тип, seed и оттенок.
+  /// The server generates the handle; from the look it takes only type, seed
+  /// and hue.
   @override
   Future<void> createPlanet({
     required String displayName,
     required String name,
     required PlanetAppearance appearance,
+    required bool isAdult,
   }) => _client.rpc<void>(
     'complete_onboarding',
     params: {
       'p_display_name': displayName,
+      'p_is_adult': isAdult,
       'p_planet_name': name,
       'p_appearance': {
         'type': appearance.type.name,

@@ -3,8 +3,8 @@ import 'package:orbitly/core/theme/app_colors.dart';
 import 'package:orbitly/core/theme/app_dimens.dart';
 import 'package:orbitly/core/utils/l10n.dart';
 
-/// Полноэкранный просмотр снапа/момента. Пока без контента: градиент,
-/// подпись и полоса времени. Закрывается по тапу или через 5 секунд.
+/// Full-screen snap/moment viewer. No real content yet: a gradient, a
+/// caption and a progress bar. Closes on tap or after 5 seconds.
 Future<void> showContentViewer(BuildContext context, {required String title}) {
   return showGeneralDialog<void>(
     context: context,

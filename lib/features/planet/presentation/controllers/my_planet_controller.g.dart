@@ -10,20 +10,20 @@ part of 'my_planet_controller.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-/// Создана ли у пользователя планета. От этого зависит, куда ведёт роутер.
-/// Пересчитывается при входе и выходе.
+/// Whether the user has created a planet; decides where the router goes.
+/// Recomputed on sign-in and sign-out.
 
 @ProviderFor(hasPlanet)
 final hasPlanetProvider = HasPlanetProvider._();
 
-/// Создана ли у пользователя планета. От этого зависит, куда ведёт роутер.
-/// Пересчитывается при входе и выходе.
+/// Whether the user has created a planet; decides where the router goes.
+/// Recomputed on sign-in and sign-out.
 
 final class HasPlanetProvider
     extends $FunctionalProvider<AsyncValue<bool>, bool, FutureOr<bool>>
     with $FutureModifier<bool>, $FutureProvider<bool> {
-  /// Создана ли у пользователя планета. От этого зависит, куда ведёт роутер.
-  /// Пересчитывается при входе и выходе.
+  /// Whether the user has created a planet; decides where the router goes.
+  /// Recomputed on sign-in and sign-out.
   HasPlanetProvider._()
     : super(
         from: null,
@@ -51,17 +51,17 @@ final class HasPlanetProvider
 
 String _$hasPlanetHash() => r'918f2e3b7409ec3bc21c392b2dd645b441812801';
 
-/// Моя тень — нужна везде, где считается серия с другом.
+/// My shadow: needed wherever a streak with a friend is evaluated.
 
 @ProviderFor(myShadow)
 final myShadowProvider = MyShadowProvider._();
 
-/// Моя тень — нужна везде, где считается серия с другом.
+/// My shadow: needed wherever a streak with a friend is evaluated.
 
 final class MyShadowProvider
     extends $FunctionalProvider<Shadow?, Shadow?, Shadow?>
     with $Provider<Shadow?> {
-  /// Моя тень — нужна везде, где считается серия с другом.
+  /// My shadow: needed wherever a streak with a friend is evaluated.
   MyShadowProvider._()
     : super(
         from: null,

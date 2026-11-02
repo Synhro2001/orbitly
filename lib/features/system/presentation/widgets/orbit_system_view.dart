@@ -13,11 +13,11 @@ import 'package:orbitly/core/widgets/planet_view.dart';
 import 'package:orbitly/features/system/presentation/widgets/orbit_layout.dart';
 import 'package:orbitly/features/system/presentation/widgets/orbit_painters.dart';
 
-/// Моя планета в центре, друзья на эллиптических орбитах, вокруг — пылевой
-/// диск. Сцена занимает весь экран; [padding] — то, что закрыто шапкой и
-/// нижней панелью: орбиты друзей помещаются в оставшуюся часть.
+/// My planet in the centre, friends on elliptical orbits, a dust disk around.
+/// The scene fills the screen; [padding] is what the header and the bottom
+/// bar cover, and friend orbits fit into the rest.
 ///
-/// Пинч-зум и перетаскивание; с «уменьшить движение» система стоит.
+/// Pinch to zoom and drag; with "reduce motion" the system stands still.
 class OrbitSystemView extends StatefulWidget {
   const OrbitSystemView({
     required this.me,
@@ -114,8 +114,8 @@ class _OrbitSystemViewState extends State<OrbitSystemView>
   }
 }
 
-/// Размер зоны касания планеты друга: не меньше 48 dp, даже если сама
-/// планета меньше.
+/// Touch target of a friend's planet: at least 48 dp even if the planet
+/// itself is smaller.
 double _tapBoxOf(FriendOrbit orbit) =>
     math.max(orbit.planetSize, AppSizes.minTapTarget);
 
@@ -130,7 +130,7 @@ class _FriendPlanet extends ConsumerWidget {
     final friend = orbit.friend;
     final l10n = context.l10n;
     final bodySize = orbit.planetSize * PlanetPainter.bodyRadiusFactor * 2;
-    final unread = friend.hasUnreadSnaps;
+    final unread = friend.glows;
     final now = ref.watch(clockProvider)();
     final inShadow = friend.shadow?.isActiveAt(now) ?? false;
     return Semantics(
@@ -148,20 +148,20 @@ class _FriendPlanet extends ConsumerWidget {
           alignment: Alignment.center,
           clipBehavior: Clip.none,
           children: [
-            // Свечение градиентом, а не размытой тенью: размытие
-            // пересчитывается в каждом кадре и тормозит карту.
+            // A gradient glow instead of a blurred shadow: a blur is
+            // recomputed every frame and slows the map down.
             if (unread)
               SizedBox.square(
                 dimension: bodySize * 2.2,
                 child: const DecoratedBox(decoration: _unreadGlow),
               ),
-            // Друг в тени — планета в полутени, как при затмении.
+            // A friend in shadow: the planet is half-dark, like an eclipse.
             PlanetView(
               appearance: friend.appearance,
               size: orbit.planetSize,
               opacity: inShadow ? 0.45 : 1,
             ),
-            // Общий трофей дружбы — значок самого свежего у планеты.
+            // Shared friendship trophy: the icon of the latest one.
             if (friend.sharedTrophies.lastOrNull?.emoji case final emoji?)
               Positioned(
                 right: _tapBoxOf(orbit) / 2 - bodySize / 2 - AppSpacing.s,
@@ -196,7 +196,7 @@ const _unreadGlow = BoxDecoration(
   ),
 );
 
-/// Тёмная обводка имени без размытия — читается на любом фоне.
+/// A dark outline around the name without blur: readable on any background.
 const _labelOutline = [
   Shadow(color: AppColors.spaceDeep, offset: Offset(1, 1)),
   Shadow(color: AppColors.spaceDeep, offset: Offset(-1, -1)),
@@ -204,8 +204,8 @@ const _labelOutline = [
   Shadow(color: AppColors.spaceDeep, offset: Offset(-1, 1)),
 ];
 
-/// Двигает планеты без перестройки виджетов и сортирует их по глубине:
-/// те, что на дальней стороне орбиты, рисуются за солнцем и чуть меньше.
+/// Moves planets without rebuilding widgets and sorts them by depth: those
+/// on the far side of the orbit are painted behind the sun and a bit smaller.
 class _OrbitFlowDelegate extends FlowDelegate {
   _OrbitFlowDelegate(this.layout, this.clock) : super(repaint: clock);
 

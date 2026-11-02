@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:orbitly/core/domain/entities/award.dart';
 import 'package:orbitly/core/domain/entities/cosmetic.dart';
+import 'package:orbitly/core/domain/entities/localized_text.dart';
 import 'package:orbitly/core/domain/entities/planet_appearance.dart';
 import 'package:orbitly/core/domain/usecases/apply_cosmetics.dart';
 
@@ -13,7 +14,7 @@ void main() {
     Map<String, Object?> params = const {},
   ]) => Cosmetic(
     id: kind.name,
-    title: kind.name,
+    title: LocalizedText({'en': kind.name}),
     kind: kind,
     rarity: Rarity.common,
     params: params,

@@ -1,12 +1,12 @@
 part of 'planet_painter.dart';
 
-/// Редкие планеты и эффекты наград. Как и всё остальное, рисуются
-/// детерминированно: всё случайное берётся из [SeededRandom] по seed.
+/// Rare planets and reward effects. Like everything else they are drawn
+/// deterministically: all randomness comes from [SeededRandom] by seed.
 extension _RarePlanets on PlanetPainter {
-  // --- Туманность: облака газа и звёзды внутри
+  // --- Nebula: gas clouds with stars inside
 
   void _paintNebula(Canvas canvas, Offset c, double r, SeededRandom rnd) {
-    // Яркие облака газа трёх оттенков и светящееся ядро.
+    // Bright gas clouds in three hues and a glowing core.
     for (var i = 0; i < 10; i++) {
       canvas.drawCircle(
         c + Offset(r * rnd.range(-0.7, 0.7), r * rnd.range(-0.7, 0.7)),
@@ -38,7 +38,7 @@ extension _RarePlanets on PlanetPainter {
     }
   }
 
-  // --- Чёрная дыра: тёмное ядро и наклонный аккреционный диск
+  // --- Black hole: dark core and a tilted accretion disk
 
   static const _diskTilt = -0.3;
   static const _diskFlatten = 0.3;
@@ -96,7 +96,7 @@ extension _RarePlanets on PlanetPainter {
       );
   }
 
-  // --- Аврора: ночная сторона с полярным сиянием
+  // --- Aurora: night side with northern lights
 
   void _paintAuroraSurface(
     Canvas canvas,
@@ -104,7 +104,7 @@ extension _RarePlanets on PlanetPainter {
     double r,
     SeededRandom rnd,
   ) {
-    // Огни городов на ночной стороне.
+    // City lights on the night side.
     final lights = Paint()..color = const Color(0xCCFFD27A);
     for (var i = 0; i < 14; i++) {
       canvas.drawCircle(
@@ -113,7 +113,7 @@ extension _RarePlanets on PlanetPainter {
         lights,
       );
     }
-    // Занавеси сияния у полюса.
+    // Aurora curtains near the pole.
     final phase = rnd.range(0, math.pi * 2);
     for (var band = 0; band < 3; band++) {
       final top = c.dy - r * (0.75 - band * 0.12);
@@ -161,7 +161,7 @@ extension _RarePlanets on PlanetPainter {
     );
   }
 
-  // --- Солнечная корона: раскалённое тело и лучи
+  // --- Solar corona: a blazing body with rays
 
   void _paintCorona(Canvas canvas, Offset c, double r, SeededRandom rnd) {
     final outer = r * 1.7;
@@ -208,7 +208,7 @@ extension _RarePlanets on PlanetPainter {
     }
   }
 
-  // --- Близнецы: две сцепленные планеты
+  // --- Gemini: two linked planets
 
   void _paintGemini(Canvas canvas, Offset c, double r, SeededRandom rnd) {
     _paintSphere(canvas, c + Offset(r * 0.55, -r * 0.32), r * 0.5, 45, rnd);
@@ -249,7 +249,7 @@ extension _RarePlanets on PlanetPainter {
       );
   }
 
-  // --- Кольцевой мир: много тонких колец
+  // --- Ring world: many thin rings
 
   void _paintRingWorldRings(
     Canvas canvas,
@@ -270,7 +270,7 @@ extension _RarePlanets on PlanetPainter {
             ? Rect.fromLTRB(-r * 2, 0, r * 2, r * 2)
             : Rect.fromLTRB(-r * 2, -r * 2, r * 2, 0),
       );
-    // Свой генератор: передние и задние половины колец должны совпасть.
+    // Own generator: the front and back halves of each ring must match.
     final ringRnd = SeededRandom(appearance.seed + 7);
     for (var i = 0; i < 6; i++) {
       canvas.drawCircle(
@@ -290,9 +290,9 @@ extension _RarePlanets on PlanetPainter {
     canvas.restore();
   }
 
-  // --- Эффекты наград
+  // --- Reward effects
 
-  /// След кометы за планетой.
+  /// Comet trail behind the planet.
   void _paintCometTrail(Canvas canvas, Offset c, double r) {
     const direction = Offset(-0.85, 0.53);
     const perpendicular = Offset(0.53, 0.85);
@@ -309,7 +309,7 @@ extension _RarePlanets on PlanetPainter {
       )
       ..close();
 
-    // Ледяной хвост: широкий мягкий слой и яркая сердцевина.
+    // Icy tail: a wide soft layer and a bright core.
     for (final (halfWidth, alpha, blur) in const [
       (0.85, 0.55, 0.1),
       (0.4, 0.9, 0.04),
@@ -328,7 +328,7 @@ extension _RarePlanets on PlanetPainter {
     }
   }
 
-  /// «Двойная звезда»: маленькая яркая звезда-компаньон.
+  /// "Double star": a small bright companion star.
   void _paintCompanionStar(Canvas canvas, Offset c, double r) {
     final star = c + Offset(r * 1.25, -r * 1.1);
     final glowRadius = r * 0.35;
@@ -350,7 +350,7 @@ extension _RarePlanets on PlanetPainter {
       ..drawCircle(star, r * 0.08, Paint()..color = const Color(0xFFFFFFFF));
   }
 
-  /// Спутник-скин «Песочные часы».
+  /// "Hourglass" moon skin.
   void _paintHourglassMoon(Canvas canvas, Offset center, double size) {
     final w = size * 0.6;
     final path = Path()

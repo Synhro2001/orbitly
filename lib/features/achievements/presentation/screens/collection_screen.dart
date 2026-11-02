@@ -8,8 +8,8 @@ import 'package:orbitly/core/widgets/async_view.dart';
 import 'package:orbitly/core/widgets/starfield_background.dart';
 import 'package:orbitly/features/achievements/presentation/controllers/achievements_controller.dart';
 
-/// Все достижения по категориям. Рамка — цвет редкости, у неоткрытых —
-/// прогресс, секретные до открытия показаны как «???».
+/// All achievements by category. The border shows rarity, locked ones show
+/// progress, secrets show "???" until unlocked.
 class CollectionScreen extends ConsumerWidget {
   const CollectionScreen({super.key});
 
@@ -113,10 +113,12 @@ class AwardCard extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     final color = AppColors.forRarity(award.rarity);
     final secret = award.isSecretLocked;
-    final title = secret ? l10n.achievementSecretTitle : award.title ?? '';
+    final title = secret
+        ? l10n.achievementSecretTitle
+        : award.title?.of(context) ?? '';
     final description = secret
         ? l10n.achievementSecretDescription
-        : award.description ?? '';
+        : award.description?.of(context) ?? '';
 
     return Semantics(
       label: '$title. $description. ${award.rarity.label(l10n)}',
@@ -184,7 +186,7 @@ class AwardCard extends StatelessWidget {
                   if (award.rewardTitle case final reward? when !secret) ...[
                     const SizedBox(height: AppSpacing.xs),
                     Text(
-                      l10n.achievementReward(reward),
+                      l10n.achievementReward(reward.of(context)),
                       style: textTheme.labelSmall?.copyWith(color: color),
                     ),
                   ],

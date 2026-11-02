@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$PlanetAppearance {
 
- PlanetType get type; int get seed;/// Основной оттенок, градусы 0–360.
+ PlanetType get type; int get seed;/// Main hue, degrees 0–360.
  double get hue; int get moons; bool get hasRings; GlowStyle get glow; MoonSkin get moonSkin; bool get hasCometTrail;
 /// Create a copy of PlanetAppearance
 /// with the given fields replaced by the non-null parameter values.
@@ -225,7 +225,7 @@ class _PlanetAppearance implements PlanetAppearance {
 
 @override final  PlanetType type;
 @override final  int seed;
-/// Основной оттенок, градусы 0–360.
+/// Main hue, degrees 0–360.
 @override final  double hue;
 @override@JsonKey() final  int moons;
 @override@JsonKey() final  bool hasRings;

@@ -112,8 +112,8 @@ class SnapTile extends StatelessWidget {
   }
 }
 
-/// Капсула времени. Получатель видит текст только после срока, отправитель
-/// — сразу, с отметкой, когда капсула откроется.
+/// Time capsule. The recipient sees the text only after it opens; the sender
+/// sees it right away, with a note of when it opens.
 class CapsuleBubble extends ConsumerWidget {
   const CapsuleBubble(this.message, {super.key});
 

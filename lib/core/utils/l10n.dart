@@ -1,12 +1,19 @@
 import 'package:flutter/widgets.dart';
 import 'package:orbitly/core/domain/entities/award.dart';
 import 'package:orbitly/core/domain/entities/cosmetic.dart';
+import 'package:orbitly/core/domain/entities/localized_text.dart';
 import 'package:orbitly/core/domain/entities/mood.dart';
 import 'package:orbitly/core/domain/entities/planet_appearance.dart';
 import 'package:orbitly/l10n/app_localizations.dart';
 
 extension L10nX on BuildContext {
   AppLocalizations get l10n => AppLocalizations.of(this);
+}
+
+/// Server content in the language on screen.
+extension LocalizedTextL10n on LocalizedText {
+  String of(BuildContext context) =>
+      inLanguage(Localizations.localeOf(context).languageCode);
 }
 
 extension MoodL10n on Mood {
@@ -47,7 +54,7 @@ extension PlanetTypeL10n on PlanetType {
   };
 }
 
-/// Короткое «сколько прошло» для списков: «сейчас», «15 мин», «3 ч», «2 дн.».
+/// Short "time ago" for lists, e.g. "now", "15 min", "3 h", "2 d".
 String formatTimeAgo(
   AppLocalizations l10n,
   DateTime time, {

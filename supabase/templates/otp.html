@@ -1,3 +1,9 @@
+{{ if eq .Data.locale "ru" }}
 <h2>Вход в Orbitly</h2>
 <p>Твой код: <strong style="font-size: 24px; letter-spacing: 4px">{{ .Token }}</strong></p>
 <p>Код действует час. Если ты не входил в Orbitly, просто проигнорируй письмо.</p>
+{{ else }}
+<h2>Sign in to Orbitly</h2>
+<p>Your code: <strong style="font-size: 24px; letter-spacing: 4px">{{ .Token }}</strong></p>
+<p>The code is valid for one hour. If you didn't try to sign in to Orbitly, just ignore this email.</p>
+{{ end }}

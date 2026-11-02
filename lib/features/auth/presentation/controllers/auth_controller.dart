@@ -29,7 +29,7 @@ class LoginController extends _$LoginController {
   @override
   LoginState build() => const LoginState();
 
-  Future<void> sendCode(String email) async {
+  Future<void> sendCode(String email, {required String language}) async {
     final trimmed = email.trim();
     if (!_email.hasMatch(trimmed)) {
       state = state.copyWith(error: LoginError.invalidEmail);
@@ -37,7 +37,9 @@ class LoginController extends _$LoginController {
     }
     state = state.copyWith(email: trimmed, isBusy: true, error: null);
     try {
-      await ref.read(authRepositoryProvider).sendCode(trimmed);
+      await ref
+          .read(authRepositoryProvider)
+          .sendCode(trimmed, language: language);
       if (ref.mounted) state = state.copyWith(codeSent: true, isBusy: false);
     } on Object {
       if (ref.mounted) {
@@ -46,7 +48,7 @@ class LoginController extends _$LoginController {
     }
   }
 
-  /// После успеха роутер сам уведёт с экрана входа (signedIn → true).
+  /// On success the router leaves the login screen by itself (signedIn → true).
   Future<void> verify(String code) async {
     final trimmed = code.trim();
     if (trimmed.length != codeLength) {

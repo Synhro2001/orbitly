@@ -1,85 +1,104 @@
-# Безопасность Orbitly
+# Orbitly security
 
-Проверка от 1 ноября 2026, ветка `feat/ui-mock`. Приложение пока работает на
-моковых данных, поэтому часть пунктов — требования к будущему серверу.
+First audit: 1 November 2026, on branch `feat/ui-mock`, when the app still ran
+on mock data. Updated on 2 November 2026 after the move to Supabase: the
+server-side items from that audit are now marked as done or still open.
 
-## Что проверено
+## What was checked
 
-| Область | Как | Итог |
+| Area | How | Result |
 |---|---|---|
-| Зависимости | все 78 пакетов из `pubspec.lock` — по базе OSV (api.osv.dev) | уязвимостей нет |
-| Секреты | поиск ключей, токенов и паролей в коде и во всей истории git | не найдено |
-| Логи | `print` / `debugPrint` / `log` в `lib/` | нет |
-| Сеть | адреса `http://` в коде | нет |
-| Deep links | `/chat/<чужой id>` | аккуратная ошибка, без падения |
-| Ввод текста | длина сообщений, поиска, названия планеты | ограничено |
-| Данные других пользователей | неизвестные типы, сломанные записи | не ломают экран |
-| Android | манифест и подпись итогового APK (`aapt`, `apksigner`) | см. ниже |
-| Web | CSP, консоль браузера после сборки | без ошибок |
+| Dependencies | all 78 packages from `pubspec.lock` against the OSV database (api.osv.dev) | no vulnerabilities |
+| Secrets | search for keys, tokens and passwords in the code and the whole git history | none found |
+| Logging | `print` / `debugPrint` / `log` in `lib/` | none |
+| Network | `http://` URLs in the code | none |
+| Deep links | `/chat/<someone else's id>` | a clean error, no crash |
+| Text input | length of messages, search, planet name | limited |
+| Other users' data | unknown types, broken records | do not break the screen |
+| Android | manifest and signature of the final APK (`aapt`, `apksigner`) | see below |
+| Web | CSP, browser console after a build | no errors |
 
-Автотесты — `test/security/`.
+Client tests are in `test/security/`; server tests are in `supabase/tests/`
+(pgTAP).
 
-## Что найдено и исправлено
+## Found and fixed in the app
 
-1. **Одна испорченная запись ломала экран у всех друзей.** Внешний вид
-   планеты и сообщения задают пользователи. Неизвестный тип планеты,
-   настроение или тип сообщения бросали исключение, и не открывался весь
-   список друзей или весь чат. Теперь у перечислений есть запасные значения, а
-   нечитаемые записи пропускаются (`core/data/parse.dart`).
-2. **Текст запечатанной капсулы приходил на устройство получателя** и прятался
-   только интерфейсом, так что модифицированный клиент мог его прочитать.
-   Теперь «сервер» (mock) не отдаёт текст до срока, а у получателя `text ==
-   null`.
-3. **Поддельная тень оживляла серии.** Клиент мог отправить тень на год или
-   задним числом. Теперь `ShadowPolicy` разрешает не больше 7 дней, только с
-   «сейчас», а досрочный выход — только приблизив конец. Проверяет сервер.
-4. **Не было ограничения длины сообщений и капсул.** Гигантский текст
-   раздувал бы базу и вешал экран получателя. Теперь `MessageRules`: до 1000
-   символов, капсула — не дальше года. Проверяют и клиент, и сервер. Поиск —
-   до 32 символов.
-5. **Android: данные попадали в бэкап.** Переписка и будущие токены
-   копировались в облако и при переносе на новый телефон. Теперь
-   `allowBackup="false"` и `data_extraction_rules.xml`.
-6. **Android: на версиях 7–8.1 был разрешён нешифрованный HTTP.** Теперь
-   `usesCleartextTraffic="false"`.
-7. **Android: релиз всегда подписывался отладочным ключом.** Теперь ключ берётся
-   из `android/key.properties` (в `.gitignore`). Без него — по-прежнему
-   отладочный ключ, и такую сборку **нельзя публиковать**.
-8. **Web: не было Content-Security-Policy.** Теперь скрипты загружаются только
-   свои и движок Flutter с `gstatic.com`.
+1. **One broken record broke the screen for every friend.** Planet looks and
+   messages come from users. An unknown planet type, mood or message kind
+   threw an exception, and the whole friend list or chat failed to open. Enums
+   now have fallback values, and unreadable records are skipped
+   (`core/data/parse.dart`).
+2. **The text of a sealed capsule reached the recipient's device** and was
+   hidden only by the UI, so a modified client could read it. The server now
+   never sends the text before the capsule opens (see below).
+3. **A fake shadow revived streaks.** The client could send a shadow lasting a
+   year or starting in the past. `ShadowPolicy` now allows at most 7 days,
+   starting only "now", and leaving early may only move the end closer. The
+   server enforces the same rules.
+4. **No length limit on messages and capsules.** A huge text would bloat the
+   database and freeze the recipient's screen. `MessageRules`: up to 1000
+   characters, a capsule at most a year ahead. Both the client and the server
+   check this. Search is limited to 32 characters.
+5. **Android: data went into backups.** Chats and tokens were copied to the
+   cloud and to a new phone on transfer. Now `allowBackup="false"` and
+   `data_extraction_rules.xml`.
+6. **Android: cleartext HTTP was allowed on versions 7–8.1.** Now
+   `usesCleartextTraffic="false"`. Debug builds allow http only to the local
+   Supabase (`10.0.2.2`, `127.0.0.1`, `localhost`).
+7. **Android: release builds were always signed with the debug key.** The key
+   now comes from `android/key.properties` (gitignored). Without it the debug
+   key is still used, and such a build **must not be published**.
+8. **Web: no Content-Security-Policy.** Scripts now load only from our own
+   origin and Flutter's renderer from `gstatic.com`.
 
-## Что нужно сделать на сервере (Supabase)
+## Server (Supabase)
 
-Клиенту доверять нельзя: всё ниже должно проверяться в базе (RLS-политики,
-функции).
+The client is never trusted: these rules live in the database (RLS policies
+and `security definer` functions).
 
-- **Доступ к чатам** — читать и писать переписку могут только два её
-  участника. Сейчас любой `friendId` в ссылке уходит в репозиторий.
-- **Капсулы** — не отдавать `text` получателю до `opens_at` (view или
-  RLS-политика). Срок — от «сейчас» до года.
-- **Снапы «посмотреть один раз»** — отметку «просмотрен» ставит сервер, файл
-  удаляется после просмотра. Ссылки на медиа — подписанные и короткоживущие.
-- **Тень** — те же правила, что в `ShadowPolicy`, и `from` = время сервера.
-- **Серии** — статус считает сервер по своему времени. Сейчас клиент берёт
-  часы телефона, и их можно перевести (это влияет только на отображение).
-- **Длина сообщений и поиска** — ограничения в базе, как в `MessageRules` и
-  `FriendSearchRules`.
-- **Rate limiting** — на сообщения, заявки в друзья и поиск: защита от спама
-  и перебора ников.
-- **Ключи** — только `anon`-ключ в приложении, `service_role` никогда в
-  клиенте.
+Done:
 
-## Что ещё сделать в приложении
+- **Row level security on every table.** Clients cannot grant themselves
+  achievements, cosmetics, XP or interactions; covered by
+  `supabase/tests/01_rls.test.sql`.
+- **Chat access.** The client has no rights on the `messages` table at all.
+  Reading and sending go through server functions that check friendship, so
+  only the two participants see a conversation.
+- **Capsules.** `text` is `null` for the recipient until `opens_at`; the
+  opening time must be between now and one year ahead. Realtime only sends
+  "who wrote to whom" signals, never text.
+- **View-once snaps.** The server marks a snap as viewed and refuses a second
+  view.
+- **Shadow.** The same rules as `ShadowPolicy`, using the server clock.
+- **Length limits** on messages (1000), search (32), names and planet names.
+- **Rate limit on messages:** 30 per minute per user.
+- **Keys.** Only the publishable key ships with the app; the service role key
+  is never in the client or in git.
 
-- **Запрет скриншотов на просмотре снапа** (`FLAG_SECURE` на Android,
-  обнаружение скриншота на iOS) — когда появится настоящая камера.
-- **Свой ключ подписи** перед первой публикацией:
+Still open:
+
+- **Rate limits on friend requests and search**, to stop spam and handle
+  enumeration.
+- **Streak status by server time.** The client computes it from the phone
+  clock, which can be changed. This only affects what is shown; rewards are
+  computed on the server.
+- **Snap media.** When photos move to Supabase Storage: private bucket,
+  short-lived signed URLs, the file deleted after viewing.
+- **Real email delivery.** A hosted project needs its own SMTP provider; the
+  built-in one has tight hourly limits.
+
+## Still to do in the app
+
+- **Block screenshots on the snap viewer** (`FLAG_SECURE` on Android,
+  screenshot detection on iOS) once the real camera is in.
+- **Store session tokens in secure storage** (Keystore / Keychain).
+  `supabase_flutter` keeps them in SharedPreferences by default; backups are
+  already off, but a rooted device can still read them.
+- **Own signing key** before the first release:
   `keytool -genkey -v -keystore upload-keystore.jks -keyalg RSA -keysize 2048 -validity 10000 -alias upload`,
-  затем `android/key.properties` со `storeFile`, `storePassword`, `keyAlias`,
+  then `android/key.properties` with `storeFile`, `storePassword`, `keyAlias`,
   `keyPassword`.
-- **Обфускация Dart в релизе:**
+- **Obfuscate Dart in release builds:**
   `flutter build apk --release --obfuscate --split-debug-info=build/symbols`.
-- **Хранение токенов сессии** — только в защищённом хранилище (Keystore /
-  Keychain), не в SharedPreferences.
-- **Web на хостинге** — заголовки `X-Frame-Options: DENY` (или CSP
-  `frame-ancestors 'none'`) и HSTS. В meta-теге их задать нельзя.
+- **Web hosting headers:** `X-Frame-Options: DENY` (or CSP
+  `frame-ancestors 'none'`) and HSTS. These cannot be set in a meta tag.

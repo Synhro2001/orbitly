@@ -6,7 +6,7 @@ import 'package:orbitly/core/utils/l10n.dart';
 import 'package:orbitly/core/widgets/planet_disc.dart';
 import 'package:orbitly/features/system/domain/entities/moment.dart';
 
-/// Ряд кружков с моментами друзей. Непросмотренные — в цветном кольце.
+/// Row of friends' moments. Unseen ones get a coloured ring.
 class MomentsRow extends StatelessWidget {
   const MomentsRow({
     required this.moments,

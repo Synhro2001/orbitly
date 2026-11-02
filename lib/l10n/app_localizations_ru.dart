@@ -235,6 +235,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String get loginSendError => 'Не получилось отправить код. Попробуй ещё раз';
 
   @override
+  String get loginLocalMailHint =>
+      'Локальный сервер не шлёт настоящие письма. Код — в Mailpit на компьютере: http://127.0.0.1:54324';
+
+  @override
   String get collectionTitle => 'Коллекция';
 
   @override
@@ -404,6 +408,20 @@ class AppLocalizationsRu extends AppLocalizations {
   String get chatStartersTitle => 'С чего начать?';
 
   @override
+  String chatOpenerMissYou(String name) {
+    return 'Привет, $name! Давно не болтали — как ты?';
+  }
+
+  @override
+  String get chatOpenerRemindedMe => 'Сегодня кое-что напомнило мне о тебе 👀';
+
+  @override
+  String get chatOpenerStrangest => 'Что было самым странным на этой неделе?';
+
+  @override
+  String get chatOpenerCall => 'Созвонимся на выходных?';
+
+  @override
   String get chatCapsule => 'Капсула времени';
 
   @override
@@ -570,4 +588,595 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get friendsLinkCopied => 'Ссылка скопирована';
+
+  @override
+  String get settingsTitle => 'Настройки';
+
+  @override
+  String get settingsLanguage => 'Язык';
+
+  @override
+  String get settingsLanguageSystem => 'Как на телефоне';
+
+  @override
+  String get settingsAccount => 'Аккаунт и данные';
+
+  @override
+  String get settingsSignOut => 'Выйти';
+
+  @override
+  String get settingsSignOutConfirm => 'Выйти из аккаунта?';
+
+  @override
+  String get settingsSignOutBody =>
+      'Чтобы вернуться, понадобится код из письма.';
+
+  @override
+  String get settingsAppearance => 'Оформление';
+
+  @override
+  String get settingsSaveFailed => 'Не удалось сохранить. Проверь связь';
+
+  @override
+  String get actionCancel => 'Отмена';
+
+  @override
+  String get friendsRequestClosed =>
+      'Не получилось. Возможно, этот человек принимает заявки только по своей ссылке';
+
+  @override
+  String get inviteTitle => 'Приглашение';
+
+  @override
+  String inviteFrom(String name) {
+    return '$name зовёт тебя на свою орбиту';
+  }
+
+  @override
+  String get inviteAccept => 'Добавить в друзья';
+
+  @override
+  String get inviteSent => 'Заявка отправлена';
+
+  @override
+  String get inviteUnknown =>
+      'Ссылка устарела или неверна. Попроси у друга новую';
+
+  @override
+  String get settingsPrivacy => 'Приватность';
+
+  @override
+  String get privacySearch => 'Кто может найти меня по нику';
+
+  @override
+  String get privacyRequests => 'Кто может отправить заявку в друзья';
+
+  @override
+  String get privacyMood => 'Кто видит моё настроение';
+
+  @override
+  String get privacyMoments => 'Кто видит мои моменты';
+
+  @override
+  String get privacyComingSoon => 'Заработает вместе с новыми функциями';
+
+  @override
+  String get privacyLastSeen => 'Показывать, когда я был в сети';
+
+  @override
+  String get privacyReadReceipts => 'Отчёты о прочтении';
+
+  @override
+  String get privacyReadReceiptsHint =>
+      'Взаимно: если выключить, ты тоже не увидишь, прочитали ли тебя';
+
+  @override
+  String get privacyTyping => 'Показывать «печатает…»';
+
+  @override
+  String get privacyGalaxy => 'Моя система видна в «галактике» друзей';
+
+  @override
+  String get privacyGalaxyHint => 'Друзья друзей увидят твою планету издалека';
+
+  @override
+  String get audienceEveryone => 'Все';
+
+  @override
+  String get audienceFriendsOfFriends => 'Друзья друзей';
+
+  @override
+  String get audienceFriends => 'Все друзья';
+
+  @override
+  String get audienceCloseOrbit => 'Ближняя орбита';
+
+  @override
+  String get audienceNobody => 'Никто';
+
+  @override
+  String get audienceCustom => 'Выбрать вручную';
+
+  @override
+  String get audienceInviteOnly => 'Никто, только по моей ссылке';
+
+  @override
+  String get chatMenu => 'Ещё';
+
+  @override
+  String get chatMute => 'В тихую орбиту';
+
+  @override
+  String get chatUnmute => 'Вернуть из тихой орбиты';
+
+  @override
+  String chatMuted(String name) {
+    return '$name в тихой орбите: без уведомлений и подсветки. Друг об этом не узнает';
+  }
+
+  @override
+  String get chatUnmuted => 'Снова на обычной орбите';
+
+  @override
+  String get chatReport => 'Пожаловаться';
+
+  @override
+  String get chatBlock => 'Заблокировать';
+
+  @override
+  String blockConfirmTitle(String name) {
+    return 'Заблокировать $name?';
+  }
+
+  @override
+  String get blockConfirmBody =>
+      'Вы перестанете быть друзьями, переписка закроется, и вы не сможете найти друг друга и написать. Разблокировать можно в настройках приватности.';
+
+  @override
+  String get unblock => 'Разблокировать';
+
+  @override
+  String get abuseTitle => 'Что случилось?';
+
+  @override
+  String get abuseSpam => 'Спам или реклама';
+
+  @override
+  String get abuseHarassment => 'Травля или угрозы';
+
+  @override
+  String get abuseInappropriate => 'Неприемлемый контент';
+
+  @override
+  String get abuseImpersonation => 'Выдаёт себя за другого';
+
+  @override
+  String get abuseUnderage => 'Похоже, младше 18 лет';
+
+  @override
+  String get abuseOther => 'Другое';
+
+  @override
+  String get abuseDetailsHint => 'Подробности (необязательно)';
+
+  @override
+  String get abuseSend => 'Отправить жалобу';
+
+  @override
+  String get abuseSent => 'Жалоба отправлена. Спасибо, что помогаешь';
+
+  @override
+  String get abuseFailed => 'Не удалось отправить жалобу. Попробуй позже';
+
+  @override
+  String get settingsBlocked => 'Заблокированные';
+
+  @override
+  String get settingsBlockedHint =>
+      'Они не видят тебя и не могут написать. Разблокировка не возвращает дружбу — понадобится новая заявка.';
+
+  @override
+  String get settingsBlockedEmpty => 'Никого';
+
+  @override
+  String get settingsQuietOrbit => 'Тихая орбита';
+
+  @override
+  String get settingsQuietOrbitHint =>
+      'Сообщения этих друзей приходят без уведомлений, а их планеты не подсвечиваются. Друзья об этом не знают.';
+
+  @override
+  String get settingsQuietOrbitEmpty =>
+      'Пока никого. Добавить друга можно в меню чата';
+
+  @override
+  String get actionSave => 'Сохранить';
+
+  @override
+  String get settingsProfile => 'Профиль';
+
+  @override
+  String get profileName => 'Имя';
+
+  @override
+  String get profilePlanetName => 'Название планеты';
+
+  @override
+  String get profileHandle => 'Ник';
+
+  @override
+  String get profileHandleRule => 'менять можно раз в 30 дней';
+
+  @override
+  String profileHandleNextChange(DateTime date) {
+    final intl.DateFormat dateDateFormat = intl.DateFormat.yMMMd(localeName);
+    final String dateString = dateDateFormat.format(date);
+
+    return 'сменить можно с $dateString';
+  }
+
+  @override
+  String get profileHandleChecking => 'Проверяю…';
+
+  @override
+  String get profileHandleOk => 'Свободен';
+
+  @override
+  String get profileHandleMine => 'Это твой ник сейчас';
+
+  @override
+  String get profileHandleTaken => 'Занят';
+
+  @override
+  String get profileHandleInvalid =>
+      'От 3 до 32 символов: латиница, цифры, точка, подчёркивание';
+
+  @override
+  String get profileHandleTooSoon => 'Ник уже меняли меньше 30 дней назад';
+
+  @override
+  String get profileHandleWarning =>
+      'Следующая смена — через 30 дней. Старый ник ещё 14 дней никто не сможет занять.';
+
+  @override
+  String get profileInvite => 'Приглашение на мою орбиту';
+
+  @override
+  String get profileInviteHint =>
+      'Покажи QR-код или отправь ссылку. По ней тебя смогут добавить, даже если поиск и заявки закрыты.';
+
+  @override
+  String get profileQrLabel => 'QR-код приглашения';
+
+  @override
+  String get profileShare => 'Поделиться';
+
+  @override
+  String profileInviteShareText(String link) {
+    return 'Добавляйся ко мне в Orbitly: $link';
+  }
+
+  @override
+  String get profileNewLink => 'Новая ссылка';
+
+  @override
+  String get profileNewLinkConfirm => 'Сделать новую ссылку?';
+
+  @override
+  String get profileNewLinkBody =>
+      'Старая ссылка и QR-код перестанут работать. Это полезно, если ссылка попала не к тем людям.';
+
+  @override
+  String get chatRetention => 'Исчезающие сообщения';
+
+  @override
+  String get chatRetentionHint =>
+      'Правило общее для вас двоих и действует для новых сообщений. Капсулы не исчезают, пока не откроются.';
+
+  @override
+  String get retentionAfterSeen => 'Исчезают после прочтения';
+
+  @override
+  String get retentionDay => 'Исчезают через 24 часа';
+
+  @override
+  String get retentionKeep => 'Хранятся';
+
+  @override
+  String get retentionNoteAfterSeen =>
+      '⏱ Сообщения исчезают через час после прочтения';
+
+  @override
+  String get retentionNoteDay => '⏱ Сообщения исчезают через 24 часа';
+
+  @override
+  String get retentionNoteKeep => 'Сообщения хранятся';
+
+  @override
+  String systemLevelOnly(int level) {
+    return 'Ур. $level';
+  }
+
+  @override
+  String minutes(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count минуты',
+      many: '$count минут',
+      few: '$count минуты',
+      one: '$count минута',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get settingsWellbeing => 'Благополучие';
+
+  @override
+  String get wellbeingShadowHint =>
+      'Уйти в тень на день, три или неделю — серии замрут';
+
+  @override
+  String get wellbeingHideStreaks => 'Серии без давления';
+
+  @override
+  String get wellbeingHideStreaksHint =>
+      'Скрыть счётчики серий и «трещины». Серии продолжают считаться для достижений.';
+
+  @override
+  String get wellbeingLimit => 'Мягкий лимит времени';
+
+  @override
+  String get wellbeingLimitHint =>
+      'Напомню, сколько ты сегодня в Orbitly. Это напоминание, а не блокировка.';
+
+  @override
+  String get wellbeingLimitOff => 'Выключен';
+
+  @override
+  String wellbeingReminder(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other:
+          'Ты сегодня в Orbitly уже $count минуты. Может, пора отдохнуть? 🌙',
+      many: 'Ты сегодня в Orbitly уже $count минут. Может, пора отдохнуть? 🌙',
+      few: 'Ты сегодня в Orbitly уже $count минуты. Может, пора отдохнуть? 🌙',
+      one: 'Ты сегодня в Orbitly уже $count минуту. Может, пора отдохнуть? 🌙',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get settingsNotifications => 'Уведомления';
+
+  @override
+  String get notificationsWhat => 'О чём сообщать';
+
+  @override
+  String get notifyMessages => 'Сообщения и снапы';
+
+  @override
+  String get notifyRequests => 'Заявки в друзья';
+
+  @override
+  String get notifyCapsules => 'Капсула открылась';
+
+  @override
+  String get notifyShadow => 'Друг вышел из тени';
+
+  @override
+  String get notifyStreaks => 'Серия под угрозой';
+
+  @override
+  String get notifyAchievements => 'Новое достижение';
+
+  @override
+  String get notifyWeeklyReport => 'Отчёт недели';
+
+  @override
+  String get notificationsPreview => 'Что показывать в уведомлении';
+
+  @override
+  String get previewFull => 'Текст сообщения';
+
+  @override
+  String get previewSender => 'Только «Новое сообщение от Ани»';
+
+  @override
+  String get previewNone => 'Только «Новое сообщение»';
+
+  @override
+  String get notificationsQuietHours => 'Тихие часы';
+
+  @override
+  String get notificationsQuietHoursHint =>
+      'В это время уведомления копятся и приходят утром одной сводкой';
+
+  @override
+  String notificationsQuietFromTo(String from, String to) {
+    return 'С $from до $to';
+  }
+
+  @override
+  String get notificationsSystem => 'Звук и вибрация';
+
+  @override
+  String get notificationsSystemHint =>
+      'Открыть системные настройки уведомлений';
+
+  @override
+  String get settingsChatsMedia => 'Чаты и медиа';
+
+  @override
+  String get chatsDefaultRetention => 'Сообщения в новых чатах';
+
+  @override
+  String get chatsDefaultRetentionHint =>
+      'Для чата берётся более строгое правило из двух; в чате его можно поменять';
+
+  @override
+  String get chatsMedia => 'Медиа';
+
+  @override
+  String get mediaAutoload => 'Автозагрузка фото и видео';
+
+  @override
+  String get mediaAlways => 'Всегда';
+
+  @override
+  String get mediaWifi => 'Только по Wi-Fi';
+
+  @override
+  String get mediaNever => 'Никогда';
+
+  @override
+  String get dataSaver => 'Экономия трафика';
+
+  @override
+  String get dataSaverHint => 'Отправлять фото и видео в меньшем размере';
+
+  @override
+  String get clearCache => 'Очистить кэш';
+
+  @override
+  String cacheSize(String size) {
+    return 'Кэш: $size МБ';
+  }
+
+  @override
+  String get cacheCleared => 'Кэш очищен';
+
+  @override
+  String get appearanceHaptics => 'Тактильный отклик';
+
+  @override
+  String get appearanceMotion => 'Анимации';
+
+  @override
+  String get appearanceMotionSystem => 'Как в системе';
+
+  @override
+  String get appearanceMotionReduced => 'Всегда меньше';
+
+  @override
+  String get accountEmail => 'Email';
+
+  @override
+  String get accountEmailChange => 'Новый email';
+
+  @override
+  String get accountEmailNew => 'Новый адрес';
+
+  @override
+  String get accountEmailChanged => 'Email изменён';
+
+  @override
+  String get accountSignOutOthers => 'Выйти на других устройствах';
+
+  @override
+  String get accountSignOutOthersHint => 'Этот телефон останется в аккаунте';
+
+  @override
+  String get accountSignedOutOthers =>
+      'Готово: другие устройства вышли из аккаунта';
+
+  @override
+  String get accountExport => 'Скачать мои данные';
+
+  @override
+  String get accountExportHint =>
+      'Профиль, друзья, достижения и мои сообщения — файлом JSON';
+
+  @override
+  String get accountExportFailed =>
+      'Не получилось собрать данные. Попробуй ещё раз';
+
+  @override
+  String get accountDelete => 'Удалить аккаунт';
+
+  @override
+  String get deleteWhat => 'Что произойдёт';
+
+  @override
+  String get deleteWhatProfile =>
+      'Удалятся профиль, планета, достижения, награды и настройки.';
+
+  @override
+  String get deleteWhatMessages =>
+      'Удалятся все твои сообщения, снапы и капсулы.';
+
+  @override
+  String get deleteWhatFriends =>
+      'Друзья сразу перестанут тебя видеть — твоя планета исчезнет с их орбит.';
+
+  @override
+  String get deleteWhatTrophies =>
+      'Достижения, которые вы открыли вместе, у друга останутся, но без твоего имени.';
+
+  @override
+  String get deleteWhatGrace =>
+      'Аккаунт скроется сразу, а удалится навсегда через 7 дней. Если за это время войти снова, удаление отменится.';
+
+  @override
+  String get deleteExportFirst =>
+      'Хочешь сохранить переписку и данные? Сначала скачай их в «Аккаунт и данные».';
+
+  @override
+  String get deleteSendCode => 'Получить код для удаления';
+
+  @override
+  String get deleteConfirm => 'Удалить аккаунт';
+
+  @override
+  String deleteDone(DateTime date) {
+    final intl.DateFormat dateDateFormat = intl.DateFormat.yMMMMd(localeName);
+    final String dateString = dateDateFormat.format(date);
+
+    return 'Аккаунт скрыт и будет удалён $dateString. Передумаешь — просто войди до этого дня.';
+  }
+
+  @override
+  String get deleteDoneOk => 'Понятно, выйти';
+
+  @override
+  String get deleteCancelled => 'Удаление аккаунта отменено. С возвращением!';
+
+  @override
+  String get onboardingAdult => 'Мне есть 18 лет';
+
+  @override
+  String get onboardingAdultHint => 'Orbitly — для взрослых';
+
+  @override
+  String get settingsHelp => 'Помощь и о приложении';
+
+  @override
+  String get helpReportProblem => 'Сообщить о проблеме';
+
+  @override
+  String get helpReportHint => 'Что случилось и как это повторить?';
+
+  @override
+  String get helpReportIncludes =>
+      'Вместе с текстом отправятся версия приложения и модель телефона.';
+
+  @override
+  String get helpThanks => 'Спасибо! Мы прочитаем';
+
+  @override
+  String get helpCommunityRules => 'Правила сообщества';
+
+  @override
+  String get helpPrivacyPolicy => 'Политика конфиденциальности';
+
+  @override
+  String get helpTerms => 'Условия использования';
+
+  @override
+  String get helpLicenses => 'Лицензии';
+
+  @override
+  String get helpVersion => 'Версия';
 }

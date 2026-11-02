@@ -3,6 +3,7 @@ import 'package:orbitly/core/data/models/award_model.dart';
 import 'package:orbitly/core/data/models/planet_appearance_model.dart';
 import 'package:orbitly/core/data/models/shadow_json.dart';
 import 'package:orbitly/core/domain/entities/friend.dart';
+import 'package:orbitly/core/domain/entities/message_retention.dart';
 import 'package:orbitly/core/domain/entities/mood.dart';
 import 'package:orbitly/core/domain/entities/streak.dart';
 
@@ -19,11 +20,15 @@ abstract class FriendModel with _$FriendModel {
     required int closeness,
     required int streakDays,
     required DateTime lastExchangeAt,
-    @JsonKey(unknownEnumValue: Mood.calm) required Mood mood,
     required bool hasUnreadSnaps,
+    @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue) Mood? mood,
     DateTime? shadowFrom,
     DateTime? shadowUntil,
     @Default([]) List<AwardModel> trophies,
+    @Default(false) bool muted,
+    @JsonKey(unknownEnumValue: MessageRetention.keep)
+    @Default(MessageRetention.keep)
+    MessageRetention messageRetention,
   }) = _FriendModel;
 
   factory FriendModel.fromJson(Map<String, Object?> json) =>
@@ -42,5 +47,7 @@ extension FriendModelX on FriendModel {
     hasUnreadSnaps: hasUnreadSnaps,
     shadow: shadowFromFields(shadowFrom, shadowUntil),
     sharedTrophies: [for (final t in trophies) t.toEntity()],
+    muted: muted,
+    messageRetention: messageRetention,
   );
 }

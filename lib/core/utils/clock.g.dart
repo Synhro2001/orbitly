@@ -10,12 +10,12 @@ part of 'clock.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-/// Источник текущего времени; в тестах подменяется фиксированным.
+/// Source of the current time; tests replace it with a fixed one.
 
 @ProviderFor(clock)
 final clockProvider = ClockProvider._();
 
-/// Источник текущего времени; в тестах подменяется фиксированным.
+/// Source of the current time; tests replace it with a fixed one.
 
 final class ClockProvider
     extends
@@ -25,7 +25,7 @@ final class ClockProvider
           DateTime Function()
         >
     with $Provider<DateTime Function()> {
-  /// Источник текущего времени; в тестах подменяется фиксированным.
+  /// Source of the current time; tests replace it with a fixed one.
   ClockProvider._()
     : super(
         from: null,

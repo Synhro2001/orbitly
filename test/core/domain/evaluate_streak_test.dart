@@ -65,7 +65,7 @@ void main() {
     });
 
     test('after the shadow the countdown restarts from its end', () {
-      // Обмен был 5 дней назад, тень закончилась 2 часа назад.
+      // The exchange was 5 days ago, the shadow ended 2 hours ago.
       final ended = Shadow(
         from: now.subtract(const Duration(days: 4, hours: 12)),
         until: now.subtract(const Duration(hours: 2)),

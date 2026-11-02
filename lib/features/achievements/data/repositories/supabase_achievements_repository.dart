@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:orbitly/core/data/models/award_model.dart';
 import 'package:orbitly/core/data/models/cosmetic_model.dart';
 import 'package:orbitly/core/data/parse.dart';
+import 'package:orbitly/core/data/supabase/rpc_rows.dart';
 import 'package:orbitly/core/domain/entities/award.dart';
 import 'package:orbitly/core/domain/entities/cosmetic.dart';
 import 'package:orbitly/features/achievements/domain/repositories/achievements_repository.dart';
@@ -15,15 +16,14 @@ class SupabaseAchievementsRepository implements AchievementsRepository {
 
   @override
   Future<List<Award>> getAchievements() async {
-    final rows = await _client.rpc<List<dynamic>>('get_my_achievements');
     return parseValid(
-      rows.cast<Map<String, dynamic>>(),
+      await _client.rpcRows('get_my_achievements'),
       (json) => AwardModel.fromJson(json).toEntity(),
     );
   }
 
-  /// Realtime: сервер вставляет/обновляет мои строки в user_achievements;
-  /// RLS пропускает только мои.
+  /// Realtime: the server inserts/updates my rows in user_achievements;
+  /// RLS lets through only mine.
   @override
   Stream<String> watchUnlocks() {
     final userId = _client.auth.currentUser?.id;

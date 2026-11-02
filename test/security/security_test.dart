@@ -8,15 +8,15 @@ import 'package:orbitly/features/chat/domain/message_rules.dart';
 import 'package:orbitly/features/planet/data/repositories/mock_planet_repository.dart';
 import 'package:orbitly/features/system/data/repositories/mock_system_repository.dart';
 
-/// Проверки на данные, которые присылает сервер или подделывает клиент.
-/// Внешний вид планеты, сообщения и тень задают сами пользователи, поэтому
-/// одна «кривая» запись не должна ломать экран у всех её друзей.
+/// Checks against data that the server sends or a client fakes. Users set
+/// their planet look, messages and shadow themselves, so one malformed
+/// record must not break the screen for all of their friends.
 void main() {
   late MockStore store;
 
   setUp(() => store = MockStore(latency: Duration.zero, withPlanet: true));
 
-  group('Устойчивость к чужим данным', () {
+  group('Resilience to foreign data', () {
     test('unknown planet type and mood do not break the friends list', () {
       final friend = store.friends.first;
       (friend['appearance']! as Json)['type'] = 'nebula';
@@ -52,9 +52,9 @@ void main() {
     });
   });
 
-  group('Капсула времени', () {
+  group('Time capsule', () {
     test("a sealed capsule's text never reaches the recipient", () async {
-      // У Леры (friend-2) капсула, которая откроется через 5 дней.
+      // Lera (friend-2) has a capsule that opens in 5 days.
       final thread = await MockChatRepository(store).getThread('friend-2');
       final capsule = thread.messages.whereType<CapsuleMessage>().single;
 
@@ -69,7 +69,7 @@ void main() {
     });
   });
 
-  group('Тень', () {
+  group('Shadow', () {
     final now = DateTime(2026, 11, 1, 12);
     const policy = ShadowPolicy();
 
@@ -131,7 +131,7 @@ void main() {
     });
   });
 
-  group('Длина сообщений', () {
+  group('Message length', () {
     test('a message within the limit is valid', () {
       expect(MessageRules.isValid('Привет!'), isTrue);
     });

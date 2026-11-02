@@ -92,17 +92,314 @@ final class MockStoreProvider
 
 String _$mockStoreHash() => r'9725d5bc98b824a97fedb9f4d399c8a80b8fb584';
 
-/// Клиент Supabase. Инициализируется в main(), только когда моки выключены.
+/// Settings on this phone. main() puts in the real storage; tests keep them
+/// in memory.
+
+@ProviderFor(settingsRepository)
+final settingsRepositoryProvider = SettingsRepositoryProvider._();
+
+/// Settings on this phone. main() puts in the real storage; tests keep them
+/// in memory.
+
+final class SettingsRepositoryProvider
+    extends
+        $FunctionalProvider<
+          SettingsRepository,
+          SettingsRepository,
+          SettingsRepository
+        >
+    with $Provider<SettingsRepository> {
+  /// Settings on this phone. main() puts in the real storage; tests keep them
+  /// in memory.
+  SettingsRepositoryProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'settingsRepositoryProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$settingsRepositoryHash();
+
+  @$internal
+  @override
+  $ProviderElement<SettingsRepository> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  SettingsRepository create(Ref ref) {
+    return settingsRepository(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(SettingsRepository value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<SettingsRepository>(value),
+    );
+  }
+}
+
+String _$settingsRepositoryHash() =>
+    r'bf3155f3ce75bc1dda9c23c339687fc3500504c1';
+
+@ProviderFor(safetyRepository)
+final safetyRepositoryProvider = SafetyRepositoryProvider._();
+
+final class SafetyRepositoryProvider
+    extends
+        $FunctionalProvider<
+          SafetyRepository,
+          SafetyRepository,
+          SafetyRepository
+        >
+    with $Provider<SafetyRepository> {
+  SafetyRepositoryProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'safetyRepositoryProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$safetyRepositoryHash();
+
+  @$internal
+  @override
+  $ProviderElement<SafetyRepository> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  SafetyRepository create(Ref ref) {
+    return safetyRepository(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(SafetyRepository value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<SafetyRepository>(value),
+    );
+  }
+}
+
+String _$safetyRepositoryHash() => r'ff740b031e8a22b35cdcd97e131e31232e3afc6b';
+
+@ProviderFor(profileRepository)
+final profileRepositoryProvider = ProfileRepositoryProvider._();
+
+final class ProfileRepositoryProvider
+    extends
+        $FunctionalProvider<
+          ProfileRepository,
+          ProfileRepository,
+          ProfileRepository
+        >
+    with $Provider<ProfileRepository> {
+  ProfileRepositoryProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'profileRepositoryProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$profileRepositoryHash();
+
+  @$internal
+  @override
+  $ProviderElement<ProfileRepository> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  ProfileRepository create(Ref ref) {
+    return profileRepository(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(ProfileRepository value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<ProfileRepository>(value),
+    );
+  }
+}
+
+String _$profileRepositoryHash() => r'd722c3789df40bfcaa895f7fcd23630067611fe4';
+
+@ProviderFor(accountRepository)
+final accountRepositoryProvider = AccountRepositoryProvider._();
+
+final class AccountRepositoryProvider
+    extends
+        $FunctionalProvider<
+          AccountRepository,
+          AccountRepository,
+          AccountRepository
+        >
+    with $Provider<AccountRepository> {
+  AccountRepositoryProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'accountRepositoryProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$accountRepositoryHash();
+
+  @$internal
+  @override
+  $ProviderElement<AccountRepository> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  AccountRepository create(Ref ref) {
+    return accountRepository(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(AccountRepository value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<AccountRepository>(value),
+    );
+  }
+}
+
+String _$accountRepositoryHash() => r'b51100dd2bb8c36a7aeba99cc38f2dac776995a1';
+
+@ProviderFor(feedbackRepository)
+final feedbackRepositoryProvider = FeedbackRepositoryProvider._();
+
+final class FeedbackRepositoryProvider
+    extends
+        $FunctionalProvider<
+          FeedbackRepository,
+          FeedbackRepository,
+          FeedbackRepository
+        >
+    with $Provider<FeedbackRepository> {
+  FeedbackRepositoryProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'feedbackRepositoryProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$feedbackRepositoryHash();
+
+  @$internal
+  @override
+  $ProviderElement<FeedbackRepository> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  FeedbackRepository create(Ref ref) {
+    return feedbackRepository(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(FeedbackRepository value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<FeedbackRepository>(value),
+    );
+  }
+}
+
+String _$feedbackRepositoryHash() =>
+    r'1416e4833e78e7b5533e9f9fa556a05541510e68';
+
+/// Account settings on the server.
+
+@ProviderFor(userSettingsRepository)
+final userSettingsRepositoryProvider = UserSettingsRepositoryProvider._();
+
+/// Account settings on the server.
+
+final class UserSettingsRepositoryProvider
+    extends
+        $FunctionalProvider<
+          UserSettingsRepository,
+          UserSettingsRepository,
+          UserSettingsRepository
+        >
+    with $Provider<UserSettingsRepository> {
+  /// Account settings on the server.
+  UserSettingsRepositoryProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'userSettingsRepositoryProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$userSettingsRepositoryHash();
+
+  @$internal
+  @override
+  $ProviderElement<UserSettingsRepository> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  UserSettingsRepository create(Ref ref) {
+    return userSettingsRepository(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(UserSettingsRepository value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<UserSettingsRepository>(value),
+    );
+  }
+}
+
+String _$userSettingsRepositoryHash() =>
+    r'85973be394cf5d6c0b50696b3d88be3a7fe7f651';
+
+/// Supabase client. Initialised in main() only when mocks are off.
 
 @ProviderFor(supabaseClient)
 final supabaseClientProvider = SupabaseClientProvider._();
 
-/// Клиент Supabase. Инициализируется в main(), только когда моки выключены.
+/// Supabase client. Initialised in main() only when mocks are off.
 
 final class SupabaseClientProvider
     extends $FunctionalProvider<SupabaseClient, SupabaseClient, SupabaseClient>
     with $Provider<SupabaseClient> {
-  /// Клиент Supabase. Инициализируется в main(), только когда моки выключены.
+  /// Supabase client. Initialised in main() only when mocks are off.
   SupabaseClientProvider._()
     : super(
         from: null,

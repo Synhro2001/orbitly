@@ -1,12 +1,14 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:orbitly/core/data/models/localized_text_converter.dart';
 import 'package:orbitly/core/domain/entities/award.dart';
+import 'package:orbitly/core/domain/entities/localized_text.dart';
 
 part 'award_model.freezed.dart';
 part 'award_model.g.dart';
 
-/// Строка каталога достижений — как её отдаёт get_my_achievements().
-/// У секретных неоткрытых достижений сервер присылает null вместо названия,
-/// описания, значка, прогресса и награды.
+/// A catalogue row as returned by get_my_achievements(). For locked secret
+/// achievements the server sends null instead of the title, description,
+/// icon, progress and reward.
 @freezed
 abstract class AwardModel with _$AwardModel {
   const factory AwardModel({
@@ -17,8 +19,8 @@ abstract class AwardModel with _$AwardModel {
     @JsonKey(unknownEnumValue: Rarity.common)
     @Default(Rarity.common)
     Rarity rarity,
-    String? title,
-    String? description,
+    @LocalizedTextConverter() LocalizedText? title,
+    @LocalizedTextConverter() LocalizedText? description,
     String? icon,
     @Default(false) bool hidden,
     @Default(false) bool pair,
@@ -27,7 +29,7 @@ abstract class AwardModel with _$AwardModel {
     DateTime? unlockedAt,
     DateTime? seenAt,
     String? rewardCosmeticId,
-    String? rewardTitle,
+    @LocalizedTextConverter() LocalizedText? rewardTitle,
   }) = _AwardModel;
 
   factory AwardModel.fromJson(Map<String, Object?> json) =>

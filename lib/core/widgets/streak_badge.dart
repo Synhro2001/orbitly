@@ -7,8 +7,9 @@ import 'package:orbitly/core/theme/app_colors.dart';
 import 'package:orbitly/core/theme/app_dimens.dart';
 import 'package:orbitly/core/utils/clock.dart';
 import 'package:orbitly/core/utils/l10n.dart';
+import 'package:orbitly/core/widgets/streak_visibility.dart';
 
-/// Серия дней с состоянием: активна / трещина / сгорела / на паузе.
+/// Day streak with its state: active / cracked / lost / paused.
 class StreakBadge extends ConsumerWidget {
   const StreakBadge({
     required this.streak,
@@ -19,14 +20,15 @@ class StreakBadge extends ConsumerWidget {
 
   final Streak streak;
 
-  /// Тени обоих друзей: пока кто-то в тени, серия на паузе.
+  /// Shadows of both friends: while either is in shadow, the streak pauses.
   final List<Shadow> shadows;
 
-  /// Только иконка и число — для списков.
+  /// Icon and number only, for lists.
   final bool compact;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    if (StreakVisibility.hiddenOf(context)) return const SizedBox.shrink();
     final l10n = context.l10n;
     final now = ref.watch(clockProvider)();
     final status = const EvaluateStreak()(streak, now, shadows: shadows);

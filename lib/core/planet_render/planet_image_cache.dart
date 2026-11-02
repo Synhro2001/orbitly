@@ -7,12 +7,12 @@ import 'package:orbitly/core/planet_render/planet_painter.dart';
 
 typedef _Key = (PlanetAppearance, int);
 
-/// Кэш уже отрисованных планет: планета рисуется один раз, дальше
-/// показывается готовая картинка.
+/// Cache of rendered planets: each planet is drawn once, then the ready
+/// image is shown.
 class PlanetImageCache {
   PlanetImageCache._(this._budgetBytes);
 
-  /// Кэш с другим лимитом — для тестов.
+  /// A cache with a different budget, for tests.
   @visibleForTesting
   PlanetImageCache.withBudget(int bytes) : this._(bytes);
 
@@ -20,22 +20,28 @@ class PlanetImageCache {
     _defaultBudgetBytes,
   );
 
-  /// Лимит по памяти, а не по числу картинок: крупная планета весит
-  /// больше мегабайта, и сотня таких заняла бы сотни мегабайт.
+  /// Budgeted by memory, not by image count: a large planet takes over a
+  /// megabyte, and a hundred of them would take hundreds of megabytes.
   static const int _defaultBudgetBytes = 64 * 1024 * 1024;
 
   final int _budgetBytes;
   int _bytes = 0;
 
-  /// Сколько памяти сейчас занимают картинки.
+  /// Memory the cached images currently take.
   int get bytes => _bytes;
 
-  // Map в Dart хранит порядок вставки — используем как LRU.
+  // Dart maps keep insertion order, which makes this an LRU.
   final _images = <_Key, ui.Image>{};
   final _pending = <_Key, Future<ui.Image>>{};
 
-  /// Размер в пикселях округляется вверх до кратного 16, чтобы близкие
-  /// размеры делили одну картинку.
+  /// Forget every image ("Clear cache"). Planets on screen redraw.
+  void clear() {
+    _images.clear();
+    _bytes = 0;
+  }
+
+  /// Pixel size is rounded up to a multiple of 16 so that similar sizes
+  /// share one image.
   static int bucket(double physicalPixels) =>
       ((physicalPixels / 16).ceil() * 16).clamp(16, 2048);
 
@@ -60,8 +66,8 @@ class PlanetImageCache {
     unawaited(_pending.remove(key));
     _images[key] = image;
     _bytes += _sizeOf(key.$2);
-    // Вытесненные картинки не освобождаем вручную: они могут ещё быть
-    // на экране. Их освободит сборщик мусора.
+    // Evicted images are not disposed by hand: they may still be on screen.
+    // The garbage collector frees them.
     while (_bytes > _budgetBytes && _images.length > 1) {
       final oldest = _images.keys.first;
       _images.remove(oldest);

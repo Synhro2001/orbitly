@@ -1,11 +1,11 @@
-/// Ограничения на сообщения. Клиент не даёт их нарушить, сервер проверяет
-/// ещё раз — клиент можно подделать.
+/// Message limits. The client prevents breaking them and the server checks
+/// again, because a client can be faked.
 abstract final class MessageRules {
-  /// Защита от гигантских сообщений, которые раздувают базу и вешают
-  /// экран у получателя.
+  /// Guards against huge messages that bloat the database and freeze the
+  /// recipient's screen.
   static const maxLength = 1000;
 
-  /// Капсулу нельзя отправить дальше, чем на год вперёд.
+  /// A capsule cannot be sent more than a year ahead.
   static const maxCapsuleDelay = Duration(days: 366);
 
   static bool isValid(String text) {

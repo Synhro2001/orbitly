@@ -13,7 +13,7 @@ abstract class MyPlanet with _$MyPlanet {
     required String name,
     required String handle,
 
-    /// Вид, выбранный при создании: тип, seed, оттенок.
+    /// The look chosen at creation: type, seed, hue.
     required PlanetAppearance baseAppearance,
     required int level,
     required int xp,
@@ -21,18 +21,33 @@ abstract class MyPlanet with _$MyPlanet {
     required int bestStreakDays,
     required Mood mood,
 
-    /// Надетые награды.
+    /// My name, the one friends see.
+    @Default('') String displayName,
+
+    /// The last handle change: the next one is allowed 30 days later.
+    DateTime? handleChangedAt,
+
+    /// Worn rewards.
     @Default([]) List<Cosmetic> equipped,
     Shadow? shadow,
   }) = _MyPlanet;
 
   const MyPlanet._();
 
-  /// Как планета выглядит на самом деле: база + надетые награды.
+  /// How the planet actually looks: base + worn rewards.
   PlanetAppearance get appearance =>
       const ApplyCosmetics()(baseAppearance, equipped);
 
-  /// Прогресс до следующего уровня, 0–1.
+  /// The handle can be changed once in this many days.
+  static const handleChangeEvery = Duration(days: 30);
+
+  /// When the handle can be changed again; null if it can be now.
+  DateTime? nextHandleChangeAt(DateTime now) {
+    final next = handleChangedAt?.add(handleChangeEvery);
+    return next != null && next.isAfter(now) ? next : null;
+  }
+
+  /// Progress to the next level, 0–1.
   double get levelProgress =>
       xpForNextLevel <= 0 ? 1 : (xp / xpForNextLevel).clamp(0, 1);
 }

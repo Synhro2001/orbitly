@@ -1,8 +1,9 @@
+import 'package:orbitly/core/domain/entities/message_retention.dart';
 import 'package:orbitly/features/chat/domain/entities/chat.dart';
 import 'package:orbitly/features/chat/domain/entities/message.dart';
 
 abstract interface class ChatRepository {
-  /// Чаты, свежие сверху.
+  /// Chats, most recent first.
   Future<List<ChatPreview>> getChats();
 
   Future<ChatThread> getThread(String friendId);
@@ -17,7 +18,10 @@ abstract interface class ChatRepository {
     required DateTime opensAt,
   });
 
-  /// id друзей, от которых только что пришло сообщение. Без текста:
-  /// это сигнал перечитать переписку.
+  /// The chat's rule for disappearing messages; applies to new messages.
+  Future<void> setRetention(String friendId, MessageRetention retention);
+
+  /// Ids of friends who have just sent a message. No text: it is a signal
+  /// to reload the conversation.
   Stream<String> watchIncoming();
 }

@@ -1,12 +1,13 @@
 import 'package:orbitly/core/domain/entities/shadow.dart';
 import 'package:orbitly/core/domain/entities/streak.dart';
 
-/// Мягкая серия: сутки без обмена — «трещина», ещё сутки — «сгорела».
+/// A gentle streak: a day without an exchange means "cracked", another day
+/// means "lost".
 ///
-/// Тень любого из двух друзей ставит серию на паузу. После выхода из тени
-/// отсчёт начинается заново с момента её окончания, чтобы вернувшийся
-/// не попадал сразу в «трещину». Тень не спасает серию, которая сгорела
-/// ещё до её начала.
+/// A shadow of either friend pauses the streak. After the shadow ends, the
+/// clock restarts from its end, so a returning friend does not land straight
+/// in "cracked". A shadow does not save a streak that was lost before it
+/// began.
 class EvaluateStreak {
   const EvaluateStreak();
 

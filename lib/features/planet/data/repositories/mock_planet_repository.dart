@@ -40,11 +40,13 @@ class MockPlanetRepository implements PlanetRepository {
     required String displayName,
     required String name,
     required PlanetAppearance appearance,
+    required bool isAdult,
   }) async {
     await _store.delay();
     _store.createPlanet(
       name,
       PlanetAppearanceModel.fromEntity(appearance).toJson(),
+      displayName: displayName,
     );
   }
 
@@ -61,7 +63,7 @@ class MockPlanetRepository implements PlanetRepository {
     if (json == null) return;
     final now = DateTime.now();
     final shadow = Shadow(from: now, until: now.add(duration));
-    // Как на сервере: поверх текущей тени новую не поставить.
+    // Same rule as the server: no new shadow on top of the current one.
     if ((_currentShadow(json)?.isActiveAt(now) ?? false) ||
         !const ShadowPolicy().isAllowed(shadow, now: now)) {
       throw ArgumentError.value(duration, 'duration', 'Not allowed');

@@ -1,9 +1,9 @@
--- Действия клиента, которые нельзя доверить прямой записи в таблицы:
--- создание профиля, заявки в друзья, тень. Всё — security definer с пустым
--- search_path и явной проверкой, кто вызывает.
+-- Client actions that cannot be trusted to direct table writes: creating a
+-- profile, friend requests, shadow. All are security definer with an empty
+-- search_path and an explicit check of who is calling.
 
--- Функции, создаваемые в public, по умолчанию может вызвать кто угодно.
--- Отбираем это право и выдаём точечно.
+-- Anyone can call functions created in public by default. Revoke that and
+-- grant execution one by one.
 alter default privileges in schema public revoke execute on functions from public;
 alter default privileges in schema private revoke execute on functions from public;
 
@@ -24,7 +24,7 @@ end;
 $$;
 
 -- ---------------------------------------------------------------------------
--- Онбординг: создать свою планету. Ник генерируется из email.
+-- Onboarding: create your planet. The handle is generated from the email.
 -- ---------------------------------------------------------------------------
 
 create function public.complete_onboarding(
@@ -61,8 +61,8 @@ begin
     candidate := base || n::text;
   end loop;
 
-  -- Из присланного вида берём только базовые поля; остальное проверит
-  -- ограничение таблицы.
+  -- Take only the base fields from the given look; the table constraint
+  -- checks the rest.
   insert into public.profiles (id, handle, display_name, planet_name, appearance)
   values (
     me,
@@ -79,11 +79,11 @@ end;
 $$;
 
 -- ---------------------------------------------------------------------------
--- Друзья
+-- Friends
 -- ---------------------------------------------------------------------------
 
--- Поиск по нику. Чужие профили закрыты RLS, поэтому отдаём только то, что
--- нужно для карточки, и не больше 20 записей.
+-- Search by handle. Other profiles are closed by RLS, so return only what a
+-- card needs, and at most 20 rows.
 create function public.search_profiles(p_query text)
 returns table (
   id uuid,
@@ -136,7 +136,7 @@ begin
     insert into public.friendships (user_a, user_b, status, requested_by)
     values (least(me, p_user), greatest(me, p_user), 'pending', me);
   elsif existing.status = 'pending' and existing.requested_by = p_user then
-    -- Встречная заявка — значит, оба хотят дружить.
+    -- A request the other way already exists, so both want to be friends.
     perform public.respond_friend_request(p_user, true);
   end if;
 end;
@@ -158,7 +158,7 @@ begin
         and user_b = greatest(me, p_user)
         and status = 'pending'
         and requested_by = p_user;
-    -- Запись о близости и первые достижения создаёт триггер на friendships.
+    -- The trigger on friendships creates closeness and the first achievements.
   else
     delete from public.friendships
       where user_a = least(me, p_user)
@@ -192,7 +192,7 @@ as $$
 $$;
 
 -- ---------------------------------------------------------------------------
--- Тень: те же правила, что ShadowPolicy в приложении.
+-- Shadow: the same rules as ShadowPolicy in the app.
 -- ---------------------------------------------------------------------------
 
 create function public.set_shadow(p_days int)
@@ -207,8 +207,8 @@ begin
   if p_days not between 1 and 7 then
     raise exception 'Shadow must last 1 to 7 days' using errcode = '22023';
   end if;
-  -- Новую тень нельзя поставить поверх текущей: иначе её можно продлевать
-  -- бесконечно.
+  -- No new shadow on top of the current one, otherwise it could be extended
+  -- forever.
   if exists (
     select 1 from public.profiles
     where id = me and shadow_from <= now() and now() < shadow_until
@@ -221,8 +221,8 @@ begin
 end;
 $$;
 
--- Досрочный выход: тень заканчивается сейчас, а не стирается, чтобы серии,
--- которые она держала, получили свежие сутки.
+-- Leaving early: the shadow ends now rather than being erased, so the
+-- streaks it held get a fresh day.
 create function public.leave_shadow()
 returns void
 language plpgsql
@@ -240,8 +240,8 @@ $$;
 
 revoke execute on all functions in schema public from public, anon;
 revoke execute on all functions in schema private from public, anon, authenticated;
--- Нужны ролям клиента напрямую: в политиках RLS и в проверке колонки
--- appearance при обновлении профиля.
+-- Client roles need these directly: in RLS policies and in the appearance
+-- column check on profile updates.
 grant execute on function
   private.are_friends(uuid, uuid),
   private.is_valid_base_appearance(jsonb)

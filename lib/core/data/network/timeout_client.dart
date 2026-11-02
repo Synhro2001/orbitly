@@ -2,11 +2,11 @@ import 'dart:async';
 
 import 'package:http/http.dart' as http;
 
-/// HTTP-клиент для Supabase с лимитом ожидания ответа.
+/// HTTP client for Supabase with a response time limit.
 ///
-/// Без лимита запрос при плохой связи висит бесконечно и экран крутит
-/// загрузку. С лимитом он падает с [TimeoutException], и экран показывает
-/// ошибку с кнопкой «Повторить».
+/// Without a limit, a request on a bad connection can hang forever and the
+/// screen keeps spinning. With one, it fails with [TimeoutException] and the
+/// screen shows an error with a "Retry" button.
 class TimeoutClient extends http.BaseClient {
   TimeoutClient(this._inner, {this.timeout = const Duration(seconds: 15)});
 

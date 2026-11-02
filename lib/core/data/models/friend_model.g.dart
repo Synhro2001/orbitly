@@ -18,8 +18,12 @@ _FriendModel _$FriendModelFromJson(Map<String, dynamic> json) => _FriendModel(
   closeness: (json['closeness'] as num).toInt(),
   streakDays: (json['streak_days'] as num).toInt(),
   lastExchangeAt: DateTime.parse(json['last_exchange_at'] as String),
-  mood: $enumDecode(_$MoodEnumMap, json['mood'], unknownValue: Mood.calm),
   hasUnreadSnaps: json['has_unread_snaps'] as bool,
+  mood: $enumDecodeNullable(
+    _$MoodEnumMap,
+    json['mood'],
+    unknownValue: JsonKey.nullForUndefinedEnumValue,
+  ),
   shadowFrom: json['shadow_from'] == null
       ? null
       : DateTime.parse(json['shadow_from'] as String),
@@ -31,23 +35,34 @@ _FriendModel _$FriendModelFromJson(Map<String, dynamic> json) => _FriendModel(
           ?.map((e) => AwardModel.fromJson(e as Map<String, dynamic>))
           .toList() ??
       const [],
+  muted: json['muted'] as bool? ?? false,
+  messageRetention:
+      $enumDecodeNullable(
+        _$MessageRetentionEnumMap,
+        json['message_retention'],
+        unknownValue: MessageRetention.keep,
+      ) ??
+      MessageRetention.keep,
 );
 
-Map<String, dynamic> _$FriendModelToJson(_FriendModel instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'handle': instance.handle,
-      'appearance': instance.appearance.toJson(),
-      'closeness': instance.closeness,
-      'streak_days': instance.streakDays,
-      'last_exchange_at': instance.lastExchangeAt.toIso8601String(),
-      'mood': _$MoodEnumMap[instance.mood]!,
-      'has_unread_snaps': instance.hasUnreadSnaps,
-      'shadow_from': instance.shadowFrom?.toIso8601String(),
-      'shadow_until': instance.shadowUntil?.toIso8601String(),
-      'trophies': instance.trophies.map((e) => e.toJson()).toList(),
-    };
+Map<String, dynamic> _$FriendModelToJson(
+  _FriendModel instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'name': instance.name,
+  'handle': instance.handle,
+  'appearance': instance.appearance.toJson(),
+  'closeness': instance.closeness,
+  'streak_days': instance.streakDays,
+  'last_exchange_at': instance.lastExchangeAt.toIso8601String(),
+  'has_unread_snaps': instance.hasUnreadSnaps,
+  'mood': _$MoodEnumMap[instance.mood],
+  'shadow_from': instance.shadowFrom?.toIso8601String(),
+  'shadow_until': instance.shadowUntil?.toIso8601String(),
+  'trophies': instance.trophies.map((e) => e.toJson()).toList(),
+  'muted': instance.muted,
+  'message_retention': _$MessageRetentionEnumMap[instance.messageRetention]!,
+};
 
 const _$MoodEnumMap = {
   Mood.happy: 'happy',
@@ -56,4 +71,10 @@ const _$MoodEnumMap = {
   Mood.excited: 'excited',
   Mood.tired: 'tired',
   Mood.sad: 'sad',
+};
+
+const _$MessageRetentionEnumMap = {
+  MessageRetention.afterSeen: 'afterSeen',
+  MessageRetention.day: 'day',
+  MessageRetention.keep: 'keep',
 };

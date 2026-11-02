@@ -2,6 +2,7 @@ import 'package:orbitly/core/data/mock/mock_store.dart';
 import 'package:orbitly/core/data/models/award_model.dart';
 import 'package:orbitly/core/data/models/friend_model.dart';
 import 'package:orbitly/core/data/parse.dart';
+import 'package:orbitly/core/domain/entities/message_retention.dart';
 import 'package:orbitly/features/chat/data/models/message_model.dart';
 import 'package:orbitly/features/chat/domain/entities/chat.dart';
 import 'package:orbitly/features/chat/domain/entities/message.dart';
@@ -18,7 +19,7 @@ class MockChatRepository implements ChatRepository {
       _sealed(json),
   ], (json) => MessageModel.fromJson(json).toEntity());
 
-  /// Как сделает сервер: текст чужой капсулы не уходит до срока.
+  /// Like the server: a friend's capsule text is not sent before it opens.
   Json _sealed(Json json) {
     if (json['kind'] != 'capsule' || json['is_mine'] == true) return json;
     final opensAt = DateTime.tryParse(json['opens_at'] as String? ?? '');
@@ -36,27 +37,23 @@ class MockChatRepository implements ChatRepository {
         lastMessage: _messages(json['id']! as String).lastOrNull,
       ),
     );
-    final epoch = DateTime.fromMillisecondsSinceEpoch(0);
-    return chats..sort(
-      (a, b) => (b.lastMessage?.sentAt ?? epoch).compareTo(
-        a.lastMessage?.sentAt ?? epoch,
-      ),
-    );
+    return newestFirst(chats);
   }
 
   @override
   Future<ChatThread> getThread(String friendId) async {
     await _store.delay();
     final trophyIds = _store.sharedTrophyIds[friendId] ?? const [];
+    final friend = FriendModel.fromJson(_store.friendJson(friendId)).toEntity();
     return ChatThread(
-      friend: FriendModel.fromJson(_store.friendJson(friendId)).toEntity(),
+      friend: friend,
       messages: _messages(friendId),
       sharedTrophies: [
         for (final json in _store.achievements)
           if (trophyIds.contains(json['id']))
             AwardModel.fromJson(json).toEntity(),
       ],
-      conversationStarters: _store.conversationStarters(friendId),
+      suggestOpeners: _store.isDrifting(friendId),
     );
   }
 
@@ -102,7 +99,13 @@ class MockChatRepository implements ChatRepository {
     return MessageModel.fromJson(json).toEntity();
   }
 
-  /// В моках собеседников нет — новых сообщений не приходит.
+  @override
+  Future<void> setRetention(String friendId, MessageRetention retention) async {
+    await _store.delay();
+    _store.retention[friendId] = retention.name;
+  }
+
+  /// Mocks have no one on the other side, so no new messages arrive.
   @override
   Stream<String> watchIncoming() => const Stream.empty();
 

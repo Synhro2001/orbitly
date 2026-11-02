@@ -11,7 +11,7 @@ import 'package:orbitly/app/router.dart';
 import 'package:orbitly/app/routes.dart';
 import 'package:orbitly/core/data/mock/mock_store.dart';
 
-/// Замер плавности: время сборки и отрисовки кадров на главных экранах.
+/// Smoothness benchmark: frame build and raster times on the main screens.
 ///
 /// flutter drive --profile --driver=test_driver/perf_driver.dart \
 ///   --target=integration_test/perf_test.dart
@@ -82,7 +82,7 @@ void main() {
       await tester.pump(const Duration(seconds: 2));
     }, 'back_to_system');
 
-    // Переходы: открыть экран и дать анимации доиграть.
+    // Transitions: open a screen and let its animation finish.
     await _measure(binding, () async {
       router.go(AppRoutes.chat('friend-0'));
       await tester.pump(const Duration(seconds: 2));
@@ -105,7 +105,7 @@ void main() {
   });
 }
 
-/// pumpAndSettle не дождётся конца: в системе анимация бесконечная.
+/// pumpAndSettle would never return: the system animation is endless.
 Future<void> _settle(WidgetTester tester) =>
     tester.pump(const Duration(seconds: 2));
 
@@ -119,7 +119,7 @@ Future<void> _scroll(WidgetTester tester) async {
   }
 }
 
-/// Собирает FrameTiming за время [action] и кладёт сводку в reportData.
+/// Collects FrameTiming during [action] and puts a summary into reportData.
 Future<void> _measure(
   IntegrationTestWidgetsFlutterBinding binding,
   Future<void> Function() action,
@@ -129,7 +129,7 @@ Future<void> _measure(
   void collect(List<FrameTiming> t) => frames.addAll(t);
   SchedulerBinding.instance.addTimingsCallback(collect);
   await action();
-  // Колбэк приходит пачками — даём последней дойти.
+  // Timings arrive in batches; let the last one come in.
   await Future<void>.delayed(const Duration(milliseconds: 300));
   SchedulerBinding.instance.removeTimingsCallback(collect);
 
@@ -154,7 +154,7 @@ Future<void> _measure(
               1e6 /
               (frames.last.timestampInMicroseconds(FramePhase.rasterFinish) -
                   frames.first.timestampInMicroseconds(FramePhase.buildStart)),
-    // Кадры, которые заметно «дёрнулись»: дольше двух кадров при 60 Гц.
+    // Frames that visibly stuttered: longer than two frames at 60 Hz.
     'dropped': frames.where((f) => ms(f.totalSpan) > 2 * budget).length,
     'janky': frames
         .where(

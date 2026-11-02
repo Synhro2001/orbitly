@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Cosmetic {
 
- String get id; String get title; CosmeticKind get kind; Rarity get rarity; Map<String, Object?> get params; bool get equipped;
+ String get id; LocalizedText get title; CosmeticKind get kind; Rarity get rarity; Map<String, Object?> get params; bool get equipped;
 /// Create a copy of Cosmetic
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -51,11 +51,11 @@ abstract mixin class $CosmeticCopyWith<$Res>  {
   factory $CosmeticCopyWith(Cosmetic value, $Res Function(Cosmetic) _then) = _$CosmeticCopyWithImpl;
 @useResult
 $Res call({
- String id, String title, CosmeticKind kind, Rarity rarity, Map<String, Object?> params, bool equipped
+ String id, LocalizedText title, CosmeticKind kind, Rarity rarity, Map<String, Object?> params, bool equipped
 });
 
 
-
+$LocalizedTextCopyWith<$Res> get title;
 
 }
 /// @nodoc
@@ -72,14 +72,23 @@ class _$CosmeticCopyWithImpl<$Res>
   return _then(Cosmetic(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
-as String,kind: null == kind ? _self.kind : kind // ignore: cast_nullable_to_non_nullable
+as LocalizedText,kind: null == kind ? _self.kind : kind // ignore: cast_nullable_to_non_nullable
 as CosmeticKind,rarity: null == rarity ? _self.rarity : rarity // ignore: cast_nullable_to_non_nullable
 as Rarity,params: null == params ? _self.params : params // ignore: cast_nullable_to_non_nullable
 as Map<String, Object?>,equipped: null == equipped ? _self.equipped : equipped // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }
-
+/// Create a copy of Cosmetic
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$LocalizedTextCopyWith<$Res> get title {
+  
+  return $LocalizedTextCopyWith<$Res>(_self.title, (value) {
+    return _then(_self.copyWith(title: value));
+  });
+}
 }
 
 
@@ -161,7 +170,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String title,  CosmeticKind kind,  Rarity rarity,  Map<String, Object?> params,  bool equipped)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  LocalizedText title,  CosmeticKind kind,  Rarity rarity,  Map<String, Object?> params,  bool equipped)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Cosmetic() when $default != null:
 return $default(_that.id,_that.title,_that.kind,_that.rarity,_that.params,_that.equipped);case _:
@@ -182,7 +191,7 @@ return $default(_that.id,_that.title,_that.kind,_that.rarity,_that.params,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String title,  CosmeticKind kind,  Rarity rarity,  Map<String, Object?> params,  bool equipped)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  LocalizedText title,  CosmeticKind kind,  Rarity rarity,  Map<String, Object?> params,  bool equipped)  $default,) {final _that = this;
 switch (_that) {
 case _Cosmetic():
 return $default(_that.id,_that.title,_that.kind,_that.rarity,_that.params,_that.equipped);case _:
@@ -202,7 +211,7 @@ return $default(_that.id,_that.title,_that.kind,_that.rarity,_that.params,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String title,  CosmeticKind kind,  Rarity rarity,  Map<String, Object?> params,  bool equipped)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  LocalizedText title,  CosmeticKind kind,  Rarity rarity,  Map<String, Object?> params,  bool equipped)?  $default,) {final _that = this;
 switch (_that) {
 case _Cosmetic() when $default != null:
 return $default(_that.id,_that.title,_that.kind,_that.rarity,_that.params,_that.equipped);case _:
@@ -221,7 +230,7 @@ class _Cosmetic implements Cosmetic {
   
 
 @override final  String id;
-@override final  String title;
+@override final  LocalizedText title;
 @override final  CosmeticKind kind;
 @override final  Rarity rarity;
  final  Map<String, Object?> _params;
@@ -265,11 +274,11 @@ abstract mixin class _$CosmeticCopyWith<$Res> implements $CosmeticCopyWith<$Res>
   factory _$CosmeticCopyWith(_Cosmetic value, $Res Function(_Cosmetic) _then) = __$CosmeticCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String title, CosmeticKind kind, Rarity rarity, Map<String, Object?> params, bool equipped
+ String id, LocalizedText title, CosmeticKind kind, Rarity rarity, Map<String, Object?> params, bool equipped
 });
 
 
-
+@override $LocalizedTextCopyWith<$Res> get title;
 
 }
 /// @nodoc
@@ -286,7 +295,7 @@ class __$CosmeticCopyWithImpl<$Res>
   return _then(_Cosmetic(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
-as String,kind: null == kind ? _self.kind : kind // ignore: cast_nullable_to_non_nullable
+as LocalizedText,kind: null == kind ? _self.kind : kind // ignore: cast_nullable_to_non_nullable
 as CosmeticKind,rarity: null == rarity ? _self.rarity : rarity // ignore: cast_nullable_to_non_nullable
 as Rarity,params: null == params ? _self._params : params // ignore: cast_nullable_to_non_nullable
 as Map<String, Object?>,equipped: null == equipped ? _self.equipped : equipped // ignore: cast_nullable_to_non_nullable
@@ -294,7 +303,16 @@ as bool,
   ));
 }
 
-
+/// Create a copy of Cosmetic
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$LocalizedTextCopyWith<$Res> get title {
+  
+  return $LocalizedTextCopyWith<$Res>(_self.title, (value) {
+    return _then(_self.copyWith(title: value));
+  });
+}
 }
 
 // dart format on

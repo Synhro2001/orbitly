@@ -1,14 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:orbitly/app/routes.dart';
 import 'package:orbitly/core/theme/app_colors.dart';
 import 'package:orbitly/core/theme/app_dimens.dart';
+import 'package:orbitly/core/utils/haptics.dart';
 import 'package:orbitly/core/utils/l10n.dart';
 
-/// Интерфейс камеры. Вместо превью — градиент-заглушка, съёмки нет.
+/// Camera UI. A gradient placeholder instead of a preview; no capture yet.
 class CameraScreen extends StatefulWidget {
   const CameraScreen({super.key});
 
@@ -21,10 +21,10 @@ class _CameraScreenState extends State<CameraScreen> {
   bool _frontCamera = false;
   bool _shutterFlash = false;
 
-  /// Скорость свайпа вправо, после которой камера закрывается.
+  /// Swipe-right velocity that closes the camera.
   static const _closeSwipeVelocity = 250.0;
 
-  /// Камеру могли открыть по прямой ссылке — тогда возвращаться некуда.
+  /// The camera may have been opened by a direct link, with nothing to pop.
   void _close() {
     if (context.canPop()) {
       context.pop();
@@ -34,7 +34,7 @@ class _CameraScreenState extends State<CameraScreen> {
   }
 
   Future<void> _shoot() async {
-    unawaited(HapticFeedback.mediumImpact());
+    unawaited(AppHaptics.medium());
     if (MediaQuery.disableAnimationsOf(context)) return;
     setState(() => _shutterFlash = true);
     await Future<void>.delayed(AppDurations.fast);

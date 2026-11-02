@@ -4,8 +4,8 @@ import 'package:orbitly/app/routes.dart';
 
 import '../helpers/pump_app.dart';
 
-/// Каждый экран открывается на маленьком телефоне без переполнений:
-/// жёлто-чёрная полоса в Flutter — это ошибка, и тест на ней падает.
+/// Every screen opens on a small phone without overflow: the yellow-black
+/// stripe in Flutter is an error, and the test fails on it.
 void main() {
   const screens = [
     AppRoutes.system,
@@ -16,6 +16,18 @@ void main() {
     AppRoutes.camera,
     AppRoutes.collection,
     AppRoutes.wardrobe,
+    AppRoutes.settings,
+    AppRoutes.settingsAppearance,
+    AppRoutes.settingsAccount,
+    AppRoutes.settingsPrivacy,
+    AppRoutes.settingsBlocked,
+    AppRoutes.settingsQuietOrbit,
+    AppRoutes.settingsProfile,
+    AppRoutes.settingsNotifications,
+    AppRoutes.settingsWellbeing,
+    AppRoutes.settingsChatsMedia,
+    AppRoutes.settingsDeleteAccount,
+    AppRoutes.settingsHelp,
   ];
 
   for (final route in [...screens, AppRoutes.chat('friend-0')]) {
@@ -29,14 +41,14 @@ void main() {
       router.go(route);
       await tester.pumpAndSettle();
 
-      // Прокручиваем до конца, чтобы построились и нижние элементы.
+      // Scroll to the end so the bottom items get built too.
       final scrollable = find.byType(Scrollable);
       if (scrollable.evaluate().isNotEmpty) {
         await tester.drag(scrollable.first, const Offset(0, -2000));
         await tester.pumpAndSettle();
       }
-      // Переполнение фреймворк сам сообщит как ошибку и уронит тест —
-      // с указанием виджета, который не влез.
+      // The framework reports an overflow as an error and fails the test,
+      // naming the widget that did not fit.
     });
   }
 }

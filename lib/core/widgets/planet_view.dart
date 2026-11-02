@@ -6,10 +6,10 @@ import 'package:orbitly/core/domain/entities/planet_appearance.dart';
 import 'package:orbitly/core/planet_render/planet_image_cache.dart';
 import 'package:orbitly/core/planet_render/planet_painter.dart';
 
-/// Планета размером [size] (вместе с полями под кольца и спутники).
+/// A planet of [size] (including the margins for rings and moons).
 ///
-/// По умолчанию показывает закэшированную картинку. `live: true` рисует
-/// напрямую каждый кадр — для превью, где внешний вид меняется на лету.
+/// Shows the cached image by default. `live: true` draws it directly every
+/// frame, for previews where the appearance changes on the fly.
 class PlanetView extends StatefulWidget {
   const PlanetView({
     required this.appearance,
@@ -23,7 +23,7 @@ class PlanetView extends StatefulWidget {
   final double size;
   final bool live;
 
-  /// Прозрачность без отдельного слоя (Opacity) — дешевле на каждом кадре.
+  /// Opacity without a separate layer (Opacity widget): cheaper every frame.
   final double opacity;
 
   @override
@@ -76,7 +76,7 @@ class _PlanetViewState extends State<PlanetView> {
     return RepaintBoundary(
       child: SizedBox.square(
         dimension: widget.size,
-        // Пока картинка готовится, рисуем напрямую — без пустого кадра.
+        // While the image is being prepared, draw directly: no blank frame.
         child: image != null
             ? RawImage(
                 image: image,

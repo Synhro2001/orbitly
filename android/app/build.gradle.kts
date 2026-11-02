@@ -6,9 +6,9 @@ plugins {
     id("dev.flutter.flutter-gradle-plugin")
 }
 
-// Ключ подписи релиза — в android/key.properties (в .gitignore, в репозиторий
-// не попадает). Пока ключа нет, релиз подписывается отладочным ключом, и
-// публиковать такую сборку в магазин нельзя.
+// The release signing key lives in android/key.properties (gitignored, never
+// committed). Until there is one, release builds are signed with the debug
+// key and must not be published to a store.
 val keystoreProperties = Properties().apply {
     val file = rootProject.file("key.properties")
     if (file.exists()) file.inputStream().use { load(it) }

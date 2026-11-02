@@ -30,6 +30,11 @@ abstract class FriendRequestModel with _$FriendRequestModel {
       _$FriendRequestModelFromJson(json);
 }
 
+/// A user row from a server function (search, invite, blocked, muted):
+/// the name comes as `display_name`.
+UserSummary userSummaryFromRow(Map<String, dynamic> row) =>
+    UserSummaryModel.fromJson({...row, 'name': row['display_name']}).toEntity();
+
 extension UserSummaryModelX on UserSummaryModel {
   UserSummary toEntity() => UserSummary(
     id: id,

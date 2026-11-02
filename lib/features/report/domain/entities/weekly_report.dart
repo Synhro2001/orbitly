@@ -16,7 +16,7 @@ abstract class ReportEntry with _$ReportEntry {
   const factory ReportEntry({
     required Friend friend,
 
-    /// Изменение близости за неделю, в пунктах.
+    /// Change in closeness over the week, in points.
     required int closenessDelta,
   }) = _ReportEntry;
 }

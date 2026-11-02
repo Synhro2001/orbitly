@@ -1,14 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:orbitly/core/theme/app_colors.dart';
 import 'package:orbitly/core/theme/app_dimens.dart';
+import 'package:orbitly/core/utils/haptics.dart';
 import 'package:orbitly/core/utils/l10n.dart';
 import 'package:orbitly/features/chat/domain/message_rules.dart';
 
-/// Поле ввода: камера, текст, капсула времени, отправка и подсказки
-/// «С чего начать?».
+/// Input bar: camera, text, time capsule, send, and the "Where to start?"
+/// openers.
 class ChatComposer extends StatefulWidget {
   const ChatComposer({
     required this.starters,
@@ -40,12 +40,12 @@ class _ChatComposerState extends State<ChatComposer> {
     final text = _controller.text;
     if (text.trim().isEmpty) return;
     _controller.clear();
-    unawaited(HapticFeedback.lightImpact());
+    unawaited(AppHaptics.light());
     await _deliver(text, () => widget.onSend(text));
   }
 
-  /// Поле очищается сразу — так отправка ощущается мгновенной. Если сеть
-  /// подвела, текст возвращается в поле, а не пропадает молча.
+  /// The field clears at once, so sending feels instant. If the network
+  /// fails, the text comes back into the field instead of vanishing.
   Future<void> _deliver(String text, Future<void> Function() send) async {
     try {
       await send();
@@ -56,9 +56,8 @@ class _ChatComposerState extends State<ChatComposer> {
           ..text = text
           ..selection = TextSelection.collapsed(offset: text.length);
       }
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text(context.l10n.chatSendFailed)));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(context.l10n.chatSendFailed)));
     }
   }
 
@@ -73,11 +72,11 @@ class _ChatComposerState extends State<ChatComposer> {
     );
     if (delay == null) return;
     _controller.clear();
-    unawaited(HapticFeedback.mediumImpact());
+    unawaited(AppHaptics.medium());
     await _deliver(text, () => widget.onSendCapsule(text, delay));
   }
 
-  /// Подставляем подсказку в поле, а не отправляем: её можно дописать.
+  /// Put the opener into the field instead of sending it, so it can be edited.
   void _useStarter(String starter) => _controller
     ..text = starter
     ..selection = TextSelection.collapsed(offset: starter.length);
@@ -110,13 +109,13 @@ class _ChatComposerState extends State<ChatComposer> {
                     onSubmitted: (_) => _send(),
                     decoration: InputDecoration(
                       hintText: l10n.chatMessageHint,
-                      // Счётчик не нужен: лимит большой, ввод просто
-                      // остановится на нём.
+                      // No counter: the limit is large, typing simply
+                      // stops at it.
                       counterText: '',
                     ),
                   ),
                 ),
-                // Кнопки активны, только когда есть что отправить.
+                // The buttons are enabled only when there is text to send.
                 ValueListenableBuilder(
                   valueListenable: _controller,
                   builder: (context, value, _) {
@@ -149,7 +148,7 @@ class _ChatComposerState extends State<ChatComposer> {
   }
 }
 
-/// «С чего начать?» — первые фразы для затихшего разговора.
+/// "Where to start?": first lines for a conversation that has gone quiet.
 class _StarterChips extends StatelessWidget {
   const _StarterChips({required this.starters, required this.onTap});
 
@@ -193,7 +192,7 @@ class _StarterChips extends StatelessWidget {
   }
 }
 
-/// Когда откроется капсула.
+/// When the capsule opens.
 class _CapsuleDelaySheet extends StatelessWidget {
   const _CapsuleDelaySheet();
 

@@ -294,7 +294,7 @@ as List<ReportEntry>,
 /// @nodoc
 mixin _$ReportEntry {
 
- Friend get friend;/// Изменение близости за неделю, в пунктах.
+ Friend get friend;/// Change in closeness over the week, in points.
  int get closenessDelta;
 /// Create a copy of ReportEntry
 /// with the given fields replaced by the non-null parameter values.
@@ -506,7 +506,7 @@ class _ReportEntry implements ReportEntry {
   
 
 @override final  Friend friend;
-/// Изменение близости за неделю, в пунктах.
+/// Change in closeness over the week, in points.
 @override final  int closenessDelta;
 
 /// Create a copy of ReportEntry

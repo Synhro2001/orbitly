@@ -2,8 +2,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'shadow.freezed.dart';
 
-/// «Тень»: человек на время ушёл из сети (экзамены, отпуск). Пока он в
-/// тени, его серии с друзьями не сгорают.
+/// "Shadow": the person is offline for a while (exams, holiday). While they
+/// are in shadow, their streaks with friends do not burn out.
 @freezed
 abstract class Shadow with _$Shadow {
   const factory Shadow({required DateTime from, required DateTime until}) =
