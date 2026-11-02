@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
+import 'app_localizations_en.dart';
 import 'app_localizations_ru.dart';
 
 // ignore_for_file: type=lint
@@ -92,7 +93,10 @@ abstract class AppLocalizations {
       ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[Locale('ru')];
+  static const List<Locale> supportedLocales = <Locale>[
+    Locale('en'),
+    Locale('ru'),
+  ];
 
   /// No description provided for @appTitle.
   ///
@@ -802,6 +806,30 @@ abstract class AppLocalizations {
   /// **'С чего начать?'**
   String get chatStartersTitle;
 
+  /// No description provided for @chatOpenerMissYou.
+  ///
+  /// In ru, this message translates to:
+  /// **'Привет, {name}! Давно не болтали — как ты?'**
+  String chatOpenerMissYou(String name);
+
+  /// No description provided for @chatOpenerRemindedMe.
+  ///
+  /// In ru, this message translates to:
+  /// **'Сегодня кое-что напомнило мне о тебе 👀'**
+  String get chatOpenerRemindedMe;
+
+  /// No description provided for @chatOpenerStrangest.
+  ///
+  /// In ru, this message translates to:
+  /// **'Что было самым странным на этой неделе?'**
+  String get chatOpenerStrangest;
+
+  /// No description provided for @chatOpenerCall.
+  ///
+  /// In ru, this message translates to:
+  /// **'Созвонимся на выходных?'**
+  String get chatOpenerCall;
+
   /// No description provided for @chatCapsule.
   ///
   /// In ru, this message translates to:
@@ -1077,6 +1105,54 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Ссылка скопирована'**
   String get friendsLinkCopied;
+
+  /// No description provided for @settingsTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Настройки'**
+  String get settingsTitle;
+
+  /// No description provided for @settingsLanguage.
+  ///
+  /// In ru, this message translates to:
+  /// **'Язык'**
+  String get settingsLanguage;
+
+  /// No description provided for @settingsLanguageSystem.
+  ///
+  /// In ru, this message translates to:
+  /// **'Как на телефоне'**
+  String get settingsLanguageSystem;
+
+  /// No description provided for @settingsAccount.
+  ///
+  /// In ru, this message translates to:
+  /// **'Аккаунт'**
+  String get settingsAccount;
+
+  /// No description provided for @settingsSignOut.
+  ///
+  /// In ru, this message translates to:
+  /// **'Выйти'**
+  String get settingsSignOut;
+
+  /// No description provided for @settingsSignOutConfirm.
+  ///
+  /// In ru, this message translates to:
+  /// **'Выйти из аккаунта?'**
+  String get settingsSignOutConfirm;
+
+  /// No description provided for @settingsSignOutBody.
+  ///
+  /// In ru, this message translates to:
+  /// **'Чтобы вернуться, понадобится код из письма.'**
+  String get settingsSignOutBody;
+
+  /// No description provided for @actionCancel.
+  ///
+  /// In ru, this message translates to:
+  /// **'Отмена'**
+  String get actionCancel;
 }
 
 class _AppLocalizationsDelegate
@@ -1090,7 +1166,7 @@ class _AppLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['ru'].contains(locale.languageCode);
+      <String>['en', 'ru'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -1099,6 +1175,8 @@ class _AppLocalizationsDelegate
 AppLocalizations lookupAppLocalizations(Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
+    case 'en':
+      return AppLocalizationsEn();
     case 'ru':
       return AppLocalizationsRu();
   }

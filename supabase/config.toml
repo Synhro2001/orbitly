@@ -245,13 +245,14 @@ otp_expiry = 3600
 # sender_name = "Admin"
 
 # Sign-in with a 6-digit code: new and existing users both get
-# {{ .Token }}, not a link.
+# {{ .Token }}, not a link. The language comes from the account metadata
+# (.Data.locale, set by the app); English when it is not Russian.
 [auth.email.template.magic_link]
-subject = "Код входа в Orbitly"
+subject = "{{ if eq .Data.locale \"ru\" }}Код входа в Orbitly{{ else }}Your Orbitly sign-in code{{ end }}"
 content_path = "./supabase/templates/otp.html"
 
 [auth.email.template.confirmation]
-subject = "Код входа в Orbitly"
+subject = "{{ if eq .Data.locale \"ru\" }}Код входа в Orbitly{{ else }}Your Orbitly sign-in code{{ end }}"
 content_path = "./supabase/templates/otp.html"
 
 # Uncomment to customize email template

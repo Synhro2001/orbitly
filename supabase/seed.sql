@@ -20,7 +20,7 @@ insert into auth.users (
 select
   '00000000-0000-0000-0000-000000000000', u.id, 'authenticated', 'authenticated',
   u.email, '', now(),
-  '{"provider": "email", "providers": ["email"]}', '{}', now(), now(),
+  '{"provider": "email", "providers": ["email"]}', '{"locale": "ru"}', now(), now(),
   '', '', '', ''
 from (values
   ('a0000000-0000-0000-0000-000000000001'::uuid, 'anya@orbitly.test'),

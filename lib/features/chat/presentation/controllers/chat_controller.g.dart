@@ -10,20 +10,20 @@ part of 'chat_controller.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-/// От кого только что пришло сообщение (Realtime). Подписка привязана к
-/// пользователю и переподключается после повторного входа.
+/// Who has just sent a message (Realtime). The subscription is tied to the
+/// user and reconnects after signing in again.
 
 @ProviderFor(incomingMessages)
 final incomingMessagesProvider = IncomingMessagesProvider._();
 
-/// От кого только что пришло сообщение (Realtime). Подписка привязана к
-/// пользователю и переподключается после повторного входа.
+/// Who has just sent a message (Realtime). The subscription is tied to the
+/// user and reconnects after signing in again.
 
 final class IncomingMessagesProvider
     extends $FunctionalProvider<AsyncValue<String>, String, Stream<String>>
     with $FutureModifier<String>, $StreamProvider<String> {
-  /// От кого только что пришло сообщение (Realtime). Подписка привязана к
-  /// пользователю и переподключается после повторного входа.
+  /// Who has just sent a message (Realtime). The subscription is tied to the
+  /// user and reconnects after signing in again.
   IncomingMessagesProvider._()
     : super(
         from: null,
@@ -133,7 +133,7 @@ final class ChatControllerProvider
   }
 }
 
-String _$chatControllerHash() => r'6d31b7e2cd3ac6f8423cbfd3384e0a667dbab3a9';
+String _$chatControllerHash() => r'acba7e56734c65d5d71636cb10302639c12fdd2d';
 
 final class ChatControllerFamily extends $Family
     with

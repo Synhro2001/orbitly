@@ -408,6 +408,20 @@ class AppLocalizationsRu extends AppLocalizations {
   String get chatStartersTitle => 'С чего начать?';
 
   @override
+  String chatOpenerMissYou(String name) {
+    return 'Привет, $name! Давно не болтали — как ты?';
+  }
+
+  @override
+  String get chatOpenerRemindedMe => 'Сегодня кое-что напомнило мне о тебе 👀';
+
+  @override
+  String get chatOpenerStrangest => 'Что было самым странным на этой неделе?';
+
+  @override
+  String get chatOpenerCall => 'Созвонимся на выходных?';
+
+  @override
   String get chatCapsule => 'Капсула времени';
 
   @override
@@ -574,4 +588,29 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get friendsLinkCopied => 'Ссылка скопирована';
+
+  @override
+  String get settingsTitle => 'Настройки';
+
+  @override
+  String get settingsLanguage => 'Язык';
+
+  @override
+  String get settingsLanguageSystem => 'Как на телефоне';
+
+  @override
+  String get settingsAccount => 'Аккаунт';
+
+  @override
+  String get settingsSignOut => 'Выйти';
+
+  @override
+  String get settingsSignOutConfirm => 'Выйти из аккаунта?';
+
+  @override
+  String get settingsSignOutBody =>
+      'Чтобы вернуться, понадобится код из письма.';
+
+  @override
+  String get actionCancel => 'Отмена';
 }

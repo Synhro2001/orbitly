@@ -13,8 +13,11 @@ class SupabaseAuthRepository implements AuthRepository {
   }
 
   /// The email template sends a 6-digit code ({{ .Token }}), not a link.
+  /// `data` becomes the metadata of a new account; the template picks the
+  /// email language from `.Data.locale`.
   @override
-  Future<void> sendCode(String email) => _auth.signInWithOtp(email: email);
+  Future<void> sendCode(String email, {required String language}) =>
+      _auth.signInWithOtp(email: email, data: {_localeKey: language});
 
   @override
   Future<void> verifyCode({required String email, required String code}) =>
@@ -22,4 +25,13 @@ class SupabaseAuthRepository implements AuthRepository {
 
   @override
   Future<void> signOut() => _auth.signOut();
+
+  /// Kept in the account metadata, where the email template reads it.
+  @override
+  Future<void> saveLanguage(String language) async {
+    if (_auth.currentUser?.userMetadata?[_localeKey] == language) return;
+    await _auth.updateUser(UserAttributes(data: {_localeKey: language}));
+  }
+
+  static const _localeKey = 'locale';
 }

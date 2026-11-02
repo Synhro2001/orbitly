@@ -164,13 +164,14 @@ class _UnlockCelebrationState extends ConsumerState<UnlockCelebration>
                     live: true,
                   ),
                 Text(
-                  '${award.emoji ?? ''} ${award.title ?? ''}'.trim(),
+                  '${award.emoji ?? ''} ${award.title?.of(context) ?? ''}'
+                      .trim(),
                   style: textTheme.headlineSmall,
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: AppSpacing.xs),
                 Text(
-                  award.description ?? '',
+                  award.description?.of(context) ?? '',
                   style: textTheme.bodyMedium,
                   textAlign: TextAlign.center,
                 ),
@@ -182,7 +183,7 @@ class _UnlockCelebrationState extends ConsumerState<UnlockCelebration>
                 if (award.rewardTitle case final rewardTitle?) ...[
                   const SizedBox(height: AppSpacing.xs),
                   Text(
-                    l10n.achievementReward(rewardTitle),
+                    l10n.achievementReward(rewardTitle.of(context)),
                     style: textTheme.labelMedium,
                   ),
                 ],

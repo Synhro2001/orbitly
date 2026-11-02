@@ -11,7 +11,7 @@ part of 'cosmetic_model.dart';
 _CosmeticModel _$CosmeticModelFromJson(Map<String, dynamic> json) =>
     _CosmeticModel(
       id: json['id'] as String,
-      title: json['title'] as String,
+      title: const LocalizedTextConverter().fromJson(json['title'] as Object),
       kind: json['kind'] as String,
       rarity:
           $enumDecodeNullable(
@@ -28,7 +28,7 @@ _CosmeticModel _$CosmeticModelFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$CosmeticModelToJson(_CosmeticModel instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'title': instance.title,
+      'title': const LocalizedTextConverter().toJson(instance.title),
       'kind': instance.kind,
       'rarity': _$RarityEnumMap[instance.rarity]!,
       'params': instance.params,

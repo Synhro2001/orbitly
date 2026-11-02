@@ -12,8 +12,11 @@ void main() {
     test('an unlocked achievement', () {
       final award = AwardModel.fromJson({
         'id': 'week_on_orbit',
-        'title': 'Неделя на орбите',
-        'description': 'Серия 7 дней с одним другом',
+        'title': {'ru': 'Неделя на орбите', 'en': 'A week in orbit'},
+        'description': {
+          'ru': 'Серия 7 дней с одним другом',
+          'en': 'A 7-day streak with one friend',
+        },
         'icon': '🔥',
         'category': 'streak',
         'rarity': 'common',
@@ -24,7 +27,7 @@ void main() {
         'unlocked_at': '2026-11-01T10:00:00Z',
         'seen_at': null,
         'reward_cosmetic_id': 'ring_belt',
-        'reward_title': 'Пояс астероидов',
+        'reward_title': {'ru': 'Пояс астероидов', 'en': 'Asteroid belt'},
         'sort': 20,
       }).toEntity();
 
@@ -34,6 +37,9 @@ void main() {
       expect(award.emoji, '🔥');
       expect(award.rewardId, 'ring_belt');
       expect(award.progressFraction, 1);
+      expect(award.title?.inLanguage('en'), 'A week in orbit');
+      expect(award.title?.inLanguage('ru'), 'Неделя на орбите');
+      expect(award.rewardTitle?.inLanguage('en'), 'Asteroid belt');
     });
 
     test('a locked secret arrives without title and reward', () {
@@ -75,7 +81,7 @@ void main() {
     test('snake_case kinds from the database', () {
       final cosmetic = CosmeticModel.fromJson({
         'id': 'trail_comet',
-        'title': 'След кометы',
+        'title': {'ru': 'След кометы', 'en': 'Comet trail'},
         'kind': 'comet_trail',
         'rarity': 'epic',
         'params': <String, Object?>{},
@@ -84,6 +90,16 @@ void main() {
       expect(cosmetic?.kind, CosmeticKind.cometTrail);
       expect(cosmetic?.rarity, Rarity.epic);
       expect(cosmeticKindToDb(CosmeticKind.planetType), 'planet_type');
+    });
+
+    test('a plain string title from an older server still shows', () {
+      final cosmetic = CosmeticModel.fromJson({
+        'id': 'ring_belt',
+        'title': 'Пояс астероидов',
+        'kind': 'ring',
+      }).toEntity();
+
+      expect(cosmetic?.title.inLanguage('en'), 'Пояс астероидов');
     });
 
     test('an unknown kind is skipped', () {

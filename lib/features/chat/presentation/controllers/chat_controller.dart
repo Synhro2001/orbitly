@@ -61,7 +61,7 @@ class ChatController extends _$ChatController {
     state = AsyncData(
       current.copyWith(
         messages: [...current.messages, message],
-        conversationStarters: const [],
+        suggestOpeners: false,
       ),
     );
     _refreshLists();

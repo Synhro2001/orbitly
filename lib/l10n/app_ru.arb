@@ -147,6 +147,11 @@
   "chatSharedTrophies": "Общие трофеи",
   "chatsLastCapsule": "⏳ Капсула времени",
   "chatStartersTitle": "С чего начать?",
+  "chatOpenerMissYou": "Привет, {name}! Давно не болтали — как ты?",
+  "@chatOpenerMissYou": {"placeholders": {"name": {"type": "String"}}},
+  "chatOpenerRemindedMe": "Сегодня кое-что напомнило мне о тебе 👀",
+  "chatOpenerStrangest": "Что было самым странным на этой неделе?",
+  "chatOpenerCall": "Созвонимся на выходных?",
   "chatCapsule": "Капсула времени",
   "chatCapsuleOpensIn": "{count, plural, one{Откроется через {count} день} few{Откроется через {count} дня} many{Откроется через {count} дней} other{Откроется через {count} дня}}",
   "@chatCapsuleOpensIn": {"placeholders": {"count": {"type": "int"}}},
@@ -201,5 +206,14 @@
   "friendsInviteTitle": "Пригласи друга",
   "friendsInviteSubtitle": "Отправь ссылку тем, кого хочешь видеть на своей орбите",
   "friendsCopyLink": "Копировать ссылку",
-  "friendsLinkCopied": "Ссылка скопирована"
+  "friendsLinkCopied": "Ссылка скопирована",
+
+  "settingsTitle": "Настройки",
+  "settingsLanguage": "Язык",
+  "settingsLanguageSystem": "Как на телефоне",
+  "settingsAccount": "Аккаунт",
+  "settingsSignOut": "Выйти",
+  "settingsSignOutConfirm": "Выйти из аккаунта?",
+  "settingsSignOutBody": "Чтобы вернуться, понадобится код из письма.",
+  "actionCancel": "Отмена"
 }

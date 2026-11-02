@@ -15,6 +15,7 @@ import 'package:orbitly/features/onboarding/presentation/screens/onboarding_scre
 import 'package:orbitly/features/planet/presentation/controllers/my_planet_controller.dart';
 import 'package:orbitly/features/planet/presentation/screens/my_planet_screen.dart';
 import 'package:orbitly/features/report/presentation/screens/report_screen.dart';
+import 'package:orbitly/features/settings/presentation/screens/settings_screen.dart';
 import 'package:orbitly/features/system/presentation/screens/system_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -129,6 +130,10 @@ GoRouter router(Ref ref) {
         ),
       ),
       GoRoute(path: AppRoutes.report, builder: (_, _) => const ReportScreen()),
+      GoRoute(
+        path: AppRoutes.settings,
+        builder: (_, _) => const SettingsScreen(),
+      ),
     ],
   );
 

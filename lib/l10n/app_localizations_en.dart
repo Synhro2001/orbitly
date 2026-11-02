@@ -1,0 +1,610 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
+
+import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
+
+/// The translations for English (`en`).
+class AppLocalizationsEn extends AppLocalizations {
+  AppLocalizationsEn([String locale = 'en']) : super(locale);
+
+  @override
+  String get appTitle => 'Orbitly';
+
+  @override
+  String get brandStart => 'Orbit';
+
+  @override
+  String get brandAccent => 'ly';
+
+  @override
+  String get errorGeneric => 'Something went wrong';
+
+  @override
+  String get actionRetry => 'Try again';
+
+  @override
+  String get viewerTapToClose => 'Tap to close';
+
+  @override
+  String get navSystem => 'System';
+
+  @override
+  String get navChats => 'Chats';
+
+  @override
+  String get navPlanet => 'Planet';
+
+  @override
+  String get navFriends => 'Friends';
+
+  @override
+  String get navCamera => 'Camera';
+
+  @override
+  String get moodHappy => 'Happy';
+
+  @override
+  String get moodCalm => 'Calm';
+
+  @override
+  String get moodInLove => 'In love';
+
+  @override
+  String get moodExcited => 'Excited';
+
+  @override
+  String get moodTired => 'Tired';
+
+  @override
+  String get moodSad => 'Sad';
+
+  @override
+  String get planetTypeOcean => 'Ocean';
+
+  @override
+  String get planetTypeLava => 'Lava';
+
+  @override
+  String get planetTypeIce => 'Ice';
+
+  @override
+  String get planetTypeJungle => 'Jungle';
+
+  @override
+  String get planetTypeCandy => 'Candy';
+
+  @override
+  String get planetTypeCrystal => 'Crystal';
+
+  @override
+  String get planetTypeGas => 'Gas giant';
+
+  @override
+  String get planetTypeNebula => 'Nebula';
+
+  @override
+  String get planetTypeBlackHole => 'Black hole';
+
+  @override
+  String get planetTypeAurora => 'Aurora';
+
+  @override
+  String get planetTypeSolarCorona => 'Solar corona';
+
+  @override
+  String get planetTypeGemini => 'Gemini';
+
+  @override
+  String get planetTypeRingWorld => 'Ring world';
+
+  @override
+  String streakDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count days',
+      one: '$count day',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String streakCracked(int count) {
+    return 'Cracked: $count d — 24 h to save it';
+  }
+
+  @override
+  String get streakBurnt => 'Streak lost';
+
+  @override
+  String streakPaused(int count) {
+    return '$count d — paused, someone is in the shadow';
+  }
+
+  @override
+  String get systemTitle => 'My system';
+
+  @override
+  String get systemReport => 'Weekly report';
+
+  @override
+  String get systemHint => 'Drag the map · pinch to zoom · tap a planet';
+
+  @override
+  String systemLevelChip(int level, int days) {
+    return 'Lv. $level · 🔥 $days';
+  }
+
+  @override
+  String get systemShadowChip => '🌘 In shadow';
+
+  @override
+  String systemFriendPlanetShadow(String name) {
+    return '$name\'s planet, in shadow';
+  }
+
+  @override
+  String get systemEmpty => 'Your orbit is empty for now — add friends';
+
+  @override
+  String systemFriendPlanet(String name) {
+    return '$name\'s planet';
+  }
+
+  @override
+  String systemFriendPlanetUnread(String name) {
+    return '$name\'s planet, new snap';
+  }
+
+  @override
+  String momentOf(String name) {
+    return 'Moment: $name';
+  }
+
+  @override
+  String get onboardingTitle => 'Create your planet';
+
+  @override
+  String get onboardingSubtitle =>
+      'This is your home in the universe. Your friends will orbit around it.';
+
+  @override
+  String get onboardingTypeLabel => 'Type';
+
+  @override
+  String get onboardingHueLabel => 'Hue';
+
+  @override
+  String get onboardingNameLabel => 'Name';
+
+  @override
+  String get onboardingNameHint => 'For example, Orbitania';
+
+  @override
+  String get onboardingNameError => '2 to 20 characters';
+
+  @override
+  String get onboardingCreate => 'Create planet';
+
+  @override
+  String get onboardingDisplayNameLabel => 'Your name';
+
+  @override
+  String get onboardingDisplayNameHint => 'The name your friends will see';
+
+  @override
+  String get loginTitle => 'Sign in to Orbitly';
+
+  @override
+  String get loginSubtitle => 'We\'ll email you a code — no passwords';
+
+  @override
+  String get loginEmailHint => 'Email';
+
+  @override
+  String get loginSendCode => 'Get code';
+
+  @override
+  String get loginCodeTitle => 'Enter the code';
+
+  @override
+  String loginCodeSubtitle(String email) {
+    return 'We sent 6 digits to $email';
+  }
+
+  @override
+  String get loginCodeHint => 'Code from the email';
+
+  @override
+  String get loginVerify => 'Sign in';
+
+  @override
+  String get loginChangeEmail => 'Use another email';
+
+  @override
+  String get loginInvalidEmail => 'That address doesn\'t look right';
+
+  @override
+  String get loginInvalidCode => 'That code didn\'t work — check the email';
+
+  @override
+  String get loginSendError => 'Couldn\'t send the code. Please try again';
+
+  @override
+  String get loginLocalMailHint =>
+      'The local server doesn\'t send real emails. The code is in Mailpit on your computer: http://127.0.0.1:54324';
+
+  @override
+  String get collectionTitle => 'Collection';
+
+  @override
+  String collectionProgress(int unlocked, int total) {
+    return '$unlocked of $total unlocked';
+  }
+
+  @override
+  String get categoryAll => 'All';
+
+  @override
+  String get categoryFriendship => 'Friendship';
+
+  @override
+  String get categoryStreak => 'Streaks';
+
+  @override
+  String get categoryCloseness => 'Closeness';
+
+  @override
+  String get categoryCollection => 'Collection';
+
+  @override
+  String get categorySecret => 'Secrets';
+
+  @override
+  String get achievementSecretTitle => '???';
+
+  @override
+  String get achievementSecretDescription =>
+      'A secret achievement — you\'ll find out how once you unlock it';
+
+  @override
+  String achievementReward(String title) {
+    return 'Reward: $title';
+  }
+
+  @override
+  String get achievementPair => 'For two';
+
+  @override
+  String get achievementUnlocked => 'Unlocked';
+
+  @override
+  String get rarityCommon => 'Common';
+
+  @override
+  String get rarityRare => 'Rare';
+
+  @override
+  String get rarityEpic => 'Epic';
+
+  @override
+  String get rarityLegendary => 'Legendary';
+
+  @override
+  String get wardrobeTitle => 'Wardrobe';
+
+  @override
+  String get wardrobeEmpty =>
+      'Nothing here yet — unlock achievements and your rewards will appear here';
+
+  @override
+  String get wardrobeEquip => 'Wear';
+
+  @override
+  String get wardrobeUnequip => 'Take off';
+
+  @override
+  String get cosmeticKindPlanetType => 'Planet';
+
+  @override
+  String get cosmeticKindMoon => 'Moons';
+
+  @override
+  String get cosmeticKindRing => 'Rings';
+
+  @override
+  String get cosmeticKindGlow => 'Glow';
+
+  @override
+  String get cosmeticKindCometTrail => 'Trail';
+
+  @override
+  String get unlockTitle => 'New achievement!';
+
+  @override
+  String get unlockEquip => 'Wear';
+
+  @override
+  String get unlockShare => 'Share';
+
+  @override
+  String get unlockLater => 'Later';
+
+  @override
+  String get unlockShareSoon => 'Sharing rewards is coming very soon';
+
+  @override
+  String get unlockPairNote => 'Your friend got the reward too';
+
+  @override
+  String planetCollectionSummary(int unlocked, int total) {
+    return '$unlocked of $total achievements';
+  }
+
+  @override
+  String get chatsTitle => 'Chats';
+
+  @override
+  String get chatsEmpty => 'No chats yet';
+
+  @override
+  String get chatsLastSnap => 'Snap';
+
+  @override
+  String get chatsUnread => 'Unread';
+
+  @override
+  String get timeNow => 'now';
+
+  @override
+  String timeMinutes(int count) {
+    return '$count min';
+  }
+
+  @override
+  String timeHours(int count) {
+    return '$count h';
+  }
+
+  @override
+  String timeDays(int count) {
+    return '$count d';
+  }
+
+  @override
+  String get chatSnapTapToView => 'Snap — tap to view';
+
+  @override
+  String get chatSnapOpened => 'Snap viewed';
+
+  @override
+  String get chatSnapSent => 'You sent a snap';
+
+  @override
+  String chatSnapFrom(String name) {
+    return 'Snap from $name';
+  }
+
+  @override
+  String get chatMessageHint => 'Message…';
+
+  @override
+  String get chatSend => 'Send';
+
+  @override
+  String get chatSendFailed => 'Couldn\'t send. Check your connection';
+
+  @override
+  String get chatSharedTrophies => 'Shared trophies';
+
+  @override
+  String get chatsLastCapsule => '⏳ Time capsule';
+
+  @override
+  String get chatStartersTitle => 'Not sure how to start?';
+
+  @override
+  String chatOpenerMissYou(String name) {
+    return 'Hi $name! It\'s been a while — how are you?';
+  }
+
+  @override
+  String get chatOpenerRemindedMe => 'Something reminded me of you today 👀';
+
+  @override
+  String get chatOpenerStrangest => 'What was the strangest thing this week?';
+
+  @override
+  String get chatOpenerCall => 'Call this weekend?';
+
+  @override
+  String get chatCapsule => 'Time capsule';
+
+  @override
+  String chatCapsuleOpensIn(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Opens in $count days',
+      one: 'Opens in $count day',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get chatCapsuleSealed => 'Sealed until the date 🔒';
+
+  @override
+  String get chatCapsuleSheetTitle => 'Send to the future';
+
+  @override
+  String get chatCapsuleSheetSubtitle =>
+      'Your friend can read it only on the day you pick';
+
+  @override
+  String get chatCapsuleTomorrow => 'Tomorrow';
+
+  @override
+  String get chatCapsuleWeek => 'In a week';
+
+  @override
+  String get chatCapsuleMonth => 'In a month';
+
+  @override
+  String get chatCapsuleYear => 'In a year';
+
+  @override
+  String get cameraFlash => 'Flash';
+
+  @override
+  String get cameraFlip => 'Switch camera';
+
+  @override
+  String get cameraShutter => 'Take photo';
+
+  @override
+  String get cameraClose => 'Close';
+
+  @override
+  String get cameraPreviewStub => 'Camera preview goes here';
+
+  @override
+  String planetLevel(int level) {
+    return 'Level $level';
+  }
+
+  @override
+  String planetXp(int xp, int total) {
+    return '$xp / $total XP';
+  }
+
+  @override
+  String get planetBestStreak => 'Best streak';
+
+  @override
+  String get planetAwards => 'Awards';
+
+  @override
+  String get planetMood => 'Mood';
+
+  @override
+  String get planetShadowTitle => 'Shadow';
+
+  @override
+  String get planetShadowHint =>
+      'Exams, a holiday or just need some quiet? Go into the shadow — all your streaks freeze, and friends will see 🌘.';
+
+  @override
+  String get planetShadowDay => '1 day';
+
+  @override
+  String get planetShadow3Days => '3 days';
+
+  @override
+  String get planetShadowWeek => 'A week';
+
+  @override
+  String planetShadowActive(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'You\'re in the shadow for $count more days',
+      one: 'You\'re in the shadow for $count more day',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get planetShadowActiveHint =>
+      'Streaks are paused. When you\'re back, you\'ll have a full day to continue them.';
+
+  @override
+  String get planetShadowLeave => 'Leave the shadow';
+
+  @override
+  String get reportTitle => 'Weekly report';
+
+  @override
+  String get reportCloser => 'Getting closer';
+
+  @override
+  String get reportDrifting => 'Drifting apart';
+
+  @override
+  String get reportWrite => 'Message';
+
+  @override
+  String reportDelta(String delta) {
+    return '$delta closeness';
+  }
+
+  @override
+  String get reportEmpty => 'No changes this week';
+
+  @override
+  String get friendsTitle => 'Friends';
+
+  @override
+  String get friendsSearchHint => 'Search by username';
+
+  @override
+  String get friendsSearchEmpty => 'No one found';
+
+  @override
+  String get friendsAdd => 'Add';
+
+  @override
+  String get friendsRequested => 'Request sent';
+
+  @override
+  String get friendsIncoming => 'Friend requests';
+
+  @override
+  String get friendsNoRequests => 'No new requests';
+
+  @override
+  String get friendsAccept => 'Accept';
+
+  @override
+  String get friendsDecline => 'Decline';
+
+  @override
+  String get friendsInviteTitle => 'Invite a friend';
+
+  @override
+  String get friendsInviteSubtitle =>
+      'Send a link to the people you want in your orbit';
+
+  @override
+  String get friendsCopyLink => 'Copy link';
+
+  @override
+  String get friendsLinkCopied => 'Link copied';
+
+  @override
+  String get settingsTitle => 'Settings';
+
+  @override
+  String get settingsLanguage => 'Language';
+
+  @override
+  String get settingsLanguageSystem => 'Same as the phone';
+
+  @override
+  String get settingsAccount => 'Account';
+
+  @override
+  String get settingsSignOut => 'Sign out';
+
+  @override
+  String get settingsSignOutConfirm => 'Sign out?';
+
+  @override
+  String get settingsSignOutBody =>
+      'You\'ll need a code from your email to come back.';
+
+  @override
+  String get actionCancel => 'Cancel';
+}

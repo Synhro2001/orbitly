@@ -17,6 +17,8 @@ import 'package:orbitly/features/planet/data/repositories/supabase_planet_reposi
 import 'package:orbitly/features/planet/domain/repositories/planet_repository.dart';
 import 'package:orbitly/features/report/data/repositories/mock_report_repository.dart';
 import 'package:orbitly/features/report/domain/repositories/report_repository.dart';
+import 'package:orbitly/features/settings/data/repositories/in_memory_settings_repository.dart';
+import 'package:orbitly/features/settings/domain/repositories/settings_repository.dart';
 import 'package:orbitly/features/system/data/repositories/mock_system_repository.dart';
 import 'package:orbitly/features/system/data/repositories/supabase_system_repository.dart';
 import 'package:orbitly/features/system/domain/repositories/system_repository.dart';
@@ -34,6 +36,11 @@ bool useMocks(Ref ref) => Env.useMocks;
 
 @Riverpod(keepAlive: true)
 MockStore mockStore(Ref ref) => MockStore(withNewUnlock: true);
+
+/// Settings on this phone. main() puts in the real storage; tests keep them
+/// in memory.
+@Riverpod(keepAlive: true)
+SettingsRepository settingsRepository(Ref ref) => InMemorySettingsRepository();
 
 /// Supabase client. Initialised in main() only when mocks are off.
 @Riverpod(keepAlive: true)

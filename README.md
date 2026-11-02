@@ -33,6 +33,7 @@ use.
 | Achievements, cosmetics, unlock animation | Supabase + Realtime |
 | Chat: text and time capsules | Supabase + Realtime |
 | Snaps (sending), moments, camera | UI only; needs media storage |
+| Languages (Russian, English), settings, sign-out | Done |
 | Weekly report | Mock data |
 
 ## Running
@@ -110,7 +111,7 @@ flutter drive --profile --driver=test_driver/perf_driver.dart --target=integrati
 ### Code generation
 
 Models (freezed/json), providers (riverpod_generator) and localisation are
-generated and committed. After changing models, providers or `app_ru.arb`:
+generated and committed. After changing models, providers or the `.arb` files:
 
 ```bash
 dart run build_runner build
@@ -144,8 +145,9 @@ lib/
     onboarding/   planet creation
     planet/       my planet: level, XP, mood, shadow
     report/       weekly report
+    settings/     language and account settings
     system/       main screen: orbits, moments
-  l10n/app_ru.arb all UI strings
+  l10n/          UI strings: app_ru.arb (template), app_en.arb
 supabase/
   migrations/     schema, RLS, server functions, achievement engine, chat
   tests/          pgTAP tests
@@ -181,6 +183,14 @@ widgets, Riverpod controllers).
   and Android match) and cached as images by memory budget.
 - **Performance:** the orbit map avoids per-frame blurs and opacity layers;
   the benchmark keeps every main screen at 60 fps on the emulator.
+- **Languages.** UI strings live in ARB files (`gen-l10n`); the app follows
+  the phone's language, falls back to English, and can be switched in the
+  settings (stored on the phone). Catalogue texts from the database come as
+  `{"ru": ..., "en": ...}` and the app picks one, so switching needs no
+  reload; English is required for every row. The language is also saved in
+  the account metadata, and the sign-in email uses it. To add a language:
+  add `app_<code>.arb`, add the key to every catalogue row, add a branch to
+  `supabase/templates/otp.html`, and add it to `AppLanguage`.
 - **Fonts:** Golos Text and Unbounded (OFL), in `assets/fonts`.
 - **Analysis:** `very_good_analysis` with two rules off: `public_member_api_docs`
   (this is an app, not a package) and the new constructor syntax rule
@@ -192,4 +202,3 @@ widgets, Riverpod controllers).
 - Loading older messages when scrolling up.
 - Push notifications.
 - A hosted Supabase project and a test build for friends.
-- Language switching and app settings.

@@ -1,6 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:orbitly/core/data/models/localized_text_converter.dart';
 import 'package:orbitly/core/domain/entities/award.dart';
 import 'package:orbitly/core/domain/entities/cosmetic.dart';
+import 'package:orbitly/core/domain/entities/localized_text.dart';
 
 part 'cosmetic_model.freezed.dart';
 part 'cosmetic_model.g.dart';
@@ -11,7 +13,7 @@ part 'cosmetic_model.g.dart';
 abstract class CosmeticModel with _$CosmeticModel {
   const factory CosmeticModel({
     required String id,
-    required String title,
+    @LocalizedTextConverter() required LocalizedText title,
     required String kind,
     @JsonKey(unknownEnumValue: Rarity.common)
     @Default(Rarity.common)

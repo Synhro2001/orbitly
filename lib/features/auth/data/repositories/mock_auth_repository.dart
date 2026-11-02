@@ -8,7 +8,7 @@ class MockAuthRepository implements AuthRepository {
   Stream<bool> watchSignedIn() => Stream.value(true);
 
   @override
-  Future<void> sendCode(String email) async {}
+  Future<void> sendCode(String email, {required String language}) async {}
 
   @override
   Future<void> verifyCode({
@@ -18,4 +18,7 @@ class MockAuthRepository implements AuthRepository {
 
   @override
   Future<void> signOut() async {}
+
+  @override
+  Future<void> saveLanguage(String language) async {}
 }

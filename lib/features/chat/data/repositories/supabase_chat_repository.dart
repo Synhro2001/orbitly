@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:orbitly/core/data/parse.dart';
 import 'package:orbitly/core/data/supabase/friend_rows.dart';
 import 'package:orbitly/core/data/supabase/rpc_rows.dart';
-import 'package:orbitly/features/chat/data/conversation_starters.dart';
 import 'package:orbitly/features/chat/data/models/message_model.dart';
 import 'package:orbitly/features/chat/domain/entities/chat.dart';
 import 'package:orbitly/features/chat/domain/entities/message.dart';
@@ -56,9 +55,7 @@ class SupabaseChatRepository implements ChatRepository {
       friend: friend,
       messages: messagesFromRpcRows(rows),
       sharedTrophies: friend.sharedTrophies,
-      conversationStarters: quiet
-          ? conversationStarters(friend.name)
-          : const [],
+      suggestOpeners: quiet,
     );
   }
 

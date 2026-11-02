@@ -15,6 +15,7 @@ import 'package:orbitly/features/chat/domain/entities/message.dart';
 import 'package:orbitly/features/chat/presentation/controllers/chat_controller.dart';
 import 'package:orbitly/features/chat/presentation/widgets/chat_composer.dart';
 import 'package:orbitly/features/chat/presentation/widgets/chat_header.dart';
+import 'package:orbitly/features/chat/presentation/widgets/conversation_openers.dart';
 import 'package:orbitly/features/chat/presentation/widgets/message_bubbles.dart';
 import 'package:orbitly/features/planet/presentation/controllers/my_planet_controller.dart';
 
@@ -48,7 +49,9 @@ class ChatScreen extends ConsumerWidget {
               child: _MessageList(thread: thread, shadows: shadows),
             ),
             ChatComposer(
-              starters: thread.conversationStarters,
+              starters: thread.suggestOpeners
+                  ? conversationOpeners(context.l10n, thread.friend.name)
+                  : const [],
               onSend: controller.send,
               onSendCapsule: controller.sendCapsule,
               onCamera: () => context.push(AppRoutes.camera),

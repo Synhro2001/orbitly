@@ -12,9 +12,10 @@ abstract class ChatThread with _$ChatThread {
     required List<Message> messages,
     required List<Award> sharedTrophies,
 
-    /// Conversation openers. Offered when a friend is drifting away or the
-    /// streak has cracked; otherwise the list is empty.
-    @Default([]) List<String> conversationStarters,
+    /// Offer conversation openers: the friend is drifting away or the
+    /// conversation has gone quiet. The texts themselves are in the UI
+    /// translations.
+    @Default(false) bool suggestOpeners,
   }) = _ChatThread;
 }
 

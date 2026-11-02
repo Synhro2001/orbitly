@@ -246,26 +246,44 @@ class MockStore {
   void _seedAchievements() {
     cosmetics.addAll([
       for (final (id, title, kind, rarity, params) in const [
-        ('moon_first', 'Первый спутник', 'moon', 'common', {'moons': 1}),
+        (
+          'moon_first',
+          {'ru': 'Первый спутник', 'en': 'First moon'},
+          'moon',
+          'common',
+          {'moons': 1},
+        ),
         (
           'moon_hourglass',
-          'Песочные часы',
+          {'ru': 'Песочные часы', 'en': 'Hourglass'},
           'moon',
           'common',
           {'moons': 1, 'skin': 'hourglass'},
         ),
-        ('moon_twin', 'Двойник', 'moon', 'rare', {'moons': 2}),
-        ('ring_belt', 'Пояс астероидов', 'ring', 'common', <String, Object?>{}),
+        (
+          'moon_twin',
+          {'ru': 'Двойник', 'en': 'Twin'},
+          'moon',
+          'rare',
+          {'moons': 2},
+        ),
+        (
+          'ring_belt',
+          {'ru': 'Пояс астероидов', 'en': 'Asteroid belt'},
+          'ring',
+          'common',
+          <String, Object?>{},
+        ),
         (
           'planet_ring_world',
-          'Кольцевой мир',
+          {'ru': 'Кольцевой мир', 'en': 'Ring world'},
           'planet_type',
           'rare',
           {'type': 'ringWorld'},
         ),
         (
           'planet_nebula',
-          'Туманность',
+          {'ru': 'Туманность', 'en': 'Nebula'},
           'planet_type',
           'rare',
           {'type': 'nebula'},
@@ -285,8 +303,11 @@ class MockStore {
     const catalog = [
       (
         'first_contact',
-        'Первый контакт',
-        'Найди первого друга на орбите',
+        {'ru': 'Первый контакт', 'en': 'First contact'},
+        {
+          'ru': 'Найди первого друга на орбите',
+          'en': 'Find your first friend in orbit',
+        },
         '🛰️',
         'friendship',
         'common',
@@ -299,8 +320,11 @@ class MockStore {
       ),
       (
         'week_on_orbit',
-        'Неделя на орбите',
-        'Серия 7 дней с одним другом',
+        {'ru': 'Неделя на орбите', 'en': 'A week in orbit'},
+        {
+          'ru': 'Серия 7 дней с одним другом',
+          'en': 'A 7-day streak with one friend',
+        },
         '🔥',
         'streak',
         'common',
@@ -313,8 +337,11 @@ class MockStore {
       ),
       (
         'time_keeper',
-        'Хранитель времени',
-        'Открой первую капсулу времени',
+        {'ru': 'Хранитель времени', 'en': 'Time keeper'},
+        {
+          'ru': 'Открой первую капсулу времени',
+          'en': 'Open your first time capsule',
+        },
         '⏳',
         'collection',
         'common',
@@ -327,8 +354,11 @@ class MockStore {
       ),
       (
         'month_together',
-        'Месяц вместе',
-        'Серия 30 дней с другом — общий спутник вам обоим',
+        {'ru': 'Месяц вместе', 'en': 'A month together'},
+        {
+          'ru': 'Серия 30 дней с другом — общий спутник вам обоим',
+          'en': 'A 30-day streak with a friend: a shared moon for you both',
+        },
         '🌗',
         'streak',
         'rare',
@@ -341,8 +371,8 @@ class MockStore {
       ),
       (
         'constellation',
-        'Созвездие',
-        'Пять друзей на орбите',
+        {'ru': 'Созвездие', 'en': 'Constellation'},
+        {'ru': 'Пять друзей на орбите', 'en': 'Five friends in orbit'},
         '✨',
         'friendship',
         'rare',
@@ -355,8 +385,8 @@ class MockStore {
       ),
       (
         'own_galaxy',
-        'Своя галактика',
-        'Десять друзей на орбите',
+        {'ru': 'Своя галактика', 'en': 'Your own galaxy'},
+        {'ru': 'Десять друзей на орбите', 'en': 'Ten friends in orbit'},
         '🌌',
         'friendship',
         'rare',
@@ -369,8 +399,11 @@ class MockStore {
       ),
       (
         'comeback',
-        'Возвращение',
-        'Вернись из тени и продолжи серию',
+        {'ru': 'Возвращение', 'en': 'Comeback'},
+        {
+          'ru': 'Вернись из тени и продолжи серию',
+          'en': 'Come back from the shadow and keep your streak',
+        },
         '🌘',
         'streak',
         'rare',
@@ -383,8 +416,11 @@ class MockStore {
       ),
       (
         'polar_night',
-        'Полярная ночь',
-        'Три раза вернись из тени, не потеряв серию',
+        {'ru': 'Полярная ночь', 'en': 'Polar night'},
+        {
+          'ru': 'Три раза вернись из тени, не потеряв серию',
+          'en': 'Come back from the shadow three times without losing a streak',
+        },
         '🌠',
         'collection',
         'rare',
@@ -397,8 +433,11 @@ class MockStore {
       ),
       (
         'double_star',
-        'Двойная звезда',
-        'Близость 90+ с другом 30 дней подряд',
+        {'ru': 'Двойная звезда', 'en': 'Double star'},
+        {
+          'ru': 'Близость 90+ с другом 30 дней подряд',
+          'en': 'Closeness 90+ with a friend for 30 days in a row',
+        },
         '💫',
         'closeness',
         'epic',
@@ -411,8 +450,8 @@ class MockStore {
       ),
       (
         'hundred_days',
-        'Сто дней',
-        'Серия 100 дней',
+        {'ru': 'Сто дней', 'en': 'A hundred days'},
+        {'ru': 'Серия 100 дней', 'en': 'A 100-day streak'},
         '☄️',
         'streak',
         'epic',
@@ -453,8 +492,8 @@ class MockStore {
       ),
       (
         'year_of_friendship',
-        'Год дружбы',
-        'Серия 365 дней',
+        {'ru': 'Год дружбы', 'en': 'A year of friendship'},
+        {'ru': 'Серия 365 дней', 'en': 'A 365-day streak'},
         '👑',
         'streak',
         'legendary',

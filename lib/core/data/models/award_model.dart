@@ -1,5 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:orbitly/core/data/models/localized_text_converter.dart';
 import 'package:orbitly/core/domain/entities/award.dart';
+import 'package:orbitly/core/domain/entities/localized_text.dart';
 
 part 'award_model.freezed.dart';
 part 'award_model.g.dart';
@@ -17,8 +19,8 @@ abstract class AwardModel with _$AwardModel {
     @JsonKey(unknownEnumValue: Rarity.common)
     @Default(Rarity.common)
     Rarity rarity,
-    String? title,
-    String? description,
+    @LocalizedTextConverter() LocalizedText? title,
+    @LocalizedTextConverter() LocalizedText? description,
     String? icon,
     @Default(false) bool hidden,
     @Default(false) bool pair,
@@ -27,7 +29,7 @@ abstract class AwardModel with _$AwardModel {
     DateTime? unlockedAt,
     DateTime? seenAt,
     String? rewardCosmeticId,
-    String? rewardTitle,
+    @LocalizedTextConverter() LocalizedText? rewardTitle,
   }) = _AwardModel;
 
   factory AwardModel.fromJson(Map<String, Object?> json) =>

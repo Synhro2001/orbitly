@@ -24,8 +24,14 @@ _AwardModel _$AwardModelFromJson(Map<String, dynamic> json) => _AwardModel(
         unknownValue: Rarity.common,
       ) ??
       Rarity.common,
-  title: json['title'] as String?,
-  description: json['description'] as String?,
+  title: _$JsonConverterFromJson<Object, LocalizedText>(
+    json['title'],
+    const LocalizedTextConverter().fromJson,
+  ),
+  description: _$JsonConverterFromJson<Object, LocalizedText>(
+    json['description'],
+    const LocalizedTextConverter().fromJson,
+  ),
   icon: json['icon'] as String?,
   hidden: json['hidden'] as bool? ?? false,
   pair: json['pair'] as bool? ?? false,
@@ -38,7 +44,10 @@ _AwardModel _$AwardModelFromJson(Map<String, dynamic> json) => _AwardModel(
       ? null
       : DateTime.parse(json['seen_at'] as String),
   rewardCosmeticId: json['reward_cosmetic_id'] as String?,
-  rewardTitle: json['reward_title'] as String?,
+  rewardTitle: _$JsonConverterFromJson<Object, LocalizedText>(
+    json['reward_title'],
+    const LocalizedTextConverter().fromJson,
+  ),
 );
 
 Map<String, dynamic> _$AwardModelToJson(_AwardModel instance) =>
@@ -46,8 +55,14 @@ Map<String, dynamic> _$AwardModelToJson(_AwardModel instance) =>
       'id': instance.id,
       'category': _$AwardCategoryEnumMap[instance.category]!,
       'rarity': _$RarityEnumMap[instance.rarity]!,
-      'title': instance.title,
-      'description': instance.description,
+      'title': _$JsonConverterToJson<Object, LocalizedText>(
+        instance.title,
+        const LocalizedTextConverter().toJson,
+      ),
+      'description': _$JsonConverterToJson<Object, LocalizedText>(
+        instance.description,
+        const LocalizedTextConverter().toJson,
+      ),
       'icon': instance.icon,
       'hidden': instance.hidden,
       'pair': instance.pair,
@@ -56,7 +71,10 @@ Map<String, dynamic> _$AwardModelToJson(_AwardModel instance) =>
       'unlocked_at': instance.unlockedAt?.toIso8601String(),
       'seen_at': instance.seenAt?.toIso8601String(),
       'reward_cosmetic_id': instance.rewardCosmeticId,
-      'reward_title': instance.rewardTitle,
+      'reward_title': _$JsonConverterToJson<Object, LocalizedText>(
+        instance.rewardTitle,
+        const LocalizedTextConverter().toJson,
+      ),
     };
 
 const _$AwardCategoryEnumMap = {
@@ -73,3 +91,13 @@ const _$RarityEnumMap = {
   Rarity.epic: 'epic',
   Rarity.legendary: 'legendary',
 };
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) => json == null ? null : fromJson(json as Json);
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) => value == null ? null : toJson(value);

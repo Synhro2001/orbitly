@@ -1,12 +1,19 @@
 import 'package:flutter/widgets.dart';
 import 'package:orbitly/core/domain/entities/award.dart';
 import 'package:orbitly/core/domain/entities/cosmetic.dart';
+import 'package:orbitly/core/domain/entities/localized_text.dart';
 import 'package:orbitly/core/domain/entities/mood.dart';
 import 'package:orbitly/core/domain/entities/planet_appearance.dart';
 import 'package:orbitly/l10n/app_localizations.dart';
 
 extension L10nX on BuildContext {
   AppLocalizations get l10n => AppLocalizations.of(this);
+}
+
+/// Server content in the language on screen.
+extension LocalizedTextL10n on LocalizedText {
+  String of(BuildContext context) =>
+      inLanguage(Localizations.localeOf(context).languageCode);
 }
 
 extension MoodL10n on Mood {

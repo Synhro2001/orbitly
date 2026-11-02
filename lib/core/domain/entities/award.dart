@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:orbitly/core/domain/entities/localized_text.dart';
 
 part 'award.freezed.dart';
 
@@ -14,8 +15,8 @@ abstract class Award with _$Award {
     required String id,
     required AwardCategory category,
     required Rarity rarity,
-    String? title,
-    String? description,
+    LocalizedText? title,
+    LocalizedText? description,
     String? emoji,
     @Default(0) int progress,
     @Default(1) int target,
@@ -26,7 +27,7 @@ abstract class Award with _$Award {
 
     /// The cosmetic this achievement rewards.
     String? rewardId,
-    String? rewardTitle,
+    LocalizedText? rewardTitle,
     DateTime? unlockedAt,
     DateTime? seenAt,
   }) = _Award;

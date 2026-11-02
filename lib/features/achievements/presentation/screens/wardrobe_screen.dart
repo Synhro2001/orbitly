@@ -140,7 +140,7 @@ class _CosmeticTile extends StatelessWidget {
         ),
         child: ListTile(
           onTap: onPreview,
-          title: Text(cosmetic.title),
+          title: Text(cosmetic.title.of(context)),
           subtitle: Text(
             cosmetic.rarity.label(l10n),
             style: Theme.of(context).textTheme.labelSmall

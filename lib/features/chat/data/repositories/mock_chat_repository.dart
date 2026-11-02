@@ -2,7 +2,6 @@ import 'package:orbitly/core/data/mock/mock_store.dart';
 import 'package:orbitly/core/data/models/award_model.dart';
 import 'package:orbitly/core/data/models/friend_model.dart';
 import 'package:orbitly/core/data/parse.dart';
-import 'package:orbitly/features/chat/data/conversation_starters.dart';
 import 'package:orbitly/features/chat/data/models/message_model.dart';
 import 'package:orbitly/features/chat/domain/entities/chat.dart';
 import 'package:orbitly/features/chat/domain/entities/message.dart';
@@ -53,9 +52,7 @@ class MockChatRepository implements ChatRepository {
           if (trophyIds.contains(json['id']))
             AwardModel.fromJson(json).toEntity(),
       ],
-      conversationStarters: _store.isDrifting(friendId)
-          ? conversationStarters(friend.name)
-          : const [],
+      suggestOpeners: _store.isDrifting(friendId),
     );
   }
 

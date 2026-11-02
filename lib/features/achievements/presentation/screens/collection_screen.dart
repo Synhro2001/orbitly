@@ -113,10 +113,12 @@ class AwardCard extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     final color = AppColors.forRarity(award.rarity);
     final secret = award.isSecretLocked;
-    final title = secret ? l10n.achievementSecretTitle : award.title ?? '';
+    final title = secret
+        ? l10n.achievementSecretTitle
+        : award.title?.of(context) ?? '';
     final description = secret
         ? l10n.achievementSecretDescription
-        : award.description ?? '';
+        : award.description?.of(context) ?? '';
 
     return Semantics(
       label: '$title. $description. ${award.rarity.label(l10n)}',
@@ -184,7 +186,7 @@ class AwardCard extends StatelessWidget {
                   if (award.rewardTitle case final reward? when !secret) ...[
                     const SizedBox(height: AppSpacing.xs),
                     Text(
-                      l10n.achievementReward(reward),
+                      l10n.achievementReward(reward.of(context)),
                       style: textTheme.labelSmall?.copyWith(color: color),
                     ),
                   ],

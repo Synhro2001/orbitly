@@ -45,6 +45,14 @@ class _PlanetContent extends ConsumerWidget {
     return ListView(
       padding: const EdgeInsets.all(AppSpacing.l),
       children: [
+        Align(
+          alignment: Alignment.centerRight,
+          child: IconButton(
+            icon: const Icon(Icons.settings_rounded),
+            tooltip: l10n.settingsTitle,
+            onPressed: () => context.push(AppRoutes.settings),
+          ),
+        ),
         Center(
           child: PlanetView(
             appearance: planet.appearance,

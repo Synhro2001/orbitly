@@ -27,6 +27,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     super.dispose();
   }
 
+  /// The language on screen: a new account gets its emails in it.
+  String _language(BuildContext context) =>
+      Localizations.localeOf(context).languageCode;
+
   String? _errorText(LoginError? error) => switch (error) {
     LoginError.invalidEmail => context.l10n.loginInvalidEmail,
     LoginError.invalidCode => context.l10n.loginInvalidCode,
@@ -73,7 +77,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   keyboardType: TextInputType.emailAddress,
                   autofillHints: const [AutofillHints.email],
                   textInputAction: TextInputAction.send,
-                  onSubmitted: controller.sendCode,
+                  onSubmitted: (email) =>
+                      controller.sendCode(email, language: _language(context)),
                   decoration: InputDecoration(
                     hintText: l10n.loginEmailHint,
                     errorText: _errorText(state.error),
@@ -100,7 +105,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     ? null
                     : () => state.codeSent
                           ? controller.verify(_code.text)
-                          : controller.sendCode(_email.text),
+                          : controller.sendCode(
+                              _email.text,
+                              language: _language(context),
+                            ),
                 child: state.isBusy
                     ? const SizedBox.square(
                         dimension: AppSpacing.l,

@@ -92,17 +92,73 @@ final class MockStoreProvider
 
 String _$mockStoreHash() => r'9725d5bc98b824a97fedb9f4d399c8a80b8fb584';
 
-/// Клиент Supabase. Инициализируется в main(), только когда моки выключены.
+/// Settings on this phone. main() puts in the real storage; tests keep them
+/// in memory.
+
+@ProviderFor(settingsRepository)
+final settingsRepositoryProvider = SettingsRepositoryProvider._();
+
+/// Settings on this phone. main() puts in the real storage; tests keep them
+/// in memory.
+
+final class SettingsRepositoryProvider
+    extends
+        $FunctionalProvider<
+          SettingsRepository,
+          SettingsRepository,
+          SettingsRepository
+        >
+    with $Provider<SettingsRepository> {
+  /// Settings on this phone. main() puts in the real storage; tests keep them
+  /// in memory.
+  SettingsRepositoryProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'settingsRepositoryProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$settingsRepositoryHash();
+
+  @$internal
+  @override
+  $ProviderElement<SettingsRepository> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  SettingsRepository create(Ref ref) {
+    return settingsRepository(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(SettingsRepository value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<SettingsRepository>(value),
+    );
+  }
+}
+
+String _$settingsRepositoryHash() =>
+    r'bf3155f3ce75bc1dda9c23c339687fc3500504c1';
+
+/// Supabase client. Initialised in main() only when mocks are off.
 
 @ProviderFor(supabaseClient)
 final supabaseClientProvider = SupabaseClientProvider._();
 
-/// Клиент Supabase. Инициализируется в main(), только когда моки выключены.
+/// Supabase client. Initialised in main() only when mocks are off.
 
 final class SupabaseClientProvider
     extends $FunctionalProvider<SupabaseClient, SupabaseClient, SupabaseClient>
     with $Provider<SupabaseClient> {
-  /// Клиент Supabase. Инициализируется в main(), только когда моки выключены.
+  /// Supabase client. Initialised in main() only when mocks are off.
   SupabaseClientProvider._()
     : super(
         from: null,

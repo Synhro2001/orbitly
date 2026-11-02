@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$CosmeticModel {
 
- String get id; String get title; String get kind;@JsonKey(unknownEnumValue: Rarity.common) Rarity get rarity; Map<String, Object?> get params; bool get equipped;
+ String get id;@LocalizedTextConverter() LocalizedText get title; String get kind;@JsonKey(unknownEnumValue: Rarity.common) Rarity get rarity; Map<String, Object?> get params; bool get equipped;
 /// Create a copy of CosmeticModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -54,11 +54,11 @@ abstract mixin class $CosmeticModelCopyWith<$Res>  {
   factory $CosmeticModelCopyWith(CosmeticModel value, $Res Function(CosmeticModel) _then) = _$CosmeticModelCopyWithImpl;
 @useResult
 $Res call({
- String id, String title, String kind,@JsonKey(unknownEnumValue: Rarity.common) Rarity rarity, Map<String, Object?> params, bool equipped
+ String id,@LocalizedTextConverter() LocalizedText title, String kind,@JsonKey(unknownEnumValue: Rarity.common) Rarity rarity, Map<String, Object?> params, bool equipped
 });
 
 
-
+$LocalizedTextCopyWith<$Res> get title;
 
 }
 /// @nodoc
@@ -75,14 +75,23 @@ class _$CosmeticModelCopyWithImpl<$Res>
   return _then(CosmeticModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
-as String,kind: null == kind ? _self.kind : kind // ignore: cast_nullable_to_non_nullable
+as LocalizedText,kind: null == kind ? _self.kind : kind // ignore: cast_nullable_to_non_nullable
 as String,rarity: null == rarity ? _self.rarity : rarity // ignore: cast_nullable_to_non_nullable
 as Rarity,params: null == params ? _self.params : params // ignore: cast_nullable_to_non_nullable
 as Map<String, Object?>,equipped: null == equipped ? _self.equipped : equipped // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }
-
+/// Create a copy of CosmeticModel
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$LocalizedTextCopyWith<$Res> get title {
+  
+  return $LocalizedTextCopyWith<$Res>(_self.title, (value) {
+    return _then(_self.copyWith(title: value));
+  });
+}
 }
 
 
@@ -164,7 +173,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String title,  String kind, @JsonKey(unknownEnumValue: Rarity.common)  Rarity rarity,  Map<String, Object?> params,  bool equipped)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id, @LocalizedTextConverter()  LocalizedText title,  String kind, @JsonKey(unknownEnumValue: Rarity.common)  Rarity rarity,  Map<String, Object?> params,  bool equipped)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CosmeticModel() when $default != null:
 return $default(_that.id,_that.title,_that.kind,_that.rarity,_that.params,_that.equipped);case _:
@@ -185,7 +194,7 @@ return $default(_that.id,_that.title,_that.kind,_that.rarity,_that.params,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String title,  String kind, @JsonKey(unknownEnumValue: Rarity.common)  Rarity rarity,  Map<String, Object?> params,  bool equipped)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id, @LocalizedTextConverter()  LocalizedText title,  String kind, @JsonKey(unknownEnumValue: Rarity.common)  Rarity rarity,  Map<String, Object?> params,  bool equipped)  $default,) {final _that = this;
 switch (_that) {
 case _CosmeticModel():
 return $default(_that.id,_that.title,_that.kind,_that.rarity,_that.params,_that.equipped);case _:
@@ -205,7 +214,7 @@ return $default(_that.id,_that.title,_that.kind,_that.rarity,_that.params,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String title,  String kind, @JsonKey(unknownEnumValue: Rarity.common)  Rarity rarity,  Map<String, Object?> params,  bool equipped)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id, @LocalizedTextConverter()  LocalizedText title,  String kind, @JsonKey(unknownEnumValue: Rarity.common)  Rarity rarity,  Map<String, Object?> params,  bool equipped)?  $default,) {final _that = this;
 switch (_that) {
 case _CosmeticModel() when $default != null:
 return $default(_that.id,_that.title,_that.kind,_that.rarity,_that.params,_that.equipped);case _:
@@ -220,11 +229,11 @@ return $default(_that.id,_that.title,_that.kind,_that.rarity,_that.params,_that.
 @JsonSerializable()
 
 class _CosmeticModel implements CosmeticModel {
-  const _CosmeticModel({required this.id, required this.title, required this.kind, @JsonKey(unknownEnumValue: Rarity.common) this.rarity = Rarity.common,  Map<String, Object?> params = const <String, Object?>{}, this.equipped = false}): _params = params;
+  const _CosmeticModel({required this.id, @LocalizedTextConverter() required this.title, required this.kind, @JsonKey(unknownEnumValue: Rarity.common) this.rarity = Rarity.common,  Map<String, Object?> params = const <String, Object?>{}, this.equipped = false}): _params = params;
   factory _CosmeticModel.fromJson(Map<String, dynamic> json) => _$CosmeticModelFromJson(json);
 
 @override final  String id;
-@override final  String title;
+@override@LocalizedTextConverter() final  LocalizedText title;
 @override final  String kind;
 @override@JsonKey(unknownEnumValue: Rarity.common) final  Rarity rarity;
  final  Map<String, Object?> _params;
@@ -271,11 +280,11 @@ abstract mixin class _$CosmeticModelCopyWith<$Res> implements $CosmeticModelCopy
   factory _$CosmeticModelCopyWith(_CosmeticModel value, $Res Function(_CosmeticModel) _then) = __$CosmeticModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String title, String kind,@JsonKey(unknownEnumValue: Rarity.common) Rarity rarity, Map<String, Object?> params, bool equipped
+ String id,@LocalizedTextConverter() LocalizedText title, String kind,@JsonKey(unknownEnumValue: Rarity.common) Rarity rarity, Map<String, Object?> params, bool equipped
 });
 
 
-
+@override $LocalizedTextCopyWith<$Res> get title;
 
 }
 /// @nodoc
@@ -292,7 +301,7 @@ class __$CosmeticModelCopyWithImpl<$Res>
   return _then(_CosmeticModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
-as String,kind: null == kind ? _self.kind : kind // ignore: cast_nullable_to_non_nullable
+as LocalizedText,kind: null == kind ? _self.kind : kind // ignore: cast_nullable_to_non_nullable
 as String,rarity: null == rarity ? _self.rarity : rarity // ignore: cast_nullable_to_non_nullable
 as Rarity,params: null == params ? _self._params : params // ignore: cast_nullable_to_non_nullable
 as Map<String, Object?>,equipped: null == equipped ? _self.equipped : equipped // ignore: cast_nullable_to_non_nullable
@@ -300,7 +309,16 @@ as bool,
   ));
 }
 
-
+/// Create a copy of CosmeticModel
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$LocalizedTextCopyWith<$Res> get title {
+  
+  return $LocalizedTextCopyWith<$Res>(_self.title, (value) {
+    return _then(_self.copyWith(title: value));
+  });
+}
 }
 
 // dart format on
