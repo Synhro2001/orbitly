@@ -148,6 +148,59 @@ final class SettingsRepositoryProvider
 String _$settingsRepositoryHash() =>
     r'bf3155f3ce75bc1dda9c23c339687fc3500504c1';
 
+/// Account settings on the server.
+
+@ProviderFor(userSettingsRepository)
+final userSettingsRepositoryProvider = UserSettingsRepositoryProvider._();
+
+/// Account settings on the server.
+
+final class UserSettingsRepositoryProvider
+    extends
+        $FunctionalProvider<
+          UserSettingsRepository,
+          UserSettingsRepository,
+          UserSettingsRepository
+        >
+    with $Provider<UserSettingsRepository> {
+  /// Account settings on the server.
+  UserSettingsRepositoryProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'userSettingsRepositoryProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$userSettingsRepositoryHash();
+
+  @$internal
+  @override
+  $ProviderElement<UserSettingsRepository> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  UserSettingsRepository create(Ref ref) {
+    return userSettingsRepository(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(UserSettingsRepository value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<UserSettingsRepository>(value),
+    );
+  }
+}
+
+String _$userSettingsRepositoryHash() =>
+    r'85973be394cf5d6c0b50696b3d88be3a7fe7f651';
+
 /// Supabase client. Initialised in main() only when mocks are off.
 
 @ProviderFor(supabaseClient)

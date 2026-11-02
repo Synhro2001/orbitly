@@ -11,6 +11,8 @@ abstract final class AppRoutes {
   static const report = '/report';
   static const friends = '/friends';
   static const settings = '/settings';
+  static const settingsAppearance = '/settings/appearance';
+  static const settingsAccount = '/settings/account';
 
   static String chat(String friendId) => '/chat/$friendId';
 }

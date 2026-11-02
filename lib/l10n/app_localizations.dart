@@ -1127,7 +1127,7 @@ abstract class AppLocalizations {
   /// No description provided for @settingsAccount.
   ///
   /// In ru, this message translates to:
-  /// **'Аккаунт'**
+  /// **'Аккаунт и данные'**
   String get settingsAccount;
 
   /// No description provided for @settingsSignOut.
@@ -1147,6 +1147,18 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Чтобы вернуться, понадобится код из письма.'**
   String get settingsSignOutBody;
+
+  /// No description provided for @settingsAppearance.
+  ///
+  /// In ru, this message translates to:
+  /// **'Оформление'**
+  String get settingsAppearance;
+
+  /// No description provided for @settingsSaveFailed.
+  ///
+  /// In ru, this message translates to:
+  /// **'Не удалось сохранить. Проверь связь'**
+  String get settingsSaveFailed;
 
   /// No description provided for @actionCancel.
   ///

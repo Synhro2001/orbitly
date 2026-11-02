@@ -18,7 +18,10 @@ import 'package:orbitly/features/planet/domain/repositories/planet_repository.da
 import 'package:orbitly/features/report/data/repositories/mock_report_repository.dart';
 import 'package:orbitly/features/report/domain/repositories/report_repository.dart';
 import 'package:orbitly/features/settings/data/repositories/in_memory_settings_repository.dart';
+import 'package:orbitly/features/settings/data/repositories/mock_user_settings_repository.dart';
+import 'package:orbitly/features/settings/data/repositories/supabase_user_settings_repository.dart';
 import 'package:orbitly/features/settings/domain/repositories/settings_repository.dart';
+import 'package:orbitly/features/settings/domain/repositories/user_settings_repository.dart';
 import 'package:orbitly/features/system/data/repositories/mock_system_repository.dart';
 import 'package:orbitly/features/system/data/repositories/supabase_system_repository.dart';
 import 'package:orbitly/features/system/domain/repositories/system_repository.dart';
@@ -41,6 +44,13 @@ MockStore mockStore(Ref ref) => MockStore(withNewUnlock: true);
 /// in memory.
 @Riverpod(keepAlive: true)
 SettingsRepository settingsRepository(Ref ref) => InMemorySettingsRepository();
+
+/// Account settings on the server.
+@Riverpod(keepAlive: true)
+UserSettingsRepository userSettingsRepository(Ref ref) =>
+    ref.watch(useMocksProvider)
+    ? MockUserSettingsRepository(ref.watch(mockStoreProvider))
+    : SupabaseUserSettingsRepository(ref.watch(supabaseClientProvider));
 
 /// Supabase client. Initialised in main() only when mocks are off.
 @Riverpod(keepAlive: true)

@@ -211,9 +211,11 @@
   "settingsTitle": "Настройки",
   "settingsLanguage": "Язык",
   "settingsLanguageSystem": "Как на телефоне",
-  "settingsAccount": "Аккаунт",
+  "settingsAccount": "Аккаунт и данные",
   "settingsSignOut": "Выйти",
   "settingsSignOutConfirm": "Выйти из аккаунта?",
   "settingsSignOutBody": "Чтобы вернуться, понадобится код из письма.",
+  "settingsAppearance": "Оформление",
+  "settingsSaveFailed": "Не удалось сохранить. Проверь связь",
   "actionCancel": "Отмена"
 }

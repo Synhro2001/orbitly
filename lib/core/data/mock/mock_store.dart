@@ -54,6 +54,10 @@ class MockStore {
   final directory = <Json>[];
   final weeklyReport = <String, List<Json>>{};
 
+  /// My account settings, shaped like a `user_settings` row. Empty means
+  /// all defaults.
+  Json settings = {};
+
   int _idCounter = 0;
   String nextId(String prefix) => '$prefix-${_idCounter++}';
 

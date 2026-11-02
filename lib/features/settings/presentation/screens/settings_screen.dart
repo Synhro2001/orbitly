@@ -1,105 +1,85 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:orbitly/app/di.dart';
+import 'package:go_router/go_router.dart';
+import 'package:orbitly/app/routes.dart';
 import 'package:orbitly/core/theme/app_colors.dart';
 import 'package:orbitly/core/theme/app_dimens.dart';
 import 'package:orbitly/core/utils/l10n.dart';
-import 'package:orbitly/core/widgets/starfield_background.dart';
-import 'package:orbitly/features/settings/domain/app_language.dart';
-import 'package:orbitly/features/settings/presentation/controllers/language_controller.dart';
-import 'package:orbitly/l10n/app_localizations.dart';
+import 'package:orbitly/core/widgets/planet_view.dart';
+import 'package:orbitly/features/planet/presentation/controllers/my_planet_controller.dart';
+import 'package:orbitly/features/settings/presentation/widgets/settings_widgets.dart';
 
-class SettingsScreen extends ConsumerWidget {
+/// Settings: a profile card on top, then one row per section.
+class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final textTheme = Theme.of(context).textTheme;
-    final language = ref.watch(languageControllerProvider);
-
-    return Scaffold(
-      appBar: AppBar(title: Text(l10n.settingsTitle)),
-      extendBodyBehindAppBar: true,
-      body: StarfieldBackground(
-        child: SafeArea(
-          child: ListView(
-            padding: const EdgeInsets.all(AppSpacing.l),
-            children: [
-              Text(l10n.settingsLanguage, style: textTheme.titleMedium),
-              RadioGroup<AppLanguage>(
-                groupValue: language,
-                onChanged: (picked) {
-                  if (picked != null) {
-                    unawaited(
-                      ref
-                          .read(languageControllerProvider.notifier)
-                          .select(picked),
-                    );
-                  }
-                },
-                child: Column(
-                  children: [
-                    for (final option in AppLanguage.values)
-                      RadioListTile<AppLanguage>(
-                        key: Key('language-${option.name}'),
-                        value: option,
-                        title: Text(_languageName(option, l10n)),
-                        contentPadding: EdgeInsets.zero,
-                      ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: AppSpacing.xl),
-              Text(l10n.settingsAccount, style: textTheme.titleMedium),
-              ListTile(
-                key: const Key('sign-out'),
-                contentPadding: EdgeInsets.zero,
-                leading: const Icon(Icons.logout_rounded),
-                title: Text(l10n.settingsSignOut),
-                onTap: () => _confirmSignOut(context, ref),
-              ),
-            ],
-          ),
+    return SettingsPage(
+      title: l10n.settingsTitle,
+      children: [
+        const _ProfileCard(),
+        const SizedBox(height: AppSpacing.l),
+        SettingsLink(
+          key: const Key('settings-appearance'),
+          icon: Icons.palette_outlined,
+          title: l10n.settingsAppearance,
+          onTap: () => context.push(AppRoutes.settingsAppearance),
         ),
-      ),
+        SettingsLink(
+          key: const Key('settings-account'),
+          icon: Icons.manage_accounts_outlined,
+          title: l10n.settingsAccount,
+          onTap: () => context.push(AppRoutes.settingsAccount),
+        ),
+      ],
     );
   }
+}
 
-  /// Each language is named in itself, so it can be found even when the
-  /// screen is in a language the user does not read.
-  static String _languageName(AppLanguage language, AppLocalizations l10n) =>
-      switch (language) {
-        AppLanguage.system => l10n.settingsLanguageSystem,
-        AppLanguage.russian => 'Русский',
-        AppLanguage.english => 'English',
-      };
+/// My planet, its name and my handle, with a shortcut to the wardrobe.
+class _ProfileCard extends ConsumerWidget {
+  const _ProfileCard();
 
-  Future<void> _confirmSignOut(BuildContext context, WidgetRef ref) async {
-    final l10n = context.l10n;
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(l10n.settingsSignOutConfirm),
-        content: Text(l10n.settingsSignOutBody),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: Text(
-              l10n.actionCancel,
-              style: const TextStyle(color: AppColors.textSecondary),
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final planet = ref.watch(myPlanetControllerProvider).value;
+    if (planet == null) return const SizedBox.shrink();
+    final textTheme = Theme.of(context).textTheme;
+    return Container(
+      padding: const EdgeInsets.all(AppSpacing.m),
+      decoration: BoxDecoration(
+        color: AppColors.surface,
+        borderRadius: BorderRadius.circular(AppRadii.l),
+      ),
+      child: Row(
+        children: [
+          PlanetView(appearance: planet.appearance, size: AppSizes.listAvatar),
+          const SizedBox(width: AppSpacing.m),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  planet.name,
+                  style: textTheme.titleMedium,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Text(
+                  '@${planet.handle}',
+                  style: textTheme.bodySmall,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
             ),
           ),
           TextButton(
-            onPressed: () => Navigator.pop(context, true),
-            child: Text(l10n.settingsSignOut),
+            onPressed: () => context.push(AppRoutes.wardrobe),
+            child: Text(context.l10n.wardrobeTitle),
           ),
         ],
       ),
     );
-    // The router leaves for the login screen by itself (signedIn → false).
-    if (confirmed ?? false) await ref.read(authRepositoryProvider).signOut();
   }
 }

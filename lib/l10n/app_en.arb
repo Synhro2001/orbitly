@@ -189,9 +189,11 @@
   "settingsTitle": "Settings",
   "settingsLanguage": "Language",
   "settingsLanguageSystem": "Same as the phone",
-  "settingsAccount": "Account",
+  "settingsAccount": "Account and data",
   "settingsSignOut": "Sign out",
   "settingsSignOutConfirm": "Sign out?",
   "settingsSignOutBody": "You'll need a code from your email to come back.",
+  "settingsAppearance": "Appearance",
+  "settingsSaveFailed": "Couldn't save. Check your connection",
   "actionCancel": "Cancel"
 }

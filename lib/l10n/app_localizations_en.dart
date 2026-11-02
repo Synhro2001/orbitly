@@ -593,7 +593,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsLanguageSystem => 'Same as the phone';
 
   @override
-  String get settingsAccount => 'Account';
+  String get settingsAccount => 'Account and data';
 
   @override
   String get settingsSignOut => 'Sign out';
@@ -604,6 +604,12 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get settingsSignOutBody =>
       'You\'ll need a code from your email to come back.';
+
+  @override
+  String get settingsAppearance => 'Appearance';
+
+  @override
+  String get settingsSaveFailed => 'Couldn\'t save. Check your connection';
 
   @override
   String get actionCancel => 'Cancel';

@@ -599,7 +599,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get settingsLanguageSystem => 'Как на телефоне';
 
   @override
-  String get settingsAccount => 'Аккаунт';
+  String get settingsAccount => 'Аккаунт и данные';
 
   @override
   String get settingsSignOut => 'Выйти';
@@ -610,6 +610,12 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get settingsSignOutBody =>
       'Чтобы вернуться, понадобится код из письма.';
+
+  @override
+  String get settingsAppearance => 'Оформление';
+
+  @override
+  String get settingsSaveFailed => 'Не удалось сохранить. Проверь связь';
 
   @override
   String get actionCancel => 'Отмена';

@@ -66,13 +66,13 @@ void main() {
       phoneLanguages: const [Locale('en')],
       settings: settings,
     );
-    router.go(AppRoutes.settings);
+    router.go(AppRoutes.settingsAppearance);
     await tester.pumpAndSettle();
 
     await tester.tap(find.byKey(const Key('language-russian')));
     await tester.pumpAndSettle();
 
-    expect(find.text('Настройки'), findsOneWidget);
+    expect(find.text('Оформление'), findsOneWidget);
     expect(settings.language, AppLanguage.russian);
   });
 
@@ -103,7 +103,7 @@ void main() {
     );
     expect(auth.savedLanguages, ['ru']);
 
-    router.go(AppRoutes.settings);
+    router.go(AppRoutes.settingsAppearance);
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('language-english')));
     await tester.pumpAndSettle();
@@ -116,7 +116,7 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.byTooltip('Настройки'));
     await tester.pumpAndSettle();
-    expect(find.byKey(const Key('language-system')), findsOneWidget);
+    expect(find.byKey(const Key('settings-appearance')), findsOneWidget);
   });
 
   testWidgets('sign out asks first', (tester) async {
@@ -125,7 +125,7 @@ void main() {
       tester,
       overrides: [authRepositoryProvider.overrideWithValue(auth)],
     );
-    router.go(AppRoutes.settings);
+    router.go(AppRoutes.settingsAccount);
     await tester.pumpAndSettle();
 
     await tester.tap(find.byKey(const Key('sign-out')));
