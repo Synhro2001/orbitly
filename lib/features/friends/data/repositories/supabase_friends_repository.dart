@@ -19,16 +19,27 @@ class SupabaseFriendsRepository implements FriendsRepository {
     if (q.isEmpty || q.length > FriendSearchRules.maxQueryLength) {
       return const [];
     }
-    final rows = await _client.rpcRows(
-      'search_profiles',
-      params: {'p_query': q},
+    final rows = await _limited(
+      () => _client.rpcRows('search_profiles', params: {'p_query': q}),
     );
     return parseValid(rows, userSummaryFromRow);
   }
 
   @override
-  Future<void> sendRequest(String userId) =>
-      _client.rpc<void>('send_friend_request', params: {'p_user': userId});
+  Future<void> sendRequest(String userId) => _limited(
+    () => _client.rpc<void>('send_friend_request', params: {'p_user': userId}),
+  );
+
+  /// The server's rate limit (errcode 54000) as its own error, so the
+  /// screen can say "wait a bit" instead of "something went wrong".
+  Future<T> _limited<T>(Future<T> Function() call) async {
+    try {
+      return await call();
+    } on PostgrestException catch (e) {
+      if (e.code == '54000') throw const TooManyRequestsException();
+      rethrow;
+    }
+  }
 
   @override
   Future<List<FriendRequest>> getIncomingRequests() async {
@@ -71,8 +82,10 @@ class SupabaseFriendsRepository implements FriendsRepository {
   }
 
   @override
-  Future<void> sendRequestByInvite(String code) => _client.rpc<void>(
-    'send_friend_request_by_invite',
-    params: {'p_code': code},
+  Future<void> sendRequestByInvite(String code) => _limited(
+    () => _client.rpc<void>(
+      'send_friend_request_by_invite',
+      params: {'p_code': code},
+    ),
   );
 }

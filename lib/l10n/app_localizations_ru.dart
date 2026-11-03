@@ -1179,4 +1179,8 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get helpVersion => 'Версия';
+
+  @override
+  String get friendsTooMany =>
+      'Слишком много запросов подряд. Подожди немного и попробуй снова';
 }
