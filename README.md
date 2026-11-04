@@ -1,4 +1,4 @@
-# Orbitly
+# Orbitily
 
 A messenger for close friends. You are a planet, and your friends orbit
 around you: the closer you are, the closer their orbit.
