@@ -65,7 +65,7 @@ This pushes the `[auth]` section of `supabase/config.toml`:
 - email change confirmed only at the new address.
 
 Afterwards, in Authentication → URL Configuration, set **Site URL** to
-`https://orbitly.app`. The local value `http://127.0.0.1:3000` must not stay
+`https://orbitily.app`. The local value `http://127.0.0.1:3000` must not stay
 in production.
 
 ## 4. Email delivery (owner)
@@ -76,7 +76,7 @@ depends on email codes.
 1. Create an account with a transactional email provider (Resend, Brevo or
    Postmark). Turn **off** link and click tracking: it can break auth
    emails.
-2. Verify the sending domain (for example `no-reply@orbitly.app`). Add the
+2. Verify the sending domain (`no-reply@orbitily.app`, Resend in Ireland). Add the
    DNS records the provider shows: SPF, DKIM and a DMARC policy.
 3. In Supabase: Authentication → Emails → SMTP Settings → enable custom
    SMTP. Enter host, port, user and password from the provider; sender name

@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:orbitly/app/di.dart';
+import 'package:orbitly/core/links.dart';
 import 'package:orbitly/core/theme/app_colors.dart';
 import 'package:orbitly/core/utils/l10n.dart';
 import 'package:orbitly/features/settings/presentation/widgets/settings_widgets.dart';
@@ -11,14 +12,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 part 'help_settings_screen.g.dart';
-
-/// Pages on the website. Placeholders for now: the texts are not written
-/// yet (see the settings report).
-abstract final class LegalLinks {
-  static final Uri communityRules = Uri.parse('https://orbitly.app/rules');
-  static final Uri privacyPolicy = Uri.parse('https://orbitly.app/privacy');
-  static final Uri terms = Uri.parse('https://orbitly.app/terms');
-}
 
 /// "1.0.0 (1)", or empty where the platform cannot tell.
 @riverpod
@@ -70,17 +63,17 @@ class HelpSettingsScreen extends ConsumerWidget {
         SettingsLink(
           icon: Icons.groups_outlined,
           title: l10n.helpCommunityRules,
-          onTap: () => launchUrl(LegalLinks.communityRules),
+          onTap: () => launchUrl(AppLinks.communityRules),
         ),
         SettingsLink(
           icon: Icons.privacy_tip_outlined,
           title: l10n.helpPrivacyPolicy,
-          onTap: () => launchUrl(LegalLinks.privacyPolicy),
+          onTap: () => launchUrl(AppLinks.privacyPolicy),
         ),
         SettingsLink(
           icon: Icons.description_outlined,
           title: l10n.helpTerms,
-          onTap: () => launchUrl(LegalLinks.terms),
+          onTap: () => launchUrl(AppLinks.terms),
         ),
         SettingsLink(
           icon: Icons.code_rounded,
