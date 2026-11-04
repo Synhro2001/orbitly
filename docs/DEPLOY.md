@@ -50,6 +50,15 @@ npx supabase@2.122.0 config diff    # review first
 npx supabase@2.122.0 config push    # confirm each change
 ```
 
+Overrides for the hosted project live in `[remotes.cloud]` at the end of
+`supabase/config.toml` (project `gmagtpaxakvafvqtsyrt`, Paris). They keep the
+cloud's own redirect URLs, email frequency, TOTP, pooler and storage values.
+
+**Set up email delivery (section 4) first.** Supabase refuses template changes
+on a free project that uses its built-in sender, and the built-in sign-in email
+has a link but no six-digit code, so the app cannot sign in until custom SMTP
+is on and this push has gone through.
+
 This pushes the `[auth]` section of `supabase/config.toml`:
 - six-digit codes;
 - the code templates in Russian and English (`supabase/templates`);
