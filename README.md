@@ -95,7 +95,17 @@ In PowerShell, switch to it with `cd O:\` (in cmd: `cd /d O:\`). The mapping
 is lost on reboot. Moving the project to a plain path such as `C:\dev\orbitly`
 avoids the issue entirely.
 
+### Against Supabase Cloud
+
+`docs/DEPLOY.md` walks through the hosted setup: staging and production
+projects, migrations, email delivery, backups and release builds. Build
+settings live in `env/<name>.json` (see `env/example.json`; real files are
+git-ignored) and are passed with `--dart-define-from-file`.
+
 ## Checks
+
+GitHub Actions (`.github/workflows/ci.yml`) runs the same checks on every
+push and pull request.
 
 ```bash
 flutter analyze

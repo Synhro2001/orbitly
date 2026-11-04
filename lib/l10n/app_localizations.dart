@@ -2137,6 +2137,12 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Версия'**
   String get helpVersion;
+
+  /// No description provided for @friendsTooMany.
+  ///
+  /// In ru, this message translates to:
+  /// **'Слишком много запросов подряд. Подожди немного и попробуй снова'**
+  String get friendsTooMany;
 }
 
 class _AppLocalizationsDelegate

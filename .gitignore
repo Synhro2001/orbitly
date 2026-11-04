@@ -46,3 +46,7 @@ app.*.map.json
 
 # Widget Preview related
 .widget_preview/
+
+# Build settings per environment (see docs/DEPLOY.md); only the example is shared.
+env/*.json
+!env/example.json

@@ -22,5 +22,11 @@ abstract interface class FriendsRepository {
   Future<void> sendRequestByInvite(String code);
 }
 
+/// The server's rate limit was hit (search or friend requests). Trying
+/// again right away will not help.
+class TooManyRequestsException implements Exception {
+  const TooManyRequestsException();
+}
+
 /// The link that opens an invite in the app.
 String inviteLinkFor(String code) => 'https://orbitly.app/invite/$code';

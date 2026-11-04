@@ -1169,4 +1169,8 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get helpVersion => 'Version';
+
+  @override
+  String get friendsTooMany =>
+      'Too many requests in a row. Wait a little and try again';
 }

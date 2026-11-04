@@ -1,0 +1,5 @@
+{
+  "USE_MOCKS": "false",
+  "SUPABASE_URL": "https://<project-ref>.supabase.co",
+  "SUPABASE_PUBLISHABLE_KEY": "<publishable key from Project Settings, API Keys>"
+}

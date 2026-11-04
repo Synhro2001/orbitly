@@ -8,6 +8,7 @@ import 'package:orbitly/core/widgets/async_view.dart';
 import 'package:orbitly/core/widgets/planet_view.dart';
 import 'package:orbitly/features/friends/domain/entities/friends_entities.dart';
 import 'package:orbitly/features/friends/domain/friend_search_rules.dart';
+import 'package:orbitly/features/friends/domain/repositories/friends_repository.dart';
 import 'package:orbitly/features/friends/presentation/controllers/friends_controller.dart';
 
 class FriendsScreen extends ConsumerStatefulWidget {
@@ -89,8 +90,15 @@ class _SearchResults extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = context.l10n;
     final sent = ref.watch(sentRequestsProvider);
+    final results = ref.watch(userSearchProvider(query));
+    if (results.error is TooManyRequestsException) {
+      return Padding(
+        padding: const EdgeInsets.all(AppSpacing.l),
+        child: Text(l10n.friendsTooMany),
+      );
+    }
     return AsyncView(
-      value: ref.watch(userSearchProvider(query)),
+      value: results,
       onRetry: () => ref.invalidate(userSearchProvider(query)),
       builder: (users) {
         if (users.isEmpty) {
@@ -113,10 +121,15 @@ class _SearchResults extends ConsumerWidget {
                         onPressed: () async {
                           final messenger = ScaffoldMessenger.of(context);
                           final closed = l10n.friendsRequestClosed;
+                          final tooMany = l10n.friendsTooMany;
                           try {
                             await ref
                                 .read(sentRequestsProvider.notifier)
                                 .send(user.id);
+                          } on TooManyRequestsException {
+                            messenger.showSnackBar(
+                              SnackBar(content: Text(tooMany)),
+                            );
                           } on Object {
                             messenger.showSnackBar(
                               SnackBar(content: Text(closed)),
