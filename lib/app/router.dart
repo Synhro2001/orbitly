@@ -135,7 +135,7 @@ GoRouter router(Ref ref) {
           ),
         ],
       ),
-      // Someone's invite link (https://orbitly.app/invite/<code>) or QR code.
+      // Someone's invite link (AppLinks.invite) or QR code.
       GoRoute(
         path: '/invite/:code',
         builder: (_, state) =>

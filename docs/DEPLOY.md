@@ -50,13 +50,22 @@ npx supabase@2.122.0 config diff    # review first
 npx supabase@2.122.0 config push    # confirm each change
 ```
 
+Overrides for the hosted project live in `[remotes.cloud]` at the end of
+`supabase/config.toml` (project `gmagtpaxakvafvqtsyrt`, Paris). They keep the
+cloud's own redirect URLs, email frequency, TOTP, pooler and storage values.
+
+**Set up email delivery (section 4) first.** Supabase refuses template changes
+on a free project that uses its built-in sender, and the built-in sign-in email
+has a link but no six-digit code, so the app cannot sign in until custom SMTP
+is on and this push has gone through.
+
 This pushes the `[auth]` section of `supabase/config.toml`:
 - six-digit codes;
 - the code templates in Russian and English (`supabase/templates`);
 - email change confirmed only at the new address.
 
 Afterwards, in Authentication → URL Configuration, set **Site URL** to
-`https://orbitly.app`. The local value `http://127.0.0.1:3000` must not stay
+`https://orbitily.app`. The local value `http://127.0.0.1:3000` must not stay
 in production.
 
 ## 4. Email delivery (owner)
@@ -67,7 +76,7 @@ depends on email codes.
 1. Create an account with a transactional email provider (Resend, Brevo or
    Postmark). Turn **off** link and click tracking: it can break auth
    emails.
-2. Verify the sending domain (for example `no-reply@orbitly.app`). Add the
+2. Verify the sending domain (`no-reply@orbitily.app`, Resend in Ireland). Add the
    DNS records the provider shows: SPF, DKIM and a DMARC policy.
 3. In Supabase: Authentication → Emails → SMTP Settings → enable custom
    SMTP. Enter host, port, user and password from the provider; sender name

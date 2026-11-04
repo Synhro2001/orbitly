@@ -1,3 +1,4 @@
+import 'package:orbitly/core/links.dart';
 import 'package:orbitly/features/friends/domain/entities/friends_entities.dart';
 
 abstract interface class FriendsRepository {
@@ -29,4 +30,4 @@ class TooManyRequestsException implements Exception {
 }
 
 /// The link that opens an invite in the app.
-String inviteLinkFor(String code) => 'https://orbitly.app/invite/$code';
+String inviteLinkFor(String code) => AppLinks.invite(code);

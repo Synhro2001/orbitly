@@ -67,7 +67,7 @@ void main() {
   testWidgets('the invite link is shown as a QR code', (tester) async {
     await openProfile(tester);
     expect(find.byKey(const Key('profile-qr')), findsOneWidget);
-    expect(find.text('https://orbitly.app/invite/my-invite'), findsOneWidget);
+    expect(find.text('https://orbitily.app/invite/my-invite'), findsOneWidget);
   });
 
   group('handle rules', () {
