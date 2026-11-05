@@ -30,7 +30,7 @@ enum PlanetType {
 
 enum GlowStyle { none, soft, aurora, doubleStar }
 
-enum MoonSkin { plain, hourglass }
+enum MoonSkin { plain, hourglass, lens }
 
 /// How a planet looks. The same description always draws the same planet.
 @freezed

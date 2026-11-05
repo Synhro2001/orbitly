@@ -477,6 +477,10 @@ class PlanetPainter extends CustomPainter {
         _paintHourglassMoon(canvas, center, moonR * 1.3);
         continue;
       }
+      if (appearance.moonSkin == MoonSkin.lens) {
+        _paintLensMoon(canvas, center, moonR * 1.2);
+        continue;
+      }
       canvas.drawCircle(
         center,
         moonR,

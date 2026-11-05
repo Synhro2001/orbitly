@@ -76,4 +76,5 @@ const _$GlowStyleEnumMap = {
 const _$MoonSkinEnumMap = {
   MoonSkin.plain: 'plain',
   MoonSkin.hourglass: 'hourglass',
+  MoonSkin.lens: 'lens',
 };

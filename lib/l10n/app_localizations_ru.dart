@@ -265,6 +265,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get categorySecret => 'Секреты';
 
   @override
+  String get categoryPhoto => 'Фото';
+
+  @override
   String get achievementSecretTitle => '???';
 
   @override
@@ -472,7 +475,23 @@ class AppLocalizationsRu extends AppLocalizations {
   String get cameraClose => 'Закрыть';
 
   @override
-  String get cameraPreviewStub => 'Здесь будет превью камеры';
+  String get cameraUnavailable => 'Камера недоступна на этом устройстве';
+
+  @override
+  String get cameraPermissionDenied =>
+      'Разреши Orbitly доступ к камере, чтобы снимать';
+
+  @override
+  String get cameraOpenSettings => 'Открыть настройки';
+
+  @override
+  String get cameraRetake => 'Переснять';
+
+  @override
+  String get cameraDone => 'Готово';
+
+  @override
+  String get cameraPhotoPrivate => 'Фото никуда не отправляется';
 
   @override
   String planetLevel(int level) {

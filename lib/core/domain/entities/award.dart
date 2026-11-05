@@ -5,7 +5,7 @@ part 'award.freezed.dart';
 
 enum Rarity { common, rare, epic, legendary }
 
-enum AwardCategory { friendship, streak, closeness, collection, secret }
+enum AwardCategory { friendship, streak, closeness, collection, secret, photo }
 
 /// An achievement (or a shared friendship trophy). Title, description and
 /// icon are server content; a locked secret has none, the server hides them.

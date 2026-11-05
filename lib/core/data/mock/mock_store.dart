@@ -75,6 +75,9 @@ class MockStore {
   /// The code in my invite link.
   String inviteCode = 'my-invite';
 
+  /// Photos taken with the app's camera (only the count, like the server).
+  int photosTaken = 0;
+
   int _idCounter = 0;
   String nextId(String prefix) => '$prefix-${_idCounter++}';
 
@@ -257,6 +260,18 @@ class MockStore {
     unlocks.add(achievementId);
   }
 
+  /// The camera took a photo: the same rule as the server's "photo_count"
+  /// condition.
+  void recordCapture() {
+    photosTaken++;
+    for (final row in achievements) {
+      if (row['condition_photos'] case final int target
+          when photosTaken >= target) {
+        unlock(row['id']! as String);
+      }
+    }
+  }
+
   /// The friend is drifting away or has been quiet for a day, so the chat
   /// suggests how to restart the conversation.
   bool isDrifting(String friendId) {
@@ -312,6 +327,13 @@ class MockStore {
           'planet_type',
           'rare',
           {'type': 'nebula'},
+        ),
+        (
+          'moon_lens',
+          {'ru': 'Объектив', 'en': 'Lens'},
+          'moon',
+          'common',
+          {'moons': 1, 'skin': 'lens'},
         ),
       ])
         {
@@ -529,6 +551,23 @@ class MockStore {
         false,
         'planet_solar_corona',
       ),
+      (
+        'first_shot',
+        {'ru': 'Первый кадр', 'en': 'First shot'},
+        {
+          'ru': 'Сделай первое фото камерой Orbitly',
+          'en': 'Take your first photo with the Orbitly camera',
+        },
+        '📷',
+        'photo',
+        'common',
+        0,
+        1,
+        null,
+        false,
+        false,
+        'moon_lens',
+      ),
     ];
     for (final (
           id,
@@ -569,6 +608,8 @@ class MockStore {
             : _ago(Duration(days: unlockedDaysAgo)),
         'reward_cosmetic_id': reward,
         'reward_title': rewardTitle,
+        // Not part of the server row: lets recordCapture() unlock it.
+        if (category == 'photo') 'condition_photos': target,
       });
       if (unlockedDaysAgo != null && reward != null) owned.add(reward);
     }

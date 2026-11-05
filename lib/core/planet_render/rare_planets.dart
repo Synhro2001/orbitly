@@ -371,4 +371,38 @@ extension _RarePlanets on PlanetPainter {
         ).createShader(Rect.fromCircle(center: center, radius: size)),
     );
   }
+
+  /// "Lens" moon skin: a camera lens with a dark rim, tinted glass and a
+  /// highlight.
+  void _paintLensMoon(Canvas canvas, Offset center, double radius) {
+    canvas
+      ..drawCircle(center, radius, Paint()..color = const Color(0xFF2A2D3A))
+      ..drawCircle(
+        center,
+        radius * 0.78,
+        Paint()
+          ..shader =
+              const RadialGradient(
+                center: Alignment(-0.3, -0.3),
+                colors: [
+                  Color(0xFF8FD3FF),
+                  Color(0xFF5B4BC4),
+                  Color(0xFF14123A),
+                ],
+                stops: [0, 0.55, 1],
+              ).createShader(
+                Rect.fromCircle(center: center, radius: radius * 0.78),
+              ),
+      )
+      ..drawCircle(
+        center,
+        radius * 0.3,
+        Paint()..color = const Color(0xCC0B0A1F),
+      )
+      ..drawCircle(
+        center - Offset(radius * 0.32, radius * 0.32),
+        radius * 0.14,
+        Paint()..color = const Color(0xD9FFFFFF),
+      );
+  }
 }

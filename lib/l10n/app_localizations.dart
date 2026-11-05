@@ -548,6 +548,12 @@ abstract class AppLocalizations {
   /// **'Секреты'**
   String get categorySecret;
 
+  /// No description provided for @categoryPhoto.
+  ///
+  /// In ru, this message translates to:
+  /// **'Фото'**
+  String get categoryPhoto;
+
   /// No description provided for @achievementSecretTitle.
   ///
   /// In ru, this message translates to:
@@ -908,11 +914,41 @@ abstract class AppLocalizations {
   /// **'Закрыть'**
   String get cameraClose;
 
-  /// No description provided for @cameraPreviewStub.
+  /// No description provided for @cameraUnavailable.
   ///
   /// In ru, this message translates to:
-  /// **'Здесь будет превью камеры'**
-  String get cameraPreviewStub;
+  /// **'Камера недоступна на этом устройстве'**
+  String get cameraUnavailable;
+
+  /// No description provided for @cameraPermissionDenied.
+  ///
+  /// In ru, this message translates to:
+  /// **'Разреши Orbitly доступ к камере, чтобы снимать'**
+  String get cameraPermissionDenied;
+
+  /// No description provided for @cameraOpenSettings.
+  ///
+  /// In ru, this message translates to:
+  /// **'Открыть настройки'**
+  String get cameraOpenSettings;
+
+  /// No description provided for @cameraRetake.
+  ///
+  /// In ru, this message translates to:
+  /// **'Переснять'**
+  String get cameraRetake;
+
+  /// No description provided for @cameraDone.
+  ///
+  /// In ru, this message translates to:
+  /// **'Готово'**
+  String get cameraDone;
+
+  /// No description provided for @cameraPhotoPrivate.
+  ///
+  /// In ru, this message translates to:
+  /// **'Фото никуда не отправляется'**
+  String get cameraPhotoPrivate;
 
   /// No description provided for @planetLevel.
   ///

@@ -663,6 +663,53 @@ final class AchievementsRepositoryProvider
 String _$achievementsRepositoryHash() =>
     r'ca613b0a19a27abe56ae58c1436be3a7f5bd2f93';
 
+@ProviderFor(captureRepository)
+final captureRepositoryProvider = CaptureRepositoryProvider._();
+
+final class CaptureRepositoryProvider
+    extends
+        $FunctionalProvider<
+          CaptureRepository,
+          CaptureRepository,
+          CaptureRepository
+        >
+    with $Provider<CaptureRepository> {
+  CaptureRepositoryProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'captureRepositoryProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$captureRepositoryHash();
+
+  @$internal
+  @override
+  $ProviderElement<CaptureRepository> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  CaptureRepository create(Ref ref) {
+    return captureRepository(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(CaptureRepository value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<CaptureRepository>(value),
+    );
+  }
+}
+
+String _$captureRepositoryHash() => r'9aa2ffb2a40d89bf4168fde3b426444bafb0f525';
+
 @ProviderFor(chatRepository)
 final chatRepositoryProvider = ChatRepositoryProvider._();
 

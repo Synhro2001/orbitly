@@ -1,6 +1,13 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
     <!-- Needed for Supabase: sign-in, database, Realtime. -->
     <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- The camera plugin also asks for these; Orbitly takes photos only,
+         without sound, and keeps nothing in shared storage. -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" tools:node="remove"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:node="remove"/>
+    <!-- Phones without a camera can still install the app. -->
+    <uses-feature android:name="android.hardware.camera.any" android:required="false"/>
     <application
         android:label="orbitly"
         android:name="${applicationName}"

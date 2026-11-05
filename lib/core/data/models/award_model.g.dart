@@ -83,6 +83,7 @@ const _$AwardCategoryEnumMap = {
   AwardCategory.closeness: 'closeness',
   AwardCategory.collection: 'collection',
   AwardCategory.secret: 'secret',
+  AwardCategory.photo: 'photo',
 };
 
 const _$RarityEnumMap = {

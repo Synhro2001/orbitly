@@ -22,7 +22,7 @@ void main() {
       router.go(AppRoutes.collection);
       await tester.pumpAndSettle();
 
-      expect(find.text('Открыто 6 из 13'), findsOneWidget);
+      expect(find.text('Открыто 6 из 14'), findsOneWidget);
       expect(find.text('Первый контакт'), findsOneWidget);
 
       await tester.scrollUntilVisible(
