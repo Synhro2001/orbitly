@@ -83,6 +83,7 @@ extension AwardCategoryL10n on AwardCategory {
     AwardCategory.closeness => l10n.categoryCloseness,
     AwardCategory.collection => l10n.categoryCollection,
     AwardCategory.secret => l10n.categorySecret,
+    AwardCategory.photo => l10n.categoryPhoto,
   };
 }
 
